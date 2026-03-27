@@ -41,13 +41,13 @@ export function Header() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#editorial-strategy" className="w-full">
-                  Editorial Strategy
+                <Link href="#strategic-intelligence" className="w-full">
+                  Strategic Intelligence
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#push-marketing" className="w-full">
-                  Push Marketing
+                <Link href="#marketing-activation" className="w-full">
+                  Marketing Activation
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

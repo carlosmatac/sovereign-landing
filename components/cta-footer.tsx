@@ -18,10 +18,10 @@ export function CTAFooter() {
             className="mb-6 opacity-30"
           />
           <h2 className="mb-8 text-balance font-serif text-4xl font-normal tracking-tight text-foreground md:text-5xl">
-            Ready to map the Frontier Markets?
+            Ready to put your intelligence to work?
           </h2>
           <Button size="lg" className="rounded-full px-8 font-medium">
-            Join the Waitlist
+            Request Demo
           </Button>
         </div>
 

@@ -1,13 +1,15 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { HeroCanvas } from "@/components/hero-canvas"
 import { Play } from "lucide-react"
 import Image from "next/image"
 
 export function Hero() {
   return (
-    <section className="px-6 pb-20 pt-24 md:pb-32 md:pt-32">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative overflow-hidden px-6 pb-20 pt-24 md:pb-32 md:pt-32">
+      <HeroCanvas />
+      <div className="relative mx-auto max-w-6xl" style={{ zIndex: 10 }}>
         <div className="flex flex-col items-center text-center">
           {/* Logo Stamp */}
           <div className="mb-6">
@@ -23,23 +25,23 @@ export function Hero() {
 
           {/* Badge */}
           <div className="mb-8 inline-flex items-center rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground">
-            Powered by GraphRAG & AI
+            Intelligence for the organisations that move markets
           </div>
 
           {/* Headline */}
           <h1 className="max-w-4xl text-balance font-serif text-5xl font-normal tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            Frontier Markets Intelligence, Decoded.
+            What your organisation knows, finally put to work.
           </h1>
 
           {/* Subheadline */}
           <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Transforming exclusive 60-90 minute interviews with Ministers, CEOs, and Diplomats into a searchable, AI-powered business intelligence database for the Global South.
+            Sovereign transforms internal knowledge into sales advantage, strategic clarity, and targeted communication — at the speed decisions actually need.
           </p>
 
           {/* Buttons */}
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
             <Button size="lg" className="rounded-full px-8 font-medium">
-              Request Exclusive Access
+              Request Demo
             </Button>
             <Button
               size="lg"
