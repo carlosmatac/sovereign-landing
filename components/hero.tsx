@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { HeroCanvas } from "@/components/hero-canvas"
-import { Play } from "lucide-react"
 import Image from "next/image"
 
 export function Hero() {
@@ -52,17 +51,17 @@ export function Hero() {
             </Button>
           </div>
 
-          {/* Video Placeholder */}
+          {/* Hero Video */}
           <div className="mt-16 w-full md:mt-20">
-            <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border bg-muted/30 shadow-lg shadow-black/5">
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-foreground/5 backdrop-blur-sm transition-colors hover:bg-foreground/10">
-                  <Play className="h-6 w-6 text-foreground" />
-                </div>
-                <span className="text-sm text-muted-foreground">
-                  [ Hero Animation / Video Placeholder ]
-                </span>
-              </div>
+            <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border shadow-lg shadow-black/5">
+              <video
+                src="/3D.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="h-full w-full object-cover"
+              />
             </div>
           </div>
         </div>

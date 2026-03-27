@@ -52,12 +52,12 @@ The particle canvas is a permanent background effect, not a placeholder. It does
 
 The following sections contain placeholders for demo content that will be inserted manually at a later stage. **Do not replace these with programmatic animations or dummy UI.**
 
-| Location | Component | Placeholder label |
-|---|---|---|
-| Hero — below CTAs | `components/hero.tsx` | `[ Hero Animation / Video Placeholder ]` |
-| Sales Intelligence | `components/features.tsx` (slide 1) | `[ Sales Intelligence Demo Placeholder ]` |
-| Strategic Intelligence | `components/features.tsx` (slide 2) | `[ Strategic Intelligence Demo Placeholder ]` |
-| Marketing Activation | `components/features.tsx` (slide 3) | `[ Marketing Activation Demo Placeholder ]` |
+| Location | Component | Status | Asset |
+|---|---|---|---|
+| Hero — below CTAs | `components/hero.tsx` | **Filled** | `/public/3D.mp4` — autoplay, loop, muted |
+| Sales Intelligence | `components/features.tsx` (slide 1) | Placeholder | `[ Sales Intelligence Demo Placeholder ]` |
+| Strategic Intelligence | `components/features.tsx` (slide 2) | Placeholder | `[ Strategic Intelligence Demo Placeholder ]` |
+| Marketing Activation | `components/features.tsx` (slide 3) | Placeholder | `[ Marketing Activation Demo Placeholder ]` |
 
 Demo content will arrive as one of: MP4/WebM video files, Lottie JSON animations, or embedded iframe URLs. When provided, insert the content inside the existing placeholder `<div>` without restructuring the surrounding layout.
 
