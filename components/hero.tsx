@@ -3,42 +3,49 @@
 import { Button } from "@/components/ui/button"
 import { HeroCanvas } from "@/components/hero-canvas"
 import Image from "next/image"
+import Lottie from "lottie-react"
+import mainShowcase from "@/public/main_showcase.json"
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden px-6 pb-20 pt-24 md:pb-32 md:pt-32">
+    <section className="relative min-h-screen overflow-hidden">
       <HeroCanvas />
-      <div className="relative mx-auto max-w-6xl" style={{ zIndex: 10 }}>
-        <div className="flex flex-col items-center text-center">
+
+      <div
+        className="relative grid min-h-screen w-full grid-cols-1 lg:grid-cols-[2fr_3fr]"
+        style={{ zIndex: 10 }}
+      >
+        {/* Left — Text content */}
+        <div className="flex flex-col justify-center px-8 pb-12 pt-28 md:px-12 lg:px-16 lg:py-0">
           {/* Logo Stamp */}
           <div className="mb-6">
             <Image
               src="/sovereign_logo.svg"
               alt="Sovereign"
-              width={56}
-              height={56}
+              width={44}
+              height={44}
               loading="eager"
               className="opacity-15"
             />
           </div>
 
           {/* Badge */}
-          <div className="mb-8 inline-flex items-center rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground">
+          <div className="mb-6 inline-flex w-fit items-center rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground">
             Intelligence for the organisations that move markets
           </div>
 
           {/* Headline */}
-          <h1 className="max-w-4xl text-balance font-serif text-5xl font-normal tracking-tight text-foreground md:text-6xl lg:text-7xl">
+          <h1 className="text-balance font-serif text-4xl font-normal tracking-tight text-foreground md:text-5xl lg:text-6xl">
             What your organisation knows, finally put to work.
           </h1>
 
           {/* Subheadline */}
-          <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
+          <p className="mt-5 max-w-md text-pretty text-lg leading-relaxed text-muted-foreground">
             Sovereign transforms internal knowledge into sales advantage, strategic clarity, and targeted communication — at the speed decisions actually need.
           </p>
 
           {/* Buttons */}
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button size="lg" className="rounded-full px-8 font-medium">
               Request Demo
             </Button>
@@ -50,20 +57,16 @@ export function Hero() {
               Explore the Platform
             </Button>
           </div>
+        </div>
 
-          {/* Hero Video */}
-          <div className="mt-16 w-full md:mt-20">
-            <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border shadow-lg shadow-black/5">
-              <video
-                src="/3D.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
+        {/* Right — Lottie, fills its column at every breakpoint */}
+        <div className="flex items-center">
+          <Lottie
+            animationData={mainShowcase}
+            loop
+            autoplay
+            className="w-full"
+          />
         </div>
       </div>
     </section>

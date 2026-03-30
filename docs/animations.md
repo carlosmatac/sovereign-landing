@@ -54,8 +54,8 @@ The following sections contain placeholders for demo content that will be insert
 
 | Location | Component | Status | Asset |
 |---|---|---|---|
-| Hero — below CTAs | `components/hero.tsx` | **Filled** | `/public/3D.mp4` — autoplay, loop, muted |
-| Sales Intelligence | `components/features.tsx` (slide 1) | Placeholder | `[ Sales Intelligence Demo Placeholder ]` |
+| Hero — below CTAs | `components/hero.tsx` | **Filled** | `/public/main_showcase.json` — Lottie, autoplay, loop |
+| Sales Intelligence | `components/features.tsx` (slide 1) | **Filled** | `/public/scene1.json` — Lottie, 1146×1071 (≈ square), autoplay, loop |
 | Strategic Intelligence | `components/features.tsx` (slide 2) | Placeholder | `[ Strategic Intelligence Demo Placeholder ]` |
 | Marketing Activation | `components/features.tsx` (slide 3) | Placeholder | `[ Marketing Activation Demo Placeholder ]` |
 
