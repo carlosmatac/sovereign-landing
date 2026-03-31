@@ -28,23 +28,16 @@ The particle canvas is a permanent background effect, not a placeholder. It does
 
 ---
 
-## 2. Features — Pinned Scroll Stack
+## 2. Features — Scroll-reveal entrance
 
 **Component:** `components/features.tsx`  
 **Status:** Implemented  
-**Library:** `framer-motion` (`useScroll`, `useTransform`, `motion`)
+**Library:** `framer-motion` (`whileInView`, `motion`)
 
 ### Behaviour
-- The Features section is a tall container (`height: 300vh`)
-- Each of the three feature slides is `position: sticky; top: 0; height: 100vh`
-- Z-index increases per slide (1 → 2 → 3), so each incoming slide naturally covers the previous one
-- Framer Motion adds:
-  - **Outgoing slide:** slight scale-down + opacity fade as the next slide covers it
-  - **Incoming slide:** enters from slightly below, eases to 0 translate on scroll progress
-
-### Layout per slide
-- Full-viewport two-column grid: left = pillar content, right = demo placeholder
-- Demo placeholders are preserved identically — they are narrative assets, not engineering tasks
+- Each feature block fades and slides up into view as it enters the viewport (`whileInView`)
+- `once: true` — animation fires once per page load, not on every scroll pass
+- Standard block layout: no sticky, no height hack, normal document flow
 
 ---
 
@@ -56,7 +49,7 @@ The following sections contain placeholders for demo content that will be insert
 |---|---|---|---|
 | Hero — below CTAs | `components/hero.tsx` | **Filled** | `/public/main_showcase.json` — Lottie, autoplay, loop |
 | Sales Intelligence | `components/features.tsx` (slide 1) | **Filled** | `/public/scene1.json` — Lottie, 1146×1071 (≈ square), autoplay, loop |
-| Strategic Intelligence | `components/features.tsx` (slide 2) | Placeholder | `[ Strategic Intelligence Demo Placeholder ]` |
+| Strategic Intelligence | `components/features.tsx` (slide 2) | **Filled** | `WorldIntelligenceMap` — interactive SVG node graph, full-bleed left column |
 | Marketing Activation | `components/features.tsx` (slide 3) | Placeholder | `[ Marketing Activation Demo Placeholder ]` |
 
 Demo content will arrive as one of: MP4/WebM video files, Lottie JSON animations, or embedded iframe URLs. When provided, insert the content inside the existing placeholder `<div>` without restructuring the surrounding layout.
@@ -82,4 +75,4 @@ Minor transitions applied via Tailwind utilities — no library required.
 |---|---|---|
 | `three` | latest | Hero particle canvas |
 | `@types/three` | latest | TypeScript types for Three.js |
-| `framer-motion` | latest | Scroll-pinned feature stack |
+| `framer-motion` | latest | Feature block scroll-reveal + map hover animations |

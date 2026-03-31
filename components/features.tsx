@@ -1,11 +1,13 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { Network, TrendingUp, Send } from "lucide-react"
 import Image from "next/image"
 import Lottie from "lottie-react"
 import scene1 from "@/public/scene1.json"
+import { WorldIntelligenceMap } from "@/components/world-intelligence-map"
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 interface Slide {
   id: string
@@ -17,15 +19,20 @@ interface Slide {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   lottie?: any
   lottieAspect?: string
+  mapComponent?: boolean   // renders WorldIntelligenceMap
+  fullBleed?: boolean      // map bleeds to the left viewport edge
+  reversed?: boolean       // text on right, media on left
   showLogo?: boolean
 }
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
 
 const slides: Slide[] = [
   {
     id: "sales-intelligence",
     icon: <Network className="h-6 w-6 text-foreground" />,
     eyebrow: "01 — Sales Intelligence",
-    title: "Know what\u2019s already known.",
+    title: "Know what's already known.",
     description:
       "Sovereign aggregates every prior interaction, signal, and mention across your organization — so no opportunity starts from zero.",
     lottie: scene1,
@@ -39,7 +46,9 @@ const slides: Slide[] = [
     title: "Surface the signals your team is too busy to read.",
     description:
       "Sovereign identifies patterns, emerging themes, and underserved opportunities across your internal information — turning information overload into strategic clarity.",
-    placeholder: "[ Strategic Intelligence Demo Placeholder ]",
+    mapComponent: true,
+    reversed: true,
+    fullBleed: true,
   },
   {
     id: "marketing-activation",
@@ -53,111 +62,113 @@ const slides: Slide[] = [
   },
 ]
 
-function FeatureSlide({
-  slide,
-  index,
-  scrollYProgress,
-}: {
-  slide: Slide
-  index: number
-  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"]
-}) {
-  const total = slides.length
-  const start = index / total
-  const end = (index + 1) / total
-  const exitStart = start + (end - start) * 0.5
-  const exitEnd = end
+// ─── Text block (shared across layouts) ───────────────────────────────────────
 
-  const scale = useTransform(
-    scrollYProgress,
-    [exitStart, exitEnd],
-    index < total - 1 ? [1, 0.96] : [1, 1]
+function TextBlock({ slide, padded = false }: { slide: Slide; padded?: boolean }) {
+  return (
+    <div className={`flex flex-col ${padded ? "justify-center px-10 py-20 xl:px-16" : ""}`}>
+      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-muted/50">
+        {slide.icon}
+      </div>
+      <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
+        {slide.eyebrow}
+      </p>
+      <h3 className="mb-4 font-serif text-3xl font-normal tracking-tight text-foreground md:text-4xl">
+        {slide.title}
+      </h3>
+      <p className="text-pretty leading-relaxed text-muted-foreground">
+        {slide.description}
+      </p>
+      {slide.showLogo && (
+        <div className="mt-8">
+          <Image
+            src="/sovereign_logo.svg"
+            alt="Sovereign"
+            width={36}
+            height={36}
+            className="opacity-20"
+          />
+        </div>
+      )}
+    </div>
   )
-  const opacity = useTransform(
-    scrollYProgress,
-    [exitStart, exitEnd],
-    index < total - 1 ? [1, 0] : [1, 1]
+}
+
+// ─── Feature block ────────────────────────────────────────────────────────────
+
+function FeatureBlock({ slide }: { slide: Slide }) {
+  // ── Full-bleed layout (Strategic Intelligence) ──────────────────────────────
+  if (slide.fullBleed && slide.mapComponent) {
+    return (
+      <motion.div
+        className="border-t border-border"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7 }}
+      >
+        <div className="grid items-stretch lg:grid-cols-[3fr_2fr]">
+          {/* Left — map bleeds to the viewport left edge */}
+          <div className="min-h-[60vh] self-stretch lg:min-h-[70vh]">
+            <WorldIntelligenceMap className="h-full rounded-none border-0" />
+          </div>
+
+          {/* Right — text, padded, separated by a border */}
+          <div className="border-t border-border lg:border-l lg:border-t-0">
+            <TextBlock slide={slide} padded />
+          </div>
+        </div>
+      </motion.div>
+    )
+  }
+
+  // ── Standard layout ─────────────────────────────────────────────────────────
+  const textOrder  = slide.reversed ? "lg:order-2" : ""
+  const mediaOrder = slide.reversed ? "lg:order-1" : ""
+
+  const mediaEl = slide.lottie ? (
+    <div
+      className={`w-full overflow-hidden rounded-xl border border-border shadow-md shadow-black/5 ${slide.lottieAspect ?? ""} ${mediaOrder}`}
+    >
+      <Lottie animationData={slide.lottie} loop autoplay className="h-full w-full" />
+    </div>
+  ) : (
+    <div
+      className={`relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-muted/30 shadow-md shadow-black/5 ${mediaOrder}`}
+    >
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-sm text-muted-foreground">{slide.placeholder}</span>
+      </div>
+    </div>
   )
 
   return (
     <motion.div
-      className="sticky top-0 flex h-screen w-full items-center bg-background"
-      style={{ zIndex: index + 1, scale, opacity }}
+      className="border-t border-border px-6 py-20 md:py-28"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="mx-auto w-full max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Text side */}
-          <div className="flex flex-col">
-            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-muted/50">
-              {slide.icon}
-            </div>
-            <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
-              {slide.eyebrow}
-            </p>
-            <h3 className="mb-4 font-serif text-3xl font-normal tracking-tight text-foreground md:text-4xl">
-              {slide.title}
-            </h3>
-            <p className="text-pretty leading-relaxed text-muted-foreground">
-              {slide.description}
-            </p>
-            {slide.showLogo && (
-              <div className="mt-8">
-                <Image
-                  src="/sovereign_logo.svg"
-                  alt="Sovereign"
-                  width={36}
-                  height={36}
-                  className="opacity-20"
-                />
-              </div>
-            )}
+          <div className={textOrder}>
+            <TextBlock slide={slide} />
           </div>
-
-          {/* Media side */}
-          {slide.lottie ? (
-            <div className={`w-full overflow-hidden rounded-xl border border-border shadow-md shadow-black/5 ${slide.lottieAspect ?? ""}`}>
-              <Lottie
-                animationData={slide.lottie}
-                loop
-                autoplay
-                className="h-full w-full"
-              />
-            </div>
-          ) : (
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-muted/30 shadow-md shadow-black/5">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-sm text-muted-foreground">{slide.placeholder}</span>
-              </div>
-            </div>
-          )}
+          {mediaEl}
         </div>
       </div>
     </motion.div>
   )
 }
 
+// ─── Section ──────────────────────────────────────────────────────────────────
+
 export function Features() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  })
-
   return (
-    <section ref={containerRef} style={{ height: `${slides.length * 100}vh` }}>
-      <div className="sticky top-0 z-0 flex h-0 items-start justify-center overflow-visible pt-6 pointer-events-none">
-        <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground opacity-0">
-          Three ways Sovereign creates value from what you already know
-        </p>
-      </div>
-
-      {slides.map((slide, index) => (
-        <FeatureSlide
-          key={slide.id}
-          slide={slide}
-          index={index}
-          scrollYProgress={scrollYProgress}
-        />
+    <section>
+      {slides.map(slide => (
+        <FeatureBlock key={slide.id} slide={slide} />
       ))}
     </section>
   )
