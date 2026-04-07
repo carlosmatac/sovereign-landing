@@ -1,73 +1,66 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
-import { HeroCanvas } from "@/components/hero-canvas"
 import Image from "next/image"
-import Lottie from "lottie-react"
-import mainShowcase from "@/public/main_showcase.json"
+import { HeroDashboardPanel } from "@/components/hero-dashboard-panel"
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden">
-      <HeroCanvas />
-
-      <div
-        className="relative grid min-h-screen w-full grid-cols-1 lg:grid-cols-[2fr_3fr]"
-        style={{ zIndex: 10 }}
-      >
-        {/* Left — Text content */}
-        <div className="flex flex-col justify-center px-8 pb-12 pt-28 md:px-12 lg:px-16 lg:py-0">
-          {/* Logo Stamp */}
-          <div className="mb-6">
-            <Image
-              src="/sovereign_logo.svg"
-              alt="Sovereign"
-              width={44}
-              height={44}
-              loading="eager"
-              className="opacity-15"
-            />
-          </div>
-
-          {/* Badge */}
-          <div className="mb-6 inline-flex w-fit items-center rounded-full border border-border bg-muted/50 px-4 py-1.5 text-[13px] tracking-[-0.01em] text-muted-foreground">
-            Intelligence for the organisations that move markets
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-balance font-serif text-4xl font-normal tracking-[-0.03em] text-foreground md:text-5xl lg:text-6xl">
-            What your organisation knows, finally put to work.
-          </h1>
-
-          {/* Subheadline */}
-          <p className="mt-5 max-w-md text-pretty text-lg leading-relaxed tracking-[-0.011em] text-muted-foreground">
-            Sovereign transforms internal knowledge into sales advantage, strategic clarity, and targeted communication — at the speed decisions actually need.
-          </p>
-
-          {/* Buttons */}
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button size="lg" className="rounded-full px-8 font-medium tracking-[-0.011em]">
-              Request Demo
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="rounded-full px-8 font-medium tracking-[-0.011em]"
-            >
-              Explore the Platform
-            </Button>
-          </div>
-        </div>
-
-        {/* Right — Lottie, fills its column at every breakpoint */}
-        <div className="flex items-center">
-          <Lottie
-            animationData={mainShowcase}
-            loop
-            autoplay
-            className="w-full"
+    <section
+      className="relative overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(to bottom, #040A18 0%, #071325 18%, #0C1D3C 34%, #142D59 50%, #1E4070 62%, #3A6896 73%, #7AAAC6 83%, #C4DCF0 92%, #DCEAF5 100%)",
+      }}
+    >
+      {/* Centered copy block */}
+      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pb-16 pt-40 text-center">
+        {/* Logo Stamp */}
+        <div className="mb-7">
+          <Image
+            src="/sovereign_logo.svg"
+            alt="Sovereign"
+            width={40}
+            height={40}
+            loading="eager"
+            className="opacity-20"
           />
         </div>
+
+        {/* Badge */}
+        <div className="mb-7 inline-flex items-center rounded-full border border-white/15 bg-white/[0.07] px-4 py-1.5 text-[13px] tracking-[-0.01em] text-white/50">
+          Intelligence for the organisations that move markets
+        </div>
+
+        {/* Headline */}
+        <h1 className="text-balance font-serif text-4xl font-normal tracking-[-0.03em] text-white md:text-5xl lg:text-6xl">
+          What your organisation knows, finally put to work.
+        </h1>
+
+        {/* Subheadline */}
+        <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed tracking-[-0.011em] text-white/55">
+          Sovereign transforms internal knowledge into sales advantage, strategic clarity, and targeted communication — at the speed decisions actually need.
+        </p>
+
+        {/* Buttons */}
+        <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <Button
+            size="lg"
+            className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/92"
+          >
+            Request Demo
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="rounded-full border-white/20 bg-transparent px-8 font-medium tracking-[-0.011em] text-white/80 hover:bg-white/[0.08] hover:text-white"
+          >
+            Explore the Platform
+          </Button>
+        </div>
+      </div>
+
+      {/* Dashboard panel */}
+      <div className="relative z-10 mx-auto max-w-[1100px] px-6 pb-28">
+        <HeroDashboardPanel />
       </div>
     </section>
   )
