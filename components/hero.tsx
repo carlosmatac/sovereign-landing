@@ -30,29 +30,29 @@ export function Hero() {
           </div>
 
           {/* Badge */}
-          <div className="mb-6 inline-flex w-fit items-center rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground">
+          <div className="mb-6 inline-flex w-fit items-center rounded-full border border-border bg-muted/50 px-4 py-1.5 text-[13px] tracking-[-0.01em] text-muted-foreground">
             Intelligence for the organisations that move markets
           </div>
 
           {/* Headline */}
-          <h1 className="text-balance font-serif text-4xl font-normal tracking-tight text-foreground md:text-5xl lg:text-6xl">
+          <h1 className="text-balance font-serif text-4xl font-normal tracking-[-0.03em] text-foreground md:text-5xl lg:text-6xl">
             What your organisation knows, finally put to work.
           </h1>
 
           {/* Subheadline */}
-          <p className="mt-5 max-w-md text-pretty text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-5 max-w-md text-pretty text-lg leading-relaxed tracking-[-0.011em] text-muted-foreground">
             Sovereign transforms internal knowledge into sales advantage, strategic clarity, and targeted communication — at the speed decisions actually need.
           </p>
 
           {/* Buttons */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button size="lg" className="rounded-full px-8 font-medium">
+            <Button size="lg" className="rounded-full px-8 font-medium tracking-[-0.011em]">
               Request Demo
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="rounded-full px-8 font-medium"
+              className="rounded-full px-8 font-medium tracking-[-0.011em]"
             >
               Explore the Platform
             </Button>

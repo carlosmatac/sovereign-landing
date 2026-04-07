@@ -6,6 +6,7 @@ import Image from "next/image"
 import Lottie from "lottie-react"
 import scene1 from "@/public/scene1.json"
 import { WorldIntelligenceMap } from "@/components/world-intelligence-map"
+import { MarketingActivationShowcase } from "@/components/marketing-activation-showcase"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -20,6 +21,7 @@ interface Slide {
   lottie?: any
   lottieAspect?: string
   mapComponent?: boolean   // renders WorldIntelligenceMap
+  showcaseComponent?: React.ReactNode
   fullBleed?: boolean      // map bleeds to the left viewport edge
   reversed?: boolean       // text on right, media on left
   showLogo?: boolean
@@ -57,7 +59,7 @@ const slides: Slide[] = [
     title: "Publish with purpose.",
     description:
       "Sovereign turns processed intelligence into targeted outbound content — for the right people, at the right moment — across sales outreach, newsletters, and stakeholder communication.",
-    placeholder: "[ Marketing Activation Demo Placeholder ]",
+    showcaseComponent: <MarketingActivationShowcase />,
     showLogo: true,
   },
 ]
@@ -67,16 +69,16 @@ const slides: Slide[] = [
 function TextBlock({ slide, padded = false }: { slide: Slide; padded?: boolean }) {
   return (
     <div className={`flex flex-col ${padded ? "justify-center px-10 py-20 xl:px-16" : ""}`}>
-      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-muted/50">
+      <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-muted/50">
         {slide.icon}
       </div>
-      <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
+      <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.10em] text-muted-foreground/60">
         {slide.eyebrow}
       </p>
-      <h3 className="mb-4 font-serif text-3xl font-normal tracking-tight text-foreground md:text-4xl">
+      <h3 className="mb-4 font-serif text-3xl font-normal tracking-[-0.025em] text-foreground md:text-4xl">
         {slide.title}
       </h3>
-      <p className="text-pretty leading-relaxed text-muted-foreground">
+      <p className="text-pretty text-[15px] leading-relaxed tracking-[-0.011em] text-muted-foreground">
         {slide.description}
       </p>
       {slide.showLogo && (
@@ -84,9 +86,9 @@ function TextBlock({ slide, padded = false }: { slide: Slide; padded?: boolean }
           <Image
             src="/sovereign_logo.svg"
             alt="Sovereign"
-            width={36}
-            height={36}
-            className="opacity-20"
+            width={32}
+            height={32}
+            className="opacity-15"
           />
         </div>
       )}
@@ -126,7 +128,11 @@ function FeatureBlock({ slide }: { slide: Slide }) {
   const textOrder  = slide.reversed ? "lg:order-2" : ""
   const mediaOrder = slide.reversed ? "lg:order-1" : ""
 
-  const mediaEl = slide.lottie ? (
+  const mediaEl = slide.showcaseComponent ? (
+    <div className={`w-full ${mediaOrder}`}>
+      {slide.showcaseComponent}
+    </div>
+  ) : slide.lottie ? (
     <div
       className={`w-full overflow-hidden rounded-xl border border-border shadow-md shadow-black/5 ${slide.lottieAspect ?? ""} ${mediaOrder}`}
     >

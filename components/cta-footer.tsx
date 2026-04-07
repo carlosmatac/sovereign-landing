@@ -15,12 +15,12 @@ export function CTAFooter() {
             alt="Sovereign"
             width={48}
             height={48}
-            className="mb-6 opacity-30"
+            className="mb-6 opacity-25"
           />
-          <h2 className="mb-8 text-balance font-serif text-4xl font-normal tracking-tight text-foreground md:text-5xl">
+          <h2 className="mb-8 text-balance font-serif text-4xl font-normal tracking-[-0.03em] text-foreground md:text-5xl">
             Ready to put your intelligence to work?
           </h2>
-          <Button size="lg" className="rounded-full px-8 font-medium">
+          <Button size="lg" className="rounded-full px-8 font-medium tracking-[-0.011em]">
             Request Demo
           </Button>
         </div>
@@ -33,22 +33,22 @@ export function CTAFooter() {
               alt="Sovereign"
               width={24}
               height={24}
-              className="opacity-50"
+              className="opacity-40"
             />
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm tracking-[-0.011em] text-muted-foreground">
               © 2026 Sovereign Data
             </p>
           </div>
           <nav className="flex items-center gap-6">
             <Link
               href="#"
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="text-sm tracking-[-0.011em] text-muted-foreground transition-colors hover:text-foreground"
             >
               Privacy Policy
             </Link>
             <Link
               href="#"
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="text-sm tracking-[-0.011em] text-muted-foreground transition-colors hover:text-foreground"
             >
               Terms of Service
             </Link>

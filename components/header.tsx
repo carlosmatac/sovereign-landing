@@ -46,28 +46,28 @@ export function Header() {
         <nav className="hidden items-center gap-1 md:flex">
           <DropdownMenu>
             <DropdownMenuTrigger
-              className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+              className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] transition-colors ${
                 scrolled
                   ? "text-muted-foreground hover:text-foreground"
                   : "text-white/80 hover:text-white"
               }`}
             >
               Product
-              <ChevronDown className="h-4 w-4" />
+              <ChevronDown className="h-3.5 w-3.5" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="center" className="w-56">
               <DropdownMenuItem>
-                <Link href="#sales-intelligence" className="w-full">
+                <Link href="#sales-intelligence" className="w-full text-sm tracking-[-0.011em]">
                   Sales Intelligence
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#strategic-intelligence" className="w-full">
+                <Link href="#strategic-intelligence" className="w-full text-sm tracking-[-0.011em]">
                   Strategic Intelligence
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#marketing-activation" className="w-full">
+                <Link href="#marketing-activation" className="w-full text-sm tracking-[-0.011em]">
                   Marketing Activation
                 </Link>
               </DropdownMenuItem>
@@ -76,33 +76,33 @@ export function Header() {
 
           <DropdownMenu>
             <DropdownMenuTrigger
-              className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+              className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] transition-colors ${
                 scrolled
                   ? "text-muted-foreground hover:text-foreground"
                   : "text-white/80 hover:text-white"
               }`}
             >
               About
-              <ChevronDown className="h-4 w-4" />
+              <ChevronDown className="h-3.5 w-3.5" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="center" className="w-56">
               <DropdownMenuItem>
-                <Link href="#company" className="w-full">
+                <Link href="#company" className="w-full text-sm tracking-[-0.011em]">
                   Company
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#team" className="w-full">
+                <Link href="#team" className="w-full text-sm tracking-[-0.011em]">
                   Our Team
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#careers" className="w-full">
+                <Link href="#careers" className="w-full text-sm tracking-[-0.011em]">
                   Careers
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#contact" className="w-full">
+                <Link href="#contact" className="w-full text-sm tracking-[-0.011em]">
                   Contact
                 </Link>
               </DropdownMenuItem>
@@ -112,7 +112,7 @@ export function Header() {
 
         {/* CTA Button */}
         <Button
-          className={`rounded-full px-6 font-medium transition-colors ${
+          className={`rounded-full px-6 font-medium tracking-[-0.011em] transition-colors ${
             scrolled
               ? ""
               : "bg-white text-foreground hover:bg-white/90"

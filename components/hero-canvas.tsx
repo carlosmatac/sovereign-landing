@@ -47,15 +47,14 @@ export function HeroCanvas() {
     const geometry = new THREE.BufferGeometry()
     geometry.setAttribute("position", new THREE.BufferAttribute(positions.slice(), 3))
 
-    // Detect color scheme for particle color
     const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    const particleColor = isDark ? 0xffffff : 0x1a1a1a
+    const particleColor = isDark ? 0xc8ccd8 : 0x1a2240
 
     const material = new THREE.PointsMaterial({
       color: particleColor,
       size: 0.04,
       transparent: true,
-      opacity: isDark ? 0.28 : 0.18,
+      opacity: isDark ? 0.28 : 0.20,
       sizeAttenuation: true,
     })
 
