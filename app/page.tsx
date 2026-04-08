@@ -6,7 +6,7 @@ import { CTAFooter } from "@/components/cta-footer"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
+      <main className="min-h-screen" style={{ backgroundColor: "#060D1C" }}>
       <Header />
       <Hero />
       <TrustBanner />

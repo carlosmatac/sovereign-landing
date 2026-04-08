@@ -162,7 +162,10 @@ export function WorldIntelligenceMap({ className = "" }: { className?: string })
   const lineOpacity  = (id: string) => hoveredId ? (activeRelIds.has(id)  ? 0.80 : 0.04) : 0.28
 
   return (
-    <div className={`relative w-full select-none overflow-hidden rounded-xl border border-border bg-background ${className}`}>
+    <div
+      className={`relative w-full select-none overflow-hidden rounded-xl border border-white/[0.08] ${className}`}
+      style={{ backgroundColor: "#070E1F" }}
+    >
       <svg
         viewBox={`0 0 ${W} ${H}`}
         className="w-full"
@@ -349,7 +352,7 @@ export function WorldIntelligenceMap({ className = "" }: { className?: string })
         {hoveredEntity && (
           <motion.div
             key={hoveredEntity.id}
-            className="pointer-events-none absolute z-20 w-52 rounded-xl border border-border bg-background/96 px-4 py-3.5 shadow-xl shadow-black/6 backdrop-blur-sm"
+            className="pointer-events-none absolute z-20 w-52 rounded-xl border border-white/[0.12] bg-[#0A1628]/95 px-4 py-3.5 shadow-xl shadow-black/50 backdrop-blur-md"
             style={tooltipPos}
             initial={{ opacity: 0, scale: 0.96, y: 6 }}
             animate={{ opacity: 1, scale: 1,    y: 0 }}
@@ -359,27 +362,27 @@ export function WorldIntelligenceMap({ className = "" }: { className?: string })
             {/* Header */}
             <div className="flex items-start justify-between gap-2">
               <div>
-                <p className="text-xs font-semibold leading-tight text-foreground">
+                <p className="text-xs font-semibold leading-tight text-white">
                   {hoveredEntity.label}
                 </p>
-                <p className="mt-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">
+                <p className="mt-0.5 text-[10px] uppercase tracking-widest text-white/45">
                   {hoveredEntity.sublabel}
                 </p>
               </div>
               {/* Type badge */}
-              <span className="mt-px shrink-0 rounded-full border border-border px-2 py-0.5 text-[9px] font-medium uppercase tracking-widest text-muted-foreground">
+              <span className="mt-px shrink-0 rounded-full border border-white/[0.15] px-2 py-0.5 text-[9px] font-medium uppercase tracking-widest text-white/40">
                 {hoveredEntity.type}
               </span>
             </div>
 
             {/* Connections */}
             {tooltipConnections.length > 0 && (
-              <div className="mt-3 space-y-2 border-t border-border pt-3">
+              <div className="mt-3 space-y-2 border-t border-white/[0.10] pt-3">
                 {tooltipConnections.map(({ rel, other }) => (
                   <div key={rel.id} className="flex items-center gap-2">
-                    <div className="h-1 w-1 shrink-0 rounded-full bg-muted-foreground/40" />
-                    <p className="text-[10px] leading-snug text-muted-foreground">
-                      <span className="font-medium text-foreground">{other.label}</span>
+                    <div className="h-1 w-1 shrink-0 rounded-full bg-white/25" />
+                    <p className="text-[10px] leading-snug text-white/50">
+                      <span className="font-medium text-white/85">{other.label}</span>
                       <span className="mx-1 opacity-50">·</span>
                       {rel.label}
                     </p>

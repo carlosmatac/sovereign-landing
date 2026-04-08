@@ -1,6 +1,3 @@
-"use client"
-
-import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -13,27 +10,16 @@ import Image from "next/image"
 import Link from "next/link"
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80)
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
-
   return (
     <header
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-          : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 z-50 w-full border-b border-white/[0.07] backdrop-blur-2xl"
+      style={{ backgroundColor: "rgba(6, 13, 28, 0.82)" }}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        {/* Logo */}
+        {/* Logo — white variant, always on dark background */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/sovereign_log_apaisado.svg"
+            src="/sovereign_log_apaisado_blanco.svg"
             alt="Sovereign"
             width={200}
             height={52}
@@ -45,13 +31,7 @@ export function Header() {
         {/* Navigation */}
         <nav className="hidden items-center gap-1 md:flex">
           <DropdownMenu>
-            <DropdownMenuTrigger
-              className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] transition-colors ${
-                scrolled
-                  ? "text-muted-foreground hover:text-foreground"
-                  : "text-white/80 hover:text-white"
-              }`}
-            >
+            <DropdownMenuTrigger className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] text-white/75 transition-colors hover:text-white">
               Product
               <ChevronDown className="h-3.5 w-3.5" />
             </DropdownMenuTrigger>
@@ -75,13 +55,7 @@ export function Header() {
           </DropdownMenu>
 
           <DropdownMenu>
-            <DropdownMenuTrigger
-              className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] transition-colors ${
-                scrolled
-                  ? "text-muted-foreground hover:text-foreground"
-                  : "text-white/80 hover:text-white"
-              }`}
-            >
+            <DropdownMenuTrigger className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] text-white/75 transition-colors hover:text-white">
               About
               <ChevronDown className="h-3.5 w-3.5" />
             </DropdownMenuTrigger>
@@ -110,14 +84,8 @@ export function Header() {
           </DropdownMenu>
         </nav>
 
-        {/* CTA Button */}
-        <Button
-          className={`rounded-full px-6 font-medium tracking-[-0.011em] transition-colors ${
-            scrolled
-              ? ""
-              : "bg-white text-foreground hover:bg-white/90"
-          }`}
-        >
+        {/* CTA Button — white fill on dark background */}
+        <Button className="rounded-full bg-white px-6 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/90">
           Request Demo
         </Button>
       </div>
