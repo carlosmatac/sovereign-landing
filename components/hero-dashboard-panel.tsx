@@ -47,19 +47,19 @@ function NavSection({
 }) {
   return (
     <div className="flex flex-col gap-2">
-      {/* Section label — title case, not uppercase */}
-      <p className="mb-0.5 text-[9px] font-medium text-[#636363]">{label}</p>
+      {/* Section label — title case, not uppercase, increased visibility */}
+      <p className="mb-1 text-[9px] font-medium text-[#8a8a8a]">{label}</p>
       {items.map(({ icon: Icon, label: itemLabel }) => (
         <div
           key={itemLabel}
-          className="group flex cursor-pointer items-center gap-2 rounded-[4px] px-1.5 py-[4px] transition-colors duration-150 hover:bg-white/[0.06]"
+          className="group flex cursor-pointer items-center gap-2 rounded-[4px] px-1.5 py-[4.5px] transition-colors duration-150 hover:bg-white/[0.06]"
         >
           <Icon
-            className="shrink-0 text-white/60 transition-colors duration-150 group-hover:text-white/90"
+            className="shrink-0 text-white/55 transition-colors duration-150 group-hover:text-white/90"
             style={{ width: "11px", height: "11px" }}
             strokeWidth={1.5}
           />
-          <span className="text-[10px] font-medium leading-none text-white/75 transition-colors duration-150 group-hover:text-white/95">
+          <span className="text-[10px] font-medium leading-none text-white/70 transition-colors duration-150 group-hover:text-white/95">
             {itemLabel}
           </span>
         </div>
@@ -80,29 +80,30 @@ function ProjectCard({
   updated: string
 }) {
   return (
-    <div className="group flex cursor-pointer flex-col justify-between rounded-[5px] border border-[rgba(147,147,147,0.18)] px-3 py-2.5 transition-all duration-150 hover:border-[rgba(147,147,147,0.36)] hover:bg-white/[0.03]">
+    <div className="group flex cursor-pointer flex-col justify-between rounded-[5px] border border-[rgba(147,147,147,0.18)] px-3.5 py-3 transition-all duration-150 hover:border-[rgba(147,147,147,0.36)] hover:bg-white/[0.03]">
       {/* Title + region pill */}
       <div>
         <div className="mb-2 flex items-start justify-between gap-2">
           <p className="text-[10px] font-semibold leading-tight text-white">
             {name}
           </p>
-          <span className="shrink-0 cursor-default rounded-full bg-[rgba(147,147,147,0.18)] px-1.5 py-[2.5px] text-[8px] font-medium leading-none text-white/70 transition-colors duration-150 hover:bg-[rgba(147,147,147,0.30)] whitespace-nowrap">
+          <span className="shrink-0 cursor-default rounded-full bg-[rgba(147,147,147,0.18)] px-1.5 py-[2.5px] text-[8px] font-medium leading-none text-white/65 transition-colors duration-150 hover:bg-[rgba(147,147,147,0.30)] whitespace-nowrap">
             {region}
           </span>
         </div>
-        <p className="text-[9px] leading-[1.45] text-[#636363]">
+        {/* Description — increased visibility from #636363 to #888 */}
+        <p className="text-[9px] leading-[1.5] text-[#888888]">
           Compilation of relevant business data
         </p>
       </div>
 
-      {/* Location + updated */}
+      {/* Location + updated — also increased visibility */}
       <div className="mt-3 flex items-center gap-1">
         <MapPin
-          className="shrink-0 text-[#555]"
+          className="shrink-0 text-[#707070]"
           style={{ width: "7.5px", height: "7.5px" }}
         />
-        <p className="text-[8.5px] text-[#636363]">
+        <p className="text-[8.5px] text-[#787878]">
           {location}
           <span className="ml-2.5">Updated {updated}</span>
         </p>
@@ -116,10 +117,16 @@ function ProjectCard({
 export function HeroDashboardPanel() {
   return (
     <div
-      className="flex w-full overflow-hidden rounded-[17px] border border-[rgba(147,147,147,0.18)]"
+      className="flex w-full overflow-hidden rounded-[17px] border border-[rgba(147,147,147,0.16)]"
       style={{
         aspectRatio: "880 / 498",
-        background: "linear-gradient(130deg, rgba(168,174,190,0.03) 0%, #070E1F 50%)",
+        background: "#070E1F",
+        // Depth shadow — separates the panel from the dark background elegantly
+        boxShadow: [
+          "0 0 0 1px rgba(255,255,255,0.05)",
+          "0 32px 80px -12px rgba(0,0,0,0.85)",
+          "0 8px 32px -4px rgba(0,0,0,0.55)",
+        ].join(", "),
       }}
     >
       {/* ── Left sidebar ──────────────────────────────────────────────── */}
@@ -127,40 +134,37 @@ export function HeroDashboardPanel() {
         className="flex shrink-0 flex-col gap-6 px-5 py-5"
         style={{ width: "22%" }}
       >
-        {/* Logo + collapse toggle */}
+        {/* Logo — white variant for dark background, no opacity reduction needed */}
         <div className="flex items-center justify-between">
           <Image
-            src="/sovereign_log_apaisado.svg"
+            src="/sovereign_log_apaisado_blanco.svg"
             alt="Sovereign"
             width={79}
             height={20}
-            className="opacity-85"
+            className="opacity-80"
             style={{ maxWidth: "78%", height: "auto" }}
           />
           <ChevronLeft
-            className="shrink-0 text-white/25 transition-colors duration-150 hover:text-white/50 cursor-pointer"
+            className="shrink-0 cursor-pointer text-white/25 transition-colors duration-150 hover:text-white/50"
             style={{ width: "13px", height: "13px" }}
           />
         </div>
 
-        {/* Platform nav */}
         <NavSection label="Platform" items={platformNav} />
-
-        {/* System nav */}
         <NavSection label="System" items={systemNav} />
       </div>
 
       {/* ── Central panel — independent bordered surface ───────────────── */}
       {/*
-        Figma: "Central panel" node (79:13) is its own 685×475 rectangle with
-        border border-[rgba(147,147,147,0.2)] rounded-[6px] and its own gradient.
-        It sits inset from the outer frame edges (≈2.3% vertical margin, ≈2% right margin).
-        The sidebar content flows to its left edge; the panel's left border provides the visual divider.
+        Figma node 79:13: 685×475px rectangle with its own border and background.
+        Reduced margins (was my-[2.3%] mr-[2%]) to bring the panel surface closer
+        to the outer frame edges, matching the compact Figma proportions.
       */}
       <div
-        className="my-[2.3%] mr-[2%] flex flex-1 flex-col overflow-hidden rounded-[6px] border border-[rgba(147,147,147,0.2)]"
+        className="my-[1%] mr-[1%] flex flex-1 flex-col overflow-hidden rounded-[6px] border border-[rgba(147,147,147,0.2)]"
         style={{
-          background: "linear-gradient(125deg, rgba(168,174,190,0.025) 0%, #070E1F 62%)",
+          // Nearly uniform — barely-there gradient, left-side shimmer reduced to near-zero
+          background: "linear-gradient(135deg, rgba(255,255,255,0.012) 0%, #070E1F 28%)",
         }}
       >
         {/* Panel header */}
@@ -168,8 +172,8 @@ export function HeroDashboardPanel() {
           <p className="text-[10px] font-semibold text-white">Projects</p>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid flex-1 grid-cols-3 content-start gap-2 overflow-hidden p-3">
+        {/* Cards grid — grid-rows-3 distributes cards evenly to fill panel height */}
+        <div className="grid flex-1 grid-cols-3 grid-rows-3 gap-2.5 overflow-hidden p-3">
           {projects.map((p) => (
             <ProjectCard key={p.name} {...p} />
           ))}
