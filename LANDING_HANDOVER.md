@@ -105,7 +105,7 @@ Turning processed intelligence into targeted outbound content — for sales outr
 - Do not let the headline message be about the technology; it must be about the outcome
 
 **In development and implementation:**
-- Do not alter the hero panel layout or its internal structure without explicit instruction — it was implemented from a Figma source and reflects deliberate product design decisions
+- Do not alter the hero panel shell (outer div, sidebar, central panel wrapper) without explicit instruction
 - Do not replace the live visual components (dashboard panel, intelligence map, card rotator) with placeholders or static images
 - Do not add new sections that alter the positioning or introduce messaging not covered in this document without first checking alignment
 - Do not treat this document as a technical specification — it is a positioning, communication, and structural guide
@@ -120,9 +120,11 @@ The landing uses a documented design system. Before making any visual changes, r
 
 Key principles in force on the landing:
 
-- **Color palette:** All tokens are anchored to the brand 264° navy hue (OKLCH). The foreground, muted surfaces, borders, and primary CTA all carry the characteristic blue-navy tint. Exact token values are in `app/globals.css`.
+- **Color palette:** All tokens are anchored to the brand 264° navy hue (OKLCH). Exact token values are in `app/globals.css`. The `dark` class is applied globally on `<html>` — all CSS variable classes resolve to their dark-mode values across the full page.
+- **Page background:** `#060D1C` (deep navy, near-black) is the canonical base color, set explicitly on `<main>` via inline style. Every section builds on this surface. Do not use `bg-background` for section backgrounds — use explicit dark hex values or atmospheric overlays.
+- **Atmospheric treatment:** Each section (TrustBanner, Features blocks, CTAFooter) carries a film grain overlay (`SVG feTurbulence`, 3.5% opacity) and a per-section radial gradient glow to create depth variation without breaking visual consistency.
 - **Typography:** Inter (primary UI) + Playfair Display (serif headlines). Negative letter-spacing on large type (`tracking-[-0.025em]` to `tracking-[-0.03em]`). Eyebrow labels at `text-[11px] uppercase tracking-[0.10em]`. Body at `tracking-[-0.011em]`.
-- **Logos:** Use `sovereign_log_apaisado_blanco.svg` on dark backgrounds. Use `sovereign_log_apaisado.svg` on light backgrounds. Never apply color-inversion filters — use the correct variant.
+- **Logos:** Use `sovereign_log_apaisado_blanco.svg` on dark backgrounds. Use `sovereign_log_apaisado.svg` on light backgrounds. Never apply color-inversion filters — use the correct variant. The whole page is now dark, so `sovereign_log_apaisado_blanco.svg` is used throughout.
 - **Icons:** Lucide React. Outline variants only. `h-3.5 w-3.5` inside buttons/labels, `h-4 w-4` standalone.
 - **Spacing rhythm:** Premium, generous. Never compress spacing to fit more content.
 
@@ -137,15 +139,20 @@ Header → Hero → TrustBanner → Features → CTAFooter
 ```
 
 ### 8.1 Header (`components/header.tsx`)
-Sticky navigation bar, 64px height, transparent over the dark hero and transitions to a blurred light background on scroll.
 
-- **Logo:** `sovereign_log_apaisado.svg` (standard colour variant — note: this may need to be the white variant when overlaid on the dark hero; a future refinement pass should address this)
+Fixed navigation bar, 64px height. Always transparent — no scroll-triggered background change.
+
+- **Background:** Always `bg-transparent` with `backdrop-blur-2xl` and `rgba(6,13,28,0.82)` fill. This creates a dark glass surface at all scroll positions.
+- **Bottom border:** `border-b border-white/[0.07]` — hairline separator, always visible.
+- **Logo:** Always `sovereign_log_apaisado_blanco.svg` (white variant). No conditional src — the page is fully dark.
+- **Nav links:** Always `text-white/75 hover:text-white`. No scroll-state variants.
+- **CTA:** "Request Demo" — always `bg-white text-[#070E1F] hover:bg-white/90` pill button.
 - **Product dropdown:** Sales Intelligence → `#sales-intelligence`, Strategic Intelligence → `#strategic-intelligence`, Marketing Activation → `#marketing-activation`
-- **About dropdown:** Company, Our Team, Careers, Contact (all hash links, placeholder destinations)
-- **CTA:** "Request Demo" pill button — white fill on dark hero, primary fill when scrolled
+- **About dropdown:** Company, Our Team, Careers, Contact (hash links, placeholder destinations)
 
 ### 8.2 Hero Section (`components/hero.tsx` + `components/hero-dashboard-panel.tsx`)
-A centered, cinematic dark composition. No left/right split — everything is centered vertically.
+
+A centered, cinematic dark composition. Everything is centered vertically.
 
 **Background:**
 - Base color: `#060D1C` (deep navy, near-black)
@@ -160,48 +167,189 @@ A centered, cinematic dark composition. No left/right split — everything is ce
 - Two CTAs: **"Request Demo"** (primary — white fill on dark bg) and **"Explore the Platform"** (ghost/outline)
 
 **Dashboard panel (`HeroDashboardPanel`, `max-w-[1100px]`):**
-A high-fidelity product UI panel implemented from a Figma design (file `jwbGmmoCxxPxlRPLZv16Jd`, node `82:194`). It is the main visual anchor of the hero.
 
-- **Background:** Solid `#070E1F`, nearly uniform — no strong gradient
-- **Depth shadow:** Multi-layer `box-shadow` creating a floating panel effect against the dark hero background
-- **Left sidebar (22%):** White Sovereign landscape logo (`sovereign_log_apaisado_blanco.svg`), Platform nav section (Dashboard, Projects, Interviews, Copilot, Network Explorer), System nav section (Platform Administration, Settings). Hover states on all nav items.
-- **Central panel (78%):** Independent bordered surface (`border border-[rgba(147,147,147,0.2)] rounded-[6px]`). Header: "Projects". Grid: 7 project cards (Nigeria, Algeria, Namibia, Angola, Panama, Oman, Qatar) in 3 equal columns filling the panel height. Cards have title, description, region pill, and location/updated footer. Hover states on all cards and region pills.
+A high-fidelity product UI panel that is the main visual anchor of the hero. It is a multi-view interactive system — see Section 8.2.1 for the full specification.
+
+---
+
+### 8.2.1 Hero Panel System — Full Specification
+
+The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` component. It renders a fixed shell with a left sidebar and a central content area. The central content area swaps between views based on `activeNav` state.
+
+**Panel shell (never modify without explicit instruction):**
+- Outer container: `aspectRatio: "880/498"`, `background: "#070E1F"`, `rounded-[17px]`, `border border-[rgba(147,147,147,0.16)]`, multi-layer `boxShadow`
+- Left sidebar: `width: "22%"`, `px-5 py-5`, white landscape logo (`sovereign_log_apaisado_blanco.svg`, `opacity-80`), `NavSection` ×2 (Platform + System)
+- Central panel: `my-[1%] mr-[1%] flex flex-1 flex-col overflow-hidden rounded-[6px] border border-[rgba(147,147,147,0.2)]`, subtle linear-gradient background
+
+**Active nav state:**
+- Managed by `useState("Network Explorer")` in `HeroDashboardPanel`
+- `handleNavClick` whitelists routable views — you must add a view's label string here to make it clickable
+- Conditional render chain (order matters — default falls through to `NetworkExplorerPanel`):
+  ```
+  Dashboard → Projects → Interviews → NetworkExplorer (default)
+  ```
+
+**Currently implemented views:**
+
+| View | Default | Component | Nav label |
+|------|---------|-----------|-----------|
+| Network Explorer | ✓ | `NetworkExplorerPanel` | `"Network Explorer"` |
+| Dashboard | — | `DashboardPanel` | `"Dashboard"` |
+| Projects | — | `ProjectsPanel` | `"Projects"` |
+| Interviews | — | `InterviewsPanel` | `"Interviews"` |
+
+Copilot and Platform Administration are listed in the sidebar but are not yet routed (clicking them is inert).
+
+**The four views in detail:**
+
+**Network Explorer (default)**
+- Interactive SVG graph (viewBox `0 0 580 320`), 7 nodes, 7 edges
+- Controls row: project selector dropdown + 5 entity-type filter pills (Person, Company, Government, Organization, Event) + "Hide isolated" utility
+- Node colors by type: Person `#5B9CF6`, Company `#34D399`, Government `#A78BFA`, Organization `#7DD3FC`, Event `#FBBF24`
+- Click a node to select it: connected nodes/edges at full opacity, unconnected fade to `0.11` / `0.05`
+- Detail card: absolutely positioned `bottom-3 left-3`, shows entity type, name, mention count, description, connections list
+- Default selected node: `"manila"` (Manila Energy) — panel feels alive on first load
+- Filter pills are interactive: toggling a type hides those nodes/edges; deselects selected node if its type is toggled off
+
+**Dashboard**
+- 3 KPI cards: Projects (6), Interviews (6 completed), Entities (34 mapped)
+- Bar chart: "Interviews by Project" — horizontal CSS bars, 6 projects, max value 3
+- Donut chart: "Topic Distribution" — SVG arcs, 8 topics (energy, infrastructure, industrialization, logistics, gas, policy, risk, banking)
+- Pipeline Status card: Completed/Processing/Failed counts
+- Hover interactions: KPI cards lift on hover; bar rows brighten label+value+bar; donut slices sync with legend row hover (non-hovered slices dim to `0.18` opacity)
+
+**Projects**
+- 3×3 card grid (7 cards, last row has 1 card)
+- Cards: project name, region pill, description, location+updated footer
+- Projects: Nigeria, Algeria, Namibia, Angola, Panama, Oman, Qatar (all 2026)
+
+**Interviews**
+- Vertical list of 6 rows, `flex-1` distribution (equal height rows)
+- Each row: indigo-tinted mic icon container, person name (bold), interview title · project (muted), duration with clock icon, "Ready" status (`#4ADE80`)
+- Action buttons in header: "View Projects" (ghost) + "Upload Interview" (elevated)
+- Interviews: Adrian Santos / María Gutierrez / Luis Ortega / Daniel Okafor / Sofia Benavides / Karim Haddad
+
+---
+
+### 8.2.2 How to Add a New Hero Panel View
+
+Follow this exact pattern. Do not deviate from the token system.
+
+**Step 1 — Define data constants** (outside the component, at module level):
+```ts
+const myViewData = [ ... ]
+```
+
+**Step 2 — Write the view component** (returns a fragment, never a wrapper div):
+```tsx
+function MyViewPanel() {
+  return (
+    <>
+      {/* Panel header — always this exact structure */}
+      <div className="border-b border-[rgba(147,147,147,0.14)] px-4 py-2.5">
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="text-[10px] font-semibold text-white">View Title</p>
+            <p className="mt-[2px] text-[8px] leading-snug text-[#777]">
+              One-line description of this view.
+            </p>
+          </div>
+          {/* Optional: action buttons — see InterviewsPanel for pattern */}
+        </div>
+      </div>
+
+      {/* Content area — must contain at least one flex-1 child to fill height */}
+      <div className="flex flex-1 flex-col overflow-hidden ...">
+        ...
+      </div>
+    </>
+  )
+}
+```
+
+**Step 3 — Register in `handleNavClick`:**
+```ts
+if (label === "My View" || label === "Dashboard" || ...) {
+  setActiveNav(label)
+}
+```
+
+**Step 4 — Add to conditional render chain:**
+```tsx
+{activeNav === "My View"    ? <MyViewPanel />
+  : activeNav === "Dashboard" ? <DashboardPanel />
+  : ...
+  : <NetworkExplorerPanel />}
+```
+
+**Panel-internal design tokens — always use these, never invent new ones:**
+
+| Element | Value |
+|---------|-------|
+| Panel header border | `border-[rgba(147,147,147,0.14)]` |
+| Section dividers | `border-[rgba(147,147,147,0.10)]` |
+| Card/surface borders | `border-[rgba(147,147,147,0.15)]` — `border-[rgba(147,147,147,0.22)]` |
+| Hover border | `border-[rgba(147,147,147,0.30)]` — `border-[rgba(147,147,147,0.38)]` |
+| Hover surface | `bg-white/[0.03]` — `bg-white/[0.06]` |
+| Primary text | `text-white` / `text-white/75` |
+| Secondary text | `text-[#777]` — `text-[#8a8a8a]` |
+| Muted text | `text-[#555]` — `text-[#666]` |
+| Very muted / metadata | `text-[#4a5060]` — `text-[#5e6878]` |
+| Heading (section title) | `text-[10px] font-semibold text-white` |
+| Body (content) | `text-[8px]` — `text-[9.5px]` (never above `10px` in content areas) |
+| KPI numbers | `text-[18px] font-bold text-white` |
+| Graph canvas bg | `#050C1A` |
+| Floating card bg | `#080F1E` — `#0A1428` |
+| Icons | Lucide, `strokeWidth={1.5}`, 7–11px |
+| Transitions | `duration-150` for color/border, `duration-200` for opacity |
+| Active nav item | `bg-white/[0.08]` on the nav item div |
+
+---
 
 ### 8.3 Trust Banner (`components/trust-banner.tsx`)
-A light-background horizontal strip creating a clear visual break from the dark hero.
+
+Dark-themed horizontal strip with grain and atmospheric gradient. Background: `#071121`.
 
 - Caption: *"Trusted by information-intensive organisations operating at the frontier of their industries."*
 - Placeholder client names: Meridian, Frontier Group, Atlas Consulting, Equinox Media, Horizon Partners
 - **These are placeholders.** Replace with real client logos when available.
+- Borders: `border-y border-white/[0.06]`. Text: `text-white/35` (caption), `text-white/[0.14]` (names).
 
 ### 8.4 Features Section (`components/features.tsx`)
-Three pillar blocks, each with alternating or full-bleed layouts. Each uses scroll-triggered entrance animations (Framer Motion `whileInView`).
+
+Three pillar blocks. Pillar 01 and 03 use the standard 2-column layout (text left, visual right). Pillar 02 uses an **immersive layout** — text at the top, entity network full-width below. All dark-themed. Each `FeatureBlock` has its own per-section atmospheric gradient and a shared grain overlay on the section wrapper. Section borders: `border-white/[0.08]`.
+
+The `features.tsx` `Slide` interface supports `immersiveLayout?: boolean`. When `true`, the `FeatureBlock` renders a special branch: text block inside a `max-w-6xl px-6 pt-20 pb-12` container (title scaled up to `text-4xl md:text-5xl`), followed by a hairline rule, then `showcaseComponent` at full section width with no horizontal padding.
 
 **Pillar 01 — Sales Intelligence** (`id="sales-intelligence"`)
-- Layout: text left, media right (standard 2-column)
+- Layout: text left, visual right (standard 2-column)
 - Eyebrow: "01 — Sales Intelligence"
 - Title: *"Know what's already known."*
-- Visual: Lottie animation (`scene1.json`) on the right
+- Visual: `SalesIntelligencePanel` (`components/sales-intelligence-panel.tsx`) — compact dark Copilot-style panel. Pre-filled question: *"What do we already know about Manila Energy?"* Click send → 2.6s loading state ("Searching internal context…") → three staggered intelligence insight cards. Pure front-end, no backend.
+- Atmospheric glow: bottom-left radial
 
 **Pillar 02 — Strategic Intelligence** (`id="strategic-intelligence"`)
-- Layout: full-bleed — interactive world map fills the left column edge-to-edge; text panel on the right with border-l separator
+- Layout: **immersive** — copy block at top (max-w-[580px]), entity intelligence field full-width below, no container border
 - Eyebrow: "02 — Strategic Intelligence"
 - Title: *"Surface the signals your team is too busy to read."*
-- Visual: `WorldIntelligenceMap` component — an interactive SVG map with entity nodes (companies, people, countries, funds) and animated relationship lines. Hover a node to highlight its connections and show a tooltip card.
+- Visual: `FloatingEntityScene` (`components/floating-entity-scene.tsx`) — full-width static SVG (`viewBox="0 0 1440 460"`) with 30 entity nodes at 4 depth levels and 25 connection lines. Depth 0 = full card with kind badge; Depth 1 = medium card; Depth 2 = compact card; Depth 3 = ghost text labels (no box). Hover on any entity: connected entities highlight, unrelated entities fade to 10% opacity, active lines brighten. Hovering a depth 2–3 entity removes its blur filter (snaps to crisp). No animation — fully static. Left/right/top/bottom edge fades blend the network seamlessly into the page background.
+- Atmospheric glow: centered top-of-section radial (spotlights the copy, fades into entity field)
 
 **Pillar 03 — Marketing Activation** (`id="marketing-activation"`)
 - Layout: text left, media right (standard 2-column)
 - Eyebrow: "03 — Marketing Activation"
 - Title: *"Publish with purpose."*
-- Visual: `MarketingActivationShowcase` — a 4-card rotator showing output types: LinkedIn Post, Newsletter Snippet, Sales Outreach, Stakeholder Brief. Auto-rotates every 4 seconds; pauses on hover; manual tabs below. Smooth fade + upward motion transitions.
+- Visual: `MarketingActivationShowcase` — 4-card rotator (LinkedIn Post, Newsletter Snippet, Sales Outreach, Stakeholder Brief). Auto-rotates every 4 seconds; pauses on hover; manual tabs. The cards use white backgrounds intentionally — they represent output documents rendered against the dark section.
+- Atmospheric glow: top-right radial
 
 ### 8.5 CTA Footer (`components/cta-footer.tsx`)
-Light-background section closing the page.
 
-- Sovereign logomark stamp (25% opacity)
+Dark-themed closing section. Background: `#060D1C` with grain overlay and double radial gradient (bottom center + soft center warmth).
+
+- Sovereign logomark stamp (`sovereign_logo.svg`, ~13% opacity)
 - Headline: *"Ready to put your intelligence to work?"*
-- CTA: "Request Demo" pill button
-- Minimal footer bar: © 2026 Sovereign Data · Privacy Policy · Terms of Service
+- CTA: "Request Demo" — `bg-white text-[#070E1F]` pill button
+- Footer bar: `border-white/[0.08]` separator · `text-white/35` · © 2026 Sovereign Data · Privacy Policy · Terms of Service
 
 ---
 
@@ -209,20 +357,23 @@ Light-background section closing the page.
 
 These are confirmed pending tasks — not speculative suggestions.
 
-### 9.1 Header logo on dark hero
-The header currently uses `sovereign_log_apaisado.svg` (the standard colour/dark-text variant). When the header is transparent over the dark hero, this logo may not render correctly depending on SVG fill colours. Evaluate whether `sovereign_log_apaisado_blanco.svg` should be used in the non-scrolled state, or whether a CSS `filter` or conditional `src` is needed.
+### 9.1 ~~Header logo on dark hero~~ — RESOLVED
+The header now always uses `sovereign_log_apaisado_blanco.svg` and is never in a light state. No CSS filter needed.
 
-### 9.2 Hero panel interactivity
-The `HeroDashboardPanel` has hover states prepared on nav items, project cards, and region pills, but no click behaviour. Future work should wire up navigation between views (e.g., clicking a project card to reveal a detail panel or project context view).
+### 9.2 Hero panel — Copilot view
+The Copilot nav item is listed in the sidebar but clicking it is inert. A future pass should implement a Copilot view (likely a chat/Q&A interface or a document synthesis preview).
 
 ### 9.3 Trust banner real client logos
-The five client names (Meridian, Frontier Group, etc.) are placeholders. When real client logos are confirmed, replace the text spans with `<Image>` elements and adjust the layout accordingly. The caption may also need adjustment.
+The five client names (Meridian, Frontier Group, etc.) are placeholders. When real client logos are confirmed, replace the text spans with `<Image>` elements and adjust the layout accordingly.
 
-### 9.4 Feature section media for Sales Intelligence
-The Sales Intelligence pillar uses `scene1.json` (a Lottie animation). Confirm whether this is the intended final animation or a placeholder pending a more specific product demo animation.
+### 9.4 ~~Feature section media for Sales Intelligence~~ — RESOLVED
+The Lottie animation (`scene1.json`) has been replaced with `SalesIntelligencePanel` — a fully interactive Copilot-style mini panel. See §8.4 Pillar 01 for the full specification.
 
-### 9.5 Hash-link scroll targets
-The header Product dropdown links (`#sales-intelligence`, `#strategic-intelligence`, `#marketing-activation`) require `id` attributes on their respective section wrappers. Currently the `FeatureBlock` does not set `id={slide.id}` on its motion wrapper — this means the anchor links may not scroll correctly. Add `id={slide.id}` to the outer `motion.div` in `features.tsx`.
+### 9.5 ~~Hash-link scroll targets~~ — RESOLVED
+`id={slide.id}` is now set on the outer `motion.div` in `features.tsx` for all feature blocks. The anchor links (`#sales-intelligence`, `#strategic-intelligence`, `#marketing-activation`) scroll correctly.
+
+### 9.6 Hero panel mobile scaling
+The panel uses a fixed `aspectRatio: "880/498"` and `max-w-[1100px]`. At small screen widths, the panel may be too compressed for the internal typography (7–10px font sizes) to remain readable. A future pass should evaluate whether the panel should be hidden or replaced with a static screenshot below a certain breakpoint.
 
 ---
 
@@ -240,18 +391,20 @@ If you are a coding or content agent working on this landing page, follow this p
 
 5. **Do not introduce technical language in primary copy.** No GraphRAG, embeddings, pipelines, or model references in headlines, subheadlines, or feature descriptions.
 
-6. **Do not modify the hero dashboard panel layout, sidebar structure, or card grid** without explicit instruction. It was implemented from a Figma design and any changes must be reconciled with the source.
+6. **The hero panel shell is fixed.** Do not touch the outer container, sidebar, or central panel wrapper. New views go inside the central panel only, following the exact pattern in Section 8.2.2. When adding a new panel view, always: (a) define data outside the component, (b) write a fragment-returning function component, (c) register the label in `handleNavClick`, (d) add a ternary branch before the default `<NetworkExplorerPanel />`.
 
-7. **Do not remove or rewrite sections wholesale** without explicit instruction. Refine and improve; do not reinvent.
+7. **The page is globally dark.** The `dark` class is on `<html>`. Do not add light-background sections. Do not use `bg-background` for section backgrounds — use explicit hex values with grain and gradient overlays to match the established atmospheric style.
 
-8. **Do not tie the copy back to TBY, interviews, or emerging markets** unless a specific task explicitly calls for it.
+8. **Do not remove or rewrite sections wholesale** without explicit instruction. Refine and improve; do not reinvent.
 
-9. **Use the correct logo variant.** Dark backgrounds → `sovereign_log_apaisado_blanco.svg`. Light backgrounds → `sovereign_log_apaisado.svg`. Never both in the same context. Never filter the wrong one.
+9. **Do not tie the copy back to TBY, interviews, or emerging markets** unless a specific task explicitly calls for it.
 
-10. **When improving copy,** always ask: does this read as something a serious B2B buyer would believe and respect? If it sounds like startup marketing filler, it is wrong.
+10. **Use the correct logo variant.** Dark backgrounds → `sovereign_log_apaisado_blanco.svg`. Light backgrounds → `sovereign_log_apaisado.svg`. Never both in the same context. Never filter the wrong one. The full page is currently dark — use the white variant everywhere.
 
-11. **If something is unclear,** flag it rather than guess. Positioning drift is harder to reverse than a missed deadline.
+11. **When improving copy,** always ask: does this read as something a serious B2B buyer would believe and respect? If it sounds like startup marketing filler, it is wrong.
+
+12. **If something is unclear,** flag it rather than guess. Positioning drift is harder to reverse than a missed deadline.
 
 ---
 
-*Last updated: March 2026*
+*Last updated: April 2026 — §8.4 updated to reflect SalesIntelligencePanel and FloatingEntityScene; §9.4 resolved*

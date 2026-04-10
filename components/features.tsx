@@ -3,10 +3,9 @@
 import { motion } from "framer-motion"
 import { Network, TrendingUp, Send } from "lucide-react"
 import Image from "next/image"
-import Lottie from "lottie-react"
-import scene1 from "@/public/scene1.json"
-import { WorldIntelligenceMap } from "@/components/world-intelligence-map"
 import { MarketingActivationShowcase } from "@/components/marketing-activation-showcase"
+import { SalesIntelligencePanel } from "@/components/sales-intelligence-panel"
+import { FloatingEntityScene } from "@/components/floating-entity-scene"
 
 // Film grain — consistent with hero and trust banner
 const GRAIN_BG =
@@ -21,15 +20,10 @@ interface Slide {
   title: string
   description: string
   placeholder?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  lottie?: any
-  lottieAspect?: string
-  mapComponent?: boolean
   showcaseComponent?: React.ReactNode
-  fullBleed?: boolean
-  reversed?: boolean
   showLogo?: boolean
-  // Per-section atmospheric gradient for depth variation
+  // When true, renders text at top + entity field full-width below
+  immersiveLayout?: boolean
   atmoGradient: string
 }
 
@@ -43,10 +37,8 @@ const slides: Slide[] = [
     title: "Know what's already known.",
     description:
       "Sovereign aggregates every prior interaction, signal, and mention across your organization — so no opportunity starts from zero.",
-    lottie: scene1,
-    lottieAspect: "aspect-[1146/1071]",
+    showcaseComponent: <SalesIntelligencePanel />,
     showLogo: true,
-    // Glow from bottom-left — anchors this section to the left side of the page
     atmoGradient:
       "radial-gradient(ellipse 90% 70% at 10% 110%, rgba(6,16,52,0.75) 0%, transparent 55%)",
   },
@@ -57,12 +49,11 @@ const slides: Slide[] = [
     title: "Surface the signals your team is too busy to read.",
     description:
       "Sovereign identifies patterns, emerging themes, and underserved opportunities across your internal information — turning information overload into strategic clarity.",
-    mapComponent: true,
-    reversed: true,
-    fullBleed: true,
-    // Right-side depth — complements the full-bleed map on the left
+    showcaseComponent: <FloatingEntityScene />,
+    immersiveLayout: true,
+    // Glow centered at top — spotlights the copy and fades into the entity field below
     atmoGradient:
-      "radial-gradient(ellipse 60% 100% at 100% 50%, rgba(4,10,34,0.65) 0%, transparent 55%)",
+      "radial-gradient(ellipse 80% 45% at 50% 12%, rgba(6,14,44,0.65) 0%, transparent 65%)",
   },
   {
     id: "marketing-activation",
@@ -73,24 +64,27 @@ const slides: Slide[] = [
       "Sovereign turns processed intelligence into targeted outbound content — for the right people, at the right moment — across sales outreach, newsletters, and stakeholder communication.",
     showcaseComponent: <MarketingActivationShowcase />,
     showLogo: true,
-    // Glow from top-right — creates asymmetric rhythm vs Sales Intelligence
     atmoGradient:
       "radial-gradient(ellipse 90% 70% at 90% -10%, rgba(6,18,54,0.75) 0%, transparent 55%)",
   },
 ]
 
-// ─── Text block (shared across layouts) ───────────────────────────────────────
+// ─── Text block (shared) ──────────────────────────────────────────────────────
 
-function TextBlock({ slide, padded = false }: { slide: Slide; padded?: boolean }) {
+function TextBlock({ slide, large = false }: { slide: Slide; large?: boolean }) {
   return (
-    <div className={`flex flex-col ${padded ? "justify-center px-10 py-20 xl:px-16" : ""}`}>
+    <div className="flex flex-col">
       <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.12] bg-white/[0.05]">
         {slide.icon}
       </div>
       <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.10em] text-white/35">
         {slide.eyebrow}
       </p>
-      <h3 className="mb-4 font-serif text-3xl font-normal tracking-[-0.025em] text-white md:text-4xl">
+      <h3
+        className={`mb-4 font-serif font-normal tracking-[-0.025em] text-white ${
+          large ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
+        }`}
+      >
         {slide.title}
       </h3>
       <p className="text-pretty text-[15px] leading-relaxed tracking-[-0.011em] text-white/55">
@@ -114,57 +108,52 @@ function TextBlock({ slide, padded = false }: { slide: Slide; padded?: boolean }
 // ─── Feature block ────────────────────────────────────────────────────────────
 
 function FeatureBlock({ slide }: { slide: Slide }) {
-  // ── Full-bleed layout (Strategic Intelligence) ──────────────────────────────
-  if (slide.fullBleed && slide.mapComponent) {
+  // ── Immersive layout (Strategic Intelligence) ─────────────────────────────
+  // Text sits at the top in a constrained column; the entity field spans
+  // the full section width below it, with no container border or padding.
+  if (slide.immersiveLayout) {
     return (
       <motion.div
         id={slide.id}
-        className="relative border-t border-white/[0.08]"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        className="relative overflow-hidden border-t border-white/[0.08]"
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* Per-section atmospheric gradient */}
+        {/* Atmospheric gradient */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-0"
           style={{ background: slide.atmoGradient }}
         />
 
-        <div className="relative z-10 grid items-stretch lg:grid-cols-[3fr_2fr]">
-          {/* Left — map bleeds to the viewport left edge */}
-          <div className="min-h-[60vh] self-stretch lg:min-h-[70vh]">
-            <WorldIntelligenceMap className="h-full rounded-none border-0" />
+        {/* Copy — constrained width, left-anchored, generous top padding */}
+        <div className="relative z-10 mx-auto max-w-6xl px-6 pb-12 pt-20">
+          <div className="max-w-[580px]">
+            <TextBlock slide={slide} large />
           </div>
+        </div>
 
-          {/* Right — text, padded, separated by a border */}
-          <div className="border-t border-white/[0.08] lg:border-l lg:border-t-0">
-            <TextBlock slide={slide} padded />
-          </div>
+        {/* Thin rule between copy and entity field */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none mx-6 border-t border-white/[0.05]"
+        />
+
+        {/* Entity intelligence field — full section width, no horizontal padding */}
+        <div className="relative z-10 w-full pb-4">
+          {slide.showcaseComponent}
         </div>
       </motion.div>
     )
   }
 
   // ── Standard layout ─────────────────────────────────────────────────────────
-  const textOrder  = slide.reversed ? "lg:order-2" : ""
-  const mediaOrder = slide.reversed ? "lg:order-1" : ""
-
   const mediaEl = slide.showcaseComponent ? (
-    <div className={`w-full ${mediaOrder}`}>
-      {slide.showcaseComponent}
-    </div>
-  ) : slide.lottie ? (
-    <div
-      className={`w-full overflow-hidden rounded-xl border border-white/[0.10] shadow-md shadow-black/30 ${slide.lottieAspect ?? ""} ${mediaOrder}`}
-    >
-      <Lottie animationData={slide.lottie} loop autoplay className="h-full w-full" />
-    </div>
+    <div className="w-full">{slide.showcaseComponent}</div>
   ) : (
-    <div
-      className={`relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/[0.10] bg-white/[0.03] shadow-md shadow-black/30 ${mediaOrder}`}
-    >
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/[0.10] bg-white/[0.03] shadow-md shadow-black/30">
       <div className="absolute inset-0 flex items-center justify-center">
         <span className="text-sm text-white/40">{slide.placeholder}</span>
       </div>
@@ -189,7 +178,7 @@ function FeatureBlock({ slide }: { slide: Slide }) {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className={textOrder}>
+          <div>
             <TextBlock slide={slide} />
           </div>
           {mediaEl}
@@ -204,7 +193,7 @@ function FeatureBlock({ slide }: { slide: Slide }) {
 export function Features() {
   return (
     <section className="relative overflow-hidden">
-      {/* Shared film grain — single layer for the entire features section */}
+      {/* Shared film grain */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0"
