@@ -1,8 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Network, TrendingUp, Send } from "lucide-react"
-import Image from "next/image"
 import { MarketingActivationShowcase } from "@/components/marketing-activation-showcase"
 import { SalesIntelligencePanel } from "@/components/sales-intelligence-panel"
 import { FloatingEntityScene } from "@/components/floating-entity-scene"
@@ -15,15 +13,14 @@ const GRAIN_BG =
 
 interface Slide {
   id: string
-  icon: React.ReactNode
   eyebrow: string
   title: string
   description: string
-  placeholder?: string
-  showcaseComponent?: React.ReactNode
-  showLogo?: boolean
-  // When true, renders text at top + entity field full-width below
-  immersiveLayout?: boolean
+  showcaseComponent: React.ReactNode
+  // When true, the visual spans the full section width (no horizontal container)
+  visualFullWidth?: boolean
+  // Tailwind class for the inner visual wrapper — controls max-width and height
+  visualWrapperClass?: string
   atmoGradient: string
 }
 
@@ -32,138 +29,46 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: "sales-intelligence",
-    icon: <Network className="h-6 w-6 text-white/70" />,
     eyebrow: "01 — Sales Intelligence",
     title: "Know what's already known.",
     description:
       "Sovereign aggregates every prior interaction, signal, and mention across your organization — so no opportunity starts from zero.",
     showcaseComponent: <SalesIntelligencePanel />,
-    showLogo: true,
+    visualWrapperClass: "mx-auto max-w-3xl",
     atmoGradient:
-      "radial-gradient(ellipse 90% 70% at 10% 110%, rgba(6,16,52,0.75) 0%, transparent 55%)",
+      "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(6,16,52,0.80) 0%, transparent 60%)",
   },
   {
     id: "strategic-intelligence",
-    icon: <TrendingUp className="h-6 w-6 text-white/70" />,
     eyebrow: "02 — Strategic Intelligence",
     title: "Surface the signals your team is too busy to read.",
     description:
       "Sovereign identifies patterns, emerging themes, and underserved opportunities across your internal information — turning information overload into strategic clarity.",
     showcaseComponent: <FloatingEntityScene />,
-    immersiveLayout: true,
-    // Glow centered at top — spotlights the copy and fades into the entity field below
+    visualFullWidth: true,
     atmoGradient:
       "radial-gradient(ellipse 80% 45% at 50% 12%, rgba(6,14,44,0.65) 0%, transparent 65%)",
   },
   {
     id: "marketing-activation",
-    icon: <Send className="h-6 w-6 text-white/70" />,
     eyebrow: "03 — Marketing Activation",
     title: "Publish with purpose.",
     description:
       "Sovereign turns processed intelligence into targeted outbound content — for the right people, at the right moment — across sales outreach, newsletters, and stakeholder communication.",
     showcaseComponent: <MarketingActivationShowcase />,
-    showLogo: true,
+    visualWrapperClass: "mx-auto max-w-2xl h-[520px]",
     atmoGradient:
-      "radial-gradient(ellipse 90% 70% at 90% -10%, rgba(6,18,54,0.75) 0%, transparent 55%)",
+      "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(6,14,46,0.80) 0%, transparent 60%)",
   },
 ]
-
-// ─── Text block (shared) ──────────────────────────────────────────────────────
-
-function TextBlock({ slide, large = false }: { slide: Slide; large?: boolean }) {
-  return (
-    <div className="flex flex-col">
-      <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.12] bg-white/[0.05]">
-        {slide.icon}
-      </div>
-      <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.10em] text-white/35">
-        {slide.eyebrow}
-      </p>
-      <h3
-        className={`mb-4 font-serif font-normal tracking-[-0.025em] text-white ${
-          large ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
-        }`}
-      >
-        {slide.title}
-      </h3>
-      <p className="text-pretty text-[15px] leading-relaxed tracking-[-0.011em] text-white/55">
-        {slide.description}
-      </p>
-      {slide.showLogo && (
-        <div className="mt-8">
-          <Image
-            src="/sovereign_logo.svg"
-            alt="Sovereign"
-            width={32}
-            height={32}
-            className="opacity-[0.12]"
-          />
-        </div>
-      )}
-    </div>
-  )
-}
 
 // ─── Feature block ────────────────────────────────────────────────────────────
 
 function FeatureBlock({ slide }: { slide: Slide }) {
-  // ── Immersive layout (Strategic Intelligence) ─────────────────────────────
-  // Text sits at the top in a constrained column; the entity field spans
-  // the full section width below it, with no container border or padding.
-  if (slide.immersiveLayout) {
-    return (
-      <motion.div
-        id={slide.id}
-        className="relative overflow-hidden border-t border-white/[0.08]"
-        initial={{ opacity: 0, y: 28 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        {/* Atmospheric gradient */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0"
-          style={{ background: slide.atmoGradient }}
-        />
-
-        {/* Copy — constrained width, left-anchored, generous top padding */}
-        <div className="relative z-10 mx-auto max-w-6xl px-6 pb-12 pt-20">
-          <div className="max-w-[580px]">
-            <TextBlock slide={slide} large />
-          </div>
-        </div>
-
-        {/* Thin rule between copy and entity field */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none mx-6 border-t border-white/[0.05]"
-        />
-
-        {/* Entity intelligence field — full section width, no horizontal padding */}
-        <div className="relative z-10 w-full pb-4">
-          {slide.showcaseComponent}
-        </div>
-      </motion.div>
-    )
-  }
-
-  // ── Standard layout ─────────────────────────────────────────────────────────
-  const mediaEl = slide.showcaseComponent ? (
-    <div className="w-full">{slide.showcaseComponent}</div>
-  ) : (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/[0.10] bg-white/[0.03] shadow-md shadow-black/30">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-sm text-white/40">{slide.placeholder}</span>
-      </div>
-    </div>
-  )
-
   return (
     <motion.div
       id={slide.id}
-      className="relative border-t border-white/[0.08] px-6 py-20 md:py-28"
+      className="relative overflow-hidden border-t border-white/[0.08]"
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
@@ -176,14 +81,37 @@ function FeatureBlock({ slide }: { slide: Slide }) {
         style={{ background: slide.atmoGradient }}
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <TextBlock slide={slide} />
-          </div>
-          {mediaEl}
-        </div>
+      {/* Copy block — centered, editorial, stage-setting */}
+      <div className="relative z-10 mx-auto max-w-[660px] px-6 pb-14 pt-24 text-center">
+        <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.10em] text-white/35">
+          {slide.eyebrow}
+        </p>
+        <h3 className="mb-5 font-serif font-normal leading-[1.08] tracking-[-0.025em] text-white text-4xl md:text-5xl">
+          {slide.title}
+        </h3>
+        <p className="mx-auto max-w-[480px] text-pretty text-[15px] leading-relaxed tracking-[-0.011em] text-white/55">
+          {slide.description}
+        </p>
       </div>
+
+      {/* Visual reveal — full-width or wide-centered */}
+      {slide.visualFullWidth ? (
+        <>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none mx-6 border-t border-white/[0.05]"
+          />
+          <div className="relative z-10 w-full pb-4">
+            {slide.showcaseComponent}
+          </div>
+        </>
+      ) : (
+        <div className="relative z-10 px-6 pb-24 md:pb-32">
+          <div className={slide.visualWrapperClass ?? "mx-auto max-w-5xl"}>
+            {slide.showcaseComponent}
+          </div>
+        </div>
+      )}
     </motion.div>
   )
 }

@@ -317,30 +317,39 @@ Dark-themed horizontal strip with grain and atmospheric gradient. Background: `#
 
 ### 8.4 Features Section (`components/features.tsx`)
 
-Three pillar blocks. Pillar 01 and 03 use the standard 2-column layout (text left, visual right). Pillar 02 uses an **immersive layout** — text at the top, entity network full-width below. All dark-themed. Each `FeatureBlock` has its own per-section atmospheric gradient and a shared grain overlay on the section wrapper. Section borders: `border-white/[0.08]`.
+Three pillar blocks. All three use the same **editorial top-copy / bottom-demo layout** — centered copy block at the top, product visual below as the primary focal element. All dark-themed. Each `FeatureBlock` has its own per-section atmospheric gradient and a shared grain overlay on the section wrapper. Section borders: `border-white/[0.08]`.
 
-The `features.tsx` `Slide` interface supports `immersiveLayout?: boolean`. When `true`, the `FeatureBlock` renders a special branch: text block inside a `max-w-6xl px-6 pt-20 pb-12` container (title scaled up to `text-4xl md:text-5xl`), followed by a hairline rule, then `showcaseComponent` at full section width with no horizontal padding.
+**Layout system:**
+- Copy block: centered, `max-w-[660px]`, `text-center`, generous top padding (`pt-24`). Structure: eyebrow → serif headline → description paragraph.
+- Visual: placed below the copy, either full-width (`visualFullWidth: true`) or contained in a `visualWrapperClass`-controlled wrapper (`px-6 pb-24 md:pb-32`).
+- No left/right split. No icon boxes in section headers. No 2-column grids.
+
+The `Slide` interface fields:
+- `id`, `eyebrow`, `title`, `description`, `showcaseComponent` — core fields
+- `visualFullWidth?: boolean` — when true, visual spans full section width with a hairline separator rule above it
+- `visualWrapperClass?: string` — Tailwind class string for the inner visual container (controls max-width and height); defaults to `mx-auto max-w-5xl`
+- `atmoGradient: string` — per-section radial gradient string
 
 **Pillar 01 — Sales Intelligence** (`id="sales-intelligence"`)
-- Layout: text left, visual right (standard 2-column)
+- Layout: centered copy top, visual below in `max-w-3xl` centered container
 - Eyebrow: "01 — Sales Intelligence"
 - Title: *"Know what's already known."*
-- Visual: `SalesIntelligencePanel` (`components/sales-intelligence-panel.tsx`) — compact dark Copilot-style panel. Pre-filled question: *"What do we already know about Manila Energy?"* Click send → 2.6s loading state ("Searching internal context…") → three staggered intelligence insight cards. Pure front-end, no backend.
-- Atmospheric glow: bottom-left radial
+- Visual: `SalesIntelligencePanel` (`components/sales-intelligence-panel.tsx`) — dark Copilot-style chat panel. Pre-filled question: *"What do we already know about Manila Energy?"* Click send → 2.6s loading state ("Searching internal context…") → three staggered intelligence insight cards. Pure front-end, no backend.
+- Atmospheric glow: centered top radial
 
 **Pillar 02 — Strategic Intelligence** (`id="strategic-intelligence"`)
-- Layout: **immersive** — copy block at top (max-w-[580px]), entity intelligence field full-width below, no container border
+- Layout: centered copy top, entity field full-width below (`visualFullWidth: true`), separated by a hairline rule
 - Eyebrow: "02 — Strategic Intelligence"
 - Title: *"Surface the signals your team is too busy to read."*
 - Visual: `FloatingEntityScene` (`components/floating-entity-scene.tsx`) — full-width static SVG (`viewBox="0 0 1440 460"`) with 30 entity nodes at 4 depth levels and 25 connection lines. Depth 0 = full card with kind badge; Depth 1 = medium card; Depth 2 = compact card; Depth 3 = ghost text labels (no box). Hover on any entity: connected entities highlight, unrelated entities fade to 10% opacity, active lines brighten. Hovering a depth 2–3 entity removes its blur filter (snaps to crisp). No animation — fully static. Left/right/top/bottom edge fades blend the network seamlessly into the page background.
-- Atmospheric glow: centered top-of-section radial (spotlights the copy, fades into entity field)
+- Atmospheric glow: centered top-of-section radial
 
 **Pillar 03 — Marketing Activation** (`id="marketing-activation"`)
-- Layout: text left, media right (standard 2-column)
+- Layout: centered copy top, visual below in `max-w-2xl h-[520px]` centered container
 - Eyebrow: "03 — Marketing Activation"
 - Title: *"Publish with purpose."*
-- Visual: `MarketingActivationShowcase` — 4-card rotator (LinkedIn Post, Newsletter Snippet, Sales Outreach, Stakeholder Brief). Auto-rotates every 4 seconds; pauses on hover; manual tabs. The cards use white backgrounds intentionally — they represent output documents rendered against the dark section.
-- Atmospheric glow: top-right radial
+- Visual: `MarketingActivationShowcase` — 4-card rotator (LinkedIn Post, Newsletter Snippet, Sales Outreach, Stakeholder Brief). Auto-rotates every 4 seconds; pauses on hover; manual tabs. The cards use white backgrounds intentionally — they represent output documents rendered against the dark section. The `h-[520px]` on the wrapper provides the explicit height `h-full` inside the showcase requires.
+- Atmospheric glow: centered top radial
 
 ### 8.5 CTA Footer (`components/cta-footer.tsx`)
 
