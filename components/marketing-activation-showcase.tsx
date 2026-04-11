@@ -366,15 +366,17 @@ export function MarketingActivationShowcase() {
 
 export function MarketingActivationComposition() {
   return (
-    <div className="flex h-full items-stretch gap-4">
+    // Mobile: stacked column, explicit per-panel heights.
+    // lg+: side-by-side row, fixed 520 px container height.
+    <div className="flex flex-col gap-4 lg:h-[520px] lg:flex-row lg:items-stretch">
       {/* Left: existing interactive showcase panel */}
-      <div className="w-[57%] shrink-0">
+      <div className="h-[440px] w-full shrink-0 lg:h-full lg:w-[57%]">
         <MarketingActivationShowcase />
       </div>
 
       {/* Right: cinematic image with editorial text anchored at the bottom */}
       <div
-        className="relative flex-1 overflow-hidden rounded-[17px]"
+        className="relative h-[300px] w-full overflow-hidden rounded-[17px] lg:h-auto lg:flex-1"
         style={{ border: "1px solid rgba(147,147,147,0.13)" }}
       >
         <Image

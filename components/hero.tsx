@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import { HeroDashboardPanel } from "@/components/hero-dashboard-panel"
+import { HeroDashboardPanel, HeroDashboardPanelMobile } from "@/components/hero-dashboard-panel"
 
 // Film grain overlay — URL-encoded SVG feTurbulence, tiled at low opacity
 const GRAIN_BG =
@@ -49,7 +49,7 @@ export function Hero() {
       />
 
       {/* Centered copy block */}
-      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pb-16 pt-40 text-center">
+      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pb-12 pt-24 text-center md:pb-16 md:pt-36 lg:pt-40">
         {/* Logo Stamp */}
         <div className="mb-7">
           <Image
@@ -96,9 +96,14 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Dashboard panel */}
-      <div className="relative z-10 mx-auto max-w-[1100px] px-6 pb-28">
-        <HeroDashboardPanel />
+      {/* Dashboard panel — mobile shows a simplified readable view, desktop shows the full panel */}
+      <div className="relative z-10 mx-auto max-w-[1100px] px-6 pb-16 md:pb-24 lg:pb-28">
+        <div className="block lg:hidden">
+          <HeroDashboardPanelMobile />
+        </div>
+        <div className="hidden lg:block">
+          <HeroDashboardPanel />
+        </div>
       </div>
     </section>
   )

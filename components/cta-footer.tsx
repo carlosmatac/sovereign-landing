@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
@@ -50,6 +50,9 @@ const WORD_STYLE: React.CSSProperties = {
 
 function SovereignWordmark() {
   const bandRef = useRef<HTMLDivElement>(null)
+  // On touch/stylus devices there is no cursor — skip the frosted veil entirely
+  // so the wordmark is always clearly readable on mobile.
+  const [isTouch, setIsTouch] = useState(false)
 
   const rawX = useMotionValue(-9999)
   const rawY = useMotionValue(-9999)
@@ -63,6 +66,10 @@ function SovereignWordmark() {
   const veilMask = useMotionTemplate`radial-gradient(ellipse 520px 340px at ${x}px ${y}px, transparent 0%, rgba(0,0,0,0.12) 26%, rgba(0,0,0,0.65) 50%, black 72%)`
 
   useEffect(() => {
+    const touch = window.matchMedia("(hover: none)").matches
+    setIsTouch(touch)
+    if (touch) return
+
     const handleMove = (e: MouseEvent) => {
       const el = bandRef.current
       if (!el) return
@@ -97,17 +104,20 @@ function SovereignWordmark() {
         </div>
 
         {/* Frosted veil — backdrop-blur physically obscures the content beneath.
-            The mask removes the veil at the cursor position. */}
-        <motion.div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-            background: "rgba(6,13,28,0.60)",
-            maskImage: veilMask,
-            WebkitMaskImage: veilMask,
-          }}
-        />
+            The mask removes the veil at the cursor position.
+            Skipped on touch devices where no cursor exists. */}
+        {!isTouch && (
+          <motion.div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              background: "rgba(6,13,28,0.60)",
+              maskImage: veilMask,
+              WebkitMaskImage: veilMask,
+            }}
+          />
+        )}
       </div>
     </div>
   )

@@ -60,7 +60,7 @@ const slides: Slide[] = [
     description:
       "Sovereign turns processed intelligence into targeted outbound content — for the right people, at the right moment — across sales outreach, newsletters, and stakeholder communication.",
     showcaseComponent: <MarketingActivationComposition />,
-    visualWrapperClass: "mx-auto max-w-5xl h-[520px]",
+    visualWrapperClass: "mx-auto max-w-5xl",
     atmoGradient:
       "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(6,14,46,0.80) 0%, transparent 60%)",
   },
@@ -86,15 +86,15 @@ function FeatureBlock({ slide }: { slide: Slide }) {
       />
 
       {/* Editorial copy block — eyebrow full-width, then headline left / description right */}
-      <div className="relative z-10 mx-auto max-w-5xl px-6 pb-14 pt-24">
-        <p className="mb-8 text-[11px] font-medium uppercase tracking-[0.10em] text-white/35">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 pb-10 pt-14 md:pb-14 md:pt-20 lg:pt-24">
+        <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.10em] text-white/35 md:mb-8">
           {slide.eyebrow}
         </p>
-        <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[3fr_2fr] lg:gap-16">
-          <h3 className="font-serif font-normal leading-[1.07] tracking-[-0.025em] text-white text-4xl lg:text-5xl">
+        <div className="grid grid-cols-1 items-end gap-6 lg:grid-cols-[3fr_2fr] lg:gap-16">
+          <h3 className="text-[2rem] font-serif font-normal leading-[1.07] tracking-[-0.025em] text-white md:text-4xl lg:text-5xl">
             {slide.title}
           </h3>
-          <p className="text-pretty text-[15px] leading-relaxed tracking-[-0.011em] text-white/52 lg:pb-1.5">
+          <p className="text-pretty text-[14px] leading-relaxed tracking-[-0.011em] text-white/52 md:text-[15px] lg:pb-1.5">
             {slide.description}
           </p>
         </div>
@@ -112,7 +112,7 @@ function FeatureBlock({ slide }: { slide: Slide }) {
           </div>
         </>
       ) : (
-        <div className="relative z-10 px-6 pb-24 md:pb-32">
+        <div className="relative z-10 px-6 pb-16 md:pb-24 lg:pb-32">
           <div className={slide.visualWrapperClass ?? "mx-auto max-w-5xl"}>
             {slide.showcaseComponent}
           </div>
