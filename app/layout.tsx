@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Playfair_Display, Gabarito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -8,6 +8,11 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
   variable: "--font-serif",
+});
+const gabarito = Gabarito({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-gabarito",
 });
 
 export const metadata: Metadata = {
@@ -40,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${playfair.variable} ${gabarito.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>
