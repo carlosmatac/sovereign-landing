@@ -226,10 +226,11 @@ export function CTAFooter() {
               Ready to put your intelligence to work?
             </h2>
             <Button
+              asChild
               size="lg"
               className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/90"
             >
-              Request Demo
+              <Link href="/request-demo">Request Demo</Link>
             </Button>
           </div>
         </motion.div>
@@ -249,6 +250,12 @@ export function CTAFooter() {
             </p>
           </div>
           <nav className="flex items-center gap-6">
+            <Link
+              href="/contact"
+              className="text-sm tracking-[-0.011em] text-white/35 transition-colors hover:text-white/65"
+            >
+              Contact
+            </Link>
             <Link
               href="#"
               className="text-sm tracking-[-0.011em] text-white/35 transition-colors hover:text-white/65"

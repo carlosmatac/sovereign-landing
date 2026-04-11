@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import Link from "next/link"
 import { HeroDashboardPanel, HeroDashboardPanelMobile } from "@/components/hero-dashboard-panel"
 
 // Film grain overlay — URL-encoded SVG feTurbulence, tiled at low opacity
@@ -81,10 +82,11 @@ export function Hero() {
         {/* Buttons */}
         <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Button
+            asChild
             size="lg"
             className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/92"
           >
-            Request Demo
+            <Link href="/request-demo">Request Demo</Link>
           </Button>
           <Button
             size="lg"

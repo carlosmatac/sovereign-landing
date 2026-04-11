@@ -76,7 +76,7 @@ export function Header() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#contact" className="w-full text-sm tracking-[-0.011em]">
+                <Link href="/contact" className="w-full text-sm tracking-[-0.011em]">
                   Contact
                 </Link>
               </DropdownMenuItem>
@@ -85,8 +85,8 @@ export function Header() {
         </nav>
 
         {/* CTA Button — white fill on dark background */}
-        <Button className="rounded-full bg-white px-6 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/90">
-          Request Demo
+        <Button asChild className="rounded-full bg-white px-6 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/90">
+          <Link href="/request-demo">Request Demo</Link>
         </Button>
       </div>
     </header>
