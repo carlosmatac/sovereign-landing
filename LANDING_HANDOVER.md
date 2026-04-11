@@ -122,7 +122,7 @@ Key principles in force on the landing:
 
 - **Color palette:** All tokens are anchored to the brand 264° navy hue (OKLCH). Exact token values are in `app/globals.css`. The `dark` class is applied globally on `<html>` — all CSS variable classes resolve to their dark-mode values across the full page.
 - **Page background:** `#060D1C` (deep navy, near-black) is the canonical base color, set explicitly on `<main>` via inline style. Every section builds on this surface. Do not use `bg-background` for section backgrounds — use explicit dark hex values or atmospheric overlays.
-- **Atmospheric treatment:** Each section (TrustBanner, Features blocks, CTAFooter) carries a film grain overlay (`SVG feTurbulence`, 3.5% opacity) and a per-section radial gradient glow to create depth variation without breaking visual consistency.
+- **Atmospheric treatment:** Each section carries two texture overlays: (1) film grain (`SVG feTurbulence`, 3.5% opacity, tiled at 300px) and (2) a fine dot grid (`SVG circle`, ~2.5% opacity). The dot grid spacing varies slightly per section — 24px in Hero and Features, 28px in TrustBanner, 32px in CTAFooter — creating subtle rhythm. Each section also has a per-section radial gradient glow. All three layers combine to produce depth without visual noise.
 - **Typography:** Inter (primary UI) + Playfair Display (serif headlines). Negative letter-spacing on large type (`tracking-[-0.025em]` to `tracking-[-0.03em]`). Eyebrow labels at `text-[11px] uppercase tracking-[0.10em]`. Body at `tracking-[-0.011em]`.
 - **Logos:** Use `sovereign_log_apaisado_blanco.svg` on dark backgrounds. Use `sovereign_log_apaisado.svg` on light backgrounds. Never apply color-inversion filters — use the correct variant. The whole page is now dark, so `sovereign_log_apaisado_blanco.svg` is used throughout.
 - **Icons:** Lucide React. Outline variants only. `h-3.5 w-3.5` inside buttons/labels, `h-4 w-4` standalone.
@@ -317,48 +317,54 @@ Dark-themed horizontal strip with grain and atmospheric gradient. Background: `#
 
 ### 8.4 Features Section (`components/features.tsx`)
 
-Three pillar blocks. All three use the same **editorial top-copy / bottom-demo layout** — centered copy block at the top, product visual below as the primary focal element. All dark-themed. Each `FeatureBlock` has its own per-section atmospheric gradient and a shared grain overlay on the section wrapper. Section borders: `border-white/[0.08]`.
+Three pillar blocks. All use an **editorial two-column copy layout** above the demo visual. All dark-themed, with grain + dot grid + per-section atmospheric gradient. Section borders: `border-white/[0.08]`.
 
-**Layout system:**
-- Copy block: centered, `max-w-[660px]`, `text-center`, generous top padding (`pt-24`). Structure: eyebrow → serif headline → description paragraph.
-- Visual: placed below the copy, either full-width (`visualFullWidth: true`) or contained in a `visualWrapperClass`-controlled wrapper (`px-6 pb-24 md:pb-32`).
-- No left/right split. No icon boxes in section headers. No 2-column grids.
+**Copy layout (all three pillars):**
+- Eyebrow on its own row, left-aligned (`mb-8`)
+- Below it: a `grid grid-cols-[3fr_2fr] items-end gap-16` row — headline (left, 60%) + description (right, 40%)
+- Container: `max-w-5xl px-6 pt-24 pb-14`
+- No centering. No icon boxes. Asymmetric, editorial, Linear-inspired.
 
-The `Slide` interface fields:
-- `id`, `eyebrow`, `title`, `description`, `showcaseComponent` — core fields
-- `visualFullWidth?: boolean` — when true, visual spans full section width with a hairline separator rule above it
-- `visualWrapperClass?: string` — Tailwind class string for the inner visual container (controls max-width and height); defaults to `mx-auto max-w-5xl`
-- `atmoGradient: string` — per-section radial gradient string
+**Visual layout:**
+- Visual placed below copy, either full-width (`visualFullWidth: true`) or in a `visualWrapperClass`-controlled container (`px-6 pb-24 md:pb-32`)
+
+**`Slide` interface fields:**
+- `id`, `eyebrow`, `title`, `description`, `showcaseComponent` — core
+- `visualFullWidth?: boolean` — full-width visual with hairline rule separator
+- `visualWrapperClass?: string` — Tailwind string for inner container; defaults to `mx-auto max-w-5xl`
+- `atmoGradient: string` — per-section radial gradient
 
 **Pillar 01 — Sales Intelligence** (`id="sales-intelligence"`)
-- Layout: centered copy top, visual below in `max-w-3xl` centered container
-- Eyebrow: "01 — Sales Intelligence"
-- Title: *"Know what's already known."*
-- Visual: `SalesIntelligencePanel` (`components/sales-intelligence-panel.tsx`) — dark Copilot-style chat panel. Pre-filled question: *"What do we already know about Manila Energy?"* Click send → 2.6s loading state ("Searching internal context…") → three staggered intelligence insight cards. Pure front-end, no backend.
+- Visual container: `mx-auto max-w-5xl`
+- Visual: `SalesIntelligenceComposition` (`components/sales-intelligence-panel.tsx`) — a **layered two-panel composition**:
+  - **Background panel** (`InterviewDetailBackground`): fictional Manila Energy interview detail view. Positioned `absolute left-0`, `w-[62%]`, `opacity: 0.88`, no blur. Shows chrome, header, audio bar, executive summary, topics, transcript excerpt, entities sidebar.
+  - **Foreground panel** (`SalesIntelligencePanel`): dark Copilot-style chat, `lg:w-[43%]` right-aligned, **fixed height `h-[480px]`** with `overflow-y-auto` conversation area. Shows prior exchange ("Walk me through our South America accounts" → brief Sovereign response), then interactive Manila Energy query. Click send → 2.6s loading → three insight cards (scroll within fixed panel). Pure front-end.
+  - Left gradient fades the background panel's exposed left edge into the section bg.
 - Atmospheric glow: centered top radial
 
 **Pillar 02 — Strategic Intelligence** (`id="strategic-intelligence"`)
-- Layout: centered copy top, entity field full-width below (`visualFullWidth: true`), separated by a hairline rule
-- Eyebrow: "02 — Strategic Intelligence"
-- Title: *"Surface the signals your team is too busy to read."*
-- Visual: `FloatingEntityScene` (`components/floating-entity-scene.tsx`) — full-width static SVG (`viewBox="0 0 1440 460"`) with 30 entity nodes at 4 depth levels and 25 connection lines. Depth 0 = full card with kind badge; Depth 1 = medium card; Depth 2 = compact card; Depth 3 = ghost text labels (no box). Hover on any entity: connected entities highlight, unrelated entities fade to 10% opacity, active lines brighten. Hovering a depth 2–3 entity removes its blur filter (snaps to crisp). No animation — fully static. Left/right/top/bottom edge fades blend the network seamlessly into the page background.
-- Atmospheric glow: centered top-of-section radial
+- Visual container: full-width (`visualFullWidth: true`), hairline rule separator above
+- Visual: `FloatingEntityScene` — full-width static SVG with 30 entity nodes at 4 depth levels. Hover interactions. No animation.
+- Atmospheric glow: centered top radial
 
 **Pillar 03 — Marketing Activation** (`id="marketing-activation"`)
-- Layout: centered copy top, visual below in `max-w-2xl h-[520px]` centered container
-- Eyebrow: "03 — Marketing Activation"
-- Title: *"Publish with purpose."*
-- Visual: `MarketingActivationShowcase` — 4-card rotator (LinkedIn Post, Newsletter Snippet, Sales Outreach, Stakeholder Brief). Auto-rotates every 4 seconds; pauses on hover; manual tabs. The cards use white backgrounds intentionally — they represent output documents rendered against the dark section. The `h-[520px]` on the wrapper provides the explicit height `h-full` inside the showcase requires.
+- Visual container: `mx-auto max-w-2xl h-[520px]`
+- Visual: `MarketingActivationShowcase` — dark Sovereign panel (same chrome as other panels: `#070E1F` bg, traffic lights, "Sovereign · Output" label, "Ready" pill). Integrated tab strip (LinkedIn / Newsletter / Outreach / Brief) inside the panel frame. Output cards rendered on `#080F1E` dark surface using Sovereign token colors. Auto-rotates every 4.5s; pauses on hover. The `h-[520px]` wrapper provides the explicit height `h-full` requires.
 - Atmospheric glow: centered top radial
 
 ### 8.5 CTA Footer (`components/cta-footer.tsx`)
 
-Dark-themed closing section. Background: `#060D1C` with grain overlay and double radial gradient (bottom center + soft center warmth).
+Dark-themed closing section. Background: `#060D1C` with grain overlay, dot grid, and double radial gradient.
 
-- Sovereign logomark stamp (`sovereign_logo.svg`, ~13% opacity)
-- Headline: *"Ready to put your intelligence to work?"*
-- CTA: "Request Demo" — `bg-white text-[#070E1F]` pill button
-- Footer bar: `border-white/[0.08]` separator · `text-white/35` · © 2026 Sovereign Data · Privacy Policy · Terms of Service
+**Structure (top to bottom):**
+1. **Bridge hero image** (`/bridge2.png`, `mx-auto max-w-6xl`) — the main visual anchor. `rounded-2xl`, multi-layer box shadow. Subtle `whileHover` lift (`scale: 1.013, y: -5`). The heading, logomark, and CTA button are **overlaid on the image** via `absolute inset-0` flex container.
+   - Dark linear-gradient scrim covers the image for text legibility
+   - **Headline**: *"Ready to put your intelligence to work?"* — Playfair Display, 4xl–6xl, white, with `textShadow` for contrast
+   - **Logomark stamp**: `sovereign_logo.svg`, 25% opacity, above the headline
+   - **CTA button**: "Request Demo" — white pill, below the headline
+2. **`<footer>` bar** (`max-w-5xl mx-auto`): `border-white/[0.08]` separator · `text-white/35` · © 2026 Sovereign Data · Privacy Policy · Terms of Service
+
+Top and bottom linear gradient fades blend the bridge image into the dark section bg.
 
 ---
 
@@ -416,4 +422,4 @@ If you are a coding or content agent working on this landing page, follow this p
 
 ---
 
-*Last updated: April 2026 — §8.4 updated to reflect SalesIntelligencePanel and FloatingEntityScene; §9.4 resolved*
+*Last updated: April 2026 — §7 updated with dot grid texture; §8.4 updated with editorial 2-col copy layout, SalesIntelligenceComposition (layered panels), dark MarketingActivationShowcase; §8.5 updated with bridge2.png hero image + overlaid text composition*

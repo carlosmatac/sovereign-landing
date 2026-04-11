@@ -2,6 +2,10 @@
 const GRAIN_BG =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E\")"
 
+// Fine dot grid — 28px spacing, slightly looser than hero
+const DOT_GRID =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
+
 export function TrustBanner() {
   const logos = [
     "Meridian",
@@ -25,6 +29,18 @@ export function TrustBanner() {
           backgroundRepeat: "repeat",
           backgroundSize: "300px 300px",
           opacity: 0.035,
+        }}
+      />
+
+      {/* Dot grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: DOT_GRID,
+          backgroundRepeat: "repeat",
+          backgroundSize: "28px 28px",
+          opacity: 0.022,
         }}
       />
 

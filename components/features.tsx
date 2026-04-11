@@ -1,13 +1,17 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { MarketingActivationShowcase } from "@/components/marketing-activation-showcase"
-import { SalesIntelligencePanel } from "@/components/sales-intelligence-panel"
+import { MarketingActivationComposition } from "@/components/marketing-activation-showcase"
+import { SalesIntelligenceComposition } from "@/components/sales-intelligence-panel"
 import { FloatingEntityScene } from "@/components/floating-entity-scene"
 
 // Film grain — consistent with hero and trust banner
 const GRAIN_BG =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E\")"
+
+// Fine dot grid — 24px spacing, same cadence as hero
+const DOT_GRID =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -33,8 +37,8 @@ const slides: Slide[] = [
     title: "Know what's already known.",
     description:
       "Sovereign aggregates every prior interaction, signal, and mention across your organization — so no opportunity starts from zero.",
-    showcaseComponent: <SalesIntelligencePanel />,
-    visualWrapperClass: "mx-auto max-w-3xl",
+    showcaseComponent: <SalesIntelligenceComposition />,
+    visualWrapperClass: "mx-auto max-w-5xl",
     atmoGradient:
       "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(6,16,52,0.80) 0%, transparent 60%)",
   },
@@ -55,8 +59,8 @@ const slides: Slide[] = [
     title: "Publish with purpose.",
     description:
       "Sovereign turns processed intelligence into targeted outbound content — for the right people, at the right moment — across sales outreach, newsletters, and stakeholder communication.",
-    showcaseComponent: <MarketingActivationShowcase />,
-    visualWrapperClass: "mx-auto max-w-2xl h-[520px]",
+    showcaseComponent: <MarketingActivationComposition />,
+    visualWrapperClass: "mx-auto max-w-5xl h-[520px]",
     atmoGradient:
       "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(6,14,46,0.80) 0%, transparent 60%)",
   },
@@ -81,17 +85,19 @@ function FeatureBlock({ slide }: { slide: Slide }) {
         style={{ background: slide.atmoGradient }}
       />
 
-      {/* Copy block — centered, editorial, stage-setting */}
-      <div className="relative z-10 mx-auto max-w-[660px] px-6 pb-14 pt-24 text-center">
-        <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.10em] text-white/35">
+      {/* Editorial copy block — eyebrow full-width, then headline left / description right */}
+      <div className="relative z-10 mx-auto max-w-5xl px-6 pb-14 pt-24">
+        <p className="mb-8 text-[11px] font-medium uppercase tracking-[0.10em] text-white/35">
           {slide.eyebrow}
         </p>
-        <h3 className="mb-5 font-serif font-normal leading-[1.08] tracking-[-0.025em] text-white text-4xl md:text-5xl">
-          {slide.title}
-        </h3>
-        <p className="mx-auto max-w-[480px] text-pretty text-[15px] leading-relaxed tracking-[-0.011em] text-white/55">
-          {slide.description}
-        </p>
+        <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[3fr_2fr] lg:gap-16">
+          <h3 className="font-serif font-normal leading-[1.07] tracking-[-0.025em] text-white text-4xl lg:text-5xl">
+            {slide.title}
+          </h3>
+          <p className="text-pretty text-[15px] leading-relaxed tracking-[-0.011em] text-white/52 lg:pb-1.5">
+            {slide.description}
+          </p>
+        </div>
       </div>
 
       {/* Visual reveal — full-width or wide-centered */}
@@ -130,6 +136,18 @@ export function Features() {
           backgroundRepeat: "repeat",
           backgroundSize: "300px 300px",
           opacity: 0.035,
+        }}
+      />
+
+      {/* Dot grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: DOT_GRID,
+          backgroundRepeat: "repeat",
+          backgroundSize: "24px 24px",
+          opacity: 0.025,
         }}
       />
 

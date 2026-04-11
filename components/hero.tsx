@@ -6,6 +6,10 @@ import { HeroDashboardPanel } from "@/components/hero-dashboard-panel"
 const GRAIN_BG =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E\")"
 
+// Fine dot grid — aligned 24px technical texture, adds precision depth
+const DOT_GRID =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden" style={{ backgroundColor: "#060D1C" }}>
@@ -29,6 +33,18 @@ export function Hero() {
           backgroundRepeat: "repeat",
           backgroundSize: "300px 300px",
           opacity: 0.035,
+        }}
+      />
+
+      {/* Dot grid — fine 24px technical texture, registers as depth not decoration */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: DOT_GRID,
+          backgroundRepeat: "repeat",
+          backgroundSize: "24px 24px",
+          opacity: 0.025,
         }}
       />
 

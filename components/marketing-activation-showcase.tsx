@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 
 // ─── Design tokens (Sovereign dark panel system) ──────────────────────────────
 // Document cards render on the same dark surface family as the other panels.
@@ -355,6 +356,66 @@ export function MarketingActivationShowcase() {
               {cards[active].content}
             </motion.div>
           </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── Composition: showcase (left) + image editorial (right) ───────────────────
+
+export function MarketingActivationComposition() {
+  return (
+    <div className="flex h-full items-stretch gap-4">
+      {/* Left: existing interactive showcase panel */}
+      <div className="w-[57%] shrink-0">
+        <MarketingActivationShowcase />
+      </div>
+
+      {/* Right: cinematic image with editorial text anchored at the bottom */}
+      <div
+        className="relative flex-1 overflow-hidden rounded-[17px]"
+        style={{ border: "1px solid rgba(147,147,147,0.13)" }}
+      >
+        <Image
+          src="/mountain.png"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="(min-width: 1024px) 40vw, 100vw"
+        />
+
+        {/* Cinematic scrim — preserves image drama, enables text legibility at bottom */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(4,9,20,0.97) 0%, rgba(4,9,20,0.78) 32%, rgba(4,9,20,0.22) 62%, transparent 100%)",
+          }}
+        />
+
+        {/* Editorial statement — anchored to the image base */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 pb-7">
+          <div
+            className="mb-4 h-px w-10"
+            style={{ background: "rgba(255,255,255,0.14)" }}
+          />
+          <p
+            className="mb-3 font-serif text-[18px] font-normal leading-snug tracking-[-0.020em]"
+            style={{ color: "rgba(255,255,255,0.90)" }}
+          >
+            Deploy authority where others only see uncertainty.
+          </p>
+          <p
+            className="text-[12px] leading-[1.72] tracking-[-0.010em]"
+            style={{ color: "rgba(255,255,255,0.46)" }}
+          >
+            Sovereign doesn&apos;t just extract data — it builds an authority layer for strategic
+            communication. We turn fragmented frontier-market signals into high-fidelity outbound
+            assets, from specialist newsletters to LinkedIn-ready briefings, ensuring every message
+            is grounded in primary-source truth.
+          </p>
         </div>
       </div>
     </div>

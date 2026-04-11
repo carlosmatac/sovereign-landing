@@ -9,6 +9,10 @@ import Link from "next/link"
 const GRAIN_BG =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E\")"
 
+// Fine dot grid — 32px spacing, most open in the closing section
+const DOT_GRID =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
+
 export function CTAFooter() {
   return (
     <section
@@ -27,10 +31,22 @@ export function CTAFooter() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-5xl">
+      {/* Dot grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: DOT_GRID,
+          backgroundRepeat: "repeat",
+          backgroundSize: "32px 32px",
+          opacity: 0.022,
+        }}
+      />
+
+      <div className="relative z-10">
         {/* Bridge image with copy overlaid inside */}
         <motion.div
-          className="relative w-full overflow-hidden rounded-2xl"
+          className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl"
           style={{
             border: "1px solid rgba(255,255,255,0.08)",
             boxShadow:
@@ -41,7 +57,7 @@ export function CTAFooter() {
         >
           {/* Photo */}
           <Image
-            src="/bridge.png"
+            src="/bridge2.png"
             alt="Sovereign — infrastructure at the frontier"
             width={1920}
             height={1080}
@@ -104,7 +120,7 @@ export function CTAFooter() {
         </motion.div>
 
         {/* Footer */}
-        <footer className="flex flex-col items-center gap-6 border-t border-white/[0.07] pb-8 pt-7 md:flex-row md:justify-between">
+        <footer className="mx-auto flex max-w-5xl flex-col items-center gap-6 border-t border-white/[0.07] pb-8 pt-7 md:flex-row md:justify-between">
           <div className="flex items-center gap-3">
             <Image
               src="/sovereign_logo.svg"
