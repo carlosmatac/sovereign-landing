@@ -7,17 +7,9 @@ const DOT_GRID =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
 
 export function TrustBanner() {
-  const logos = [
-    "Meridian",
-    "Frontier Group",
-    "Atlas Consulting",
-    "Equinox Media",
-    "Horizon Partners",
-  ]
-
   return (
     <section
-      className="relative overflow-hidden border-y border-white/[0.06] px-6 py-12"
+      className="relative overflow-hidden border-y border-white/[0.06] px-6 py-14"
       style={{ backgroundColor: "#071121" }}
     >
       {/* Film grain */}
@@ -44,7 +36,7 @@ export function TrustBanner() {
         }}
       />
 
-      {/* Atmospheric depth — soft upward glow from bottom, creates separation from hero above */}
+      {/* Atmospheric depth */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0"
@@ -54,20 +46,19 @@ export function TrustBanner() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl">
-        <p className="mb-8 text-center text-[13px] tracking-[-0.011em] text-white/35">
-          Trusted by information-intensive organisations operating at the frontier of their industries.
+      <div className="relative z-10 mx-auto max-w-2xl text-center">
+        {/* Rule — fine horizontal accent above the statement */}
+        <div
+          aria-hidden="true"
+          className="mx-auto mb-6 h-px w-8"
+          style={{ background: "rgba(255,255,255,0.12)" }}
+        />
+        <p
+          className="font-serif text-xl font-normal leading-snug tracking-[-0.022em] md:text-2xl"
+          style={{ color: "rgba(255,255,255,0.62)" }}
+        >
+          Built for information-intensive teams operating in complex markets.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-          {logos.map((logo) => (
-            <span
-              key={logo}
-              className="text-lg font-semibold tracking-[-0.02em] text-white/[0.14]"
-            >
-              {logo}
-            </span>
-          ))}
-        </div>
       </div>
     </section>
   )
