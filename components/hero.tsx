@@ -63,9 +63,26 @@ export function Hero() {
           />
         </div>
 
-        {/* Badge */}
-        <div className="mb-7 inline-flex items-center rounded-full border border-white/15 bg-white/[0.07] px-4 py-1.5 text-[13px] tracking-[-0.01em] text-white/50">
-          Intelligence for the organisations that move markets
+        {/* Badge — traveling border-light */}
+        <div
+          className="relative mb-7 inline-flex overflow-hidden rounded-full p-px"
+          style={{ background: "rgba(255,255,255,0.10)" }}
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-[-75%]"
+            style={{
+              background:
+                "conic-gradient(from 0deg, transparent 0%, transparent 62%, rgba(255,255,255,0.50) 72%, rgba(255,255,255,0.18) 78%, transparent 86%, transparent 100%)",
+              animation: "badge-orbit 4s linear infinite",
+            }}
+          />
+          <span
+            className="relative z-10 inline-flex items-center rounded-full px-4 py-1.5 text-[13px] tracking-[-0.01em] text-white/50"
+            style={{ background: "rgba(6,13,28,0.88)" }}
+          >
+            Intelligence for the organisations that move markets
+          </span>
         </div>
 
         {/* Headline */}

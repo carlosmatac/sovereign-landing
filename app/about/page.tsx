@@ -58,98 +58,77 @@ export default function AboutPage() {
         />
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
-        <section className="relative z-10 overflow-hidden">
-          {/* Background image — contained with side vignettes so it reads
-              as atmospheric rather than full-bleed dominant */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-          >
-            <Image
-              src="/solar.png"
-              alt=""
-              fill
-              className="object-cover"
-              style={{ objectPosition: "60% center", opacity: 0.52 }}
-              priority
-            />
-            {/* Primary legibility veil */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(105deg, rgba(6,13,28,0.82) 0%, rgba(6,13,28,0.46) 50%, rgba(6,13,28,0.68) 100%)",
-              }}
-            />
-            {/* Left vignette — narrows perceived image width */}
-            <div
-              className="absolute inset-y-0 left-0 w-1/4"
-              style={{
-                background:
-                  "linear-gradient(to right, #060D1C 0%, transparent 100%)",
-              }}
-            />
-            {/* Right vignette */}
-            <div
-              className="absolute inset-y-0 right-0 w-1/4"
-              style={{
-                background:
-                  "linear-gradient(to left, #060D1C 0%, transparent 100%)",
-              }}
-            />
-            {/* Bottom fade */}
-            <div
-              className="absolute inset-x-0 bottom-0 h-48"
-              style={{
-                background:
-                  "linear-gradient(to top, #060D1C 0%, transparent 100%)",
-              }}
-            />
-            {/* Top fade */}
-            <div
-              className="absolute inset-x-0 top-0 h-28"
-              style={{
-                background:
-                  "linear-gradient(to bottom, #060D1C 0%, transparent 100%)",
-              }}
-            />
-          </div>
-
-          {/* Atmospheric depth gradient */}
+        <section className="relative z-10">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 130% 52% at 50% -10%, rgba(10,24,56,0.88) 0%, transparent 62%)",
+                "radial-gradient(ellipse 100% 60% at 30% 0%, rgba(10,24,56,0.72) 0%, transparent 58%)",
             }}
           />
 
-          <div className="relative mx-auto max-w-5xl px-6 pb-24 pt-32 md:pb-32 md:pt-40">
+          <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-32 md:pb-24 md:pt-40">
             {/* Eyebrow */}
             <p
-              className="mb-5 text-[11px] font-medium uppercase tracking-[0.12em]"
+              className="mb-10 text-[11px] font-medium uppercase tracking-[0.12em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
               Our Story
             </p>
 
-            {/* Two-column hero: headline left, lead right */}
-            <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[3fr_2fr] lg:gap-16">
-              <h1
-                className="font-serif text-4xl font-normal leading-[1.06] tracking-[-0.030em] text-white md:text-5xl lg:text-[3.4rem]"
+            {/* Editorial two-column: text left, 3D video inset right */}
+            <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
+              {/* Left — typography dominant */}
+              <div className="flex flex-col gap-7">
+                <h1
+                  className="font-serif text-4xl font-normal leading-[1.06] tracking-[-0.030em] text-white md:text-5xl lg:text-[3.4rem]"
+                >
+                  Built from curiosity.
+                  <br />
+                  Proven by reality.
+                </h1>
+                <p
+                  className="max-w-[42ch] text-pretty text-[15px] leading-[1.80] tracking-[-0.011em]"
+                  style={{ color: "rgba(255,255,255,0.50)" }}
+                >
+                  Sovereign began with a simple observation: the most valuable
+                  information inside an organisation is often the least usable.
+                </p>
+              </div>
+
+              {/* Right — 3D video in a contained square inset */}
+              <div
+                className="relative hidden overflow-hidden rounded-2xl lg:block"
+                style={{
+                  width: "290px",
+                  height: "290px",
+                  flexShrink: 0,
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  boxShadow: "0 32px 80px -24px rgba(0,0,0,0.70)",
+                }}
               >
-                Built from curiosity.
-                <br />
-                Proven by reality.
-              </h1>
-              <p
-                className="text-pretty text-[15px] leading-[1.80] tracking-[-0.011em] lg:pb-1"
-                style={{ color: "rgba(255,255,255,0.50)" }}
-              >
-                Sovereign began with a simple observation: the most valuable
-                information inside an organisation is often the least usable.
-              </p>
+                <video
+                  className="absolute inset-0 h-full w-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  aria-hidden="true"
+                  style={{
+                    filter: "saturate(0.82) contrast(1.06) brightness(0.84)",
+                  }}
+                >
+                  <source src="/3D.mp4" type="video/mp4" />
+                </video>
+                <div
+                  className="absolute inset-x-0 bottom-0 h-24"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(6,13,28,0.65) 0%, transparent 100%)",
+                  }}
+                />
+              </div>
             </div>
 
             <div
@@ -357,7 +336,7 @@ export default function AboutPage() {
           <div className="relative mx-auto max-w-4xl px-2 sm:px-6">
             <Image
               src="/draw-founders.png"
-              alt="The Sovereign founding team — Chicho, Carlos, Ventura"
+              alt="The Sovereign founding team — Pablo, Carlos, Ventura"
               width={1344}
               height={896}
               className="h-auto w-full"
@@ -375,7 +354,7 @@ export default function AboutPage() {
               className="text-[11px] font-medium uppercase tracking-[0.10em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
-              Co-Founders — Chicho, Carlos, Ventura
+              Co-Founders — Pablo, Carlos, Ventura
             </p>
           </div>
         </section>
