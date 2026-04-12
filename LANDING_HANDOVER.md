@@ -142,13 +142,13 @@ Header → Hero → TrustBanner → Features → CTAFooter
 
 Fixed navigation bar, 64px height. Always transparent — no scroll-triggered background change.
 
-- **Background:** Always `bg-transparent` with `backdrop-blur-2xl` and `rgba(6,13,28,0.82)` fill. This creates a dark glass surface at all scroll positions.
+- **Background:** Always `bg-transparent` with `backdrop-blur-2xl` and `rgba(6,13,28,0.82)` fill.
 - **Bottom border:** `border-b border-white/[0.07]` — hairline separator, always visible.
-- **Logo:** Always `sovereign_log_apaisado_blanco.svg` (white variant). No conditional src — the page is fully dark.
+- **Logo:** Always `sovereign_log_apaisado_blanco.svg` (white variant).
 - **Nav links:** Always `text-white/75 hover:text-white`. No scroll-state variants.
-- **CTA:** "Request Demo" — always `bg-white text-[#070E1F] hover:bg-white/90` pill button.
+- **CTA:** "Request Demo" — `<Button asChild>` wrapping `<Link href="/request-demo">`. Pill, `bg-white text-[#070E1F]`.
 - **Product dropdown:** Sales Intelligence → `#sales-intelligence`, Strategic Intelligence → `#strategic-intelligence`, Marketing Activation → `#marketing-activation`
-- **About dropdown:** Company, Our Team, Careers, Contact (hash links, placeholder destinations)
+- **About dropdown (trimmed):** Our Story → `/about`, Contact → `/contact`. Company, Our Team, and Careers were removed.
 
 ### 8.2 Hero Section (`components/hero.tsx` + `components/hero-dashboard-panel.tsx`)
 
@@ -308,12 +308,15 @@ if (label === "My View" || label === "Dashboard" || ...) {
 
 ### 8.3 Trust Banner (`components/trust-banner.tsx`)
 
-Dark-themed horizontal strip with grain and atmospheric gradient. Background: `#071121`.
+Dark-themed horizontal strip. Background: `#071121`. Borders: `border-y border-white/[0.06]`.
 
-- Caption: *"Trusted by information-intensive organisations operating at the frontier of their industries."*
-- Placeholder client names: Meridian, Frontier Group, Atlas Consulting, Equinox Media, Horizon Partners
-- **These are placeholders.** Replace with real client logos when available.
-- Borders: `border-y border-white/[0.06]`. Text: `text-white/35` (caption), `text-white/[0.14]` (names).
+The fake placeholder client names were removed entirely. The section is now a minimal typographic statement block:
+
+- A 8px hairline rule (centered, `rgba(255,255,255,0.12)`)
+- A single serif sentence: *"Built for information-intensive teams operating in complex markets."*
+- Font: `font-serif text-xl md:text-2xl font-normal`, opacity `0.62`, `max-w-2xl` centered
+
+This acts as a quiet editorial bridge between the Hero and Features sections. It must not be reverted to a logo strip unless real client logos are available.
 
 ### 8.4 Features Section (`components/features.tsx`)
 
@@ -337,7 +340,7 @@ Three pillar blocks. All use an **editorial two-column copy layout** above the d
 **Pillar 01 — Sales Intelligence** (`id="sales-intelligence"`)
 - Visual container: `mx-auto max-w-5xl`
 - Visual: `SalesIntelligenceComposition` (`components/sales-intelligence-panel.tsx`) — a **layered two-panel composition**:
-  - **Background panel** (`InterviewDetailBackground`): fictional Manila Energy interview detail view. Positioned `absolute left-0`, `w-[62%]`, `opacity: 0.88`, no blur. Shows chrome, header, audio bar, executive summary, topics, transcript excerpt, entities sidebar.
+  - **Background panel** (`InterviewDetailBackground`): fictional Manila Energy interview detail view. Positioned `absolute left-0`, `w-[62%]`, `opacity: 0.72`, **no blur of any kind**. `rounded-[17px]`, `border rgba(147,147,147,0.13)`. Shows chrome, header, audio bar, executive summary, topics, transcript excerpt, entities sidebar. Secondary hierarchy is achieved via lower opacity and positional layering — never with `filter: blur()`, `backdrop-blur`, or gradient veils.
   - **Foreground panel** (`SalesIntelligencePanel`): dark Copilot-style chat, `lg:w-[43%]` right-aligned, **fixed height `h-[480px]`** with `overflow-y-auto` conversation area. Shows prior exchange ("Walk me through our South America accounts" → brief Sovereign response), then interactive Manila Energy query. Click send → 2.6s loading → three insight cards (scroll within fixed panel). Pure front-end.
   - Left gradient fades the background panel's exposed left edge into the section bg.
 - Atmospheric glow: centered top radial
@@ -348,8 +351,11 @@ Three pillar blocks. All use an **editorial two-column copy layout** above the d
 - Atmospheric glow: centered top radial
 
 **Pillar 03 — Marketing Activation** (`id="marketing-activation"`)
-- Visual container: `mx-auto max-w-2xl h-[520px]`
-- Visual: `MarketingActivationShowcase` — dark Sovereign panel (same chrome as other panels: `#070E1F` bg, traffic lights, "Sovereign · Output" label, "Ready" pill). Integrated tab strip (LinkedIn / Newsletter / Outreach / Brief) inside the panel frame. Output cards rendered on `#080F1E` dark surface using Sovereign token colors. Auto-rotates every 4.5s; pauses on hover. The `h-[520px]` wrapper provides the explicit height `h-full` requires.
+- Visual container: `mx-auto max-w-5xl` (no fixed height — the composition controls its own height)
+- Visual: `MarketingActivationComposition` (`components/marketing-activation-showcase.tsx`) — a **two-column composition**:
+  - **Left (57%)**: `MarketingActivationShowcase` — dark Sovereign panel with traffic lights, "Sovereign · Output" label, tab strip (LinkedIn / Newsletter / Outreach / Brief), auto-rotating output cards every 4.5s, pauses on hover. Height: `h-[440px]` on mobile, `lg:h-full` on desktop.
+  - **Right (flex-1)**: `/public/mountain.png` displayed full-bleed (`object-cover`) with a cinematic scrim (`linear-gradient to top`) and an editorial text block anchored at the bottom: headline *"Deploy authority where others only see uncertainty."* (serif, `text-[18px]`) + supporting paragraph. Height: `h-[300px]` on mobile, `lg:h-auto` on desktop.
+- On desktop the two columns share a `lg:h-[520px]` parent. On mobile they stack vertically.
 - Atmospheric glow: centered top radial
 
 ### 8.5 CTA Footer (`components/cta-footer.tsx`)
@@ -357,12 +363,16 @@ Three pillar blocks. All use an **editorial two-column copy layout** above the d
 Dark-themed closing section. Background: `#060D1C` with grain overlay, dot grid, and double radial gradient.
 
 **Structure (top to bottom):**
-1. **Bridge hero image** (`/bridge2.png`, `mx-auto max-w-6xl`) — the main visual anchor. `rounded-2xl`, multi-layer box shadow. Subtle `whileHover` lift (`scale: 1.013, y: -5`). The heading, logomark, and CTA button are **overlaid on the image** via `absolute inset-0` flex container.
-   - Dark linear-gradient scrim covers the image for text legibility
-   - **Headline**: *"Ready to put your intelligence to work?"* — Playfair Display, 4xl–6xl, white, with `textShadow` for contrast
-   - **Logomark stamp**: `sovereign_logo.svg`, 25% opacity, above the headline
-   - **CTA button**: "Request Demo" — white pill, below the headline
-2. **`<footer>` bar** (`max-w-5xl mx-auto`): `border-white/[0.08]` separator · `text-white/35` · © 2026 Sovereign Data · Privacy Policy · Terms of Service
+1. **`SovereignWordmark` band** — a full-width interactive horizontal band above the bridge image.
+   - Contains a subtle aligned mesh grid (`SVG path`, `stroke-opacity: 0.12`) tiled at 24px.
+   - The lowercase word **"sovereign"** in Gabarito Bold, `clamp(52px, 9vw, 124px)`, centered.
+   - **Desktop (pointer device):** A `motion.div` "frosted veil" sits on top using `backdropFilter: blur(16px)` + `background: rgba(6,13,28,0.60)`. A spring-driven `mask-image` (radial gradient centered on cursor) locally removes the veil where the cursor is, revealing the sharp content beneath — "hidden signal behind glass" effect.
+   - **Mobile / touch (`hover: none`):** The veil is skipped entirely; the wordmark is fully visible at `rgba(255,255,255,0.88)`.
+   - The band breaks out of section `px-6` via `-mx-6` wrapper.
+
+2. **Bridge hero image** (`/bridge2.png`, `mx-auto max-w-6xl`) — main visual anchor. `rounded-2xl`, multi-layer box shadow. Subtle `whileHover` lift. Overlaid: logomark stamp (22% opacity), headline *"Ready to put your intelligence to work?"*, **"Request Demo" `<Button asChild>` → `<Link href="/request-demo">`**.
+
+3. **`<footer>` bar** (`max-w-5xl mx-auto`): © 2026 Sovereign Data · **Contact → `/contact`** · Privacy Policy · Terms of Service
 
 Top and bottom linear gradient fades blend the bridge image into the dark section bg.
 
@@ -387,8 +397,62 @@ The Lottie animation (`scene1.json`) has been replaced with `SalesIntelligencePa
 ### 9.5 ~~Hash-link scroll targets~~ — RESOLVED
 `id={slide.id}` is now set on the outer `motion.div` in `features.tsx` for all feature blocks. The anchor links (`#sales-intelligence`, `#strategic-intelligence`, `#marketing-activation`) scroll correctly.
 
-### 9.6 Hero panel mobile scaling
-The panel uses a fixed `aspectRatio: "880/498"` and `max-w-[1100px]`. At small screen widths, the panel may be too compressed for the internal typography (7–10px font sizes) to remain readable. A future pass should evaluate whether the panel should be hidden or replaced with a static screenshot below a certain breakpoint.
+### 9.6 ~~Hero panel mobile scaling~~ — RESOLVED
+`HeroDashboardPanelMobile` (`components/hero-dashboard-panel.tsx`) is shown on `< lg` breakpoints, hidden on `lg+`. It renders the Interviews view at readable 12–13px font sizes with no aspect ratio constraint — full-width, auto height. The full `HeroDashboardPanel` remains on desktop only.
+
+---
+
+## 11. Mobile Responsiveness
+
+A dedicated mobile pass was completed. Key changes:
+
+- **Hero:** Top padding reduced on mobile (`pt-24 md:pt-36 lg:pt-40`). Dashboard panel conditional: `HeroDashboardPanelMobile` on `< lg`, full panel on `lg+`.
+- **Features section padding:** `pt-14 md:pt-20 lg:pt-24` (was flat `pt-24`). Visual bottom padding: `pb-16 md:pb-24 lg:pb-32`.
+- **MarketingActivationComposition:** Stacks vertically on mobile (`flex-col lg:flex-row`). Showcase `h-[440px]` mobile / `lg:h-full` desktop. Image panel `h-[300px]` mobile / `lg:h-auto` desktop.
+- **CTA Wordmark:** Frosted veil skipped on touch devices (`hover: none` media query). Wordmark visible at full opacity on mobile.
+- **Trust Banner, Sales Intelligence, Strategic Intelligence:** Already mobile-safe. No changes required.
+
+---
+
+## 12. Multi-Page Structure
+
+The site now has four routes:
+
+| Route | File | Description |
+|-------|------|-------------|
+| `/` | `app/page.tsx` | Main landing page |
+| `/about` | `app/about/page.tsx` | Our Story editorial page |
+| `/request-demo` | `app/request-demo/page.tsx` | Demo request form (two-column) |
+| `/contact` | `app/contact/page.tsx` | Minimal contact page |
+
+### 12.1 `/about` — Our Story
+
+Premium editorial page. Uses `<Header />`. Structure:
+- **Hero:** `max-w-5xl` two-column layout — large serif headline left, lead paragraph right.
+- **Story body:** `max-w-5xl` two-column grid (`lg:grid-cols-2`). Left: 3 narrative paragraphs. Right: crystallisation paragraph (elevated opacity) + mission paragraph.
+- **Founders section:** Team intro text above image, `draw-founders.png` with atmospheric CSS mask dissolve, names caption below.
+- **Image treatment:** `filter: saturate(0.78) contrast(1.05) brightness(0.91)` + `mask-image` radial gradient (ellipse 90%×76% centered at 50% 36%) fading edges into the dark background.
+- No separate footer — just a slim two-link nav row (Back to Sovereign / Request a demo).
+
+### 12.2 `/request-demo` — Demo Request
+
+Full-page two-column form. No `<Header />` (focused conversion page).
+- **Left:** Form with `DemoForm` client component. Fields: First/Last name, Work email, Phone (country code selector + number), Company, Role, Problem (textarea), Message (textarea optional). Submit via Next.js Server Action → Resend.
+- **Right:** `dessert.png` full-bleed with scrim + editorial statement (*"Ready to shape the future?"*).
+- **Country code selector:** Custom dropdown, 80 countries, flag emoji + dial code, search input, click-outside close. State held in `DemoForm` via `useState<Country>`.
+- **Server action:** `app/actions/send-demo-request.ts`. Lazy-initialises `Resend` (requires `RESEND_API_KEY` env var). Sends to `team@svgndata.com`, `reply-to` = submitter email. Validates required fields server-side. Returns `FormState { status, message }`.
+- **Mobile:** Image stacks below the form at `h-[56vw]`.
+
+### 12.3 `/contact`
+
+Minimal centered page. Sovereign logo, "Get in touch." serif headline, supporting copy, `team@svgndata.com` as a large serif mailto link, secondary "Request a demo" outline button, back link.
+
+### 12.4 Fonts
+
+`app/layout.tsx` loads three Google fonts via `next/font/google`:
+- `Inter` → `--font-sans` (body)
+- `Playfair_Display` weights 400/700/900 → `--font-serif` (headings)
+- `Gabarito` weights 400/700 → `--font-gabarito` (CTA wordmark only)
 
 ---
 
@@ -422,4 +486,4 @@ If you are a coding or content agent working on this landing page, follow this p
 
 ---
 
-*Last updated: April 2026 — §7 updated with dot grid texture; §8.4 updated with editorial 2-col copy layout, SalesIntelligenceComposition (layered panels), dark MarketingActivationShowcase; §8.5 updated with bridge2.png hero image + overlaid text composition*
+*Last updated: April 2026 — §8.1 header nav trimmed (About: Our Story + Contact only); §8.3 trust banner replaced with editorial statement; §8.4 MarketingActivationComposition added (mountain image + editorial text); §8.5 SovereignWordmark band added + footer Contact link; §9.6 mobile hero panel resolved; §11 mobile responsiveness pass documented; §12 multi-page structure added (/about, /request-demo, /contact, Resend integration, Gabarito font)*

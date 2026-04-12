@@ -59,20 +59,10 @@ export function Header() {
               About
               <ChevronDown className="h-3.5 w-3.5" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="center" className="w-56">
+            <DropdownMenuContent align="center" className="w-44">
               <DropdownMenuItem>
-                <Link href="#company" className="w-full text-sm tracking-[-0.011em]">
-                  Company
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="#team" className="w-full text-sm tracking-[-0.011em]">
-                  Our Team
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="#careers" className="w-full text-sm tracking-[-0.011em]">
-                  Careers
+                <Link href="/about" className="w-full text-sm tracking-[-0.011em]">
+                  Our Story
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
