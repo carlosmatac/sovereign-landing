@@ -140,15 +140,34 @@ Header → Hero → TrustBanner → Features → CTAFooter
 
 ### 8.1 Header (`components/header.tsx`)
 
-Fixed navigation bar, 64px height. Always transparent — no scroll-triggered background change.
+Fixed navigation bar, 64px height. `"use client"` directive required (Radix interactive dropdowns). Always transparent — no scroll-triggered background change.
 
-- **Background:** Always `bg-transparent` with `backdrop-blur-2xl` and `rgba(6,13,28,0.82)` fill.
-- **Bottom border:** `border-b border-white/[0.07]` — hairline separator, always visible.
-- **Logo:** Always `sovereign_log_apaisado_blanco.svg` (white variant).
-- **Nav links:** Always `text-white/75 hover:text-white`. No scroll-state variants.
-- **CTA:** "Request Demo" — `<Button asChild>` wrapping `<Link href="/request-demo">`. Pill, `bg-white text-[#070E1F]`.
-- **Product dropdown:** Sales Intelligence → `#sales-intelligence`, Strategic Intelligence → `#strategic-intelligence`, Marketing Activation → `#marketing-activation`
-- **About dropdown (trimmed):** Our Story → `/about`, Contact → `/contact`. Company, Our Team, and Careers were removed.
+- **Background:** `rgba(6,13,28,0.82)` + `backdrop-blur-2xl`. Bottom border: `border-white/[0.07]`.
+- **Logo:** Always `sovereign_log_apaisado_blanco.svg`.
+- **CTA:** "Request Demo" — `<Button asChild>` → `<Link href="/request-demo">`. Pill, `bg-white text-[#070E1F]`.
+
+**Navigation structure (4 items):**
+
+1. **Product** — wide panel (560px, `rounded-2xl`), 2-column grid of 4 capability pillars:
+   - Capture & Organise → `/product/capture` (Archive icon)
+   - Prepare & Sell → `#sales-intelligence` (TrendingUp icon)
+   - Activate & Publish → `#marketing-activation` (Megaphone icon)
+   - Connect Your Workflow → `#connect` (Settings2 icon)
+   Each item: 7×7px icon container + title (`text-[13px] font-medium`) + description (`text-[12px]`). Hover: `bg-white/[0.05]` row, title brightens.
+
+2. **Use Cases** — wide panel (480px), 2-column grid of 4 audience entries:
+   - Sales Teams → `#sales-intelligence` (BarChart2)
+   - Editorial Teams → `#strategic-intelligence` (BookOpen)
+   - Marketing Teams → `#marketing-activation` (GitMerge)
+   - Leadership & Strategy → `#strategic-intelligence` (Users)
+
+3. **About** — compact panel (176px): Our Story → `/about`, Contact → `/contact`.
+
+4. **Request Demo** — CTA button (white pill).
+
+**Dropdown panel tokens:** `bg: rgba(6,13,28,0.97)`, `backdropFilter: blur(24px)`, `border-white/[0.09]`, `rounded-2xl`, `sideOffset={12}`. Section eyebrow at `text-[10px] uppercase tracking-[0.12em] opacity-28`.
+
+**ChevronDown rotation:** `[[data-state=open]_&]:rotate-180` on the chevron for open-state feedback.
 
 ### 8.2 Hero Section (`components/hero.tsx` + `components/hero-dashboard-panel.tsx`)
 
@@ -416,22 +435,29 @@ A dedicated mobile pass was completed. Key changes:
 
 ## 12. Multi-Page Structure
 
-The site now has four routes:
+The site now has five routes:
 
 | Route | File | Description |
 |-------|------|-------------|
 | `/` | `app/page.tsx` | Main landing page |
 | `/about` | `app/about/page.tsx` | Our Story editorial page |
 | `/request-demo` | `app/request-demo/page.tsx` | Demo request form (two-column) |
-| `/contact` | `app/contact/page.tsx` | Minimal contact page |
+| `/contact` | `app/contact/page.tsx` | Contact page (with Header) |
+| `/product/capture` | `app/product/capture/page.tsx` | Capture & Organise product page |
+| `/product/prepare` | `app/product/prepare/page.tsx` | Prepare & Sell product page |
+| `/product/activate` | `app/product/activate/page.tsx` | Activate & Publish product page |
+| `/product/connect`  | `app/product/connect/page.tsx`  | Connect Your Workflow product page |
 
 ### 12.1 `/about` — Our Story
 
 Premium editorial page. Uses `<Header />`. Structure:
-- **Hero:** `max-w-5xl` two-column layout — large serif headline left, lead paragraph right.
-- **Story body:** `max-w-5xl` two-column grid (`lg:grid-cols-2`). Left: 3 narrative paragraphs. Right: crystallisation paragraph (elevated opacity) + mission paragraph.
+- **Hero:** `max-w-5xl` editorial two-column layout (`lg:grid-cols-[1fr_auto]`). Left: eyebrow + serif headline + lead paragraph. Right (desktop only, `hidden lg:block`): `290×290px` square containing `3D.mp4` video (`autoPlay muted loop playsInline`, `object-cover`, `saturate(0.82) contrast(1.06) brightness(0.84)`), `rounded-2xl`, `border-white/[0.07]`, deep shadow. No full-bleed background image.
+- **Story body:** `max-w-5xl`. Split into two grid blocks separated by the port image break:
+  - *Opening grid* (`lg:grid-cols-2`): Left — Instinct + Field paragraphs. Right — Shift paragraph (elevated `text-white/72`).
+  - *Port image break* (`port.png`, full-width `rounded-2xl`, `h-[280px]→md:h-[440px]`, bottom scrim, "The signal was always there." serif overlay, `group-hover:scale-[1.025]`).
+  - *Closing grid* (`lg:grid-cols-2`): Left — Pattern. Right — Purpose.
+  - Each paragraph has a mini subheading: `text-[10px] uppercase tracking-[0.14em] opacity-20` (Instinct / Field / Shift / Pattern / Purpose).
 - **Founders section:** Team intro text above image, `draw-founders.png` with atmospheric CSS mask dissolve, names caption below.
-- **Image treatment:** `filter: saturate(0.78) contrast(1.05) brightness(0.91)` + `mask-image` radial gradient (ellipse 90%×76% centered at 50% 36%) fading edges into the dark background.
 - No separate footer — just a slim two-link nav row (Back to Sovereign / Request a demo).
 
 ### 12.2 `/request-demo` — Demo Request
@@ -445,9 +471,115 @@ Full-page two-column form. No `<Header />` (focused conversion page).
 
 ### 12.3 `/contact`
 
-Minimal centered page. Sovereign logo, "Get in touch." serif headline, supporting copy, `team@svgndata.com` as a large serif mailto link, secondary "Request a demo" outline button, back link.
+Minimal centered page. Uses `<Header />` (added April 2026). Structure: `<div min-h-screen>` → `<Header />` → fixed-position grain/dot textures (z-0) → centered content div (`pt-28 pb-20` to clear fixed header). Content: Sovereign landscape logo (opacity 0.45), eyebrow, serif headline "Get in touch.", hairline divider, supporting copy, `team@svgndata.com` mailto link, "Request a demo" outline button, back link.
 
-### 12.4 Fonts
+**Critical:** Do NOT use `overflow-hidden` or `<main>` as the page root — this breaks the fixed header's dropdown stacking context and causes React hydration errors that blank out the entire site. Always use `<div>` as the page wrapper.
+
+### 12.4 `/product/capture` — Capture & Organise
+
+Product subpage. Uses `<Header />`. Route: `/product/capture`. Three-step editorial layout matching the Features section visual language.
+
+**Structure (top to bottom):**
+1. **Hero** — breadcrumb (`Platform → Capture & Organise`), icon badge (Archive, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
+2. **Step 01 — Bring it in** — copy row + `UploadPanel`: source type selector (4 cards), drag-and-drop zone, metadata fields, "Capture & process" CTA.
+3. **Step 02 — Review & refine** — copy row + `TranscriptPanel`: utterance cards with speaker/timestamp, audio scrubber bars, "Key passage" badge, "Mark as reviewed" CTA.
+4. **Step 03 — Connect & link** — copy row + `EntitiesPanel`: 6 entities with colour-coded type pills, linked-records confirmation strip.
+5. **Benefits grid** — 2×2 hairline-bordered grid, serif `h3` titles, body copy.
+6. **CTA strip** — serif headline + two CTAs (white pill + ghost outline).
+7. **Footer nav** — same two-link pattern as About.
+
+**Panel token system** (all three panels use these constants):
+- `PANEL_BG = "#070E1F"`, `PANEL_BORDER = "rgba(147,147,147,0.16)"`, `DIVIDER = "rgba(147,147,147,0.10)"`
+- Accent colours: blue `#5B9CF6`, green `#4ADE80`, amber `#FBBF24`
+- All panels are static (no client interactivity) — the page is a Server Component.
+
+**Messaging principles for this page:**
+- Frame the review workflow positively: Sovereign *preserves nuance* and *protects critical detail* — never "the AI makes mistakes"
+- No technical vocabulary: no ingestion, pipelines, entity resolution, retrieval, ASR
+- Audience: editors, researchers, commercially minded operators
+
+### 12.5 `/product/prepare` — Prepare & Sell
+
+Product subpage. Uses `<Header />`. Route: `/product/prepare`. Two-showcase editorial layout — Copilot first, Network Explorer second.
+
+**Structure (top to bottom):**
+1. **Hero** — breadcrumb (`Platform → Prepare & Sell`), icon badge (TrendingUp, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
+2. **Copilot showcase** — copy row + `PrepareSellCopilot` (`components/prepare-sell-copilot.tsx`): a tabbed, multi-section conversation panel with 5 sections (Sales Intelligence / Commercial Preparation / Account Context / Relationship Context / Meeting Preparation). Each section contains a user query and a multi-block Sovereign response — insight cards, signal cards (amber), warning cards (red), and source reference pills. Footer bar shows live entity/source/connection counts.
+3. **Copilot benefits grid** — 2×2 hairline-bordered grid, serif `h3` titles.
+4. **Network Explorer showcase** — copy row + `PrepareSellGraph` (`components/prepare-sell-graph.tsx`): a dense interactive SVG graph with 22 nodes and 28 edges. Node types: Person, Company, Government, Region, Document, Initiative. Click to select — connected nodes/edges at full opacity, unconnected fade. Detail card bottom-left. Filter pills per type. Legend strip at bottom.
+5. **Explanatory copy strip** — rounded card explaining that the graph is drawn from internal sources only.
+6. **Graph benefits grid** — 2×2 hairline-bordered grid.
+7. **Closing statement grid** — 3-column stat/label/body grid.
+8. **CTA strip** — serif headline + two CTAs (white pill + ghost outline).
+9. **Footer nav** — same two-link pattern as other product pages.
+
+**Key components:**
+- `PrepareSellCopilot` — `"use client"`. Tabbed conversation panel. 5 `ConversationSection` objects, each with exchanges containing `ResponseBlock[]` typed as `text | insight | signal | warning`. Source reference pills rendered as blue-tinted chips. Footer shows entity/source/connection counts.
+- `PrepareSellGraph` — `"use client"`. Interactive SVG graph, `viewBox="0 0 760 420"`. 22 nodes, 28 edges. `NodeType`: Person / Company / Government / Region / Document / Initiative. Edge `strength`: strong / medium / weak (controls opacity). Click to select, hover to preview connections. Detail card: absolute bottom-left, shows type, name, mention count, connected entities. Filter pills toggle node types. Legend strip.
+
+**Messaging principles for this page:**
+- Copilot responses must feel grounded in internal memory — references to prior meetings, stored documents, follow-up threads, and relationship history
+- No generic advice — every insight is anchored in a specific internal source
+- Graph entities correspond to entities mentioned in the Copilot conversations
+- The graph is framed as structural memory behind conversational intelligence
+
+**Header nav update:** `Prepare & Sell` in the Product dropdown now links to `/product/prepare` (was `#sales-intelligence`).
+
+### 12.6 `/product/activate` — Activate & Publish
+
+Product subpage. Uses `<Header />`. Route: `/product/activate`. Two-showcase editorial layout — Output Panel first, Report Surface second.
+
+**Structure (top to bottom):**
+1. **Hero** — breadcrumb (`Platform → Activate & Publish`), icon badge (Megaphone, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
+2. **Output Panel showcase** — copy row + `ActivateOutputPanel` (`components/activate-output-panel.tsx`): a tabbed panel with 4 output formats (Newsletter / Board Brief / Investor Memo / Annual Review). Auto-rotates every 5s, pauses on hover. Progress bar in tab strip shows rotation timing. Footer strip shows source/entity counts.
+3. **Output benefits grid** — 2×2 hairline-bordered grid.
+4. **Report Surface showcase** — copy row + `ActivateReportSurface` (`components/activate-report-surface.tsx`): a large static document panel showing a full intelligence report (Executive Summary, coverage stats, Key Signals with source pills, Implications, Recommended Actions with priority badges, Appendix stub). Fades out at the bottom with a "Full report · 34 pages" hint. Sovereign geometric seal top-right.
+5. **Explanatory copy strip** — rounded card explaining the report is drawn from real internal sources.
+6. **Report benefits grid** — 2×2 hairline-bordered grid.
+7. **Closing statement grid** — 3-column stat/label/body grid.
+8. **CTA strip** — serif headline + two CTAs.
+9. **Footer nav** — same two-link pattern.
+
+**Key components:**
+- `ActivateOutputPanel` — `"use client"`. 4 tabs: Newsletter (intelligence brief with signal callout), Board Brief (executive summary + key decisions + risk flags), Investor Memo (opportunity + why now + IRR/hold/anchor stats), Annual Review (synthesis intro + two numbered theme cards). Auto-rotate with animated progress bar. Source/entity footer.
+- `ActivateReportSurface` — Server Component (no `"use client"`). Full document layout: window chrome with "Confidential" + "Final Draft" badges, Sovereign geometric seal (SVG), title, executive summary, 4-column coverage stats grid, 3 key signals with source reference pills, implications list, recommended actions with colour-coded priority badges (Immediate/red, Short-term/amber, Strategic/blue), appendix stub. Bottom fade-out gradient + "Full report · 34 pages" hint.
+
+**Messaging principles for this page:**
+- Frame as intelligence turned into authoritative output — not content generation or AI writing
+- Every output tab and report section references real internal sources, named stakeholders, and specific intelligence
+- Audience: commercial teams, editorial teams, board-facing communicators, strategy directors
+- No "AI-generated", "automated", or "content creation" language anywhere
+
+**Header nav update:** `Activate & Publish` in the Product dropdown now links to `/product/activate` (was `#marketing-activation`).
+
+### 12.7 `/product/connect` — Connect Your Workflow
+
+Product subpage. Uses `<Header />`. Route: `/product/connect`. Two-showcase editorial layout — Communications panel first, Project Dashboard second.
+
+**Structure (top to bottom):**
+1. **Hero** — breadcrumb (`Platform → Connect Your Workflow`), icon badge (Settings2, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
+2. **Communications showcase** — copy row + `ConnectCommsPanel` (`components/connect-comms-panel.tsx`): a two-column panel with a thread list on the left and a message detail view on the right. 3 threads (Manila Energy Pacific Corridor, Lagos Infrastructure steering committee, Frontier Group Abuja). Click to switch thread. Each message shows sender avatar, role, timestamp, body, and context tags (linked to account memory). Status badges (Active/Pending/Resolved). Context strip at bottom shows deduplicated tags from the active thread.
+3. **Communications benefits grid** — 2×2 hairline-bordered grid.
+4. **Project Dashboard showcase** — copy row + `ConnectProjectDashboard` (`components/connect-project-dashboard.tsx`): a rich tabbed project view for "Angola 2025". Three tabs: Overview (KPI cards, revenue progress bar, recent deals table, activity feed, team strip), Deals (full deal table with pipeline total), Sources (source type bars + recent sources list). Window chrome with project name and Active badge.
+5. **Explanatory copy strip** — rounded card explaining this is a live working view, not a reporting mockup.
+6. **Dashboard benefits grid** — 2×2 hairline-bordered grid.
+7. **Closing statement grid** — 3-column stat/label/body grid.
+8. **CTA strip** — serif headline + two CTAs.
+9. **Footer nav** — same two-link pattern.
+
+**Key components:**
+- `ConnectCommsPanel` — `"use client"`. Two-column layout: left thread list (search bar, filter pills, 3 thread items with unread indicator and status badge), right message detail (thread header with account type/name, animated message list with `AnimatePresence`, context tag strip at bottom). Thread items highlight active with blue left border.
+- `ConnectProjectDashboard` — `"use client"`. Three tabs: Overview (4 KPI cards, revenue progress bar with collected/pending split, 2-column recent deals + activity feed, team avatars), Deals (sortable-looking table with pipeline total row), Sources (bar chart per source type + recent sources list with type badges). Window chrome with project identity bar (name, region pill, geography/owner, team avatars).
+
+**Messaging principles for this page:**
+- Frame as connected operating context — not integrations or API settings
+- Communication threads are part of account intelligence, not a separate inbox
+- The project dashboard is a working system, not a reporting tool
+- No "integrations", "sync", "API", "webhook", or "connector" language
+
+**Header nav update:** `Connect Your Workflow` in the Product dropdown now links to `/product/connect` (was `#connect`).
+
+### 12.8 Fonts
 
 `app/layout.tsx` loads three Google fonts via `next/font/google`:
 - `Inter` → `--font-sans` (body)
@@ -486,4 +618,18 @@ If you are a coding or content agent working on this landing page, follow this p
 
 ---
 
-*Last updated: April 2026 — §8.1 header nav trimmed (About: Our Story + Contact only); §8.3 trust banner replaced with editorial statement; §8.4 MarketingActivationComposition added (mountain image + editorial text); §8.5 SovereignWordmark band added + footer Contact link; §9.6 mobile hero panel resolved; §11 mobile responsiveness pass documented; §12 multi-page structure added (/about, /request-demo, /contact, Resend integration, Gabarito font)*
+---
+
+## 13. Known Bugs & Resolved Issues
+
+### 13.1 Contact page hydration crash — RESOLVED
+
+**Symptom:** Adding `<Header />` to `/contact` with `<main overflow-hidden>` as the page root caused a React hydration error that blanked out the entire site (including `/`). The fixed `<Header />` uses Radix portals for dropdowns — these require the stacking context to be clean. `overflow-hidden` on a `position: relative` ancestor breaks portal z-indexing and triggers a hydration mismatch.
+
+**Fix:** The contact page root must be `<div>` (not `<main>`), with no `overflow-hidden`. Textures use `position: fixed` (not `absolute`). Content uses `pt-28` to clear the 64px header.
+
+**Rule for all future pages with `<Header />`:** Always use `<div className="min-h-screen">` as the outermost element. Never use `overflow-hidden` at the page level.
+
+---
+
+*Last updated: April 2026 — §8.1 header nav fully rebuilt (Product 4-pillar + Use Cases 4-entry + About); §12.1 About hero reworked (3D.mp4 inset, no full-bleed bg, port.png editorial break, mini subheadings); §12.3 Contact updated (Header added, hydration bug fixed); §12.4 /product/capture added (Capture & Organise product page); §12.5 /product/prepare added (Prepare & Sell product page — Copilot showcase + Network Explorer); §12.6 /product/activate added (Activate & Publish product page — Output Panel + Report Surface); §12.7 /product/connect added (Connect Your Workflow product page — Communications panel + Project Dashboard); §13 known bugs section added*
