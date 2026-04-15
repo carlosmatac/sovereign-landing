@@ -427,6 +427,17 @@ export default function UseCasesPage() {
                 "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,14,44,0.65) 0%, transparent 65%)",
             }}
           />
+          {/* Local dot field */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage: DOT_GRID,
+              backgroundRepeat: "repeat",
+              backgroundSize: "20px 20px",
+              opacity: 0.07,
+            }}
+          />
 
           <div className="relative mx-auto max-w-5xl px-6 py-20 md:py-24">
             <div

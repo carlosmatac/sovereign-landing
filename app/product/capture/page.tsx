@@ -565,6 +565,17 @@ export default function CaptureOrganisePage() {
                 "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,14,44,0.60) 0%, transparent 65%)",
             }}
           />
+          {/* Local dot field */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='0.5' cy='0.5' r='0.9' fill='white' fill-opacity='1'/%3E%3C/svg%3E\")",
+              backgroundRepeat: "repeat",
+              backgroundSize: "20px 20px",
+              opacity: 0.06,
+            }}
+          />
 
           <div className="relative mx-auto max-w-5xl px-6 py-20 md:py-28">
             <p className="mb-12 text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.28)" }}>

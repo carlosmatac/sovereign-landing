@@ -240,6 +240,17 @@ export default function ActivatePublishPage() {
                 "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(6,14,46,0.75) 0%, transparent 65%)",
             }}
           />
+          {/* Local dot field */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage: DOT_GRID,
+              backgroundRepeat: "repeat",
+              backgroundSize: "20px 20px",
+              opacity: 0.065,
+            }}
+          />
 
           <div className="relative mx-auto max-w-5xl px-6 pt-20 md:pt-28">
             {/* Copy row */}
