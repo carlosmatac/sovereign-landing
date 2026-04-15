@@ -35,18 +35,9 @@ const DOT_GRID =
 // Cursor interaction: spring-driven mask follows the cursor. The transparent zone
 // locally removes the veil, revealing crisp grid + wordmark beneath.
 
+// Precise dot field — 20px grid, 0.9px radius dots, architectural / technical substrate
 const BAND_GRID =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M 24 0 L 0 0 0 24' fill='none' stroke='white' stroke-width='0.5' stroke-opacity='0.12'/%3E%3C/svg%3E\")"
-
-const WORD_STYLE: React.CSSProperties = {
-  fontFamily: "var(--font-gabarito), var(--font-sans), sans-serif",
-  fontSize: "clamp(52px, 9vw, 124px)",
-  fontWeight: 700,
-  letterSpacing: "-0.03em",
-  lineHeight: 1,
-  userSelect: "none",
-  whiteSpace: "nowrap",
-}
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='0.5' cy='0.5' r='0.9' fill='white' fill-opacity='0.18'/%3E%3C/svg%3E\")"
 
 function SovereignWordmark() {
   const bandRef = useRef<HTMLDivElement>(null)
@@ -92,14 +83,23 @@ function SovereignWordmark() {
           borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        {/* Content — sharp grid + wordmark at full brightness */}
+        {/* Content — precise dot field + logo at full brightness */}
         <div className="absolute inset-0">
           <div
             className="absolute inset-0"
-            style={{ backgroundImage: BAND_GRID, backgroundRepeat: "repeat" }}
+            style={{ backgroundImage: BAND_GRID, backgroundRepeat: "repeat", backgroundSize: "20px 20px" }}
           />
           <div className="relative flex h-full items-center justify-center">
-            <p style={{ ...WORD_STYLE, color: "rgba(255,255,255,0.88)" }}>sovereign</p>
+            <Image
+              src="/sovereign_log_apaisado_blanco.svg"
+              alt="Sovereign"
+              width={520}
+              height={72}
+              className="w-[clamp(260px,46vw,520px)] select-none"
+              style={{ height: "auto", opacity: 0.90 }}
+              draggable={false}
+              priority={false}
+            />
           </div>
         </div>
 

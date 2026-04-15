@@ -1128,9 +1128,9 @@ export function HeroDashboardPanel() {
 
   return (
     <div
-      className="flex w-full overflow-hidden rounded-[17px] border border-[rgba(147,147,147,0.16)]"
+      className="flex w-full flex-col overflow-hidden rounded-[17px] border border-[rgba(147,147,147,0.16)]"
       style={{
-        aspectRatio: "880 / 498",
+        aspectRatio: "880 / 522",
         background: "#070E1F",
         boxShadow: [
           "0 0 0 1px rgba(255,255,255,0.05)",
@@ -1139,6 +1139,48 @@ export function HeroDashboardPanel() {
         ].join(", "),
       }}
     >
+      {/* ── Window chrome top bar ─────────────────────────────────────── */}
+      <div
+        className="flex shrink-0 items-center justify-between px-4 py-[9px]"
+        style={{
+          background: "linear-gradient(to bottom, #0D1B32, #0B1729)",
+          borderBottom: "1px solid rgba(147,147,147,0.10)",
+        }}
+      >
+        <div className="flex items-center gap-3">
+          {/* Traffic-light dots */}
+          <div className="flex gap-[5px]">
+            {(["rgba(255,95,86,0.42)", "rgba(255,189,68,0.42)", "rgba(40,200,64,0.42)"] as const).map(
+              (color, i) => (
+                <div key={i} className="h-[8px] w-[8px] rounded-full" style={{ background: color }} />
+              ),
+            )}
+          </div>
+          <span
+            className="text-[10px] font-medium uppercase tracking-[0.07em]"
+            style={{ color: "rgba(255,255,255,0.28)" }}
+          >
+            Sovereign · Intelligence Platform
+          </span>
+        </div>
+        {/* Status pill */}
+        <div
+          className="flex items-center gap-1.5 rounded-full px-2 py-[3px]"
+          style={{
+            background: "rgba(74,222,128,0.07)",
+            border: "1px solid rgba(74,222,128,0.17)",
+          }}
+        >
+          <div className="h-[5px] w-[5px] rounded-full bg-[#4ADE80]" />
+          <span className="text-[8px] font-semibold uppercase tracking-[0.09em] text-[#4ADE80]">
+            Live
+          </span>
+        </div>
+      </div>
+
+      {/* ── Body (sidebar + panel) ────────────────────────────────────── */}
+      <div className="flex flex-1 overflow-hidden">
+
       {/* ── Left sidebar ──────────────────────────────────────────────── */}
       <div
         className="flex shrink-0 flex-col gap-6 px-5 py-5"
@@ -1185,6 +1227,8 @@ export function HeroDashboardPanel() {
           : activeNav === "Interviews" ? <InterviewsPanel />
           : <NetworkExplorerPanel />}
       </div>
+
+      </div>{/* end body */}
     </div>
   )
 }
