@@ -447,6 +447,7 @@ The site now has five routes:
 | `/product/prepare` | `app/product/prepare/page.tsx` | Prepare & Sell product page |
 | `/product/activate` | `app/product/activate/page.tsx` | Activate & Publish product page |
 | `/product/connect`  | `app/product/connect/page.tsx`  | Connect Your Workflow product page |
+| `/use-cases`        | `app/use-cases/page.tsx`        | Who it's built for — audience overview page |
 
 ### 12.1 `/about` — Our Story
 
@@ -579,7 +580,34 @@ Product subpage. Uses `<Header />`. Route: `/product/connect`. Two-showcase edit
 
 **Header nav update:** `Connect Your Workflow` in the Product dropdown now links to `/product/connect` (was `#connect`).
 
-### 12.8 Fonts
+### 12.8 `/use-cases` — Who it's built for
+
+Audience overview page. Uses `<Header />`. Route: `/use-cases`. Four audience sections, each with a distinct layout composition and image placeholder.
+
+**Structure (top to bottom):**
+1. **Hero** — eyebrow "Use Cases", large serif headline *"Who it's built for."*, short lead paragraph.
+2. **01 Sales Teams** (`id="sales"`) — wide cinematic `aspect-[21/8]` placeholder (dot grid, blue glow), copy centred below. Full-width composition.
+3. **02 Editorial Teams** (`id="editorial"`) — portrait `aspect-[3/4]` placeholder left (38%), copy right with three bullet points (green accent dots). Left-image asymmetric layout. Section glow: green tint left.
+4. **03 Marketing Teams** (`id="marketing"`) — square `aspect-square` placeholder right (42%), copy left with three bullet points (violet accent dots). `flex-row-reverse` on desktop. Section glow: violet tint right.
+5. **04 Leadership & Strategy** (`id="leadership"`) — horizontal band `aspect-[3/1]` placeholder above, two-column copy below (`3fr 2fr`): headline/paragraph left, three card-style value items right (Immediate/Short-term/Strategic). Section glow: amber/bronze.
+6. **Audience summary strip** — 4-column (2-col mobile) hairline-bordered grid with serif one-liners per audience.
+7. **CTA strip** — serif headline + two CTAs.
+8. **Footer nav** — same two-link pattern.
+
+**`ImagePlaceholder` component** (defined inline in the page file, Server Component):
+- Props: `label` (bottom-left caption), `aspectClass` (Tailwind aspect/height class), `glowColor` (radial gradient fill), `gridPattern` ("dots" | "lines" | "cross")
+- Background: `#06111F`, hairline border, subtle pattern overlay, radial atmospheric glow, inner hairline frame, bottom-left label at `text-[9.5px] uppercase tracking-[0.14em] opacity-18`
+
+**Header nav update:** All four Use Cases dropdown links now point to `/use-cases#sales`, `/use-cases#editorial`, `/use-cases#marketing`, `/use-cases#leadership` (were `#sales-intelligence` etc. hash-only links).
+
+**Design principles for this page:**
+- Four distinct layout compositions — no two sections use the same image/copy arrangement
+- Each section has a subtly different atmospheric glow accent (blue → green → violet → amber)
+- Placeholder blocks use varied aspect ratios: `21/8` cinematic, `3/4` portrait, `1/1` square, `3/1` horizontal band
+- Page is lighter and more visual than the Product pages — no product panels, no dashboards
+- Fully responsive: all flex rows stack vertically on mobile
+
+### 12.9 Fonts
 
 `app/layout.tsx` loads three Google fonts via `next/font/google`:
 - `Inter` → `--font-sans` (body)
@@ -632,4 +660,4 @@ If you are a coding or content agent working on this landing page, follow this p
 
 ---
 
-*Last updated: April 2026 — §8.1 header nav fully rebuilt (Product 4-pillar + Use Cases 4-entry + About); §12.1 About hero reworked (3D.mp4 inset, no full-bleed bg, port.png editorial break, mini subheadings); §12.3 Contact updated (Header added, hydration bug fixed); §12.4 /product/capture added (Capture & Organise product page); §12.5 /product/prepare added (Prepare & Sell product page — Copilot showcase + Network Explorer); §12.6 /product/activate added (Activate & Publish product page — Output Panel + Report Surface); §12.7 /product/connect added (Connect Your Workflow product page — Communications panel + Project Dashboard); §13 known bugs section added*
+*Last updated: April 2026 — §8.1 header nav fully rebuilt (Product 4-pillar + Use Cases 4-entry + About); §12.1 About hero reworked (3D.mp4 inset, no full-bleed bg, port.png editorial break, mini subheadings); §12.3 Contact updated (Header added, hydration bug fixed); §12.4 /product/capture added (Capture & Organise product page); §12.5 /product/prepare added (Prepare & Sell product page — Copilot showcase + Network Explorer); §12.6 /product/activate added (Activate & Publish product page — Output Panel + Report Surface); §12.7 /product/connect added (Connect Your Workflow product page — Communications panel + Project Dashboard); §12.8 /use-cases added (Who it's built for — 4 audience sections with varied layout compositions and image placeholders); §13 known bugs section added*

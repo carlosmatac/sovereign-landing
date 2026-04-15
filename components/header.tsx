@@ -9,16 +9,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {
   Archive,
-  BarChart2,
-  BookOpen,
   ChevronDown,
   ChevronRight,
-  GitMerge,
   Megaphone,
   Menu,
   Settings2,
   TrendingUp,
-  Users,
   X,
 } from "lucide-react"
 import Image from "next/image"
@@ -56,33 +52,6 @@ const PRODUCT_PILLARS = [
   },
 ]
 
-// ─── Use cases ────────────────────────────────────────────────────────────────
-const USE_CASES = [
-  {
-    icon: BarChart2,
-    label: "Sales Teams",
-    description: "Walk into every conversation knowing more than the room.",
-    href: "#sales-intelligence",
-  },
-  {
-    icon: BookOpen,
-    label: "Editorial Teams",
-    description: "Surface patterns and signals across everything you've produced.",
-    href: "#strategic-intelligence",
-  },
-  {
-    icon: GitMerge,
-    label: "Marketing Teams",
-    description: "Publish with purpose — targeted content, drawn from real intelligence.",
-    href: "#marketing-activation",
-  },
-  {
-    icon: Users,
-    label: "Leadership & Strategy",
-    description: "Make decisions grounded in everything your organisation already knows.",
-    href: "#strategic-intelligence",
-  },
-]
 
 // ─── Mobile accordion section ─────────────────────────────────────────────────
 
@@ -187,49 +156,13 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* ── Use Cases ── */}
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] text-white/75 outline-none transition-colors hover:text-white data-[state=open]:text-white">
-                Use Cases
-                <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 [[data-state=open]_&]:rotate-180" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="center"
-                sideOffset={12}
-                className="w-[480px] rounded-2xl border border-white/[0.09] p-4"
-                style={{ backgroundColor: "rgba(6,13,28,0.97)", backdropFilter: "blur(24px)" }}
-              >
-                <div className="mb-3 px-1">
-                  <p className="text-[10px] font-medium uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.28)" }}>
-                    Who it&apos;s built for
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 gap-1">
-                  {USE_CASES.map(({ icon: Icon, label, description, href }) => (
-                    <Link
-                      key={label}
-                      href={href}
-                      className="group flex items-start gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-white/[0.05]"
-                    >
-                      <div
-                        className="mt-[2px] flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
-                        style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.09)" }}
-                      >
-                        <Icon className="h-3.5 w-3.5" style={{ color: "rgba(255,255,255,0.55)" }} />
-                      </div>
-                      <div>
-                        <p className="mb-0.5 text-[13px] font-medium tracking-[-0.011em] text-white/85 transition-colors group-hover:text-white">
-                          {label}
-                        </p>
-                        <p className="text-[12px] leading-[1.55] tracking-[-0.008em]" style={{ color: "rgba(255,255,255,0.38)" }}>
-                          {description}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {/* ── Who it's built for ── */}
+            <Link
+              href="/use-cases"
+              className="rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] text-white/75 transition-colors hover:text-white"
+            >
+              Who it&apos;s built for
+            </Link>
 
             {/* ── About ── */}
             <DropdownMenu>
@@ -324,39 +257,16 @@ export function Header() {
             ))}
           </MobileSection>
 
-          {/* Use Cases */}
-          <MobileSection label="Use Cases">
-            <p
-              className="mb-2 px-6 text-[10px] font-medium uppercase tracking-[0.12em]"
-              style={{ color: "rgba(255,255,255,0.28)" }}
-            >
-              Who it&apos;s built for
-            </p>
-            {USE_CASES.map(({ icon: Icon, label, description, href }) => (
-              <Link
-                key={label}
-                href={href}
-                onClick={() => setMobileOpen(false)}
-                className="flex items-start gap-3 px-6 py-3 transition-colors active:bg-white/[0.04]"
-              >
-                <div
-                  className="mt-[2px] flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
-                  style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.09)" }}
-                >
-                  <Icon className="h-3.5 w-3.5" style={{ color: "rgba(255,255,255,0.55)" }} />
-                </div>
-                <div className="flex-1">
-                  <p className="mb-0.5 text-[14px] font-medium tracking-[-0.011em] text-white/85">
-                    {label}
-                  </p>
-                  <p className="text-[12px] leading-[1.55]" style={{ color: "rgba(255,255,255,0.38)" }}>
-                    {description}
-                  </p>
-                </div>
-                <ChevronRight className="mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "rgba(255,255,255,0.22)" }} />
-              </Link>
-            ))}
-          </MobileSection>
+          {/* Who it's built for */}
+          <Link
+            href="/use-cases"
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center justify-between px-6 py-4 text-[15px] font-medium tracking-[-0.011em] text-white/80 transition-colors active:bg-white/[0.04]"
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}
+          >
+            Who it&apos;s built for
+            <ChevronRight className="h-4 w-4" style={{ color: "rgba(255,255,255,0.30)" }} />
+          </Link>
 
           {/* About */}
           <MobileSection label="About">
