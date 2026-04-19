@@ -162,14 +162,22 @@ export function Header() {
          *  background opacity, radius, border, shadow and height. Everything
          *  inside is unchanged content — only the framing transitions.
          *
-         *  The inner content (logo + nav + CTA) is constrained to max-w-6xl
-         *  exactly like before; the inset effect is achieved at the outer
-         *  wrapper level instead of by shrinking the inner content rail.
+         *  Width strategy:
+         *    • FITTED   → spans the full viewport (max-width: 100%) so the
+         *                 bar reads as part of the page shell.
+         *    • DETACHED → caps at 1480px so the floating bar still holds a
+         *                 confident, architectural width on large monitors
+         *                 without pushing the logo and CTA infinitely apart
+         *                 on ultra-wide displays.
+         *
+         *  Content distribution lives inside the inner flex row below, where
+         *  generous horizontal padding (px-6 → md:px-8 → lg:px-12) anchors
+         *  the logo to the far left and the CTA to the far right.
          */}
         <div
           className="relative mx-auto"
           style={{
-            maxWidth: detached ? "1200px" : "100%",
+            maxWidth: detached ? "1480px" : "100%",
             height: detached ? "56px" : "64px",
             borderRadius: detached ? "14px" : "0px",
             // Single border declaration that animates color smoothly between
@@ -203,7 +211,21 @@ export function Header() {
             ].join(", "),
           }}
         >
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6">
+        {/*
+         *  CONTENT ROW
+         *
+         *  No max-width on this row — it fills the inner bar so the logo can
+         *  sit hard against the left padding and the CTA hard against the
+         *  right padding. Padding scales with viewport so the anchors keep
+         *  breathing room on small screens but really commit to the edges
+         *  on large ones.
+         *
+         *  The desktop nav is absolutely centred with `lg:absolute` so its
+         *  position is independent of how wide the logo or CTA cluster grow.
+         *  This is what gives the header the architectural left/centre/right
+         *  composition you want at >=lg widths.
+         */}
+        <div className="relative flex h-full items-center justify-between gap-4 px-5 sm:px-6 md:px-8 lg:px-12">
           {/* Logo */}
           <Link href="/" className="flex items-center" onClick={() => setMobileOpen(false)}>
             <Image
@@ -222,8 +244,12 @@ export function Header() {
             />
           </Link>
 
-          {/* Desktop navigation */}
-          <nav className="hidden items-center gap-1 md:flex">
+          {/* Desktop navigation — absolutely centred at >=lg so it stays
+              optically anchored to the page midline regardless of how wide
+              the logo or the right-side cluster grow. At md it sits in the
+              normal flex flow, which keeps the bar from feeling empty on
+              tablet breakpoints where there's less horizontal room. */}
+          <nav className="hidden items-center gap-1 md:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2">
 
             {/* ── Product ── */}
             <DropdownMenu>
