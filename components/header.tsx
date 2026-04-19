@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -19,6 +19,59 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+
+// ─── Scroll-reactive state ────────────────────────────────────────────────────
+// The header transitions between two visual states based on scroll position:
+//
+//   • FITTED  (page near the top)
+//       full-width, no top offset, square corners, only a 1px bottom hairline,
+//       slightly less opaque background. Reads as part of the page shell.
+//
+//   • DETACHED (after the user has scrolled past the threshold)
+//       inset from the viewport edges, gains a 14px radius, a soft 3-layer
+//       panel shadow, a denser background, and a slightly reduced height.
+//       Reads as a floating premium bar — but never glass-y.
+//
+// Hysteresis is intentional: switch to detached above 28px, return to fitted
+// below 8px. That avoids flicker when the user lingers around the threshold.
+
+const SCROLL_DOWN_THRESHOLD = 28
+const SCROLL_UP_THRESHOLD = 8
+
+function useScrolledState() {
+  const [scrolled, setScrolled] = useState(false)
+  const ticking = useRef(false)
+
+  useEffect(() => {
+    // Initialise from the current scroll position so refresh doesn't flash.
+    if (typeof window !== "undefined") {
+      setScrolled(window.scrollY > SCROLL_DOWN_THRESHOLD)
+    }
+
+    const handler = () => {
+      if (ticking.current) return
+      ticking.current = true
+      requestAnimationFrame(() => {
+        const y = window.scrollY
+        setScrolled((prev) => {
+          if (!prev && y > SCROLL_DOWN_THRESHOLD) return true
+          if (prev && y < SCROLL_UP_THRESHOLD) return false
+          return prev
+        })
+        ticking.current = false
+      })
+    }
+
+    window.addEventListener("scroll", handler, { passive: true })
+    return () => window.removeEventListener("scroll", handler)
+  }, [])
+
+  return scrolled
+}
+
+// Shared easing — matches the landing-page transition curve for a unified feel.
+const HEADER_EASE = "cubic-bezier(0.22, 0.8, 0.36, 1)"
+const HEADER_DURATION = "520ms"
 
 // ─── Product pillars ──────────────────────────────────────────────────────────
 const PRODUCT_PILLARS = [
@@ -89,14 +142,80 @@ function MobileSection({
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const scrolled = useScrolledState()
+
+  // While the mobile drawer is open we lock the header in its FITTED state.
+  // The drawer is full-screen so the header's framing should stay aligned
+  // with the page shell underneath it instead of shrinking visually.
+  const detached = scrolled && !mobileOpen
 
   return (
     <>
+      {/*
+       *  WRAPPER (fixed, full-width)
+       *
+       *  Animates `padding` so the inner bar gets gently pushed in from the
+       *  viewport edges as the page scrolls. This is what produces the
+       *  "detaching" effect — no JS layout, just CSS transitions on padding.
+       */}
       <header
-        className="fixed left-0 top-0 z-50 w-full border-b border-white/[0.07] backdrop-blur-2xl"
-        style={{ backgroundColor: "rgba(6, 13, 28, 0.82)" }}
+        className="fixed inset-x-0 top-0 z-50"
+        style={{
+          paddingTop: detached ? "10px" : "0px",
+          paddingLeft: detached ? "12px" : "0px",
+          paddingRight: detached ? "12px" : "0px",
+          transition: `padding ${HEADER_DURATION} ${HEADER_EASE}`,
+        }}
       >
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        {/*
+         *  INNER BAR
+         *
+         *  Holds all the visual properties that shift between the two states:
+         *  background opacity, radius, border, shadow and height. Everything
+         *  inside is unchanged content — only the framing transitions.
+         *
+         *  The inner content (logo + nav + CTA) is constrained to max-w-6xl
+         *  exactly like before; the inset effect is achieved at the outer
+         *  wrapper level instead of by shrinking the inner content rail.
+         */}
+        <div
+          className="relative mx-auto"
+          style={{
+            maxWidth: detached ? "1200px" : "100%",
+            height: detached ? "56px" : "64px",
+            borderRadius: detached ? "14px" : "0px",
+            // Single border declaration that animates color smoothly between
+            // states. In fitted, the side/top edges fade to transparent and
+            // only the bottom edge shows — overridden via borderBottomColor.
+            border: `1px solid ${
+              detached ? "rgba(147,147,147,0.18)" : "rgba(255,255,255,0)"
+            }`,
+            borderBottomColor: detached
+              ? "rgba(147,147,147,0.18)"
+              : "rgba(255,255,255,0.07)",
+            background: detached
+              ? "rgba(7,14,31,0.86)"
+              : "rgba(6,13,28,0.78)",
+            // 3-layer panel shadow on detached, none on fitted.
+            boxShadow: detached
+              ? "0 0 0 1px rgba(255,255,255,0.025), 0 18px 44px -14px rgba(0,0,0,0.65), 0 4px 16px -4px rgba(0,0,0,0.45)"
+              : "0 0 0 0 rgba(0,0,0,0)",
+            // Light, restrained backdrop blur — never glass-y. The bg color
+            // does most of the lifting; blur is only there to prevent harsh
+            // text-on-content collisions when the page scrolls underneath.
+            backdropFilter: "blur(18px) saturate(120%)",
+            WebkitBackdropFilter: "blur(18px) saturate(120%)",
+            transition: [
+              `max-width ${HEADER_DURATION} ${HEADER_EASE}`,
+              `height ${HEADER_DURATION} ${HEADER_EASE}`,
+              `border-radius ${HEADER_DURATION} ${HEADER_EASE}`,
+              `border-color ${HEADER_DURATION} ${HEADER_EASE}`,
+              `background-color ${HEADER_DURATION} ${HEADER_EASE}`,
+              `box-shadow ${HEADER_DURATION} ${HEADER_EASE}`,
+            ].join(", "),
+          }}
+        >
+        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6">
           {/* Logo */}
           <Link href="/" className="flex items-center" onClick={() => setMobileOpen(false)}>
             <Image
@@ -104,7 +223,13 @@ export function Header() {
               alt="Sovereign"
               width={200}
               height={52}
-              style={{ width: "auto", height: "52px", maxWidth: "100%" }}
+              style={{
+                width: "auto",
+                // Logo subtly tightens with the bar — 4px shrink, not aggressive.
+                height: detached ? "48px" : "52px",
+                maxWidth: "100%",
+                transition: `height ${HEADER_DURATION} ${HEADER_EASE}`,
+              }}
               priority
             />
           </Link>
@@ -214,6 +339,7 @@ export function Header() {
               }
             </button>
           </div>
+        </div>
         </div>
       </header>
 
