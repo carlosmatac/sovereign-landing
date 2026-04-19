@@ -121,6 +121,15 @@
   to   { transform: rotate(360deg); }
 }
 
+/* Integrations marquee — translates the full track by exactly -50%, which
+   lines the second (duplicated) copy of the logo set up with where the first
+   started. The result is a perfectly seamless loop. Keep the duration high
+   (>40s) so the motion reads as ambient drift, not a ticker. */
+@keyframes sv-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
