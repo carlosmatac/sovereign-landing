@@ -2,18 +2,22 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { DemoForm } from "./demo-form"
+import { getServerT } from "@/lib/i18n/server"
+import { getDictionary } from "@/lib/i18n/config"
 
 export const metadata: Metadata = {
-  title: "Request a Demo — Sovereign",
-  description:
-    "See how Sovereign transforms your organisation's knowledge into intelligence that drives decisions. Book a personalised demo.",
+  title: getDictionary("en").requestDemo.metaTitle,
+  description: getDictionary("en").requestDemo.metaDescription,
 }
 
 // Film grain — consistent with the rest of the landing
 const GRAIN_BG =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E\")"
 
-export default function RequestDemoPage() {
+export default async function RequestDemoPage() {
+  const t = await getServerT()
+  const r = t.requestDemo
+
   return (
     <main
       className="flex min-h-screen flex-col lg:flex-row"
@@ -57,20 +61,19 @@ export default function RequestDemoPage() {
               className="mb-3 text-[11px] font-medium uppercase tracking-[0.10em]"
               style={{ color: "rgba(255,255,255,0.30)" }}
             >
-              Request a demo
+              {r.eyebrow}
             </p>
             <h1
               className="mb-4 font-serif text-3xl font-normal leading-tight tracking-[-0.025em] md:text-4xl"
               style={{ color: "rgba(255,255,255,0.92)" }}
             >
-              See Sovereign in action.
+              {r.headline}
             </h1>
             <p
               className="max-w-md text-[15px] leading-relaxed tracking-[-0.011em]"
               style={{ color: "rgba(255,255,255,0.45)" }}
             >
-              Tell us about your team and what you&apos;re working through. We&apos;ll tailor the
-              session to your exact context.
+              {r.body}
             </p>
           </div>
 
@@ -88,7 +91,7 @@ export default function RequestDemoPage() {
 
           {/* Footer note */}
           <p className="mt-12 text-[12px]" style={{ color: "rgba(255,255,255,0.20)" }}>
-            Questions?{" "}
+            {r.questions}{" "}
             <a
               href="mailto:team@svgndata.com"
               className="underline underline-offset-2 transition-colors hover:text-white/50"
@@ -103,7 +106,7 @@ export default function RequestDemoPage() {
       <div className="relative h-[56vw] w-full lg:sticky lg:top-0 lg:h-screen lg:w-1/2">
         <Image
           src="/dessert.png"
-          alt="Sovereign — built for the frontier"
+          alt={r.sideCallout.imageAlt}
           fill
           className="object-cover object-center"
           sizes="(min-width: 1024px) 50vw, 100vw"
@@ -141,13 +144,13 @@ export default function RequestDemoPage() {
             className="mb-3 font-serif text-2xl font-normal leading-snug tracking-[-0.025em] md:text-3xl"
             style={{ color: "rgba(255,255,255,0.92)" }}
           >
-            Ready to shape the future?
+            {r.sideCallout.headline}
           </h2>
           <p
             className="max-w-xs text-[13px] leading-relaxed tracking-[-0.011em] md:text-[14px]"
             style={{ color: "rgba(255,255,255,0.48)" }}
           >
-            The organisations operating at the edge of complexity need intelligence that moves as fast as they do.
+            {r.sideCallout.body}
           </p>
         </div>
       </div>

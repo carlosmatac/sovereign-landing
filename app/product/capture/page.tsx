@@ -11,11 +11,12 @@ import {
   Tag,
   Users,
 } from "lucide-react"
+import { getServerT } from "@/lib/i18n/server"
+import { getDictionary } from "@/lib/i18n/config"
 
 export const metadata: Metadata = {
-  title: "Capture & Organise — Sovereign",
-  description:
-    "Bring every conversation, report, and recording into one connected working memory. Sovereign turns raw material into reusable organisational knowledge.",
+  title: getDictionary("en").product.capture.metaTitle,
+  description: getDictionary("en").product.capture.metaDescription,
 }
 
 const GRAIN_BG =
@@ -71,24 +72,6 @@ const SOURCE_TYPES = [
   { icon: Users,    label: "Meeting notes",    sub: "Paste or upload" },
 ]
 
-const BENEFITS = [
-  {
-    title: "Bring every conversation into one working memory",
-    body: "Meetings, field recordings, written reports, and expert interviews — all structured, searchable, and connected to everything else your team already knows.",
-  },
-  {
-    title: "Preserve what matters before it gets lost",
-    body: "Critical context rarely survives in email threads or personal notes. Sovereign captures it at the source and keeps it available for whoever needs it next.",
-  },
-  {
-    title: "Review with confidence when the details matter",
-    body: "When precision is important, Sovereign makes it easy to verify and refine what has been captured — so your team can trust what they're working with.",
-  },
-  {
-    title: "Turn raw material into connected context",
-    body: "Every source you bring in becomes part of a growing organisational memory — linked to the people, organisations, and themes that already exist in your system.",
-  },
-]
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -379,7 +362,9 @@ function EntitiesPanel() {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function CaptureOrganisePage() {
+export default async function CaptureOrganisePage() {
+  const t = await getServerT()
+  const c = t.product.capture
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#060D1C" }}>
       <Header />
@@ -417,11 +402,11 @@ export default function CaptureOrganisePage() {
                 className="text-[11px] font-medium uppercase tracking-[0.10em] transition-opacity hover:opacity-70"
                 style={{ color: "rgba(255,255,255,0.28)" }}
               >
-                Platform
+                {t.shared.breadcrumb.platform}
               </Link>
               <ChevronRight className="h-3 w-3" style={{ color: "rgba(255,255,255,0.18)" }} strokeWidth={1.5} />
               <p className="text-[11px] font-medium uppercase tracking-[0.10em]" style={{ color: "rgba(255,255,255,0.50)" }}>
-                Capture &amp; Organise
+                {c.crumb}
               </p>
             </div>
 
@@ -434,22 +419,22 @@ export default function CaptureOrganisePage() {
                 <Archive className="h-3.5 w-3.5" style={{ color: ACCENT_BLUE }} strokeWidth={1.5} />
               </div>
               <p className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.28)" }}>
-                Capture &amp; Organise
+                {c.eyebrow}
               </p>
             </div>
 
             {/* Headline + lead */}
             <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[3fr_2fr] lg:gap-20">
               <h1 className="font-serif text-4xl font-normal leading-[1.06] tracking-[-0.030em] text-white md:text-5xl lg:text-[3.2rem]">
-                Everything your team knows,
+                {c.headlineLine1}
                 <br />
-                in one place that works.
+                {c.headlineLine2}
               </h1>
               <p
                 className="text-pretty text-[15px] leading-[1.80] tracking-[-0.011em] lg:pb-1"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
-                Sovereign brings recordings, reports, and conversations into a single connected system — so nothing important gets left behind, and everything becomes easier to find, use, and build on.
+                {c.lead}
               </p>
             </div>
 
@@ -473,14 +458,14 @@ export default function CaptureOrganisePage() {
             <div className="mb-14 grid grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr] lg:gap-20">
               <div>
                 <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.28)" }}>
-                  01 — Bring it in
+                  {c.step1.eyebrow}
                 </p>
                 <h2 className="font-serif text-3xl font-normal leading-[1.10] tracking-[-0.025em] text-white md:text-4xl">
-                  Every format your team works with.
+                  {c.step1.title}
                 </h2>
               </div>
               <p className="text-[15px] leading-[1.80] tracking-[-0.011em] lg:pt-10" style={{ color: "rgba(255,255,255,0.48)" }}>
-                Audio recordings, PDF reports, written transcripts, meeting notes — Sovereign accepts the formats your team already produces. No reformatting required before the value starts.
+                {c.step1.body}
               </p>
             </div>
           </div>
@@ -506,14 +491,14 @@ export default function CaptureOrganisePage() {
             <div className="mb-14 grid grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr] lg:gap-20">
               <div>
                 <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.28)" }}>
-                  02 — Review &amp; refine
+                  {c.step2.eyebrow}
                 </p>
                 <h2 className="font-serif text-3xl font-normal leading-[1.10] tracking-[-0.025em] text-white md:text-4xl">
-                  Precision where it matters most.
+                  {c.step2.title}
                 </h2>
               </div>
               <p className="text-[15px] leading-[1.80] tracking-[-0.011em] lg:pt-10" style={{ color: "rgba(255,255,255,0.48)" }}>
-                Sovereign is designed to preserve nuance. When the details matter, the platform gives your team a clear, fast way to verify what has been captured — so you can trust what you're working with.
+                {c.step2.body}
               </p>
             </div>
           </div>
@@ -538,14 +523,14 @@ export default function CaptureOrganisePage() {
             <div className="mb-14 grid grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr] lg:gap-20">
               <div>
                 <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.28)" }}>
-                  03 — Connect &amp; link
+                  {c.step3.eyebrow}
                 </p>
                 <h2 className="font-serif text-3xl font-normal leading-[1.10] tracking-[-0.025em] text-white md:text-4xl">
-                  New information, connected to everything.
+                  {c.step3.title}
                 </h2>
               </div>
               <p className="text-[15px] leading-[1.80] tracking-[-0.011em] lg:pt-10" style={{ color: "rgba(255,255,255,0.48)" }}>
-                Every source you add becomes part of a growing organisational memory. People, organisations, and themes are recognised and linked to what your team already knows — so context compounds over time.
+                {c.step3.body}
               </p>
             </div>
           </div>
@@ -579,11 +564,11 @@ export default function CaptureOrganisePage() {
 
           <div className="relative mx-auto max-w-5xl px-6 py-20 md:py-28">
             <p className="mb-12 text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.28)" }}>
-              Why it matters
+              {t.shared.closing.whyItMatters}
             </p>
 
             <div className="grid grid-cols-1 gap-px sm:grid-cols-2" style={{ background: "rgba(255,255,255,0.06)" }}>
-              {BENEFITS.map(({ title, body }) => (
+              {c.benefits.map(({ title, body }) => (
                 <div
                   key={title}
                   className="p-8"
@@ -607,10 +592,10 @@ export default function CaptureOrganisePage() {
             <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="font-serif text-2xl font-normal leading-[1.14] tracking-[-0.022em] text-white md:text-3xl">
-                  Ready to put your knowledge to work?
+                  {c.cta.headline}
                 </h2>
                 <p className="mt-2 text-[14px] leading-[1.70] tracking-[-0.010em]" style={{ color: "rgba(255,255,255,0.42)" }}>
-                  See how Sovereign captures and connects what your team already knows.
+                  {c.cta.body}
                 </p>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -618,7 +603,7 @@ export default function CaptureOrganisePage() {
                   href="/request-demo"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium tracking-[-0.011em] text-[#070E1F] transition-opacity hover:opacity-90"
                 >
-                  Request a demo
+                  {t.shared.ctaStrip.requestDemo}
                   <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
                 </Link>
                 <Link
@@ -626,7 +611,7 @@ export default function CaptureOrganisePage() {
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-[-0.011em] transition-colors hover:bg-white/[0.06]"
                   style={{ border: "1px solid rgba(255,255,255,0.14)", color: "rgba(255,255,255,0.60)" }}
                 >
-                  Explore the platform
+                  {t.shared.ctaStrip.explorePlatform}
                 </Link>
               </div>
             </div>
@@ -643,14 +628,14 @@ export default function CaptureOrganisePage() {
             className="text-[12px] tracking-[-0.011em] transition-opacity hover:opacity-60"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            ← Back to Sovereign
+            {t.shared.footerNav.back}
           </Link>
           <Link
             href="/request-demo"
             className="text-[12px] font-medium tracking-[-0.011em] transition-opacity hover:opacity-80"
             style={{ color: "rgba(255,255,255,0.50)" }}
           >
-            Request a demo →
+            {t.shared.footerNav.requestDemo}
           </Link>
         </footer>
       </main>

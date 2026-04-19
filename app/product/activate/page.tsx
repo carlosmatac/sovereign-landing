@@ -4,11 +4,12 @@ import { Header } from "@/components/header"
 import { ActivateOutputPanel } from "@/components/activate-output-panel"
 import { ActivateReportSurface } from "@/components/activate-report-surface"
 import { ArrowRight, ChevronRight, Megaphone } from "lucide-react"
+import { getServerT } from "@/lib/i18n/server"
+import { getDictionary } from "@/lib/i18n/config"
 
 export const metadata: Metadata = {
-  title: "Activate & Publish — Sovereign",
-  description:
-    "Turn internal intelligence into polished, circulation-ready outputs. Sovereign transforms what your organisation knows into newsletters, board briefs, investor memos, and strategic reports — structured for the audience, grounded in internal context.",
+  title: getDictionary("en").product.activate.metaTitle,
+  description: getDictionary("en").product.activate.metaDescription,
 }
 
 const GRAIN_BG =
@@ -19,47 +20,11 @@ const DOT_GRID =
 
 const ACCENT_BLUE = "#5B9CF6"
 
-const OUTPUT_BENEFITS = [
-  {
-    title: "One knowledge base, many audiences",
-    body: "The same internal intelligence can be shaped into a board brief, an investor memo, a stakeholder newsletter, or an internal review — each structured for a different reader, without starting from scratch.",
-  },
-  {
-    title: "Publish with authority, not improvisation",
-    body: "Every output is grounded in what your organisation has actually recorded. The structure, the language, and the claims all trace back to real internal sources.",
-  },
-  {
-    title: "Reduce the distance between signal and communication",
-    body: "Intelligence that sits in internal documents and meeting notes rarely reaches the people who need it. Sovereign closes that gap — from captured context to finished output.",
-  },
-  {
-    title: "Documents your team can actually send",
-    body: "Not drafts that need rewriting. Not summaries that lose the nuance. Outputs that are ready to circulate — internally or externally — without a second pass.",
-  },
-]
-
-const REPORT_BENEFITS = [
-  {
-    title: "Strategic depth, not surface coverage",
-    body: "A Sovereign report is not a summary of public information. It is a synthesis of what your team has gathered — conversations, filings, briefs, and internal analysis — structured into a document that communicates authority.",
-  },
-  {
-    title: "Adapted to the reader, not the source",
-    body: "The same intelligence can be presented as an executive summary for the board, a detailed review for the investment committee, or a sector outlook for external stakeholders — each version calibrated to the audience.",
-  },
-  {
-    title: "Source-referenced and traceable",
-    body: "Every claim in a Sovereign report points back to a specific internal source. The appendix is not decoration — it is the foundation of credibility.",
-  },
-  {
-    title: "Ready to circulate without revision",
-    body: "The report surface produces documents that are structurally complete, editorially consistent, and ready to share — not raw material that requires a communications team to finish.",
-  },
-]
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function ActivatePublishPage() {
+export default async function ActivatePublishPage() {
+  const t = await getServerT()
+  const a = t.product.activate
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#060D1C" }}>
       <Header />
@@ -107,14 +72,14 @@ export default function ActivatePublishPage() {
                 className="text-[11px] font-medium uppercase tracking-[0.10em] transition-opacity hover:opacity-70"
                 style={{ color: "rgba(255,255,255,0.28)" }}
               >
-                Platform
+                {t.shared.breadcrumb.platform}
               </Link>
               <ChevronRight className="h-3 w-3" style={{ color: "rgba(255,255,255,0.18)" }} strokeWidth={1.5} />
               <p
                 className="text-[11px] font-medium uppercase tracking-[0.10em]"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
-                Activate &amp; Publish
+                {a.crumb}
               </p>
             </div>
 
@@ -133,22 +98,22 @@ export default function ActivatePublishPage() {
                 className="text-[11px] font-medium uppercase tracking-[0.12em]"
                 style={{ color: "rgba(255,255,255,0.28)" }}
               >
-                Activate &amp; Publish
+                {a.eyebrow}
               </p>
             </div>
 
             {/* Headline + lead */}
             <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[3fr_2fr] lg:gap-20">
               <h1 className="font-serif text-4xl font-normal leading-[1.06] tracking-[-0.030em] text-white md:text-5xl lg:text-[3.2rem]">
-                Intelligence that
+                {a.headlineLine1}
                 <br />
-                is ready to circulate.
+                {a.headlineLine2}
               </h1>
               <p
                 className="text-pretty text-[15px] leading-[1.80] tracking-[-0.011em] lg:pb-1"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
-                Sovereign transforms what your organisation knows into polished, structured outputs — newsletters, board briefs, investor memos, and strategic reports — each shaped for the audience and grounded in internal context.
+                {a.lead}
               </p>
             </div>
 
@@ -182,19 +147,19 @@ export default function ActivatePublishPage() {
                   className="mb-4 text-[11px] font-medium uppercase tracking-[0.12em]"
                   style={{ color: "rgba(255,255,255,0.28)" }}
                 >
-                  01 — Output formats
+                  {a.output.eyebrow}
                 </p>
                 <h2 className="font-serif text-3xl font-normal leading-[1.10] tracking-[-0.025em] text-white md:text-4xl">
-                  The same intelligence,
+                  {a.output.titleLine1}
                   <br />
-                  shaped for every audience.
+                  {a.output.titleLine2}
                 </h2>
               </div>
               <p
                 className="text-[15px] leading-[1.80] tracking-[-0.011em] lg:pt-10"
                 style={{ color: "rgba(255,255,255,0.48)" }}
               >
-                From a concise intelligence brief to a detailed board pack — Sovereign structures internal knowledge into the format the audience actually needs, without losing the rigour of the underlying source material.
+                {a.output.body}
               </p>
             </div>
           </div>
@@ -210,7 +175,7 @@ export default function ActivatePublishPage() {
               className="grid grid-cols-1 gap-px sm:grid-cols-2"
               style={{ background: "rgba(255,255,255,0.06)" }}
             >
-              {OUTPUT_BENEFITS.map(({ title, body }) => (
+              {a.output.benefits.map(({ title, body }) => (
                 <div key={title} className="p-8" style={{ background: "#060D1C" }}>
                   <h3 className="mb-3 font-serif text-[17px] font-normal leading-[1.22] tracking-[-0.018em] text-white">
                     {title}
@@ -260,19 +225,19 @@ export default function ActivatePublishPage() {
                   className="mb-4 text-[11px] font-medium uppercase tracking-[0.12em]"
                   style={{ color: "rgba(255,255,255,0.28)" }}
                 >
-                  02 — Strategic reports
+                  {a.report.eyebrow}
                 </p>
                 <h2 className="font-serif text-3xl font-normal leading-[1.10] tracking-[-0.025em] text-white md:text-4xl">
-                  Documents that carry
+                  {a.report.titleLine1}
                   <br />
-                  the weight of what you know.
+                  {a.report.titleLine2}
                 </h2>
               </div>
               <p
                 className="text-[15px] leading-[1.80] tracking-[-0.011em] lg:pt-10"
                 style={{ color: "rgba(255,255,255,0.48)" }}
               >
-                Sovereign produces substantial, structured intelligence reports — annual reviews, sector outlooks, investment memoranda — that are grounded in internal sources and ready to share with boards, investors, or senior stakeholders.
+                {a.report.body}
               </p>
             </div>
           </div>
@@ -295,13 +260,13 @@ export default function ActivatePublishPage() {
                 className="mb-2 text-[11px] font-medium uppercase tracking-[0.12em]"
                 style={{ color: "rgba(255,255,255,0.22)" }}
               >
-                What you are looking at
+                {t.shared.panelExplain.whatYouAreLookingAt}
               </p>
               <p
                 className="max-w-3xl text-[15px] leading-[1.80] tracking-[-0.011em]"
                 style={{ color: "rgba(255,255,255,0.52)" }}
               >
-                Every section of this report — the executive summary, the key signals, the implications, the recommended actions, and the appendix — is drawn from real internal sources. The document is not a template filled with placeholder text. It is a structured synthesis of what an organisation has actually gathered, formatted for circulation.
+                {a.report.explainBody}
               </p>
             </div>
           </div>
@@ -312,7 +277,7 @@ export default function ActivatePublishPage() {
               className="grid grid-cols-1 gap-px sm:grid-cols-2"
               style={{ background: "rgba(255,255,255,0.06)" }}
             >
-              {REPORT_BENEFITS.map(({ title, body }) => (
+              {a.report.benefits.map(({ title, body }) => (
                 <div key={title} className="p-8" style={{ background: "#060D1C" }}>
                   <h3 className="mb-3 font-serif text-[17px] font-normal leading-[1.22] tracking-[-0.018em] text-white">
                     {title}
@@ -348,30 +313,14 @@ export default function ActivatePublishPage() {
               className="mb-12 text-[11px] font-medium uppercase tracking-[0.12em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
-              What changes
+              {t.shared.closing.whatChanges}
             </p>
 
             <div
               className="grid grid-cols-1 gap-px sm:grid-cols-3"
               style={{ background: "rgba(255,255,255,0.06)" }}
             >
-              {[
-                {
-                  stat: "From signal",
-                  label: "to finished output",
-                  body: "Intelligence that sits in internal documents and meeting notes rarely reaches the people who need it. Sovereign closes the distance between what your team knows and what it can communicate.",
-                },
-                {
-                  stat: "One source",
-                  label: "many audiences",
-                  body: "The same internal knowledge base produces a board brief, an investor memo, and a stakeholder newsletter — each structured for a different reader, without rebuilding from scratch.",
-                },
-                {
-                  stat: "Grounded",
-                  label: "in internal context",
-                  body: "Every output traces back to a real internal source. The authority comes not from the format, but from the depth of what your organisation has actually gathered.",
-                },
-              ].map(({ stat, label, body }) => (
+              {a.closing.map(({ stat, label, body }) => (
                 <div key={stat} className="p-8" style={{ background: "#060D1C" }}>
                   <p className="mb-1 font-serif text-[22px] font-normal leading-tight tracking-[-0.020em] text-white">
                     {stat}
@@ -403,13 +352,13 @@ export default function ActivatePublishPage() {
             <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="font-serif text-2xl font-normal leading-[1.14] tracking-[-0.022em] text-white md:text-3xl">
-                  Ready to put your intelligence to work?
+                  {a.cta.headline}
                 </h2>
                 <p
                   className="mt-2 text-[14px] leading-[1.70] tracking-[-0.010em]"
                   style={{ color: "rgba(255,255,255,0.42)" }}
                 >
-                  See how Sovereign turns internal knowledge into outputs your team can actually use.
+                  {a.cta.body}
                 </p>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -417,7 +366,7 @@ export default function ActivatePublishPage() {
                   href="/request-demo"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium tracking-[-0.011em] text-[#070E1F] transition-opacity hover:opacity-90"
                 >
-                  Request a demo
+                  {t.shared.ctaStrip.requestDemo}
                   <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
                 </Link>
                 <Link
@@ -425,7 +374,7 @@ export default function ActivatePublishPage() {
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-[-0.011em] transition-colors hover:bg-white/[0.06]"
                   style={{ border: "1px solid rgba(255,255,255,0.14)", color: "rgba(255,255,255,0.60)" }}
                 >
-                  Explore the platform
+                  {t.shared.ctaStrip.explorePlatform}
                 </Link>
               </div>
             </div>
@@ -442,14 +391,14 @@ export default function ActivatePublishPage() {
             className="text-[12px] tracking-[-0.011em] transition-opacity hover:opacity-60"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            ← Back to Sovereign
+            {t.shared.footerNav.back}
           </Link>
           <Link
             href="/request-demo"
             className="text-[12px] font-medium tracking-[-0.011em] transition-opacity hover:opacity-80"
             style={{ color: "rgba(255,255,255,0.50)" }}
           >
-            Request a demo →
+            {t.shared.footerNav.requestDemo}
           </Link>
         </footer>
       </main>

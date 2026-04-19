@@ -19,6 +19,8 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useT } from "@/lib/i18n/locale-context"
+import { LanguageSwitcher } from "@/components/language-switcher"
 
 // ─── Scroll-reactive state ────────────────────────────────────────────────────
 // The header transitions between two visual states based on scroll position:
@@ -74,35 +76,20 @@ const HEADER_EASE = "cubic-bezier(0.22, 0.8, 0.36, 1)"
 const HEADER_DURATION = "520ms"
 
 // ─── Product pillars ──────────────────────────────────────────────────────────
-const PRODUCT_PILLARS = [
-  {
-    icon: Archive,
-    label: "Capture & Organise",
-    description:
-      "Turn meetings, reports, and conversations into connected institutional knowledge — with a strong review layer that keeps everything accurate.",
-    href: "/product/capture",
-  },
-  {
-    icon: TrendingUp,
-    label: "Prepare & Sell",
-    description:
-      "Enter every deal with sharper context. Account history, relationship visibility, and commercial intelligence — ready before the meeting starts.",
-    href: "/product/prepare",
-  },
-  {
-    icon: Megaphone,
-    label: "Activate & Publish",
-    description:
-      "Turn internal intelligence into outbound content — reports, newsletters, stakeholder briefings, and targeted communication assets.",
-    href: "/product/activate",
-  },
-  {
-    icon: Settings2,
-    label: "Connect Your Workflow",
-    description:
-      "Bring CRM, email, operational context, and commercial targets into one working environment. Sovereign fits the tools your team already uses.",
-    href: "/product/connect",
-  },
+// Static metadata only (icon + href + dictionary key). The visible label and
+// description are looked up at render time from the active locale dictionary
+// via `t.header.productMenu.pillars[key]`.
+type PillarKey = "capture" | "prepare" | "activate" | "connect"
+
+const PRODUCT_PILLARS: ReadonlyArray<{
+  key: PillarKey
+  icon: typeof Archive
+  href: string
+}> = [
+  { key: "capture",  icon: Archive,    href: "/product/capture"  },
+  { key: "prepare",  icon: TrendingUp, href: "/product/prepare"  },
+  { key: "activate", icon: Megaphone,  href: "/product/activate" },
+  { key: "connect",  icon: Settings2,  href: "/product/connect"  },
 ]
 
 
@@ -143,6 +130,7 @@ function MobileSection({
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const scrolled = useScrolledState()
+  const t = useT()
 
   // While the mobile drawer is open we lock the header in its FITTED state.
   // The drawer is full-screen so the header's framing should stay aligned
@@ -240,7 +228,7 @@ export function Header() {
             {/* ── Product ── */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] text-white/75 outline-none transition-colors hover:text-white data-[state=open]:text-white">
-                Product
+                {t.header.nav.product}
                 <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 [[data-state=open]_&]:rotate-180" />
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -251,32 +239,35 @@ export function Header() {
               >
                 <div className="mb-3 px-1">
                   <p className="text-[10px] font-medium uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.28)" }}>
-                    Platform capabilities
+                    {t.header.productMenu.eyebrow}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-1">
-                  {PRODUCT_PILLARS.map(({ icon: Icon, label, description, href }) => (
-                    <Link
-                      key={label}
-                      href={href}
-                      className="group flex items-start gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-white/[0.05]"
-                    >
-                      <div
-                        className="mt-[2px] flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
-                        style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.09)" }}
+                  {PRODUCT_PILLARS.map(({ key, icon: Icon, href }) => {
+                    const pillar = t.header.productMenu.pillars[key]
+                    return (
+                      <Link
+                        key={key}
+                        href={href}
+                        className="group flex items-start gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-white/[0.05]"
                       >
-                        <Icon className="h-3.5 w-3.5" style={{ color: "rgba(255,255,255,0.55)" }} />
-                      </div>
-                      <div>
-                        <p className="mb-0.5 text-[13px] font-medium tracking-[-0.011em] text-white/85 transition-colors group-hover:text-white">
-                          {label}
-                        </p>
-                        <p className="text-[12px] leading-[1.55] tracking-[-0.008em]" style={{ color: "rgba(255,255,255,0.38)" }}>
-                          {description}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
+                        <div
+                          className="mt-[2px] flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
+                          style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.09)" }}
+                        >
+                          <Icon className="h-3.5 w-3.5" style={{ color: "rgba(255,255,255,0.55)" }} />
+                        </div>
+                        <div>
+                          <p className="mb-0.5 text-[13px] font-medium tracking-[-0.011em] text-white/85 transition-colors group-hover:text-white">
+                            {pillar.label}
+                          </p>
+                          <p className="text-[12px] leading-[1.55] tracking-[-0.008em]" style={{ color: "rgba(255,255,255,0.38)" }}>
+                            {pillar.description}
+                          </p>
+                        </div>
+                      </Link>
+                    )
+                  })}
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -286,13 +277,13 @@ export function Header() {
               href="/use-cases"
               className="rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] text-white/75 transition-colors hover:text-white"
             >
-              Who it&apos;s built for
+              {t.header.nav.whoItsBuiltFor}
             </Link>
 
             {/* ── About ── */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] text-white/75 outline-none transition-colors hover:text-white data-[state=open]:text-white">
-                About
+                {t.header.nav.about}
                 <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 [[data-state=open]_&]:rotate-180" />
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -305,33 +296,40 @@ export function Header() {
                   href="/about"
                   className="flex w-full items-center rounded-lg px-3 py-2 text-[13px] tracking-[-0.011em] text-white/70 transition-colors hover:bg-white/[0.05] hover:text-white"
                 >
-                  Our Story
+                  {t.header.aboutMenu.ourStory}
                 </Link>
                 <Link
                   href="/contact"
                   className="flex w-full items-center rounded-lg px-3 py-2 text-[13px] tracking-[-0.011em] text-white/70 transition-colors hover:bg-white/[0.05] hover:text-white"
                 >
-                  Contact
+                  {t.header.aboutMenu.contact}
                 </Link>
               </DropdownMenuContent>
             </DropdownMenu>
 
           </nav>
 
-          {/* Right side — CTA (desktop) + hamburger (mobile) */}
-          <div className="flex items-center gap-3">
+          {/* Right side — language switcher + CTA (desktop) + hamburger (mobile) */}
+          <div className="flex items-center gap-2 md:gap-3">
+            {/* Language toggle — sits left of the CTA on desktop, hidden in
+                the mobile bar (it lives inside the drawer instead so the
+                mobile header keeps the logo + hamburger uncluttered). */}
+            <div className="hidden md:flex">
+              <LanguageSwitcher size="compact" />
+            </div>
+
             <Button
               asChild
               className="hidden rounded-full bg-white px-6 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/90 md:inline-flex"
             >
-              <Link href="/request-demo">Request Demo</Link>
+              <Link href="/request-demo">{t.header.cta}</Link>
             </Button>
 
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
               className="flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-white/[0.07] md:hidden"
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileOpen ? t.header.mobile.close : t.header.mobile.open}
             >
               {mobileOpen
                 ? <X className="h-5 w-5" style={{ color: "rgba(255,255,255,0.75)" }} />
@@ -350,37 +348,40 @@ export function Header() {
           style={{ backgroundColor: "#060D1C", paddingTop: "64px" }}
         >
           {/* Product */}
-          <MobileSection label="Product">
+          <MobileSection label={t.header.nav.product}>
             <p
               className="mb-2 px-6 text-[10px] font-medium uppercase tracking-[0.12em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
-              Platform capabilities
+              {t.header.productMenu.eyebrow}
             </p>
-            {PRODUCT_PILLARS.map(({ icon: Icon, label, description, href }) => (
-              <Link
-                key={label}
-                href={href}
-                onClick={() => setMobileOpen(false)}
-                className="flex items-start gap-3 px-6 py-3 transition-colors active:bg-white/[0.04]"
-              >
-                <div
-                  className="mt-[2px] flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
-                  style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.09)" }}
+            {PRODUCT_PILLARS.map(({ key, icon: Icon, href }) => {
+              const pillar = t.header.productMenu.pillars[key]
+              return (
+                <Link
+                  key={key}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-start gap-3 px-6 py-3 transition-colors active:bg-white/[0.04]"
                 >
-                  <Icon className="h-3.5 w-3.5" style={{ color: "rgba(255,255,255,0.55)" }} />
-                </div>
-                <div className="flex-1">
-                  <p className="mb-0.5 text-[14px] font-medium tracking-[-0.011em] text-white/85">
-                    {label}
-                  </p>
-                  <p className="text-[12px] leading-[1.55]" style={{ color: "rgba(255,255,255,0.38)" }}>
-                    {description}
-                  </p>
-                </div>
-                <ChevronRight className="mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "rgba(255,255,255,0.22)" }} />
-              </Link>
-            ))}
+                  <div
+                    className="mt-[2px] flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
+                    style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.09)" }}
+                  >
+                    <Icon className="h-3.5 w-3.5" style={{ color: "rgba(255,255,255,0.55)" }} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="mb-0.5 text-[14px] font-medium tracking-[-0.011em] text-white/85">
+                      {pillar.label}
+                    </p>
+                    <p className="text-[12px] leading-[1.55]" style={{ color: "rgba(255,255,255,0.38)" }}>
+                      {pillar.description}
+                    </p>
+                  </div>
+                  <ChevronRight className="mt-1 h-3.5 w-3.5 shrink-0" style={{ color: "rgba(255,255,255,0.22)" }} />
+                </Link>
+              )
+            })}
           </MobileSection>
 
           {/* Who it's built for */}
@@ -390,18 +391,18 @@ export function Header() {
             className="flex items-center justify-between px-6 py-4 text-[15px] font-medium tracking-[-0.011em] text-white/80 transition-colors active:bg-white/[0.04]"
             style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}
           >
-            Who it&apos;s built for
+            {t.header.nav.whoItsBuiltFor}
             <ChevronRight className="h-4 w-4" style={{ color: "rgba(255,255,255,0.30)" }} />
           </Link>
 
           {/* About */}
-          <MobileSection label="About">
+          <MobileSection label={t.header.nav.about}>
             {[
-              { label: "Our Story", href: "/about" },
-              { label: "Contact", href: "/contact" },
+              { label: t.header.aboutMenu.ourStory, href: "/about" },
+              { label: t.header.aboutMenu.contact, href: "/contact" },
             ].map(({ label, href }) => (
               <Link
-                key={label}
+                key={href}
                 href={href}
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-between px-6 py-3 text-[14px] tracking-[-0.011em] text-white/70 transition-colors active:bg-white/[0.04]"
@@ -412,6 +413,18 @@ export function Header() {
             ))}
           </MobileSection>
 
+          {/* Language toggle — comfortable density inside the drawer so it
+              taps cleanly. Sits above the CTA, not buried at the bottom. */}
+          <div
+            className="flex items-center justify-between px-6 py-4"
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}
+          >
+            <span className="text-[15px] font-medium tracking-[-0.011em] text-white/80">
+              {t.locale.label}
+            </span>
+            <LanguageSwitcher size="comfortable" />
+          </div>
+
           {/* CTA */}
           <div className="px-6 py-6">
             <Link
@@ -419,7 +432,7 @@ export function Header() {
               onClick={() => setMobileOpen(false)}
               className="flex w-full items-center justify-center rounded-full bg-white py-3.5 text-[15px] font-medium tracking-[-0.011em] text-[#070E1F] transition-opacity active:opacity-85"
             >
-              Request Demo
+              {t.header.cta}
             </Link>
           </div>
         </div>

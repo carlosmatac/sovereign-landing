@@ -1,7 +1,10 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
 import { HeroDashboardPanel, HeroDashboardPanelMobile } from "@/components/hero-dashboard-panel"
+import { useT } from "@/lib/i18n/locale-context"
 
 // Film grain overlay — URL-encoded SVG feTurbulence, tiled at low opacity
 const GRAIN_BG =
@@ -12,6 +15,7 @@ const DOT_GRID =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
 
 export function Hero() {
+  const t = useT()
   return (
     <section className="relative overflow-hidden" style={{ backgroundColor: "#060D1C" }}>
 
@@ -81,19 +85,18 @@ export function Hero() {
             className="relative z-10 inline-flex items-center rounded-full px-4 py-1.5 text-[13px] tracking-[-0.01em] text-white/50"
             style={{ background: "rgba(6,13,28,0.88)" }}
           >
-            Intelligence for the organisations that move markets
+            {t.hero.badge}
           </span>
         </div>
 
         {/* Headline */}
         <h1 className="text-balance font-serif text-4xl font-normal tracking-[-0.03em] text-white md:text-5xl lg:text-6xl">
-          What your organisation knows, finally put to work.
+          {t.hero.headline}
         </h1>
 
         {/* Subheadline */}
         <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed tracking-[-0.011em] text-white/55">
-          Sovereign transforms internal knowledge into sales advantage, strategic
-          clarity, and targeted communication — at the speed decisions actually need.
+          {t.hero.subheadline}
         </p>
 
         {/* Buttons */}
@@ -103,14 +106,14 @@ export function Hero() {
             size="lg"
             className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/92"
           >
-            <Link href="/request-demo">Request Demo</Link>
+            <Link href="/request-demo">{t.hero.primaryCta}</Link>
           </Button>
           <Button
             size="lg"
             variant="outline"
             className="rounded-full border-white/20 bg-transparent px-8 font-medium tracking-[-0.011em] text-white/80 hover:bg-white/[0.08] hover:text-white"
           >
-            Explore the Platform
+            {t.hero.secondaryCta}
           </Button>
         </div>
       </div>

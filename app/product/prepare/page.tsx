@@ -4,11 +4,12 @@ import { Header } from "@/components/header"
 import { PrepareSellCopilot } from "@/components/prepare-sell-copilot"
 import { PrepareSellGraph } from "@/components/prepare-sell-graph"
 import { ArrowRight, ChevronRight, TrendingUp } from "lucide-react"
+import { getServerT } from "@/lib/i18n/server"
+import { getDictionary } from "@/lib/i18n/config"
 
 export const metadata: Metadata = {
-  title: "Prepare & Sell — Sovereign",
-  description:
-    "Enter every meeting with more context. Sovereign surfaces what your team already knows — about accounts, relationships, and prior conversations — so you can prepare with real intelligence.",
+  title: getDictionary("en").product.prepare.metaTitle,
+  description: getDictionary("en").product.prepare.metaDescription,
 }
 
 const GRAIN_BG =
@@ -19,47 +20,11 @@ const DOT_GRID =
 
 const ACCENT_BLUE = "#5B9CF6"
 
-const COPILOT_BENEFITS = [
-  {
-    title: "Account memory that compounds",
-    body: "Every conversation, brief, and follow-up thread becomes part of a growing record. Sovereign surfaces what is relevant before you ask.",
-  },
-  {
-    title: "What not to repeat",
-    body: "Know what the account has already heard, what landed, and what fell flat — so every approach adds something new.",
-  },
-  {
-    title: "Open loops, surfaced automatically",
-    body: "Unanswered requests, unresolved threads, and commitments that were never followed up — Sovereign finds them before the meeting does.",
-  },
-  {
-    title: "Intelligence grounded in prior context",
-    body: "Every answer is anchored in what your team has actually recorded — not broad advice, but specific signals from real conversations.",
-  },
-]
-
-const GRAPH_BENEFITS = [
-  {
-    title: "See what connects before it is obvious",
-    body: "Relationships between people, companies, and institutions are rarely visible in a single document. The graph makes the structure legible.",
-  },
-  {
-    title: "The bridge that changes the conversation",
-    body: "A shared contact, a prior relationship, a connected institution — the graph surfaces the path that makes the approach stronger.",
-  },
-  {
-    title: "Context across the whole account",
-    body: "Every entity in your workspace is connected to everything else it touches. The graph is the map of what your organisation actually knows.",
-  },
-  {
-    title: "Structural memory behind every answer",
-    body: "When the Copilot surfaces an insight, the graph shows you why it matters — and who else is connected to it.",
-  },
-]
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function PrepareSellPage() {
+export default async function PrepareSellPage() {
+  const t = await getServerT()
+  const p = t.product.prepare
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#060D1C" }}>
       <Header />
@@ -107,14 +72,14 @@ export default function PrepareSellPage() {
                 className="text-[11px] font-medium uppercase tracking-[0.10em] transition-opacity hover:opacity-70"
                 style={{ color: "rgba(255,255,255,0.28)" }}
               >
-                Platform
+                {t.shared.breadcrumb.platform}
               </Link>
               <ChevronRight className="h-3 w-3" style={{ color: "rgba(255,255,255,0.18)" }} strokeWidth={1.5} />
               <p
                 className="text-[11px] font-medium uppercase tracking-[0.10em]"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
-                Prepare &amp; Sell
+                {p.crumb}
               </p>
             </div>
 
@@ -133,24 +98,24 @@ export default function PrepareSellPage() {
                 className="text-[11px] font-medium uppercase tracking-[0.12em]"
                 style={{ color: "rgba(255,255,255,0.28)" }}
               >
-                Prepare &amp; Sell
+                {p.eyebrow}
               </p>
             </div>
 
             {/* Headline + lead */}
             <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[3fr_2fr] lg:gap-20">
               <h1 className="font-serif text-4xl font-normal leading-[1.06] tracking-[-0.030em] text-white md:text-5xl lg:text-[3.2rem]">
-                Better preparation
+                {p.headlineLine1}
                 <br />
-                leads to better
+                {p.headlineLine2}
                 <br />
-                conversations.
+                {p.headlineLine3}
               </h1>
               <p
                 className="text-pretty text-[15px] leading-[1.80] tracking-[-0.011em] lg:pb-1"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
-                The most important work happens before the meeting. Sovereign gives commercial teams the context, account memory, and relationship visibility they need to enter every conversation with a stronger position.
+                {p.lead}
               </p>
             </div>
 
@@ -184,17 +149,17 @@ export default function PrepareSellPage() {
                   className="mb-4 text-[11px] font-medium uppercase tracking-[0.12em]"
                   style={{ color: "rgba(255,255,255,0.28)" }}
                 >
-                  01 — Sovereign Copilot
+                  {p.copilot.eyebrow}
                 </p>
                 <h2 className="font-serif text-3xl font-normal leading-[1.10] tracking-[-0.025em] text-white md:text-4xl">
-                  Account memory, on demand.
+                  {p.copilot.title}
                 </h2>
               </div>
               <p
                 className="text-[15px] leading-[1.80] tracking-[-0.011em] lg:pt-10"
                 style={{ color: "rgba(255,255,255,0.48)" }}
               >
-                The Copilot reasons over everything your team has captured — meetings, briefs, follow-up threads, recorded conversations — and surfaces what is relevant to the account, the relationship, or the moment.
+                {p.copilot.body}
               </p>
             </div>
           </div>
@@ -210,7 +175,7 @@ export default function PrepareSellPage() {
               className="grid grid-cols-1 gap-px sm:grid-cols-2"
               style={{ background: "rgba(255,255,255,0.06)" }}
             >
-              {COPILOT_BENEFITS.map(({ title, body }) => (
+              {p.copilot.benefits.map(({ title, body }) => (
                 <div key={title} className="p-8" style={{ background: "#060D1C" }}>
                   <h3 className="mb-3 font-serif text-[17px] font-normal leading-[1.22] tracking-[-0.018em] text-white">
                     {title}
@@ -260,19 +225,19 @@ export default function PrepareSellPage() {
                   className="mb-4 text-[11px] font-medium uppercase tracking-[0.12em]"
                   style={{ color: "rgba(255,255,255,0.28)" }}
                 >
-                  02 — Network Explorer
+                  {p.graph.eyebrow}
                 </p>
                 <h2 className="font-serif text-3xl font-normal leading-[1.10] tracking-[-0.025em] text-white md:text-4xl">
-                  The structure behind
+                  {p.graph.titleLine1}
                   <br />
-                  every relationship.
+                  {p.graph.titleLine2}
                 </h2>
               </div>
               <p
                 className="text-[15px] leading-[1.80] tracking-[-0.011em] lg:pt-10"
                 style={{ color: "rgba(255,255,255,0.48)" }}
               >
-                The Network Explorer maps every entity your team has encountered — people, companies, governments, regions, and internal documents — and shows how they connect. The graph is the structural backbone behind the Copilot&apos;s answers.
+                {p.graph.body}
               </p>
             </div>
           </div>
@@ -295,13 +260,13 @@ export default function PrepareSellPage() {
                 className="mb-2 text-[11px] font-medium uppercase tracking-[0.12em]"
                 style={{ color: "rgba(255,255,255,0.22)" }}
               >
-                What you are looking at
+                {t.shared.panelExplain.whatYouAreLookingAt}
               </p>
               <p
                 className="max-w-3xl text-[15px] leading-[1.80] tracking-[-0.011em]"
                 style={{ color: "rgba(255,255,255,0.52)" }}
               >
-                Every node in this graph corresponds to a real entity that appears in internal sources — interviews, briefs, meeting notes, and follow-up threads. The connections are not inferred from public data. They are drawn from what your team has actually recorded. Click any node to see what it connects to.
+                {p.graph.explainBody}
               </p>
             </div>
           </div>
@@ -312,7 +277,7 @@ export default function PrepareSellPage() {
               className="grid grid-cols-1 gap-px sm:grid-cols-2"
               style={{ background: "rgba(255,255,255,0.06)" }}
             >
-              {GRAPH_BENEFITS.map(({ title, body }) => (
+              {p.graph.benefits.map(({ title, body }) => (
                 <div key={title} className="p-8" style={{ background: "#060D1C" }}>
                   <h3 className="mb-3 font-serif text-[17px] font-normal leading-[1.22] tracking-[-0.018em] text-white">
                     {title}
@@ -348,27 +313,11 @@ export default function PrepareSellPage() {
               className="mb-12 text-[11px] font-medium uppercase tracking-[0.12em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
-              What changes
+              {t.shared.closing.whatChanges}
             </p>
 
             <div className="grid grid-cols-1 gap-px sm:grid-cols-3" style={{ background: "rgba(255,255,255,0.06)" }}>
-              {[
-                {
-                  stat: "Every meeting",
-                  label: "entered with full account context",
-                  body: "Not a summary from the last call. The full picture — across every conversation, document, and relationship your team has ever recorded.",
-                },
-                {
-                  stat: "Less guesswork",
-                  label: "before high-value conversations",
-                  body: "Know what the account cares about, what they have already heard, and where the real opportunity sits — before the conversation starts.",
-                },
-                {
-                  stat: "Scattered memory",
-                  label: "turned into commercial readiness",
-                  body: "Information that lives in inboxes, personal notes, and forgotten briefs becomes a shared, searchable, and commercially useful asset.",
-                },
-              ].map(({ stat, label, body }) => (
+              {p.closing.map(({ stat, label, body }) => (
                 <div key={stat} className="p-8" style={{ background: "#060D1C" }}>
                   <p className="mb-1 font-serif text-[22px] font-normal leading-tight tracking-[-0.020em] text-white">
                     {stat}
@@ -400,13 +349,13 @@ export default function PrepareSellPage() {
             <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="font-serif text-2xl font-normal leading-[1.14] tracking-[-0.022em] text-white md:text-3xl">
-                  Ready to enter every meeting prepared?
+                  {p.cta.headline}
                 </h2>
                 <p
                   className="mt-2 text-[14px] leading-[1.70] tracking-[-0.010em]"
                   style={{ color: "rgba(255,255,255,0.42)" }}
                 >
-                  See how Sovereign surfaces what your team already knows.
+                  {p.cta.body}
                 </p>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -414,7 +363,7 @@ export default function PrepareSellPage() {
                   href="/request-demo"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium tracking-[-0.011em] text-[#070E1F] transition-opacity hover:opacity-90"
                 >
-                  Request a demo
+                  {t.shared.ctaStrip.requestDemo}
                   <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
                 </Link>
                 <Link
@@ -422,7 +371,7 @@ export default function PrepareSellPage() {
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-[-0.011em] transition-colors hover:bg-white/[0.06]"
                   style={{ border: "1px solid rgba(255,255,255,0.14)", color: "rgba(255,255,255,0.60)" }}
                 >
-                  Explore the platform
+                  {t.shared.ctaStrip.explorePlatform}
                 </Link>
               </div>
             </div>
@@ -439,14 +388,14 @@ export default function PrepareSellPage() {
             className="text-[12px] tracking-[-0.011em] transition-opacity hover:opacity-60"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            ← Back to Sovereign
+            {t.shared.footerNav.back}
           </Link>
           <Link
             href="/request-demo"
             className="text-[12px] font-medium tracking-[-0.011em] transition-opacity hover:opacity-80"
             style={{ color: "rgba(255,255,255,0.50)" }}
           >
-            Request a demo →
+            {t.shared.footerNav.requestDemo}
           </Link>
         </footer>
       </main>

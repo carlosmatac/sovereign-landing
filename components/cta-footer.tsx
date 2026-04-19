@@ -5,6 +5,7 @@ import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-mot
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
+import { useT } from "@/lib/i18n/locale-context"
 
 // Film grain — consistent across all dark sections
 const GRAIN_BG =
@@ -124,6 +125,7 @@ function SovereignWordmark() {
 }
 
 export function CTAFooter() {
+  const t = useT()
   return (
     <section
       className="relative overflow-hidden border-t border-white/[0.07] px-6 pb-0 pt-16 md:pt-20"
@@ -223,14 +225,14 @@ export function CTAFooter() {
               className="mb-8 text-balance font-serif text-4xl font-normal tracking-[-0.03em] text-white md:text-5xl"
               style={{ textShadow: "0 2px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.65)" }}
             >
-              Ready to put your intelligence to work?
+              {t.ctaFooter.headline}
             </h2>
             <Button
               asChild
               size="lg"
               className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/90"
             >
-              <Link href="/request-demo">Request Demo</Link>
+              <Link href="/request-demo">{t.ctaFooter.cta}</Link>
             </Button>
           </div>
         </motion.div>
@@ -246,7 +248,7 @@ export function CTAFooter() {
               className="opacity-[0.18]"
             />
             <p className="text-sm tracking-[-0.011em] text-white/35">
-              © 2026 Sovereign Data
+              {t.ctaFooter.copyright}
             </p>
           </div>
           <nav className="flex items-center gap-6">
@@ -254,19 +256,19 @@ export function CTAFooter() {
               href="/contact"
               className="text-sm tracking-[-0.011em] text-white/35 transition-colors hover:text-white/65"
             >
-              Contact
+              {t.ctaFooter.nav.contact}
             </Link>
             <Link
               href="#"
               className="text-sm tracking-[-0.011em] text-white/35 transition-colors hover:text-white/65"
             >
-              Privacy Policy
+              {t.ctaFooter.nav.privacy}
             </Link>
             <Link
               href="#"
               className="text-sm tracking-[-0.011em] text-white/35 transition-colors hover:text-white/65"
             >
-              Terms of Service
+              {t.ctaFooter.nav.terms}
             </Link>
           </nav>
         </footer>

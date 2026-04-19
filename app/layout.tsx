@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display, Gabarito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { cookies } from 'next/headers'
 import { PageTransition } from '@/components/page-transition'
+import { LocaleProvider } from '@/lib/i18n/locale-context'
+import { DEFAULT_LOCALE, LOCALE_COOKIE, isLocale } from '@/lib/i18n/config'
 import './globals.css'
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -39,15 +42,24 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Read the persisted locale on the server so SSR matches the user's last
+  // choice and `useT()` consumers receive a real provider — not the safe
+  // English fallback (which is what makes the switcher silently no-op).
+  const cookieStore = await cookies()
+  const cookieValue = cookieStore.get(LOCALE_COOKIE)?.value
+  const initialLocale = isLocale(cookieValue) ? cookieValue : DEFAULT_LOCALE
+
   return (
-    <html lang="en" className="dark">
+    <html lang={initialLocale} className="dark">
       <body className={`${inter.variable} ${playfair.variable} ${gabarito.variable} font-sans antialiased`}>
-        <PageTransition>{children}</PageTransition>
+        <LocaleProvider initialLocale={initialLocale}>
+          <PageTransition>{children}</PageTransition>
+        </LocaleProvider>
         <Analytics />
       </body>
     </html>

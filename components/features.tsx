@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 import { MarketingActivationComposition } from "@/components/marketing-activation-showcase"
 import { SalesIntelligenceComposition } from "@/components/sales-intelligence-panel"
 import { FloatingEntityScene } from "@/components/floating-entity-scene"
+import { useT } from "@/lib/i18n/locale-context"
+import type { Dictionary } from "@/lib/i18n/config"
 
 // Film grain — consistent with hero and trust banner
 const GRAIN_BG =
@@ -15,11 +17,12 @@ const DOT_GRID =
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-interface Slide {
+// Dictionary key for the per-slide copy (eyebrow / title / description).
+type FeatureCopyKey = keyof Dictionary["features"]
+
+interface SlideMeta {
   id: string
-  eyebrow: string
-  title: string
-  description: string
+  copyKey: FeatureCopyKey
   showcaseComponent: React.ReactNode
   // When true, the visual spans the full section width (no horizontal container)
   visualFullWidth?: boolean
@@ -28,15 +31,21 @@ interface Slide {
   atmoGradient: string
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+interface Slide extends SlideMeta {
+  eyebrow: string
+  title: string
+  description: string
+}
 
-const slides: Slide[] = [
+// ─── Data ─────────────────────────────────────────────────────────────────────
+// Static visual + structural config only. The locale-bound copy
+// (eyebrow / title / description) is merged in at render time inside
+// <Features /> via the active dictionary.
+
+const slidesMeta: SlideMeta[] = [
   {
     id: "sales-intelligence",
-    eyebrow: "01 — Sales Intelligence",
-    title: "Know what's already known.",
-    description:
-      "Sovereign aggregates every prior interaction, signal, and mention across your organization — so no opportunity starts from zero.",
+    copyKey: "salesIntelligence",
     showcaseComponent: <SalesIntelligenceComposition />,
     visualWrapperClass: "mx-auto max-w-5xl",
     atmoGradient:
@@ -44,10 +53,7 @@ const slides: Slide[] = [
   },
   {
     id: "strategic-intelligence",
-    eyebrow: "02 — Strategic Intelligence",
-    title: "Surface the signals your team is too busy to read.",
-    description:
-      "Sovereign identifies patterns, emerging themes, and underserved opportunities across your internal information — turning information overload into strategic clarity.",
+    copyKey: "strategicIntelligence",
     showcaseComponent: <FloatingEntityScene />,
     visualFullWidth: true,
     atmoGradient:
@@ -55,10 +61,7 @@ const slides: Slide[] = [
   },
   {
     id: "marketing-activation",
-    eyebrow: "03 — Marketing Activation",
-    title: "Publish with purpose.",
-    description:
-      "Sovereign turns processed intelligence into targeted outbound content — for the right people, at the right moment — across sales outreach, newsletters, and stakeholder communication.",
+    copyKey: "marketingActivation",
     showcaseComponent: <MarketingActivationComposition />,
     visualWrapperClass: "mx-auto max-w-5xl",
     atmoGradient:
@@ -125,6 +128,12 @@ function FeatureBlock({ slide }: { slide: Slide }) {
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export function Features() {
+  const t = useT()
+  const slides: Slide[] = slidesMeta.map((meta) => ({
+    ...meta,
+    ...t.features[meta.copyKey],
+  }))
+
   return (
     <section className="relative overflow-hidden">
       {/* Shared film grain */}

@@ -2,11 +2,12 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { Header } from "@/components/header"
+import { getServerT } from "@/lib/i18n/server"
+import { getDictionary } from "@/lib/i18n/config"
 
 export const metadata: Metadata = {
-  title: "Our Story — Sovereign",
-  description:
-    "Sovereign began with a simple observation: the most valuable information inside an organisation is often the least usable.",
+  title: getDictionary("en").about.metaTitle,
+  description: getDictionary("en").about.metaDescription,
 }
 
 const GRAIN_BG =
@@ -29,7 +30,10 @@ const FOUNDERS_MASK =
   "transparent 84%" +
   ")"
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const t = await getServerT()
+  const a = t.about
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#060D1C" }}>
       <Header />
@@ -74,7 +78,7 @@ export default function AboutPage() {
               className="mb-10 text-[11px] font-medium uppercase tracking-[0.12em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
-              Our Story
+              {a.eyebrow}
             </p>
 
             {/* Editorial two-column: text left, 3D video inset right */}
@@ -84,16 +88,15 @@ export default function AboutPage() {
                 <h1
                   className="font-serif text-4xl font-normal leading-[1.06] tracking-[-0.030em] text-white md:text-5xl lg:text-[3.4rem]"
                 >
-                  Built from curiosity.
+                  {a.headlineLine1}
                   <br />
-                  Proven by reality.
+                  {a.headlineLine2}
                 </h1>
                 <p
                   className="max-w-[42ch] text-pretty text-[15px] leading-[1.80] tracking-[-0.011em]"
                   style={{ color: "rgba(255,255,255,0.50)" }}
                 >
-                  Sovereign began with a simple observation: the most valuable
-                  information inside an organisation is often the least usable.
+                  {a.intro}
                 </p>
               </div>
 
@@ -156,15 +159,9 @@ export default function AboutPage() {
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
                     style={{ color: "rgba(255,255,255,0.20)" }}
                   >
-                    Instinct
+                    {a.sections.instinct.label}
                   </p>
-                  <p>
-                    We&apos;ve always been drawn to what&apos;s next. New tools,
-                    new systems, new ways of working — not for novelty&apos;s
-                    sake, but because we&apos;ve always found it easy to spot the
-                    gaps that appear when the world changes faster than the
-                    software around it.
-                  </p>
+                  <p>{a.sections.instinct.body}</p>
                 </div>
 
                 <div>
@@ -172,15 +169,9 @@ export default function AboutPage() {
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
                     style={{ color: "rgba(255,255,255,0.20)" }}
                   >
-                    Field
+                    {a.sections.field.label}
                   </p>
-                  <p>
-                    Our story began on a trip through Mozambique and South Africa.
-                    What started as travel became something more valuable: exposure
-                    to how ambitious teams operate in fast-moving, high-friction
-                    environments, where critical knowledge is constantly being
-                    created but rarely captured in a way that makes it reusable.
-                  </p>
+                  <p>{a.sections.field.body}</p>
                 </div>
               </div>
 
@@ -194,17 +185,13 @@ export default function AboutPage() {
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
                     style={{ color: "rgba(255,255,255,0.20)" }}
                   >
-                    Shift
+                    {a.sections.shift.label}
                   </p>
                   <p
                     className="text-[16px] leading-[1.84] tracking-[-0.013em]"
                     style={{ color: "rgba(255,255,255,0.72)" }}
                   >
-                    That was the moment Sovereign took shape. We didn&apos;t
-                    think organisations needed more noise, more dashboards, or
-                    more complexity. They needed a system that could turn what
-                    they already know into something connected, usable, and
-                    commercially meaningful.
+                    {a.sections.shift.body}
                   </p>
                 </div>
               </div>
@@ -216,7 +203,7 @@ export default function AboutPage() {
               <div className="relative h-[280px] w-full overflow-hidden rounded-2xl sm:h-[360px] md:h-[440px]">
                 <Image
                   src="/port.png"
-                  alt="A complex port at dusk — the kind of environment where Sovereign was born"
+                  alt={a.imageAlt}
                   fill
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
                   style={{
@@ -249,7 +236,7 @@ export default function AboutPage() {
                     className="font-serif text-xl font-normal leading-[1.18] tracking-[-0.022em] text-white sm:text-2xl md:text-[1.65rem]"
                     style={{ textShadow: "0 1px 12px rgba(0,0,0,0.55)" }}
                   >
-                    The signal was always there.
+                    {a.imageQuote}
                   </p>
                 </div>
               </div>
@@ -268,16 +255,9 @@ export default function AboutPage() {
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
                     style={{ color: "rgba(255,255,255,0.20)" }}
                   >
-                    Pattern
+                    {a.sections.pattern.label}
                   </p>
-                  <p>
-                    We kept seeing the same problem in different forms. Important
-                    signals lived across meetings, interviews, emails, commercial
-                    conversations, and internal documents. Everyone sensed their
-                    value, but almost none of it compounded. Knowledge remained
-                    fragmented. Context stayed local. Teams moved slower than they
-                    should have.
-                  </p>
+                  <p>{a.sections.pattern.body}</p>
                 </div>
               </div>
 
@@ -291,14 +271,9 @@ export default function AboutPage() {
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
                     style={{ color: "rgba(255,255,255,0.20)" }}
                   >
-                    Purpose
+                    {a.sections.purpose.label}
                   </p>
-                  <p>
-                    That is what we are building. Sovereign transforms fragmented
-                    internal information into a usable layer of intelligence —
-                    helping teams sell with more context, communicate with more
-                    authority, and make decisions with far greater clarity.
-                  </p>
+                  <p>{a.sections.purpose.body}</p>
                 </div>
               </div>
             </div>
@@ -323,11 +298,9 @@ export default function AboutPage() {
               className="text-[15px] leading-[1.88] tracking-[-0.011em]"
               style={{ color: "rgba(255,255,255,0.42)" }}
             >
-              We&apos;re three builders with a shared instinct for finding
-              leverage in complexity.{" "}
+              {a.founders.bodyMuted}
               <span style={{ color: "rgba(255,255,255,0.70)" }}>
-                Sovereign is our way of turning that instinct into something
-                useful for the teams operating where information matters most.
+                {a.founders.bodyEmphasis}
               </span>
             </p>
           </div>
@@ -336,7 +309,7 @@ export default function AboutPage() {
           <div className="relative mx-auto max-w-4xl px-2 sm:px-6">
             <Image
               src="/draw-founders.png"
-              alt="The Sovereign founding team — Pablo, Carlos, Ventura"
+              alt={a.founders.imageAlt}
               width={1344}
               height={896}
               className="h-auto w-full"
@@ -354,7 +327,7 @@ export default function AboutPage() {
               className="text-[11px] font-medium uppercase tracking-[0.10em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
-              Co-Founders — Pablo, Carlos, Ventura
+              {a.founders.caption}
             </p>
           </div>
         </section>
@@ -369,14 +342,14 @@ export default function AboutPage() {
             className="text-[12px] tracking-[-0.011em] transition-opacity hover:opacity-60"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            ← Back to Sovereign
+            {t.shared.footerNav.back}
           </Link>
           <Link
             href="/request-demo"
             className="text-[12px] font-medium tracking-[-0.011em] transition-opacity hover:opacity-80"
             style={{ color: "rgba(255,255,255,0.50)" }}
           >
-            Request a demo →
+            {t.shared.footerNav.requestDemo}
           </Link>
         </footer>
       </main>

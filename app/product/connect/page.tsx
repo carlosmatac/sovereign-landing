@@ -4,11 +4,12 @@ import { Header } from "@/components/header"
 import { ConnectCommsPanel } from "@/components/connect-comms-panel"
 import { ConnectProjectDashboard } from "@/components/connect-project-dashboard"
 import { ArrowRight, ChevronRight, Settings2 } from "lucide-react"
+import { getServerT } from "@/lib/i18n/server"
+import { getDictionary } from "@/lib/i18n/config"
 
 export const metadata: Metadata = {
-  title: "Connect Your Workflow — Sovereign",
-  description:
-    "Bring commercial context, communication threads, and project intelligence into one shared operating environment. Sovereign connects the signals teams already work with — so intelligence is not isolated from execution.",
+  title: getDictionary("en").product.connect.metaTitle,
+  description: getDictionary("en").product.connect.metaDescription,
 }
 
 const GRAIN_BG =
@@ -19,47 +20,11 @@ const DOT_GRID =
 
 const ACCENT_BLUE = "#5B9CF6"
 
-const COMMS_BENEFITS = [
-  {
-    title: "Continuity across every conversation",
-    body: "Email threads, follow-up commitments, and account decisions are part of the same working context as your intelligence — not a separate inbox that no one checks before a meeting.",
-  },
-  {
-    title: "Shared context, not personal memory",
-    body: "When a team member picks up a thread, they see what has already been discussed, what was promised, and what the account has said — without asking someone else to brief them.",
-  },
-  {
-    title: "Follow-ups that do not fall through",
-    body: "Open commitments, unanswered questions, and pending requests are visible in the account context — not buried in someone's sent folder.",
-  },
-  {
-    title: "Communication connected to what matters",
-    body: "Every thread is linked to the account, the project, and the intelligence your team has gathered. Context does not have to be reconstructed before every call.",
-  },
-]
-
-const DASHBOARD_BENEFITS = [
-  {
-    title: "Targets and signals in the same place",
-    body: "Revenue goals, deal progress, and the intelligence feeding the project sit in one view — not across a CRM, a spreadsheet, and a folder of documents that no one keeps in sync.",
-  },
-  {
-    title: "Project visibility beyond static fields",
-    body: "A Sovereign project view shows not just what has been agreed, but what has been gathered — meetings, emails, interviews, and notes — so the team works from a complete picture.",
-  },
-  {
-    title: "One shared view of project reality",
-    body: "Every team member sees the same context: the deals, the activity, the sources, and the people. Operational knowledge does not live in one person's head.",
-  },
-  {
-    title: "Intelligence connected to execution",
-    body: "The information your team captures feeds directly into the project view — so the distance between what you know and what you act on is as short as possible.",
-  },
-]
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function ConnectWorkflowPage() {
+export default async function ConnectWorkflowPage() {
+  const t = await getServerT()
+  const c = t.product.connect
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#060D1C" }}>
       <Header />
@@ -107,14 +72,14 @@ export default function ConnectWorkflowPage() {
                 className="text-[11px] font-medium uppercase tracking-[0.10em] transition-opacity hover:opacity-70"
                 style={{ color: "rgba(255,255,255,0.28)" }}
               >
-                Platform
+                {t.shared.breadcrumb.platform}
               </Link>
               <ChevronRight className="h-3 w-3" style={{ color: "rgba(255,255,255,0.18)" }} strokeWidth={1.5} />
               <p
                 className="text-[11px] font-medium uppercase tracking-[0.10em]"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
-                Connect Your Workflow
+                {c.crumb}
               </p>
             </div>
 
@@ -133,22 +98,22 @@ export default function ConnectWorkflowPage() {
                 className="text-[11px] font-medium uppercase tracking-[0.12em]"
                 style={{ color: "rgba(255,255,255,0.28)" }}
               >
-                Connect Your Workflow
+                {c.eyebrow}
               </p>
             </div>
 
             {/* Headline + lead */}
             <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[3fr_2fr] lg:gap-20">
               <h1 className="font-serif text-4xl font-normal leading-[1.06] tracking-[-0.030em] text-white md:text-5xl lg:text-[3.2rem]">
-                Intelligence connected
+                {c.headlineLine1}
                 <br />
-                to how you work.
+                {c.headlineLine2}
               </h1>
               <p
                 className="text-pretty text-[15px] leading-[1.80] tracking-[-0.011em] lg:pb-1"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
-                Sovereign brings together the conversations, targets, and context that commercial teams already rely on — so intelligence is not isolated from the decisions and execution it is supposed to support.
+                {c.lead}
               </p>
             </div>
 
@@ -192,19 +157,19 @@ export default function ConnectWorkflowPage() {
                   className="mb-4 text-[11px] font-medium uppercase tracking-[0.12em]"
                   style={{ color: "rgba(255,255,255,0.28)" }}
                 >
-                  01 — Communications
+                  {c.comms.eyebrow}
                 </p>
                 <h2 className="font-serif text-3xl font-normal leading-[1.10] tracking-[-0.025em] text-white md:text-4xl">
-                  Every conversation,
+                  {c.comms.titleLine1}
                   <br />
-                  connected to its context.
+                  {c.comms.titleLine2}
                 </h2>
               </div>
               <p
                 className="text-[15px] leading-[1.80] tracking-[-0.011em] lg:pt-10"
                 style={{ color: "rgba(255,255,255,0.48)" }}
               >
-                Account threads, follow-up commitments, and decisions made over email are part of the same working context as your intelligence — visible to the whole team, linked to the account, and ready before the next conversation.
+                {c.comms.body}
               </p>
             </div>
           </div>
@@ -218,7 +183,7 @@ export default function ConnectWorkflowPage() {
               className="grid grid-cols-1 gap-px sm:grid-cols-2"
               style={{ background: "rgba(255,255,255,0.06)" }}
             >
-              {COMMS_BENEFITS.map(({ title, body }) => (
+              {c.comms.benefits.map(({ title, body }) => (
                 <div key={title} className="p-8" style={{ background: "#060D1C" }}>
                   <h3 className="mb-3 font-serif text-[17px] font-normal leading-[1.22] tracking-[-0.018em] text-white">
                     {title}
@@ -267,19 +232,19 @@ export default function ConnectWorkflowPage() {
                   className="mb-4 text-[11px] font-medium uppercase tracking-[0.12em]"
                   style={{ color: "rgba(255,255,255,0.28)" }}
                 >
-                  02 — Project context
+                  {c.dashboard.eyebrow}
                 </p>
                 <h2 className="font-serif text-3xl font-normal leading-[1.10] tracking-[-0.025em] text-white md:text-4xl">
-                  Targets, signals, and
+                  {c.dashboard.titleLine1}
                   <br />
-                  sources in one view.
+                  {c.dashboard.titleLine2}
                 </h2>
               </div>
               <p
                 className="text-[15px] leading-[1.80] tracking-[-0.011em] lg:pt-10"
                 style={{ color: "rgba(255,255,255,0.48)" }}
               >
-                A Sovereign project view shows not just what has been agreed, but what has been gathered — revenue targets, deal progress, team context, and the full range of sources feeding the project. One shared view of operational reality.
+                {c.dashboard.body}
               </p>
             </div>
           </div>
@@ -301,13 +266,13 @@ export default function ConnectWorkflowPage() {
                 className="mb-2 text-[11px] font-medium uppercase tracking-[0.12em]"
                 style={{ color: "rgba(255,255,255,0.22)" }}
               >
-                What you are looking at
+                {t.shared.panelExplain.whatYouAreLookingAt}
               </p>
               <p
                 className="max-w-3xl text-[15px] leading-[1.80] tracking-[-0.011em]"
                 style={{ color: "rgba(255,255,255,0.52)" }}
               >
-                This is a working project view — not a reporting dashboard. The revenue figures, deal stages, team members, and source counts are all live context from the Angola 2025 project. The Sources tab shows every interview, email, meeting note, and report that feeds the project intelligence. Nothing is static or decorative.
+                {c.dashboard.explainBody}
               </p>
             </div>
           </div>
@@ -317,7 +282,7 @@ export default function ConnectWorkflowPage() {
               className="grid grid-cols-1 gap-px sm:grid-cols-2"
               style={{ background: "rgba(255,255,255,0.06)" }}
             >
-              {DASHBOARD_BENEFITS.map(({ title, body }) => (
+              {c.dashboard.benefits.map(({ title, body }) => (
                 <div key={title} className="p-8" style={{ background: "#060D1C" }}>
                   <h3 className="mb-3 font-serif text-[17px] font-normal leading-[1.22] tracking-[-0.018em] text-white">
                     {title}
@@ -353,30 +318,14 @@ export default function ConnectWorkflowPage() {
               className="mb-12 text-[11px] font-medium uppercase tracking-[0.12em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
-              What changes
+              {t.shared.closing.whatChanges}
             </p>
 
             <div
               className="grid grid-cols-1 gap-px sm:grid-cols-3"
               style={{ background: "rgba(255,255,255,0.06)" }}
             >
-              {[
-                {
-                  stat: "One context",
-                  label: "not five separate tools",
-                  body: "Conversations, targets, intelligence, and team context sit in the same environment. The operational picture is complete without switching between systems.",
-                },
-                {
-                  stat: "Less fragmentation",
-                  label: "across teams and sources",
-                  body: "When everyone works from the same project view, decisions are grounded in shared context — not in whoever happened to be on the last call.",
-                },
-                {
-                  stat: "Closer to execution",
-                  label: "from signal to action",
-                  body: "The distance between what your team knows and what it acts on shrinks when intelligence, communication, and commercial targets are connected.",
-                },
-              ].map(({ stat, label, body }) => (
+              {c.closing.map(({ stat, label, body }) => (
                 <div key={stat} className="p-8" style={{ background: "#060D1C" }}>
                   <p className="mb-1 font-serif text-[22px] font-normal leading-tight tracking-[-0.020em] text-white">
                     {stat}
@@ -408,13 +357,13 @@ export default function ConnectWorkflowPage() {
             <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="font-serif text-2xl font-normal leading-[1.14] tracking-[-0.022em] text-white md:text-3xl">
-                  Ready to connect your operating context?
+                  {c.cta.headline}
                 </h2>
                 <p
                   className="mt-2 text-[14px] leading-[1.70] tracking-[-0.010em]"
                   style={{ color: "rgba(255,255,255,0.42)" }}
                 >
-                  See how Sovereign brings intelligence and execution into one shared environment.
+                  {c.cta.body}
                 </p>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -422,7 +371,7 @@ export default function ConnectWorkflowPage() {
                   href="/request-demo"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium tracking-[-0.011em] text-[#070E1F] transition-opacity hover:opacity-90"
                 >
-                  Request a demo
+                  {t.shared.ctaStrip.requestDemo}
                   <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
                 </Link>
                 <Link
@@ -430,7 +379,7 @@ export default function ConnectWorkflowPage() {
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-[-0.011em] transition-colors hover:bg-white/[0.06]"
                   style={{ border: "1px solid rgba(255,255,255,0.14)", color: "rgba(255,255,255,0.60)" }}
                 >
-                  Explore the platform
+                  {t.shared.ctaStrip.explorePlatform}
                 </Link>
               </div>
             </div>
@@ -447,14 +396,14 @@ export default function ConnectWorkflowPage() {
             className="text-[12px] tracking-[-0.011em] transition-opacity hover:opacity-60"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            ← Back to Sovereign
+            {t.shared.footerNav.back}
           </Link>
           <Link
             href="/request-demo"
             className="text-[12px] font-medium tracking-[-0.011em] transition-opacity hover:opacity-80"
             style={{ color: "rgba(255,255,255,0.50)" }}
           >
-            Request a demo →
+            {t.shared.footerNav.requestDemo}
           </Link>
         </footer>
       </main>

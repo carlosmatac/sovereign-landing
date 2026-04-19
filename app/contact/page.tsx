@@ -2,10 +2,12 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { Header } from "@/components/header"
+import { getServerT } from "@/lib/i18n/server"
+import { getDictionary } from "@/lib/i18n/config"
 
 export const metadata: Metadata = {
-  title: "Contact — Sovereign",
-  description: "Get in touch with the Sovereign team.",
+  title: getDictionary("en").contact.metaTitle,
+  description: getDictionary("en").contact.metaDescription,
 }
 
 const GRAIN_BG =
@@ -14,7 +16,10 @@ const GRAIN_BG =
 const DOT_GRID =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const t = await getServerT()
+  const c = t.contact
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#060D1C" }}>
       <Header />
@@ -66,7 +71,7 @@ export default function ContactPage() {
             className="mb-4 text-[11px] font-medium uppercase tracking-[0.10em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Contact
+            {c.eyebrow}
           </p>
 
           {/* Heading */}
@@ -74,7 +79,7 @@ export default function ContactPage() {
             className="mb-6 font-serif text-4xl font-normal leading-tight tracking-[-0.028em] md:text-5xl"
             style={{ color: "rgba(255,255,255,0.90)" }}
           >
-            Get in touch.
+            {c.headline}
           </h1>
 
           {/* Divider */}
@@ -89,8 +94,7 @@ export default function ContactPage() {
             className="mb-10 text-pretty text-[15px] leading-relaxed tracking-[-0.011em]"
             style={{ color: "rgba(255,255,255,0.45)" }}
           >
-            For demos, partnerships, press enquiries, or general questions, reach us directly.
-            We typically respond within one business day.
+            {c.body}
           </p>
 
           {/* Email — primary action */}
@@ -112,7 +116,7 @@ export default function ContactPage() {
                 color: "rgba(255,255,255,0.65)",
               }}
             >
-              Request a demo
+              {c.requestDemo}
             </Link>
           </div>
 
@@ -123,7 +127,7 @@ export default function ContactPage() {
               className="text-[12px] tracking-[-0.011em] transition-colors hover:text-white/50"
               style={{ color: "rgba(255,255,255,0.22)" }}
             >
-              ← Back to Sovereign
+              {c.back}
             </Link>
           </div>
         </div>

@@ -3,11 +3,16 @@ import Image from "next/image"
 import Link from "next/link"
 import { Header } from "@/components/header"
 import { ArrowRight } from "lucide-react"
+import { getServerT } from "@/lib/i18n/server"
+import { getDictionary } from "@/lib/i18n/config"
 
+// Metadata is generated server-side at request time. We use the EN dictionary
+// for the static export here — Next.js metadata is cached, so dynamic per-locale
+// titles would require generateMetadata + reading the cookie there too. Keeping
+// EN as the canonical SEO target is the simpler, safer default.
 export const metadata: Metadata = {
-  title: "Who it's built for — Sovereign",
-  description:
-    "Sovereign is built for teams where context matters and information fragments easily — sales, editorial, marketing, and leadership.",
+  title: getDictionary("en").useCases.metaTitle,
+  description: getDictionary("en").useCases.metaDescription,
 }
 
 // ─── Texture constants ────────────────────────────────────────────────────────
@@ -95,7 +100,10 @@ function SectionImage({
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function UseCasesPage() {
+export default async function UseCasesPage() {
+  const t = await getServerT()
+  const u = t.useCases
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#060D1C" }}>
       <Header />
@@ -129,18 +137,16 @@ export default function UseCasesPage() {
               className="mb-5 text-[11px] font-medium uppercase tracking-[0.14em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
-              Use Cases
+              {u.eyebrow}
             </p>
             <h1 className="mb-7 max-w-2xl font-serif text-5xl font-normal leading-[1.05] tracking-[-0.032em] text-white md:text-6xl lg:text-[4rem]">
-              Who it&apos;s built for.
+              {u.headline}
             </h1>
             <p
               className="max-w-xl text-[16px] leading-[1.82] tracking-[-0.011em]"
               style={{ color: "rgba(255,255,255,0.48)" }}
             >
-              Sovereign is built for teams where context matters and information
-              fragments easily — where what is known inside the organisation rarely
-              makes it to the people who need it most.
+              {u.intro}
             </p>
 
             {/* Thin hairline rule */}
@@ -174,10 +180,10 @@ export default function UseCasesPage() {
           <div className="relative mx-auto max-w-5xl px-6 pt-20 md:pt-28">
             <SectionImage
               src="/savannah.png"
-              alt="Savannah landscape at sunset — Sales Teams"
+              alt={u.sales.imageAlt}
               aspectClass="aspect-[21/8]"
-              label="01 — Sales Teams"
-              headline="Enter every meeting knowing more than the room."
+              label={u.sales.label}
+              headline={u.sales.headline}
             />
 
             {/* Copy — centred under the wide image */}
@@ -186,10 +192,7 @@ export default function UseCasesPage() {
                 className="text-[15px] leading-[1.82] tracking-[-0.011em]"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
-                Account history, prior conversations, relationship context, and
-                open commitments — surfaced before the call starts. Sovereign gives
-                commercial teams the preparation layer that turns meetings from
-                introductions into advances.
+                {u.sales.body}
               </p>
             </div>
           </div>
@@ -220,10 +223,10 @@ export default function UseCasesPage() {
               <div className="w-full shrink-0 lg:w-[38%]">
                 <SectionImage
                   src="/african_city.png"
-                  alt="African city at golden hour — Editorial Teams"
+                  alt={u.editorial.imageAlt}
                   aspectClass="aspect-[3/4]"
-                  label="02 — Editorial Teams"
-                  headline="Preserve the nuance. Surface the pattern."
+                  label={u.editorial.label}
+                  headline={u.editorial.headline}
                 />
               </div>
 
@@ -233,19 +236,11 @@ export default function UseCasesPage() {
                   className="mb-8 text-[15px] leading-[1.82] tracking-[-0.011em]"
                   style={{ color: "rgba(255,255,255,0.50)" }}
                 >
-                  Interviews, field conversations, and expert exchanges contain far
-                  more than what ends up in the final piece. Sovereign helps
-                  editorial teams hold onto what was said, surface recurring themes
-                  across sources, and prepare for the next conversation with the
-                  full weight of what came before it.
+                  {u.editorial.body}
                 </p>
                 {/* Three brief value points */}
                 <div className="space-y-3">
-                  {[
-                    "Thematic continuity across interviews and projects",
-                    "Better preparation — drawn from prior exchanges",
-                    "Nothing important lost between a conversation and its output",
-                  ].map((point) => (
+                  {u.editorial.points.map((point) => (
                     <div key={point} className="flex items-start gap-3">
                       <div
                         className="mt-[7px] h-[4px] w-[4px] shrink-0 rounded-full"
@@ -291,10 +286,10 @@ export default function UseCasesPage() {
               <div className="w-full shrink-0 lg:w-[42%]">
                 <SectionImage
                   src="/tropical.png"
-                  alt="Tropical intelligence hub at dusk — Marketing Teams"
+                  alt={u.marketing.imageAlt}
                   aspectClass="aspect-square"
-                  label="03 — Marketing Teams"
-                  headline="Publish with authority, not approximation."
+                  label={u.marketing.label}
+                  headline={u.marketing.headline}
                 />
               </div>
 
@@ -304,19 +299,11 @@ export default function UseCasesPage() {
                   className="mb-8 text-[15px] leading-[1.82] tracking-[-0.011em]"
                   style={{ color: "rgba(255,255,255,0.50)" }}
                 >
-                  The most credible outbound communication is grounded in what an
-                  organisation actually knows — not assembled from public sources
-                  at the last minute. Sovereign turns internal intelligence into
-                  newsletters, briefings, and stakeholder content that carries
-                  real weight because it comes from real context.
+                  {u.marketing.body}
                 </p>
                 {/* Three brief value points */}
                 <div className="space-y-3">
-                  {[
-                    "One internal knowledge base — many audience-specific outputs",
-                    "Content that reflects genuine organisational intelligence",
-                    "From scattered signals to finished communication assets",
-                  ].map((point) => (
+                  {u.marketing.points.map((point) => (
                     <div key={point} className="flex items-start gap-3">
                       <div
                         className="mt-[7px] h-[4px] w-[4px] shrink-0 rounded-full"
@@ -359,10 +346,10 @@ export default function UseCasesPage() {
             {/* Horizontal band image */}
             <SectionImage
               src="/asia.png"
-              alt="Asian steppe data outpost — Leadership & Strategy"
+              alt={u.leadership.imageAlt}
               aspectClass="aspect-[3/1]"
-              label="04 — Leadership & Strategy"
-              headline="Decisions grounded in everything you already know."
+              label={u.leadership.label}
+              headline={u.leadership.headline}
             />
 
             {/* Two-column copy below — asymmetric 3fr/2fr */}
@@ -372,21 +359,12 @@ export default function UseCasesPage() {
                   className="text-[15px] leading-[1.82] tracking-[-0.011em]"
                   style={{ color: "rgba(255,255,255,0.50)" }}
                 >
-                  Leadership teams rarely lack information — they lack the
-                  infrastructure to make it usable at the moment it matters.
-                  Sovereign gives strategy directors and executives connected
-                  visibility across projects, relationships, and signals — so
-                  the decisions they make are informed by the full depth of
-                  what the organisation has gathered.
+                  {u.leadership.body}
                 </p>
               </div>
               {/* Right column — three headline value points */}
               <div className="flex flex-col justify-end gap-5">
-                {[
-                  { label: "Strategic clarity", body: "See patterns across projects and markets before they become obvious." },
-                  { label: "Connected context", body: "Every relationship, account, and signal in one accessible view." },
-                  { label: "Faster decisions", body: "From fragmented knowledge to an informed position — without a briefing team." },
-                ].map(({ label, body }) => (
+                {u.leadership.cards.map(({ label, body }) => (
                   <div
                     key={label}
                     className="rounded-xl px-5 py-4"
@@ -444,12 +422,7 @@ export default function UseCasesPage() {
               className="grid grid-cols-2 gap-px md:grid-cols-4"
               style={{ background: "rgba(255,255,255,0.06)" }}
             >
-              {[
-                { audience: "Sales Teams",          short: "Context before the meeting." },
-                { audience: "Editorial Teams",       short: "Patterns across every conversation." },
-                { audience: "Marketing Teams",       short: "Authority from internal intelligence." },
-                { audience: "Leadership & Strategy", short: "Visibility that supports decisions." },
-              ].map(({ audience, short }) => (
+              {u.summary.map(({ audience, short }) => (
                 <div
                   key={audience}
                   className="flex flex-col gap-2 p-6 md:p-8"
@@ -481,13 +454,13 @@ export default function UseCasesPage() {
             <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="font-serif text-2xl font-normal leading-[1.14] tracking-[-0.022em] text-white md:text-3xl">
-                  See it in your context.
+                  {u.cta.headline}
                 </h2>
                 <p
                   className="mt-2 text-[14px] leading-[1.70] tracking-[-0.010em]"
                   style={{ color: "rgba(255,255,255,0.42)" }}
                 >
-                  Request a demo and we will show you what Sovereign looks like for your team.
+                  {u.cta.body}
                 </p>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -495,7 +468,7 @@ export default function UseCasesPage() {
                   href="/request-demo"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium tracking-[-0.011em] text-[#070E1F] transition-opacity hover:opacity-90"
                 >
-                  Request a demo
+                  {t.shared.ctaStrip.requestDemo}
                   <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
                 </Link>
                 <Link
@@ -503,7 +476,7 @@ export default function UseCasesPage() {
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-[-0.011em] transition-colors hover:bg-white/[0.06]"
                   style={{ border: "1px solid rgba(255,255,255,0.14)", color: "rgba(255,255,255,0.60)" }}
                 >
-                  Explore the platform
+                  {t.shared.ctaStrip.explorePlatform}
                 </Link>
               </div>
             </div>
@@ -520,14 +493,14 @@ export default function UseCasesPage() {
             className="text-[12px] tracking-[-0.011em] transition-opacity hover:opacity-60"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            ← Back to Sovereign
+            {t.shared.footerNav.back}
           </Link>
           <Link
             href="/request-demo"
             className="text-[12px] font-medium tracking-[-0.011em] transition-opacity hover:opacity-80"
             style={{ color: "rgba(255,255,255,0.50)" }}
           >
-            Request a demo →
+            {t.shared.footerNav.requestDemo}
           </Link>
         </footer>
       </main>

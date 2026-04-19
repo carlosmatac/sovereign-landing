@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useCallback, useRef, useState } from "react"
+import { useT } from "@/lib/i18n/locale-context"
 
 // ─── Atmosphere (kept in sync with the rest of the landing) ───────────────────
 
@@ -100,6 +101,7 @@ function LogoCell({
 export function IntegrationsBand() {
   const bandRef = useRef<HTMLDivElement>(null)
   const [hovered, setHovered] = useState<HoveredState | null>(null)
+  const t = useT()
 
   const handleEnter = useCallback((name: string, cell: HTMLDivElement) => {
     const band = bandRef.current
@@ -171,7 +173,7 @@ export function IntegrationsBand() {
               letterSpacing: "0.18em",
             }}
           >
-            Platform compatibility
+            {t.integrations.eyebrow}
           </p>
           <div
             aria-hidden="true"
@@ -185,7 +187,7 @@ export function IntegrationsBand() {
           className="text-balance text-center font-serif text-[28px] font-normal leading-[1.18] tracking-[-0.022em] md:text-[34px]"
           style={{ color: "rgba(255,255,255,0.92)" }}
         >
-          Connect with the tools your team already uses
+          {t.integrations.headline}
         </h2>
 
         {/* Supporting copy */}
@@ -193,9 +195,7 @@ export function IntegrationsBand() {
           className="mx-auto mt-5 max-w-xl text-balance text-center text-[14px] leading-[1.65] tracking-[-0.005em] md:text-[15px]"
           style={{ color: "rgba(255,255,255,0.55)" }}
         >
-          Designed to fit the commercial and operational stack your team already
-          runs on — CRM, email, calendar, documents, and collaboration —
-          brought into one intelligence layer.
+          {t.integrations.description}
         </p>
       </div>
 

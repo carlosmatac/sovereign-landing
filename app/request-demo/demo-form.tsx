@@ -3,6 +3,7 @@
 import { useActionState, useState, useRef, useEffect } from "react"
 import { sendDemoRequest, type FormState } from "@/app/actions/send-demo-request"
 import { CheckCircle, ChevronDown, Search } from "lucide-react"
+import { useT } from "@/lib/i18n/locale-context"
 
 const INITIAL: FormState = { status: "idle" }
 
@@ -122,6 +123,7 @@ function CountryCodeSelect({
   value: Country
   onChange: (c: Country) => void
 }) {
+  const t = useT()
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
   const containerRef = useRef<HTMLDivElement>(null)
@@ -206,7 +208,7 @@ function CountryCodeSelect({
               ref={searchRef}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search country or code…"
+              placeholder={t.requestDemo.form.countrySearch}
               className="flex-1 bg-transparent text-[12px] text-white outline-none placeholder-white/25"
             />
           </div>
@@ -215,7 +217,7 @@ function CountryCodeSelect({
           <div className="max-h-52 overflow-y-auto">
             {filtered.length === 0 ? (
               <p className="px-4 py-3 text-[12px]" style={{ color: "rgba(255,255,255,0.30)" }}>
-                No results
+                {t.requestDemo.form.noResults}
               </p>
             ) : (
               filtered.map((country) => {
@@ -330,6 +332,8 @@ function Textarea({
 // ─── Main form ─────────────────────────────────────────────────────────────────
 
 export function DemoForm() {
+  const t = useT()
+  const f = t.requestDemo.form
   const [state, formAction, isPending] = useActionState(sendDemoRequest, INITIAL)
   const [dialCountry, setDialCountry] = useState<Country>(UNIQUE_COUNTRIES[0])
 
@@ -345,11 +349,10 @@ export function DemoForm() {
           className="mb-3 font-serif text-2xl font-normal tracking-[-0.025em]"
           style={{ color: "rgba(255,255,255,0.90)" }}
         >
-          Request received.
+          {t.requestDemo.success.title}
         </h2>
         <p className="max-w-sm text-[14px] leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-          We&apos;ll be in touch within one business day to confirm your demo and tailor the
-          session to your context.
+          {t.requestDemo.success.body}
         </p>
       </div>
     )
@@ -360,27 +363,27 @@ export function DemoForm() {
       {/* Name row */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="firstName">First name *</Label>
+          <Label htmlFor="firstName">{f.firstName}</Label>
           <Input id="firstName" name="firstName" autoComplete="given-name" required />
         </div>
         <div>
-          <Label htmlFor="lastName">Last name *</Label>
+          <Label htmlFor="lastName">{f.lastName}</Label>
           <Input id="lastName" name="lastName" autoComplete="family-name" required />
         </div>
       </div>
 
       {/* Work email */}
       <div>
-        <Label htmlFor="email">Work email *</Label>
+        <Label htmlFor="email">{f.email}</Label>
         <Input
           id="email" name="email" type="email"
-          placeholder="you@company.com" autoComplete="email" required
+          placeholder={f.emailPlaceholder} autoComplete="email" required
         />
       </div>
 
       {/* Phone number with country code */}
       <div>
-        <Label htmlFor="phone">Phone number</Label>
+        <Label htmlFor="phone">{f.phone}</Label>
         {/* Pass selected dial code as a hidden field so the server action can read it */}
         <input type="hidden" name="dialCode" value={dialCountry.dial} />
         <input type="hidden" name="dialCountry" value={dialCountry.name} />
@@ -391,7 +394,7 @@ export function DemoForm() {
             name="phone"
             type="tel"
             autoComplete="tel"
-            placeholder="Phone number"
+            placeholder={f.phonePlaceholder}
             className="flex-1 rounded-r-[8px] border-y border-r px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-colors focus:ring-0"
             style={{
               background: "rgba(255,255,255,0.04)",
@@ -412,30 +415,30 @@ export function DemoForm() {
       {/* Company + Role row */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="company">Company *</Label>
+          <Label htmlFor="company">{f.company}</Label>
           <Input id="company" name="company" autoComplete="organization" required />
         </div>
         <div>
-          <Label htmlFor="role">Role *</Label>
+          <Label htmlFor="role">{f.role}</Label>
           <Input id="role" name="role" autoComplete="organization-title" required />
         </div>
       </div>
 
       {/* What are you looking to solve */}
       <div>
-        <Label htmlFor="problem">What are you looking to solve? *</Label>
+        <Label htmlFor="problem">{f.problem}</Label>
         <Textarea
           id="problem" name="problem" required rows={4}
-          placeholder="Tell us about your current challenges and what you hope Sovereign can help with."
+          placeholder={f.problemPlaceholder}
         />
       </div>
 
       {/* Optional message */}
       <div>
-        <Label htmlFor="message">Anything else you&apos;d like to add</Label>
+        <Label htmlFor="message">{f.message}</Label>
         <Textarea
           id="message" name="message" rows={3}
-          placeholder="Preferred timing, team size, or any specific questions — optional."
+          placeholder={f.messagePlaceholder}
         />
       </div>
 
@@ -460,11 +463,11 @@ export function DemoForm() {
         className="w-full rounded-full py-3.5 text-sm font-medium tracking-[-0.011em] transition-opacity disabled:opacity-60"
         style={{ background: "#ffffff", color: "#070E1F" }}
       >
-        {isPending ? "Sending…" : "Request demo"}
+        {isPending ? f.sending : f.submit}
       </button>
 
       <p className="text-center text-[11px]" style={{ color: "rgba(255,255,255,0.22)" }}>
-        We&apos;ll respond within one business day.
+        {f.footnote}
       </p>
     </form>
   )
