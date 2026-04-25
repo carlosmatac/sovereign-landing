@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import Image from "next/image"
 import Link from "next/link"
 import { HeroDashboardPanel, HeroDashboardPanelMobile } from "@/components/hero-dashboard-panel"
 import { useT } from "@/lib/i18n/locale-context"
@@ -53,73 +52,69 @@ export function Hero() {
         }}
       />
 
-      {/* Centered copy block */}
-      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pb-12 pt-24 text-center md:pb-16 md:pt-36 lg:pt-40">
-        {/* Logo Stamp */}
-        <div className="mb-7">
-          <Image
-            src="/aksum_white.svg"
-            alt="Aksum"
-            width={40}
-            height={40}
-            loading="eager"
-            className="opacity-20"
-          />
-        </div>
+      {/* Above-the-fold copy — split composition on desktop, stacked on mobile.
+          Headline anchors the left column; supporting copy + the single CTA
+          live in the right column with the CTA pushed to the bottom edge so
+          it visually anchors the row. Top padding is tightened so the hero
+          starts sooner under the detached header. */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-20 md:pt-24 lg:pt-28">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-x-16">
+          {/* LEFT — badge + headline */}
+          <div className="lg:col-span-7">
+            {/* Badge — traveling border-light */}
+            <div
+              className="relative inline-flex overflow-hidden rounded-full p-px"
+              style={{ background: "rgba(255,255,255,0.10)" }}
+            >
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-[-75%]"
+                style={{
+                  background:
+                    "conic-gradient(from 0deg, transparent 0%, transparent 62%, rgba(255,255,255,0.50) 72%, rgba(255,255,255,0.18) 78%, transparent 86%, transparent 100%)",
+                  animation: "badge-orbit 4s linear infinite",
+                }}
+              />
+              <span
+                className="relative z-10 inline-flex items-center rounded-full px-4 py-1.5 text-[13px] tracking-[-0.01em] text-white/50"
+                style={{ background: "rgba(6,13,28,0.88)" }}
+              >
+                {t.hero.badge}
+              </span>
+            </div>
 
-        {/* Badge — traveling border-light */}
-        <div
-          className="relative mb-7 inline-flex overflow-hidden rounded-full p-px"
-          style={{ background: "rgba(255,255,255,0.10)" }}
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-[-75%]"
-            style={{
-              background:
-                "conic-gradient(from 0deg, transparent 0%, transparent 62%, rgba(255,255,255,0.50) 72%, rgba(255,255,255,0.18) 78%, transparent 86%, transparent 100%)",
-              animation: "badge-orbit 4s linear infinite",
-            }}
-          />
-          <span
-            className="relative z-10 inline-flex items-center rounded-full px-4 py-1.5 text-[13px] tracking-[-0.01em] text-white/50"
-            style={{ background: "rgba(6,13,28,0.88)" }}
-          >
-            {t.hero.badge}
-          </span>
-        </div>
+            {/* Headline */}
+            <h1 className="mt-6 text-balance font-serif text-4xl font-normal tracking-[-0.025em] text-white md:text-5xl lg:text-[64px] lg:leading-[1.04]">
+              {t.hero.headline}
+            </h1>
+          </div>
 
-        {/* Headline */}
-        <h1 className="text-balance font-serif text-4xl font-normal tracking-[-0.03em] text-white md:text-5xl lg:text-6xl">
-          {t.hero.headline}
-        </h1>
+          {/* RIGHT — supporting copy + CTA. On lg+, the column stretches to
+              the row height and pushes the CTA to the bottom so it lines up
+              with the bottom of the headline opposite. */}
+          <div className="flex flex-col gap-7 lg:col-span-5 lg:justify-between lg:gap-0">
+            <p className="text-pretty text-base leading-relaxed tracking-[-0.011em] text-white/55 md:text-lg lg:max-w-md lg:pt-2">
+              {t.hero.subheadline}
+            </p>
 
-        {/* Subheadline */}
-        <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed tracking-[-0.011em] text-white/55">
-          {t.hero.subheadline}
-        </p>
-
-        {/* Buttons */}
-        <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <Button
-            asChild
-            size="lg"
-            className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/92"
-          >
-            <Link href="/request-demo">{t.hero.primaryCta}</Link>
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="rounded-full border-white/20 bg-transparent px-8 font-medium tracking-[-0.011em] text-white/80 hover:bg-white/[0.08] hover:text-white"
-          >
-            {t.hero.secondaryCta}
-          </Button>
+            <div className="lg:pt-6">
+              <Button
+                asChild
+                size="lg"
+                className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/92"
+              >
+                <Link href="/request-demo">{t.hero.primaryCta}</Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Dashboard panel — mobile shows a simplified readable view, desktop shows the full panel */}
-      <div className="relative z-10 mx-auto max-w-[1100px] px-6 pb-16 md:pb-24 lg:pb-28">
+      {/* Dashboard panel — wider container, pulled tight to the copy row so it
+          appears earlier in the viewport and reads as the centerpiece of the
+          first screen. Mobile shows a simplified readable view, desktop shows
+          the full panel. */}
+      <div className="relative z-10 mx-auto max-w-[1320px] px-6 pb-16 pt-12 md:pb-20 md:pt-14 lg:pb-24 lg:pt-16">
         <div className="block lg:hidden">
           <HeroDashboardPanelMobile />
         </div>

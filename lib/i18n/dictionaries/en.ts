@@ -66,7 +66,6 @@ export const en = {
     subheadline:
       "Aksum transforms internal knowledge into sales advantage, strategic clarity, and targeted communication — at the speed decisions actually need.",
     primaryCta: "Request Demo",
-    secondaryCta: "Explore the Platform",
   },
 
   // ─── Integrations band ─────────────────────────────────────────────────────

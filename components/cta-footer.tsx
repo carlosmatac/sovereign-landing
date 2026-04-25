@@ -16,12 +16,18 @@ const DOT_GRID =
 
 // ─── Cropped brand strip ──────────────────────────────────────────────────────
 //
-// A horizontal editorial strip with a strict height. The AKSUM wordmark is
-// rendered intentionally taller than the strip itself, so the strip's
-// `overflow: hidden` crops the top and bottom of the letters cleanly — the
-// reader sees a controlled horizontal slice of the brand mark, not a giant
-// image dropped onto the page. A faint dot grid integrates the strip
-// tonally with the surrounding section so the band has no visible edges.
+// A horizontal editorial strip with a strict height that acts as a clipping
+// mask. The AKSUM wordmark inside is rendered intentionally far taller than
+// the strip — the strip's `overflow: hidden` cuts off the top and bottom of
+// the letterforms so only a strong horizontal slice is visible. A faint dot
+// grid behind the wordmark integrates the strip tonally with the surrounding
+// section so the band itself has no visible edges.
+//
+// We deliberately use a plain <img> here (not next/image): the asset is a
+// base64-PNG packaged inside an SVG, and next/image's width/height props
+// fight CSS height overrides for that case, which prevents the crop. A bare
+// <img> with an explicit CSS height that exceeds the parent is the only
+// reliable way to force the visible cropping behaviour.
 
 // Precise dot field — 20px grid, 0.9px radius dots, architectural / technical substrate
 const BAND_GRID =
@@ -33,14 +39,13 @@ function AksumWordmark() {
       <div
         className="relative w-full overflow-hidden"
         style={{
-          // Fixed editorial strip height — the strict clipping container.
-          // Tighter on mobile so the cropped slice always feels controlled.
-          height: "clamp(150px, 19vw, 240px)",
+          // Fixed clipping band — strict, no overflow allowed.
+          height: "clamp(120px, 15vw, 190px)",
         }}
       >
-        {/* Faint dot grid — gives the strip a subtle technical substrate that
-            blends with the rest of the dark section, removing the "pasted
-            rectangle" feel without introducing any visible border edge. */}
+        {/* Faint dot grid behind the wordmark — tonally integrates the band
+            with the rest of the section so it doesn't read as a pasted
+            rectangle. */}
         <div
           aria-hidden="true"
           className="absolute inset-0"
@@ -48,37 +53,38 @@ function AksumWordmark() {
             backgroundImage: BAND_GRID,
             backgroundRepeat: "repeat",
             backgroundSize: "20px 20px",
-            opacity: 0.6,
+            opacity: 0.55,
           }}
         />
 
-        {/* Oversized wordmark.
-            Scaled significantly larger than the strip height (~2× on desktop),
-            so the strip's overflow crops the top and bottom of the letters
-            and only a strong horizontal slice is visible.
-            Wordmark aspect ratio is 2186.67 : 885.33 ≈ 2.47, so we drive size
-            from height (the visually meaningful axis here) and let width
-            follow naturally. The image is allowed to be wider than the
-            viewport — the band's overflow:hidden clips that excess
-            horizontally without any page scroll. */}
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <Image
-            src="/aksum_white_long.svg"
-            alt="Aksum"
-            width={2186}
-            height={885}
-            draggable={false}
-            priority={false}
-            className="block max-w-none select-none"
-            style={{
-              // Logo height grows faster than band height, guaranteeing a
-              // crop slice at every breakpoint.
-              height: "clamp(260px, 38vw, 480px)",
-              width: "auto",
-              opacity: 0.55,
-            }}
-          />
-        </div>
+        {/*
+          Oversized wordmark — driven by an explicit CSS height that is
+          always significantly larger than the parent band (roughly 2.5–3×).
+          Width follows the SVG's natural aspect ratio (≈ 2.47:1).
+
+          Sizing budget across breakpoints:
+            • mobile (~375 px wide):   band ≈ 120 px / logo ≈ 320 px tall  → 200 px cropped
+            • tablet (~768 px):        band ≈ 120 px / logo ≈ 340 px tall  → 220 px cropped
+            • laptop (~1024 px):       band ≈ 154 px / logo ≈ 410 px tall  → 256 px cropped
+            • desktop (~1440 px):      band ≈ 190 px / logo ≈ 540 px tall  → 350 px cropped
+
+          The wordmark is centred via absolute positioning + translate so the
+          visible slice is always the strong middle of the letters (not the
+          top, not the bottom).
+        */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/aksum_lines.svg"
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          className="pointer-events-none absolute left-1/2 top-1/2 block max-w-none -translate-x-1/2 -translate-y-1/2 select-none"
+          style={{
+            height: "clamp(320px, 38vw, 540px)",
+            width: "auto",
+            opacity: 0.6,
+          }}
+        />
       </div>
     </div>
   )

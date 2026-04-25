@@ -31,19 +31,21 @@ interface Link {
 }
 
 // ─── Visual constants by depth ────────────────────────────────────────────────
+//
+// Depth 0: full intelligence card — kind label + colored accent + name + role
+//          + connection metadata. Reads as a sharp foreground entity.
+// Depth 1: secondary card — name + role + small kind dot. Slight defocus.
+// Depth 2: ambient context card — name + small kind dot. Stronger defocus.
+// Depth 3: ghost text label, no card surface — uses hit rect for hover.
 
-// Depth 0: full card (kind + name + role), H=48
-// Depth 1: medium card (name + role),      H=42
-// Depth 2: compact card (name only),       H=34
-// Depth 3: ghost text label, no box,       H=0 (hit rect used instead)
-
-const CARD_H: Record<Depth, number>    = { 0: 48,   1: 42,   2: 34,   3: 0    }
-const CARD_BG: Record<Depth, number>   = { 0: 0.97, 1: 0.94, 2: 0.90, 3: 0    }
-const CARD_BD: Record<Depth, number>   = { 0: 0.22, 1: 0.15, 2: 0.09, 3: 0    }
+const CARD_H: Record<Depth, number>    = { 0: 60,   1: 46,   2: 32,   3: 0    }
+const CARD_BG: Record<Depth, number>   = { 0: 0.97, 1: 0.93, 2: 0.86, 3: 0    }
+const CARD_BD: Record<Depth, number>   = { 0: 0.24, 1: 0.14, 2: 0.08, 3: 0    }
 const D_OPACITY: Record<Depth, number> = { 0: 1.00, 1: 0.82, 2: 0.58, 3: 0.38 }
-const D_NAME: Record<Depth, number>    = { 0: 0.86, 1: 0.70, 2: 0.52, 3: 0.26 }
-const D_ROLE: Record<Depth, number>    = { 0: 0.44, 1: 0.34, 2: 0,    3: 0    }
-const D_TYPE: Record<Depth, number>    = { 0: 0.28, 1: 0,    2: 0,    3: 0    }
+const D_NAME: Record<Depth, number>    = { 0: 0.88, 1: 0.72, 2: 0.54, 3: 0.26 }
+const D_ROLE: Record<Depth, number>    = { 0: 0.46, 1: 0.34, 2: 0,    3: 0    }
+const D_TYPE: Record<Depth, number>    = { 0: 0.32, 1: 0,    2: 0,    3: 0    }
+const D_META: Record<Depth, number>    = { 0: 0.30, 1: 0,    2: 0,    3: 0    }
 const D_BLUR: Record<Depth, string | undefined> = {
   0: undefined,
   1: "fes-b1",
@@ -57,9 +59,21 @@ const KIND_LABEL: Record<Kind, string> = {
   person:     "PERSON",
   company:    "COMPANY",
   region:     "REGION",
-  government: "GOVT BODY",
+  government: "GOVERNMENT",
   document:   "DOCUMENT",
   theme:      "THEME",
+}
+
+// Entity-type colour system — aligned with the dashboard panel palette so
+// the floating cards read as part of the same product language. Used as the
+// left accent stripe, the type dot, and the on-hover top hairline.
+const KIND_COLOR: Record<Kind, string> = {
+  person:     "#5B9CF6", // blue
+  company:    "#34D399", // green
+  government: "#A78BFA", // violet
+  document:   "#7DD3FC", // cyan
+  region:     "#FBBF24", // amber
+  theme:      "#94A3B8", // slate (neutral for abstract themes)
 }
 
 // ─── Entity data ──────────────────────────────────────────────────────────────
@@ -142,6 +156,13 @@ const LINKS: Link[] = [
 ]
 
 const EL = Object.fromEntries(ENTITIES.map(e => [e.id, e]))
+
+// Precomputed connection count per entity — drives the metadata footer on
+// foreground intelligence cards so the figure is real (not decorative).
+const LINK_COUNT: Record<string, number> = ENTITIES.reduce((acc, e) => {
+  acc[e.id] = LINKS.filter(l => l.a === e.id || l.b === e.id).length
+  return acc
+}, {} as Record<string, number>)
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -335,80 +356,204 @@ export function FloatingEntityScene({ className = "" }: { className?: string }) 
                     </text>
                   </>
                 ) : (
-                  /* ── Depth 0–2: structured card ── */
+                  /* ── Depth 0–2: structured intelligence cards ── */
                   <>
-                    {/* Card background */}
+                    {/* Card surface */}
                     <rect
                       x={x} y={y}
                       width={entity.w} height={H}
                       rx={6}
                       fill={`rgba(9,17,36,${CARD_BG[entity.depth]})`}
-                      stroke={`rgba(147,147,147,${isHov ? 0.32 : CARD_BD[entity.depth]})`}
+                      stroke={`rgba(168,180,210,${isHov ? 0.34 : CARD_BD[entity.depth]})`}
                       strokeWidth={1}
                       style={{ cursor: "default" }}
                     />
 
-                    {/* Top accent bar — appears on hover */}
+                    {/* Inner top specular — 1px white sliver gives the card
+                        a subtle panel-like edge highlight. Skipped on the
+                        deepest cards to keep them visually receded. */}
+                    {entity.depth <= 1 && (
+                      <rect
+                        x={x + 4} y={y + 1}
+                        width={entity.w - 8} height={1}
+                        fill="rgba(255,255,255,0.05)"
+                      />
+                    )}
+
+                    {/* Left colored accent stripe — entity-type indicator.
+                        Width and opacity scale down with depth so foreground
+                        cards carry the strongest type signal. */}
+                    <rect
+                      x={x + 1}
+                      y={y + 2}
+                      width={entity.depth === 0 ? 2 : entity.depth === 1 ? 1.5 : 1}
+                      height={H - 4}
+                      rx={1}
+                      fill={KIND_COLOR[entity.kind]}
+                      opacity={
+                        entity.depth === 0 ? (isHov ? 0.92 : 0.62)
+                        : entity.depth === 1 ? (isHov ? 0.78 : 0.42)
+                        : (isHov ? 0.55 : 0.24)
+                      }
+                    />
+
+                    {/* On-hover top hairline — kind-tinted, signals selection */}
                     <motion.rect
                       x={x + 10} y={y}
-                      width={entity.w - 20} height={1}
-                      fill="rgba(148,188,252,0.40)"
-                      animate={{ opacity: isHov ? 1 : 0 }}
+                      width={entity.w - 20} height={1.2}
+                      fill={KIND_COLOR[entity.kind]}
+                      animate={{ opacity: isHov ? 0.75 : 0 }}
                       transition={{ duration: 0.16 }}
                     />
 
-                    {/* Kind badge — depth 0 only */}
+                    {/* ── Depth 0: full intelligence card ── */}
                     {entity.depth === 0 && (
-                      <text
-                        x={x + PAD_X}
-                        y={y + 14}
-                        fontSize={6.5}
-                        fontFamily="Inter, system-ui, sans-serif"
-                        fontWeight="600"
-                        letterSpacing="0.09em"
-                        fill={`rgba(255,255,255,${isHov ? 0.38 : D_TYPE[0]})`}
-                        style={{ pointerEvents: "none" }}
-                      >
-                        {KIND_LABEL[entity.kind]}
-                      </text>
+                      <>
+                        {/* Kind label (top-left) */}
+                        <text
+                          x={x + PAD_X}
+                          y={y + 14}
+                          fontSize={6.5}
+                          fontFamily="Inter, system-ui, sans-serif"
+                          fontWeight="600"
+                          letterSpacing="0.10em"
+                          fill={`rgba(255,255,255,${isHov ? 0.46 : D_TYPE[0]})`}
+                          style={{ pointerEvents: "none" }}
+                        >
+                          {KIND_LABEL[entity.kind]}
+                        </text>
+
+                        {/* Type dot (top-right) */}
+                        <circle
+                          cx={x + entity.w - PAD_X - 1}
+                          cy={y + 11}
+                          r={2.5}
+                          fill={KIND_COLOR[entity.kind]}
+                          opacity={isHov ? 0.95 : 0.70}
+                        />
+
+                        {/* Entity name */}
+                        <text
+                          x={x + PAD_X}
+                          y={y + 32}
+                          fontSize={12}
+                          fontFamily="Inter, system-ui, sans-serif"
+                          fontWeight="500"
+                          letterSpacing="-0.011em"
+                          fill={`rgba(255,255,255,${isHov ? 0.94 : D_NAME[0]})`}
+                          style={{ pointerEvents: "none" }}
+                        >
+                          {entity.label}
+                        </text>
+
+                        {/* Hairline divider above the metadata row */}
+                        <line
+                          x1={x + PAD_X} y1={y + 41}
+                          x2={x + entity.w - PAD_X} y2={y + 41}
+                          stroke="rgba(255,255,255,0.06)"
+                          strokeWidth={1}
+                        />
+
+                        {/* Role (bottom-left) */}
+                        <text
+                          x={x + PAD_X}
+                          y={y + H - 8}
+                          fontSize={8.5}
+                          fontFamily="Inter, system-ui, sans-serif"
+                          fontWeight="400"
+                          letterSpacing="-0.006em"
+                          fill={`rgba(255,255,255,${isHov ? 0.52 : D_ROLE[0]})`}
+                          style={{ pointerEvents: "none" }}
+                        >
+                          {entity.role}
+                        </text>
+
+                        {/* Connection count (bottom-right) — real metadata
+                            derived from the LINKS graph above. */}
+                        <text
+                          x={x + entity.w - PAD_X}
+                          y={y + H - 8}
+                          fontSize={7.5}
+                          fontFamily="Inter, system-ui, sans-serif"
+                          fontWeight="500"
+                          letterSpacing="0.02em"
+                          textAnchor="end"
+                          fill={`rgba(255,255,255,${isHov ? 0.48 : D_META[0]})`}
+                          style={{ pointerEvents: "none" }}
+                        >
+                          {LINK_COUNT[entity.id]} links
+                        </text>
+                      </>
                     )}
 
-                    {/* Entity name */}
-                    <text
-                      x={x + PAD_X}
-                      y={
-                        entity.depth === 0 ? y + 27
-                        : entity.depth === 1 ? y + 18
-                        : y + 21
-                      }
-                      fontSize={
-                        entity.depth === 0 ? 11.5
-                        : entity.depth === 1 ? 11
-                        : 10
-                      }
-                      fontFamily="Inter, system-ui, sans-serif"
-                      fontWeight="500"
-                      letterSpacing="-0.011em"
-                      fill={`rgba(255,255,255,${isHov ? 0.92 : D_NAME[entity.depth]})`}
-                      style={{ pointerEvents: "none" }}
-                    >
-                      {entity.label}
-                    </text>
+                    {/* ── Depth 1: secondary card ── */}
+                    {entity.depth === 1 && (
+                      <>
+                        {/* Type dot (top-right) */}
+                        <circle
+                          cx={x + entity.w - PAD_X}
+                          cy={y + 13}
+                          r={2}
+                          fill={KIND_COLOR[entity.kind]}
+                          opacity={isHov ? 0.88 : 0.50}
+                        />
 
-                    {/* Role — depth 0 and 1 only */}
-                    {entity.depth <= 1 && (
-                      <text
-                        x={x + PAD_X}
-                        y={entity.depth === 0 ? y + H - 9 : y + 34}
-                        fontSize={entity.depth === 0 ? 8.5 : 8}
-                        fontFamily="Inter, system-ui, sans-serif"
-                        fontWeight="400"
-                        letterSpacing="-0.006em"
-                        fill={`rgba(255,255,255,${isHov ? 0.48 : D_ROLE[entity.depth]})`}
-                        style={{ pointerEvents: "none" }}
-                      >
-                        {entity.role}
-                      </text>
+                        {/* Entity name */}
+                        <text
+                          x={x + PAD_X}
+                          y={y + 19}
+                          fontSize={11}
+                          fontFamily="Inter, system-ui, sans-serif"
+                          fontWeight="500"
+                          letterSpacing="-0.011em"
+                          fill={`rgba(255,255,255,${isHov ? 0.90 : D_NAME[1]})`}
+                          style={{ pointerEvents: "none" }}
+                        >
+                          {entity.label}
+                        </text>
+
+                        {/* Role */}
+                        <text
+                          x={x + PAD_X}
+                          y={y + 35}
+                          fontSize={8}
+                          fontFamily="Inter, system-ui, sans-serif"
+                          fontWeight="400"
+                          letterSpacing="-0.006em"
+                          fill={`rgba(255,255,255,${isHov ? 0.42 : D_ROLE[1]})`}
+                          style={{ pointerEvents: "none" }}
+                        >
+                          {entity.role}
+                        </text>
+                      </>
+                    )}
+
+                    {/* ── Depth 2: ambient context card ── */}
+                    {entity.depth === 2 && (
+                      <>
+                        {/* Tiny type dot (left, vertically centred) */}
+                        <circle
+                          cx={x + 11}
+                          cy={y + H / 2}
+                          r={2}
+                          fill={KIND_COLOR[entity.kind]}
+                          opacity={isHov ? 0.78 : 0.36}
+                        />
+
+                        {/* Entity name — shifted right to clear the dot */}
+                        <text
+                          x={x + 22}
+                          y={y + 21}
+                          fontSize={10}
+                          fontFamily="Inter, system-ui, sans-serif"
+                          fontWeight="500"
+                          letterSpacing="-0.011em"
+                          fill={`rgba(255,255,255,${isHov ? 0.78 : D_NAME[2]})`}
+                          style={{ pointerEvents: "none" }}
+                        >
+                          {entity.label}
+                        </text>
+                      </>
                     )}
                   </>
                 )}

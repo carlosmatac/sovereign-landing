@@ -122,7 +122,7 @@ export default async function AboutPage() {
                     filter: "saturate(0.82) contrast(1.06) brightness(0.84)",
                   }}
                 >
-                  <source src="/3D.mp4" type="video/mp4" />
+                  <source src="/AK_3d.mp4" type="video/mp4" />
                 </video>
                 <div
                   className="absolute inset-x-0 bottom-0 h-24"

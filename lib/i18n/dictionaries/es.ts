@@ -68,7 +68,6 @@ export const es: Dictionary = {
     subheadline:
       "Aksum transforma el conocimiento interno en ventaja comercial, claridad estratégica y comunicación dirigida — a la velocidad que las decisiones realmente requieren.",
     primaryCta: "Solicitar Demo",
-    secondaryCta: "Explorar la Plataforma",
   },
 
   // ─── Integrations band ─────────────────────────────────────────────────────
