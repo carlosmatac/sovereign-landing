@@ -58,8 +58,8 @@ export function Hero() {
         {/* Logo Stamp */}
         <div className="mb-7">
           <Image
-            src="/sovereign_logo.svg"
-            alt="Sovereign"
+            src="/aksum_white.svg"
+            alt="Aksum"
             width={40}
             height={40}
             loading="eager"

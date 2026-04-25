@@ -286,7 +286,7 @@ export function ActivateOutputPanel() {
             className="text-[10.5px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Sovereign · Output
+            Aksum · Output
           </span>
         </div>
         <div className="flex items-center gap-3">

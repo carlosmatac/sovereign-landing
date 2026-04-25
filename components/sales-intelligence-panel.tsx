@@ -94,7 +94,7 @@ function UserBubble({ text, faded = false }: { text: string; faded?: boolean }) 
   )
 }
 
-function SovereignBubble({ text }: { text: string }) {
+function AksumBubble({ text }: { text: string }) {
   return (
     <div className="flex items-start gap-2">
       <div
@@ -142,7 +142,7 @@ function InterviewDetailBackground() {
             className="text-[10.5px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Sovereign · Interviews
+            Aksum · Interviews
           </span>
         </div>
         <div
@@ -358,7 +358,7 @@ function SalesIntelligencePanel() {
             className="text-[10.5px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Sovereign · Copilot
+            Aksum · Copilot
           </span>
         </div>
         <div
@@ -379,7 +379,7 @@ function SalesIntelligencePanel() {
       <div className="flex flex-1 flex-col gap-3 overflow-y-auto px-5 pb-3 pt-5">
         {/* ── Static prior conversation ── */}
         <UserBubble text={PRIOR_USER} faded />
-        <SovereignBubble text={PRIOR_RESPONSE} />
+        <AksumBubble text={PRIOR_RESPONSE} />
 
         {/* Thin separator — marks the boundary between history and current session */}
         <div
@@ -403,7 +403,7 @@ function SalesIntelligencePanel() {
                 style={{ background: "rgba(255,255,255,0.12)" }}
               />
               <p className="text-[10.5px] text-[#3a4050]">
-                Ask Sovereign what it already knows.
+                Ask Aksum what it already knows.
               </p>
             </motion.div>
           )}

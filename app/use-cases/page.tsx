@@ -27,7 +27,7 @@ const DOT_GRID =
 // Each audience gets a desaturated, low-saturation tonal identity so the section
 // reads as a connected family of panels — never as a colourful logo wall. The
 // values are biased away from pure hues toward gray, which is what keeps them
-// premium against the dark Sovereign base.
+// premium against the dark Aksum base.
 
 type Tone = "steel" | "sage" | "plum" | "stone"
 

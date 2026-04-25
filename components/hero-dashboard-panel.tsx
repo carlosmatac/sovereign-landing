@@ -1037,7 +1037,7 @@ export function HeroDashboardPanelMobile() {
             className="text-[11px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Sovereign · Interviews
+            Aksum · Interviews
           </span>
         </div>
         <div
@@ -1160,7 +1160,7 @@ export function HeroDashboardPanel() {
             className="text-[10px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Sovereign · Intelligence Platform
+            Aksum · Intelligence Platform
           </span>
         </div>
         {/* Status pill */}
@@ -1188,8 +1188,8 @@ export function HeroDashboardPanel() {
       >
         <div className="flex items-center justify-between">
           <Image
-            src="/sovereign_log_apaisado_blanco.svg"
-            alt="Sovereign"
+            src="/aksum_white_long.svg"
+            alt="Aksum"
             width={79}
             height={20}
             className="opacity-80"

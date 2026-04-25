@@ -283,6 +283,7 @@ export function WorldIntelligenceMap({ className = "" }: { className?: string })
                     cx={entity.x} cy={entity.y}
                     r={2}
                     fill="oklch(0.92 0 0)"
+                    initial={{ opacity: nodeOpacity(entity.id) }}
                     animate={{ opacity: nodeOpacity(entity.id) }}
                     transition={{ duration: 0.22 }}
                   />
@@ -297,6 +298,7 @@ export function WorldIntelligenceMap({ className = "" }: { className?: string })
                     height={5}
                     fill="oklch(0.92 0 0)"
                     transform={`rotate(45 ${entity.x} ${entity.y})`}
+                    initial={{ opacity: nodeOpacity(entity.id) }}
                     animate={{ opacity: nodeOpacity(entity.id) }}
                     transition={{ duration: 0.22 }}
                   />

@@ -20,26 +20,12 @@ const gabarito = Gabarito({
 });
 
 export const metadata: Metadata = {
-  title: 'Sovereign | Frontier Markets Intelligence, Decoded',
+  title: 'Aksum | Frontier Markets Intelligence, Decoded',
   description: 'Transforming exclusive interviews with Ministers, CEOs, and Diplomats into a searchable, AI-powered business intelligence database for the Global South.',
   generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/sovereign_log_fondo.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
+  // Icons are handled by the Next.js app-router file convention via
+  // `app/icon.svg` — that gives us a content-fingerprinted URL which forces
+  // browsers to bypass any cached favicon from a previous brand.
 }
 
 export default async function RootLayout({

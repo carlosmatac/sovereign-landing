@@ -81,7 +81,7 @@ export function ActivateReportSurface() {
             className="text-[10.5px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Sovereign · Intelligence Report
+            Aksum · Intelligence Report
           </span>
         </div>
         <div className="flex items-center gap-3">
@@ -104,23 +104,23 @@ export function ActivateReportSurface() {
       {/* Document body */}
       <div className="px-8 pb-0 pt-10 md:px-14 md:pt-14">
 
-        {/* Sovereign seal + document meta */}
+        {/* Aksum seal + document meta */}
         <div className="mb-10 flex items-start justify-between">
           <div>
             <p
               className="mb-1 text-[9.5px] font-semibold uppercase tracking-[0.14em]"
               style={{ color: "rgba(255,255,255,0.22)" }}
             >
-              Sovereign Intelligence
+              Aksum Intelligence
             </p>
             <p className="text-[9px]" style={{ color: "rgba(255,255,255,0.18)" }}>
               Annual Review · Full Year 2025 · April 2026
             </p>
           </div>
-          {/* Sovereign branded mark */}
+          {/* Aksum branded mark */}
           <Image
-            src="/sovereign_log_fondo.svg"
-            alt="Sovereign"
+            src="/aksum_white.svg"
+            alt="Aksum"
             width={36}
             height={36}
             style={{ opacity: 0.30 }}

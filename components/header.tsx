@@ -75,6 +75,18 @@ function useScrolledState() {
 const HEADER_EASE = "cubic-bezier(0.22, 0.8, 0.36, 1)"
 const HEADER_DURATION = "520ms"
 
+// ─── Brand logo geometry ──────────────────────────────────────────────────────
+// The Aksum logo is split across two assets so we can animate the SUM segment
+// being absorbed into the AK mark on scroll. Both source SVGs share the same
+// intrinsic height (885.33px), so they sit on a single baseline by default —
+// no manual vertical alignment needed.
+//
+//   AK  → 885.33 × 885.33  (square)
+//   SUM → 1346.67 × 885.33 (≈ 1.5212 aspect)
+const LOGO_AK_ASPECT = 1
+const LOGO_SUM_ASPECT = 1346.6667 / 885.33331 // ≈ 1.5212
+const LOGO_GAP = 4 // px — precise visual gap between AK and SUM
+
 // ─── Product pillars ──────────────────────────────────────────────────────────
 // Static metadata only (icon + href + dictionary key). The visible label and
 // description are looked up at render time from the active locale dictionary
@@ -226,23 +238,108 @@ export function Header() {
          *  composition you want at >=lg widths.
          */}
         <div className="relative flex h-full items-center justify-between gap-4 px-5 sm:px-6 md:px-8 lg:px-12">
-          {/* Logo */}
-          <Link href="/" className="flex items-center" onClick={() => setMobileOpen(false)}>
-            <Image
-              src="/sovereign_log_apaisado_blanco.svg"
-              alt="Sovereign"
-              width={200}
-              height={52}
-              style={{
-                width: "auto",
-                // Logo subtly tightens with the bar — 4px shrink, not aggressive.
-                height: detached ? "48px" : "52px",
-                maxWidth: "100%",
-                transition: `height ${HEADER_DURATION} ${HEADER_EASE}`,
-              }}
-              priority
-            />
-          </Link>
+          {/*
+           *  Aksum logo — composed from two assets so we can animate the
+           *  SUM segment being absorbed into the AK mark on scroll.
+           *
+           *    fitted   →  [AK][·gap·][SUM]   (full AKSUM wordmark)
+           *    detached →  [AK]                (compact mark only)
+           *
+           *  How the absorption works:
+           *
+           *    1. AK is rendered at its own width/height. It NEVER moves and
+           *       NEVER fades — it's the visual anchor of the brand.
+           *
+           *    2. SUM lives inside a width-collapsing wrapper with
+           *       `overflow: hidden`. As the wrapper width animates to 0,
+           *       SUM is clipped from its right edge inward (because the
+           *       SUM image is anchored to the wrapper's left edge). Visually
+           *       this reads as SUM being pulled into the AK mark.
+           *
+           *    3. SUM also fades opacity → 0 and translates leftwards so the
+           *       motion has weight — pure clipping alone would feel too
+           *       mechanical. The translate amount (≈ 35% of SUM width) is
+           *       calibrated so SUM disappears at the same moment the
+           *       wrapper width finishes collapsing.
+           *
+           *  Both heights animate together on the same easing curve as the
+           *  rest of the header, so the inner-bar height shift, the AK
+           *  shrink and the SUM collapse all read as one coordinated motion.
+           *
+           *  Because the SUM wrapper participates in the parent flex row,
+           *  the rest of the header (nav, CTA, language switcher) shifts
+           *  with the same easing — no layout jump, no re-flow at the end.
+           */}
+          {(() => {
+            const akH = detached ? 54 : 58
+            const sumH = akH
+            const akW = akH * LOGO_AK_ASPECT
+            const sumW = sumH * LOGO_SUM_ASPECT
+            return (
+              <Link
+                href="/"
+                aria-label="Aksum"
+                className="flex shrink-0 items-center"
+                onClick={() => setMobileOpen(false)}
+              >
+                {/* AK — fixed brand anchor. Carries the alt text. */}
+                <Image
+                  src="/aksum_left.svg"
+                  alt="Aksum"
+                  width={886}
+                  height={886}
+                  style={{
+                    height: `${akH}px`,
+                    width: `${akW}px`,
+                    transition: [
+                      `height ${HEADER_DURATION} ${HEADER_EASE}`,
+                      `width ${HEADER_DURATION} ${HEADER_EASE}`,
+                    ].join(", "),
+                  }}
+                  priority
+                />
+
+                {/* SUM — width-collapsing wrapper that clips from the right
+                    and pulls the inner image leftwards into the AK mark. */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    height: `${sumH}px`,
+                    width: detached ? "0px" : `${LOGO_GAP + sumW}px`,
+                    overflow: "hidden",
+                    display: "flex",
+                    alignItems: "center",
+                    transition: [
+                      `width ${HEADER_DURATION} ${HEADER_EASE}`,
+                      `height ${HEADER_DURATION} ${HEADER_EASE}`,
+                    ].join(", "),
+                  }}
+                >
+                  <Image
+                    src="/aksum_right.svg"
+                    alt=""
+                    width={1347}
+                    height={886}
+                    style={{
+                      height: `${sumH}px`,
+                      width: `${sumW}px`,
+                      marginLeft: `${LOGO_GAP}px`,
+                      opacity: detached ? 0 : 1,
+                      transform: detached
+                        ? `translateX(-${Math.round(sumW * 0.35)}px)`
+                        : "translateX(0)",
+                      transition: [
+                        `opacity ${HEADER_DURATION} ${HEADER_EASE}`,
+                        `transform ${HEADER_DURATION} ${HEADER_EASE}`,
+                        `height ${HEADER_DURATION} ${HEADER_EASE}`,
+                        `width ${HEADER_DURATION} ${HEADER_EASE}`,
+                      ].join(", "),
+                    }}
+                  />
+                </div>
+              </Link>
+            )
+          })()}
 
           {/* Desktop navigation — absolutely centred at >=lg so it stays
               optically anchored to the page midline regardless of how wide

@@ -1,7 +1,6 @@
 "use client"
 
-import { useRef, useEffect, useState } from "react"
-import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
@@ -15,110 +14,71 @@ const GRAIN_BG =
 const DOT_GRID =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
 
-// ─── Interactive wordmark band ────────────────────────────────────────────────
+// ─── Cropped brand strip ──────────────────────────────────────────────────────
 //
-// Architecture (bottom to top):
-//
-//   1. Content   — grid mesh + wordmark at full brightness. Always sharp.
-//
-//   2. Frosted veil — a semi-transparent tinted overlay with backdrop-filter:blur().
-//                     This physically blurs what's beneath it — the content becomes
-//                     a soft smeared presence: you sense that something is there,
-//                     but you cannot read it. Like frosted glass over a sign.
-//
-//                     A CSS mask on this veil removes it at the cursor position.
-//                     Where the veil is removed → sharp content shows through.
-//                     Where the veil remains  → content stays blurred/obscured.
-//
-// Default state: cursor at (−9999, −9999) → the mask's transparent zone is
-// off-screen → the veil covers the entire band → everything is frosted.
-//
-// Cursor interaction: spring-driven mask follows the cursor. The transparent zone
-// locally removes the veil, revealing crisp grid + wordmark beneath.
+// A horizontal editorial strip with a strict height. The AKSUM wordmark is
+// rendered intentionally taller than the strip itself, so the strip's
+// `overflow: hidden` crops the top and bottom of the letters cleanly — the
+// reader sees a controlled horizontal slice of the brand mark, not a giant
+// image dropped onto the page. A faint dot grid integrates the strip
+// tonally with the surrounding section so the band has no visible edges.
 
 // Precise dot field — 20px grid, 0.9px radius dots, architectural / technical substrate
 const BAND_GRID =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='0.5' cy='0.5' r='0.9' fill='white' fill-opacity='0.18'/%3E%3C/svg%3E\")"
 
-function SovereignWordmark() {
-  const bandRef = useRef<HTMLDivElement>(null)
-  // On touch/stylus devices there is no cursor — skip the frosted veil entirely
-  // so the wordmark is always clearly readable on mobile.
-  const [isTouch, setIsTouch] = useState(false)
-
-  const rawX = useMotionValue(-9999)
-  const rawY = useMotionValue(-9999)
-
-  const springCfg = { stiffness: 48, damping: 20, mass: 1.0 }
-  const x = useSpring(rawX, springCfg)
-  const y = useSpring(rawY, springCfg)
-
-  // Mask for the frosted veil: transparent at cursor (removes veil → sharp content),
-  // black everywhere else (keeps veil → content stays blurred).
-  const veilMask = useMotionTemplate`radial-gradient(ellipse 520px 340px at ${x}px ${y}px, transparent 0%, rgba(0,0,0,0.12) 26%, rgba(0,0,0,0.65) 50%, black 72%)`
-
-  useEffect(() => {
-    const touch = window.matchMedia("(hover: none)").matches
-    setIsTouch(touch)
-    if (touch) return
-
-    const handleMove = (e: MouseEvent) => {
-      const el = bandRef.current
-      if (!el) return
-      const rect = el.getBoundingClientRect()
-      rawX.set(e.clientX - rect.left)
-      rawY.set(e.clientY - rect.top)
-    }
-    window.addEventListener("mousemove", handleMove)
-    return () => window.removeEventListener("mousemove", handleMove)
-  }, [rawX, rawY])
-
+function AksumWordmark() {
   return (
-    <div className="w-full pb-8 pt-2" role="img" aria-label="Sovereign">
+    <div className="w-full" role="img" aria-label="Aksum">
       <div
-        ref={bandRef}
-        className="relative overflow-hidden"
+        className="relative w-full overflow-hidden"
         style={{
-          height: "clamp(140px, 18vw, 192px)",
-          borderTop: "1px solid rgba(255,255,255,0.06)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          // Fixed editorial strip height — the strict clipping container.
+          // Tighter on mobile so the cropped slice always feels controlled.
+          height: "clamp(150px, 19vw, 240px)",
         }}
       >
-        {/* Content — precise dot field + logo at full brightness */}
-        <div className="absolute inset-0">
-          <div
-            className="absolute inset-0"
-            style={{ backgroundImage: BAND_GRID, backgroundRepeat: "repeat", backgroundSize: "20px 20px" }}
-          />
-          <div className="relative flex h-full items-center justify-center">
-            <Image
-              src="/sovereign_log_apaisado_blanco.svg"
-              alt="Sovereign"
-              width={520}
-              height={72}
-              className="w-[clamp(260px,46vw,520px)] select-none"
-              style={{ height: "auto", opacity: 0.90 }}
-              draggable={false}
-              priority={false}
-            />
-          </div>
-        </div>
+        {/* Faint dot grid — gives the strip a subtle technical substrate that
+            blends with the rest of the dark section, removing the "pasted
+            rectangle" feel without introducing any visible border edge. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            backgroundImage: BAND_GRID,
+            backgroundRepeat: "repeat",
+            backgroundSize: "20px 20px",
+            opacity: 0.6,
+          }}
+        />
 
-        {/* Frosted veil — backdrop-blur physically obscures the content beneath.
-            The mask removes the veil at the cursor position.
-            Skipped on touch devices where no cursor exists. */}
-        {!isTouch && (
-          <motion.div
-            className="pointer-events-none absolute inset-0"
+        {/* Oversized wordmark.
+            Scaled significantly larger than the strip height (~2× on desktop),
+            so the strip's overflow crops the top and bottom of the letters
+            and only a strong horizontal slice is visible.
+            Wordmark aspect ratio is 2186.67 : 885.33 ≈ 2.47, so we drive size
+            from height (the visually meaningful axis here) and let width
+            follow naturally. The image is allowed to be wider than the
+            viewport — the band's overflow:hidden clips that excess
+            horizontally without any page scroll. */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <Image
+            src="/aksum_white_long.svg"
+            alt="Aksum"
+            width={2186}
+            height={885}
+            draggable={false}
+            priority={false}
+            className="block max-w-none select-none"
             style={{
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-              background: "rgba(6,13,28,0.60)",
-              maskImage: veilMask,
-              WebkitMaskImage: veilMask,
+              // Logo height grows faster than band height, guaranteeing a
+              // crop slice at every breakpoint.
+              height: "clamp(260px, 38vw, 480px)",
+              width: "auto",
+              opacity: 0.55,
             }}
           />
-        )}
+        </div>
       </div>
     </div>
   )
@@ -158,7 +118,7 @@ export function CTAFooter() {
       <div className="relative z-10">
         {/* Interactive brand wordmark — breaks out of section px-6 to span full width */}
         <div className="-mx-6">
-          <SovereignWordmark />
+          <AksumWordmark />
         </div>
 
         {/* Bridge image with copy overlaid inside */}
@@ -175,7 +135,7 @@ export function CTAFooter() {
           {/* Photo */}
           <Image
             src="/bridge2.png"
-            alt="Sovereign — infrastructure at the frontier"
+            alt="Aksum — infrastructure at the frontier"
             width={1920}
             height={1080}
             className="w-full object-cover"
@@ -215,8 +175,8 @@ export function CTAFooter() {
           {/* Copy — positioned over the image */}
           <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
             <Image
-              src="/sovereign_logo.svg"
-              alt="Sovereign"
+              src="/aksum_white.svg"
+              alt="Aksum"
               width={44}
               height={44}
               className="mb-6 opacity-[0.22]"
@@ -241,8 +201,8 @@ export function CTAFooter() {
         <footer className="mx-auto flex max-w-5xl flex-col items-center gap-6 border-t border-white/[0.07] pb-8 pt-7 md:flex-row md:justify-between">
           <div className="flex items-center gap-3">
             <Image
-              src="/sovereign_logo.svg"
-              alt="Sovereign"
+              src="/aksum_white.svg"
+              alt="Aksum"
               width={24}
               height={24}
               className="opacity-[0.18]"

@@ -58,8 +58,8 @@ export default async function ContactPage() {
           {/* Logo */}
           <Link href="/" className="mb-14 inline-flex items-center justify-center">
             <Image
-              src="/sovereign_log_apaisado_blanco.svg"
-              alt="Sovereign"
+              src="/aksum_white_long.svg"
+              alt="Aksum"
               width={120}
               height={30}
               style={{ width: "auto", height: "30px", opacity: 0.45 }}

@@ -124,7 +124,7 @@ Key principles in force on the landing:
 - **Page background:** `#060D1C` (deep navy, near-black) is the canonical base color, set explicitly on `<main>` via inline style. Every section builds on this surface. Do not use `bg-background` for section backgrounds — use explicit dark hex values or atmospheric overlays.
 - **Atmospheric treatment:** Each section carries two texture overlays: (1) film grain (`SVG feTurbulence`, 3.5% opacity, tiled at 300px) and (2) a fine dot grid (`SVG circle`, ~2.5% opacity). The dot grid spacing varies slightly per section — 24px in Hero and Features, 28px in TrustBanner, 32px in CTAFooter — creating subtle rhythm. Each section also has a per-section radial gradient glow. All three layers combine to produce depth without visual noise.
 - **Typography:** Inter (primary UI) + Playfair Display (serif headlines). Negative letter-spacing on large type (`tracking-[-0.025em]` to `tracking-[-0.03em]`). Eyebrow labels at `text-[11px] uppercase tracking-[0.10em]`. Body at `tracking-[-0.011em]`.
-- **Logos:** Use `sovereign_log_apaisado_blanco.svg` on dark backgrounds. Use `sovereign_log_apaisado.svg` on light backgrounds. Never apply color-inversion filters — use the correct variant. The whole page is now dark, so `sovereign_log_apaisado_blanco.svg` is used throughout.
+- **Logos:** Use `sovereign.svg` on dark backgrounds. Use `sovereign_log_apaisado.svg` on light backgrounds. Never apply color-inversion filters — use the correct variant. The whole page is now dark, so `sovereign.svg` is used throughout.
 - **Icons:** Lucide React. Outline variants only. `h-3.5 w-3.5` inside buttons/labels, `h-4 w-4` standalone.
 - **Spacing rhythm:** Premium, generous. Never compress spacing to fit more content.
 
@@ -143,7 +143,7 @@ Header → Hero → TrustBanner → Features → CTAFooter
 Fixed navigation bar, 64px height. `"use client"` directive required (Radix interactive dropdowns). Always transparent — no scroll-triggered background change.
 
 - **Background:** `rgba(6,13,28,0.82)` + `backdrop-blur-2xl`. Bottom border: `border-white/[0.07]`.
-- **Logo:** Always `sovereign_log_apaisado_blanco.svg`.
+- **Logo:** Always `sovereign.svg`.
 - **CTA:** "Request Demo" — `<Button asChild>` → `<Link href="/request-demo">`. Pill, `bg-white text-[#070E1F]`.
 
 **Navigation structure (4 items):**
@@ -197,7 +197,7 @@ The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` compo
 
 **Panel shell (never modify without explicit instruction):**
 - Outer container: `aspectRatio: "880/498"`, `background: "#070E1F"`, `rounded-[17px]`, `border border-[rgba(147,147,147,0.16)]`, multi-layer `boxShadow`
-- Left sidebar: `width: "22%"`, `px-5 py-5`, white landscape logo (`sovereign_log_apaisado_blanco.svg`, `opacity-80`), `NavSection` ×2 (Platform + System)
+- Left sidebar: `width: "22%"`, `px-5 py-5`, white landscape logo (`sovereign.svg`, `opacity-80`), `NavSection` ×2 (Platform + System)
 - Central panel: `my-[1%] mr-[1%] flex flex-1 flex-col overflow-hidden rounded-[6px] border border-[rgba(147,147,147,0.2)]`, subtle linear-gradient background
 
 **Active nav state:**
@@ -402,7 +402,7 @@ Top and bottom linear gradient fades blend the bridge image into the dark sectio
 These are confirmed pending tasks — not speculative suggestions.
 
 ### 9.1 ~~Header logo on dark hero~~ — RESOLVED
-The header now always uses `sovereign_log_apaisado_blanco.svg` and is never in a light state. No CSS filter needed.
+The header now always uses `sovereign.svg` and is never in a light state. No CSS filter needed.
 
 ### 9.2 Hero panel — Copilot view
 The Copilot nav item is listed in the sidebar but clicking it is inert. A future pass should implement a Copilot view (likely a chat/Q&A interface or a document synthesis preview).
@@ -638,7 +638,7 @@ If you are a coding or content agent working on this landing page, follow this p
 
 9. **Do not tie the copy back to TBY, interviews, or emerging markets** unless a specific task explicitly calls for it.
 
-10. **Use the correct logo variant.** Dark backgrounds → `sovereign_log_apaisado_blanco.svg`. Light backgrounds → `sovereign_log_apaisado.svg`. Never both in the same context. Never filter the wrong one. The full page is currently dark — use the white variant everywhere.
+10. **Use the correct logo variant.** Dark backgrounds → `sovereign.svg`. Light backgrounds → `sovereign_log_apaisado.svg`. Never both in the same context. Never filter the wrong one. The full page is currently dark — use the white variant everywhere.
 
 11. **When improving copy,** always ask: does this read as something a serious B2B buyer would believe and respect? If it sounds like startup marketing filler, it is wrong.
 

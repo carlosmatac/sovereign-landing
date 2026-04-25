@@ -147,7 +147,7 @@ export function ConnectProjectDashboard() {
             className="text-[10.5px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Sovereign · Projects
+            Aksum · Projects
           </span>
         </div>
         <div className="flex items-center gap-2">

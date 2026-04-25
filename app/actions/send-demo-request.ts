@@ -21,7 +21,7 @@ function getResend() {
 }
 
 const TO_ADDRESS   = "team@svgndata.com"
-const FROM_ADDRESS = "Sovereign <onboarding@resend.dev>"
+const FROM_ADDRESS = "Aksum <onboarding@resend.dev>"
 
 export type FormState = {
   status: "idle" | "success" | "error"

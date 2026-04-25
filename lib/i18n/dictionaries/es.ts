@@ -3,7 +3,7 @@
 // Tone notes:
 //   • Neutral B2B Spanish (works for ES + LATAM enterprise audiences).
 //   • Informal "tu / tu equipo" — modern, premium tech tone, not "usted".
-//   • Brand and product names are NOT translated (Sovereign, CRM, Slack, etc.).
+//   • Brand and product names are NOT translated (Aksum, CRM, Slack, etc.).
 //   • Length is kept close to EN so the layout stays balanced.
 
 import type { Dictionary } from "./en"
@@ -51,7 +51,7 @@ export const es: Dictionary = {
         connect: {
           label: "Conecta tu Workflow",
           description:
-            "Lleva CRM, correo, contexto operativo y objetivos comerciales a un mismo entorno. Sovereign se adapta a las herramientas que tu equipo ya usa.",
+            "Lleva CRM, correo, contexto operativo y objetivos comerciales a un mismo entorno. Aksum se adapta a las herramientas que tu equipo ya usa.",
         },
       },
     },
@@ -66,7 +66,7 @@ export const es: Dictionary = {
     badge: "Inteligencia para las organizaciones que mueven mercados",
     headline: "Lo que tu organización sabe, por fin puesto a trabajar.",
     subheadline:
-      "Sovereign transforma el conocimiento interno en ventaja comercial, claridad estratégica y comunicación dirigida — a la velocidad que las decisiones realmente requieren.",
+      "Aksum transforma el conocimiento interno en ventaja comercial, claridad estratégica y comunicación dirigida — a la velocidad que las decisiones realmente requieren.",
     primaryCta: "Solicitar Demo",
     secondaryCta: "Explorar la Plataforma",
   },
@@ -85,19 +85,19 @@ export const es: Dictionary = {
       eyebrow: "01 — Inteligencia Comercial",
       title: "Saber lo que ya se sabe.",
       description:
-        "Sovereign reúne cada interacción, señal y mención previa en tu organización — para que ninguna oportunidad empiece desde cero.",
+        "Aksum reúne cada interacción, señal y mención previa en tu organización — para que ninguna oportunidad empiece desde cero.",
     },
     strategicIntelligence: {
       eyebrow: "02 — Inteligencia Estratégica",
       title: "Saca a la luz las señales que tu equipo no tiene tiempo de leer.",
       description:
-        "Sovereign identifica patrones, temas emergentes y oportunidades poco atendidas en tu información interna — convirtiendo la sobrecarga en claridad estratégica.",
+        "Aksum identifica patrones, temas emergentes y oportunidades poco atendidas en tu información interna — convirtiendo la sobrecarga en claridad estratégica.",
     },
     marketingActivation: {
       eyebrow: "03 — Activación de Marketing",
       title: "Publica con propósito.",
       description:
-        "Sovereign convierte la inteligencia procesada en contenido dirigido — para las personas adecuadas, en el momento adecuado — en outreach comercial, newsletters y comunicación con stakeholders.",
+        "Aksum convierte la inteligencia procesada en contenido dirigido — para las personas adecuadas, en el momento adecuado — en outreach comercial, newsletters y comunicación con stakeholders.",
     },
   },
 
@@ -105,7 +105,7 @@ export const es: Dictionary = {
   ctaFooter: {
     headline: "¿Listo para poner tu inteligencia a trabajar?",
     cta: "Solicitar Demo",
-    copyright: "© 2026 Sovereign Data",
+    copyright: "© 2026 Aksum Data",
     nav: {
       contact: "Contacto",
       privacy: "Política de Privacidad",
@@ -123,7 +123,7 @@ export const es: Dictionary = {
       explorePlatform: "Explorar la plataforma",
     },
     footerNav: {
-      back: "← Volver a Sovereign",
+      back: "← Volver a Aksum",
       requestDemo: "Solicitar demo →",
     },
     panelExplain: {
@@ -137,25 +137,25 @@ export const es: Dictionary = {
 
   // ─── Para quién está pensado ───────────────────────────────────────────────
   useCases: {
-    metaTitle: "Para quién está pensado — Sovereign",
+    metaTitle: "Para quién está pensado — Aksum",
     metaDescription:
-      "Sovereign está pensado para equipos donde el contexto importa y la información se fragmenta fácilmente — ventas, redacción, marketing y dirección.",
+      "Aksum está pensado para equipos donde el contexto importa y la información se fragmenta fácilmente — ventas, redacción, marketing y dirección.",
     eyebrow: "Casos de Uso",
     headline: "Para quién está pensado.",
     intro:
-      "Sovereign está pensado para equipos donde el contexto importa y la información se fragmenta con facilidad — donde lo que se sabe dentro de la organización rara vez llega a quienes más lo necesitan.",
+      "Aksum está pensado para equipos donde el contexto importa y la información se fragmenta con facilidad — donde lo que se sabe dentro de la organización rara vez llega a quienes más lo necesitan.",
     sales: {
       label: "01 — Equipos de Ventas",
       headline: "Llega a cada reunión sabiendo más que la sala.",
       body:
-        "Historial de cuenta, conversaciones previas, contexto de relaciones y compromisos abiertos — disponibles antes de que empiece la llamada. Sovereign ofrece a los equipos comerciales la capa de preparación que convierte las reuniones en avances reales.",
+        "Historial de cuenta, conversaciones previas, contexto de relaciones y compromisos abiertos — disponibles antes de que empiece la llamada. Aksum ofrece a los equipos comerciales la capa de preparación que convierte las reuniones en avances reales.",
       imageAlt: "Paisaje de sabana al atardecer — Equipos de Ventas",
     },
     editorial: {
       label: "02 — Equipos Editoriales",
       headline: "Preserva el matiz. Saca a la luz el patrón.",
       body:
-        "Las entrevistas, las conversaciones de campo y los intercambios con expertos contienen mucho más de lo que termina en la pieza final. Sovereign ayuda a los equipos editoriales a retener lo dicho, identificar temas recurrentes entre fuentes y preparar la próxima conversación con todo el peso de lo anterior.",
+        "Las entrevistas, las conversaciones de campo y los intercambios con expertos contienen mucho más de lo que termina en la pieza final. Aksum ayuda a los equipos editoriales a retener lo dicho, identificar temas recurrentes entre fuentes y preparar la próxima conversación con todo el peso de lo anterior.",
       points: [
         "Continuidad temática entre entrevistas y proyectos",
         "Mejor preparación — basada en intercambios previos",
@@ -167,7 +167,7 @@ export const es: Dictionary = {
       label: "03 — Equipos de Marketing",
       headline: "Publica con autoridad, no por aproximación.",
       body:
-        "La comunicación externa más creíble se apoya en lo que la organización realmente sabe — no en lo que se ensambla a último momento desde fuentes públicas. Sovereign convierte la inteligencia interna en newsletters, briefings y contenido para stakeholders que carga peso real porque proviene de contexto real.",
+        "La comunicación externa más creíble se apoya en lo que la organización realmente sabe — no en lo que se ensambla a último momento desde fuentes públicas. Aksum convierte la inteligencia interna en newsletters, briefings y contenido para stakeholders que carga peso real porque proviene de contexto real.",
       points: [
         "Una sola base de conocimiento interno — múltiples salidas por audiencia",
         "Contenido que refleja inteligencia organizativa genuina",
@@ -179,7 +179,7 @@ export const es: Dictionary = {
       label: "04 — Dirección y Estrategia",
       headline: "Decisiones apoyadas en todo lo que ya sabes.",
       body:
-        "A los equipos directivos rara vez les falta información — les falta la infraestructura para usarla en el momento que cuenta. Sovereign ofrece a directores de estrategia y ejecutivos visibilidad conectada sobre proyectos, relaciones y señales — para que sus decisiones se apoyen en toda la profundidad de lo que la organización ha reunido.",
+        "A los equipos directivos rara vez les falta información — les falta la infraestructura para usarla en el momento que cuenta. Aksum ofrece a directores de estrategia y ejecutivos visibilidad conectada sobre proyectos, relaciones y señales — para que sus decisiones se apoyen en toda la profundidad de lo que la organización ha reunido.",
       cards: [
         {
           label: "Claridad estratégica",
@@ -204,20 +204,20 @@ export const es: Dictionary = {
     ],
     cta: {
       headline: "Velo en tu propio contexto.",
-      body: "Solicita una demo y te mostraremos cómo se ve Sovereign para tu equipo.",
+      body: "Solicita una demo y te mostraremos cómo se ve Aksum para tu equipo.",
     },
   },
 
   // ─── Nuestra Historia ──────────────────────────────────────────────────────
   about: {
-    metaTitle: "Nuestra Historia — Sovereign",
+    metaTitle: "Nuestra Historia — Aksum",
     metaDescription:
-      "Sovereign nació de una observación simple: la información más valiosa dentro de una organización suele ser la menos utilizable.",
+      "Aksum nació de una observación simple: la información más valiosa dentro de una organización suele ser la menos utilizable.",
     eyebrow: "Nuestra Historia",
     headlineLine1: "Construido desde la curiosidad.",
     headlineLine2: "Probado por la realidad.",
     intro:
-      "Sovereign nació de una observación simple: la información más valiosa dentro de una organización suele ser la menos utilizable.",
+      "Aksum nació de una observación simple: la información más valiosa dentro de una organización suele ser la menos utilizable.",
     sections: {
       instinct: {
         label: "Instinto",
@@ -232,7 +232,7 @@ export const es: Dictionary = {
       shift: {
         label: "Giro",
         body:
-          "Ese fue el momento en que Sovereign tomó forma. Pensamos que las organizaciones no necesitaban más ruido, más dashboards ni más complejidad. Necesitaban un sistema capaz de convertir lo que ya saben en algo conectado, utilizable y comercialmente significativo.",
+          "Ese fue el momento en que Aksum tomó forma. Pensamos que las organizaciones no necesitaban más ruido, más dashboards ni más complejidad. Necesitaban un sistema capaz de convertir lo que ya saben en algo conectado, utilizable y comercialmente significativo.",
       },
       pattern: {
         label: "Patrón",
@@ -242,40 +242,40 @@ export const es: Dictionary = {
       purpose: {
         label: "Propósito",
         body:
-          "Eso es lo que estamos construyendo. Sovereign transforma la información interna fragmentada en una capa utilizable de inteligencia — ayudando a los equipos a vender con más contexto, comunicar con más autoridad y decidir con mucha mayor claridad.",
+          "Eso es lo que estamos construyendo. Aksum transforma la información interna fragmentada en una capa utilizable de inteligencia — ayudando a los equipos a vender con más contexto, comunicar con más autoridad y decidir con mucha mayor claridad.",
       },
     },
     imageQuote: "La señal siempre estuvo ahí.",
-    imageAlt: "Un puerto complejo al anochecer — el tipo de entorno donde nació Sovereign",
+    imageAlt: "Un puerto complejo al anochecer — el tipo de entorno donde nació Aksum",
     founders: {
       bodyMuted:
         "Somos tres builders con un instinto compartido por encontrar palancas en la complejidad. ",
       bodyEmphasis:
-        "Sovereign es nuestra forma de convertir ese instinto en algo útil para los equipos que operan donde la información más importa.",
+        "Aksum es nuestra forma de convertir ese instinto en algo útil para los equipos que operan donde la información más importa.",
       caption: "Co-Fundadores — Pablo, Carlos, Ventura",
-      imageAlt: "El equipo fundador de Sovereign — Pablo, Carlos, Ventura",
+      imageAlt: "El equipo fundador de Aksum — Pablo, Carlos, Ventura",
     },
   },
 
   // ─── Contacto ──────────────────────────────────────────────────────────────
   contact: {
-    metaTitle: "Contacto — Sovereign",
-    metaDescription: "Ponte en contacto con el equipo de Sovereign.",
+    metaTitle: "Contacto — Aksum",
+    metaDescription: "Ponte en contacto con el equipo de Aksum.",
     eyebrow: "Contacto",
     headline: "Hablemos.",
     body:
       "Para demos, alianzas, prensa o consultas generales, escríbenos directamente. Solemos responder en un día laborable.",
     requestDemo: "Solicitar demo",
-    back: "← Volver a Sovereign",
+    back: "← Volver a Aksum",
   },
 
   // ─── Solicitar demo ────────────────────────────────────────────────────────
   requestDemo: {
-    metaTitle: "Solicitar Demo — Sovereign",
+    metaTitle: "Solicitar Demo — Aksum",
     metaDescription:
-      "Descubre cómo Sovereign convierte el conocimiento de tu organización en inteligencia que impulsa decisiones. Reserva una demo personalizada.",
+      "Descubre cómo Aksum convierte el conocimiento de tu organización en inteligencia que impulsa decisiones. Reserva una demo personalizada.",
     eyebrow: "Solicitar demo",
-    headline: "Sovereign en acción.",
+    headline: "Aksum en acción.",
     body:
       "Cuéntanos sobre tu equipo y lo que estás resolviendo. Adaptaremos la sesión a tu contexto exacto.",
     questions: "¿Preguntas?",
@@ -283,7 +283,7 @@ export const es: Dictionary = {
       headline: "¿Listo para dar forma al futuro?",
       body:
         "Las organizaciones que operan al borde de la complejidad necesitan inteligencia que avance tan rápido como ellas.",
-      imageAlt: "Sovereign — pensado para la frontera",
+      imageAlt: "Aksum — pensado para la frontera",
     },
     form: {
       firstName: "Nombre *",
@@ -298,7 +298,7 @@ export const es: Dictionary = {
       role: "Rol *",
       problem: "¿Qué buscas resolver? *",
       problemPlaceholder:
-        "Cuéntanos los retos actuales y en qué te gustaría que Sovereign te ayude.",
+        "Cuéntanos los retos actuales y en qué te gustaría que Aksum te ayude.",
       message: "¿Algo más que quieras añadir?",
       messagePlaceholder:
         "Disponibilidad, tamaño de equipo o cualquier pregunta concreta — opcional.",
@@ -316,26 +316,26 @@ export const es: Dictionary = {
   // ─── Subpáginas de Producto ────────────────────────────────────────────────
   product: {
     capture: {
-      metaTitle: "Captura y Organiza — Sovereign",
+      metaTitle: "Captura y Organiza — Aksum",
       metaDescription:
-        "Lleva cada conversación, informe y grabación a una memoria de trabajo conectada. Sovereign convierte el material en bruto en conocimiento organizativo reutilizable.",
+        "Lleva cada conversación, informe y grabación a una memoria de trabajo conectada. Aksum convierte el material en bruto en conocimiento organizativo reutilizable.",
       crumb: "Captura y Organiza",
       eyebrow: "Captura y Organiza",
       headlineLine1: "Todo lo que tu equipo sabe,",
       headlineLine2: "en un solo lugar que funciona.",
       lead:
-        "Sovereign reúne grabaciones, informes y conversaciones en un sistema único y conectado — para que nada importante se quede atrás, y todo sea más fácil de encontrar, usar y construir encima.",
+        "Aksum reúne grabaciones, informes y conversaciones en un sistema único y conectado — para que nada importante se quede atrás, y todo sea más fácil de encontrar, usar y construir encima.",
       step1: {
         eyebrow: "01 — Tráelo",
         title: "Cualquier formato con el que tu equipo trabaja.",
         body:
-          "Grabaciones, PDFs, transcripciones, notas de reunión — Sovereign acepta los formatos que tu equipo ya produce. No hace falta reformatear nada antes de que el valor empiece.",
+          "Grabaciones, PDFs, transcripciones, notas de reunión — Aksum acepta los formatos que tu equipo ya produce. No hace falta reformatear nada antes de que el valor empiece.",
       },
       step2: {
         eyebrow: "02 — Revisa y refina",
         title: "Precisión donde más cuenta.",
         body:
-          "Sovereign está diseñado para preservar el matiz. Cuando los detalles importan, la plataforma ofrece a tu equipo una manera clara y rápida de verificar lo capturado — para que puedas confiar en lo que tienes entre manos.",
+          "Aksum está diseñado para preservar el matiz. Cuando los detalles importan, la plataforma ofrece a tu equipo una manera clara y rápida de verificar lo capturado — para que puedas confiar en lo que tienes entre manos.",
       },
       step3: {
         eyebrow: "03 — Conecta y enlaza",
@@ -352,12 +352,12 @@ export const es: Dictionary = {
         {
           title: "Conserva lo importante antes de que se pierda",
           body:
-            "El contexto crítico rara vez sobrevive en cadenas de email o notas personales. Sovereign lo captura en origen y lo mantiene disponible para quien lo necesite después.",
+            "El contexto crítico rara vez sobrevive en cadenas de email o notas personales. Aksum lo captura en origen y lo mantiene disponible para quien lo necesite después.",
         },
         {
           title: "Revisa con confianza cuando los detalles cuentan",
           body:
-            "Cuando la precisión importa, Sovereign hace fácil verificar y afinar lo capturado — para que tu equipo pueda confiar en aquello con lo que trabaja.",
+            "Cuando la precisión importa, Aksum hace fácil verificar y afinar lo capturado — para que tu equipo pueda confiar en aquello con lo que trabaja.",
         },
         {
           title: "Convierte el material en bruto en contexto conectado",
@@ -367,22 +367,22 @@ export const es: Dictionary = {
       ],
       cta: {
         headline: "¿Listo para poner tu conocimiento a trabajar?",
-        body: "Descubre cómo Sovereign captura y conecta lo que tu equipo ya sabe.",
+        body: "Descubre cómo Aksum captura y conecta lo que tu equipo ya sabe.",
       },
     },
     prepare: {
-      metaTitle: "Prepara y Vende — Sovereign",
+      metaTitle: "Prepara y Vende — Aksum",
       metaDescription:
-        "Llega a cada reunión con más contexto. Sovereign saca a la luz lo que tu equipo ya sabe — sobre cuentas, relaciones y conversaciones previas — para que prepares con inteligencia real.",
+        "Llega a cada reunión con más contexto. Aksum saca a la luz lo que tu equipo ya sabe — sobre cuentas, relaciones y conversaciones previas — para que prepares con inteligencia real.",
       crumb: "Prepara y Vende",
       eyebrow: "Prepara y Vende",
       headlineLine1: "Mejor preparación",
       headlineLine2: "lleva a mejores",
       headlineLine3: "conversaciones.",
       lead:
-        "El trabajo más importante ocurre antes de la reunión. Sovereign ofrece a los equipos comerciales el contexto, la memoria de cuenta y la visibilidad de relaciones que necesitan para entrar a cada conversación desde una posición más fuerte.",
+        "El trabajo más importante ocurre antes de la reunión. Aksum ofrece a los equipos comerciales el contexto, la memoria de cuenta y la visibilidad de relaciones que necesitan para entrar a cada conversación desde una posición más fuerte.",
       copilot: {
-        eyebrow: "01 — Sovereign Copilot",
+        eyebrow: "01 — Aksum Copilot",
         title: "Memoria de cuenta, a demanda.",
         body:
           "El Copilot razona sobre todo lo que tu equipo ha capturado — reuniones, briefings, hilos de seguimiento, conversaciones grabadas — y saca a la luz lo relevante para la cuenta, la relación o el momento.",
@@ -390,7 +390,7 @@ export const es: Dictionary = {
           {
             title: "Memoria de cuenta que se acumula",
             body:
-              "Cada conversación, briefing e hilo de seguimiento pasa a formar parte de un registro creciente. Sovereign saca a la luz lo relevante antes de que lo pidas.",
+              "Cada conversación, briefing e hilo de seguimiento pasa a formar parte de un registro creciente. Aksum saca a la luz lo relevante antes de que lo pidas.",
           },
           {
             title: "Lo que no hay que repetir",
@@ -400,7 +400,7 @@ export const es: Dictionary = {
           {
             title: "Cabos sueltos, a la vista automáticamente",
             body:
-              "Solicitudes sin responder, hilos sin cerrar y compromisos que nunca se retomaron — Sovereign los encuentra antes de que la reunión lo haga.",
+              "Solicitudes sin responder, hilos sin cerrar y compromisos que nunca se retomaron — Aksum los encuentra antes de que la reunión lo haga.",
           },
           {
             title: "Inteligencia anclada en contexto previo",
@@ -462,25 +462,25 @@ export const es: Dictionary = {
       ],
       cta: {
         headline: "¿Listo para llegar a cada reunión preparado?",
-        body: "Descubre cómo Sovereign saca a la luz lo que tu equipo ya sabe.",
+        body: "Descubre cómo Aksum saca a la luz lo que tu equipo ya sabe.",
       },
     },
     activate: {
-      metaTitle: "Activa y Publica — Sovereign",
+      metaTitle: "Activa y Publica — Aksum",
       metaDescription:
-        "Convierte la inteligencia interna en piezas pulidas, listas para circular. Sovereign transforma lo que tu organización sabe en newsletters, briefings de comité, memos para inversores e informes estratégicos — estructurados para la audiencia y anclados en el contexto interno.",
+        "Convierte la inteligencia interna en piezas pulidas, listas para circular. Aksum transforma lo que tu organización sabe en newsletters, briefings de comité, memos para inversores e informes estratégicos — estructurados para la audiencia y anclados en el contexto interno.",
       crumb: "Activa y Publica",
       eyebrow: "Activa y Publica",
       headlineLine1: "Inteligencia",
       headlineLine2: "lista para circular.",
       lead:
-        "Sovereign convierte lo que tu organización sabe en piezas pulidas y estructuradas — newsletters, briefings de comité, memos para inversores e informes estratégicos — cada una pensada para su audiencia y apoyada en el contexto interno.",
+        "Aksum convierte lo que tu organización sabe en piezas pulidas y estructuradas — newsletters, briefings de comité, memos para inversores e informes estratégicos — cada una pensada para su audiencia y apoyada en el contexto interno.",
       output: {
         eyebrow: "01 — Formatos de salida",
         titleLine1: "La misma inteligencia,",
         titleLine2: "pensada para cada audiencia.",
         body:
-          "De un briefing conciso a un dossier de comité — Sovereign estructura el conocimiento interno en el formato que cada audiencia realmente necesita, sin perder el rigor del material de origen.",
+          "De un briefing conciso a un dossier de comité — Aksum estructura el conocimiento interno en el formato que cada audiencia realmente necesita, sin perder el rigor del material de origen.",
         benefits: [
           {
             title: "Una base de conocimiento, muchas audiencias",
@@ -495,7 +495,7 @@ export const es: Dictionary = {
           {
             title: "Acorta la distancia entre señal y comunicación",
             body:
-              "La inteligencia que vive en documentos internos y notas de reunión rara vez llega a quienes la necesitan. Sovereign cierra esa distancia — del contexto capturado a la pieza terminada.",
+              "La inteligencia que vive en documentos internos y notas de reunión rara vez llega a quienes la necesitan. Aksum cierra esa distancia — del contexto capturado a la pieza terminada.",
           },
           {
             title: "Documentos que tu equipo realmente puede enviar",
@@ -509,14 +509,14 @@ export const es: Dictionary = {
         titleLine1: "Documentos que cargan",
         titleLine2: "el peso de lo que sabes.",
         body:
-          "Sovereign produce informes de inteligencia sólidos y estructurados — revisiones anuales, panoramas sectoriales, memorandos de inversión — apoyados en fuentes internas y listos para compartir con consejos, inversores o stakeholders senior.",
+          "Aksum produce informes de inteligencia sólidos y estructurados — revisiones anuales, panoramas sectoriales, memorandos de inversión — apoyados en fuentes internas y listos para compartir con consejos, inversores o stakeholders senior.",
         explainBody:
           "Cada sección de este informe — el resumen ejecutivo, las señales clave, las implicaciones, las acciones recomendadas y el anexo — se apoya en fuentes internas reales. El documento no es una plantilla rellena con texto de relleno. Es una síntesis estructurada de lo que una organización ha reunido realmente, formateada para circular.",
         benefits: [
           {
             title: "Profundidad estratégica, no cobertura superficial",
             body:
-              "Un informe de Sovereign no es un resumen de información pública. Es una síntesis de lo que tu equipo ha reunido — conversaciones, documentos, briefings y análisis interno — estructurada en un documento que comunica autoridad.",
+              "Un informe de Aksum no es un resumen de información pública. Es una síntesis de lo que tu equipo ha reunido — conversaciones, documentos, briefings y análisis interno — estructurada en un documento que comunica autoridad.",
           },
           {
             title: "Adaptado al lector, no a la fuente",
@@ -526,7 +526,7 @@ export const es: Dictionary = {
           {
             title: "Con fuentes referenciadas y rastreables",
             body:
-              "Cada afirmación de un informe de Sovereign apunta a una fuente interna concreta. El anexo no es decoración — es la base de la credibilidad.",
+              "Cada afirmación de un informe de Aksum apunta a una fuente interna concreta. El anexo no es decoración — es la base de la credibilidad.",
           },
           {
             title: "Listos para circular sin revisión",
@@ -540,7 +540,7 @@ export const es: Dictionary = {
           stat: "De la señal",
           label: "a la pieza terminada",
           body:
-            "La inteligencia que vive en documentos internos y notas rara vez llega a quienes la necesitan. Sovereign acorta la distancia entre lo que tu equipo sabe y lo que puede comunicar.",
+            "La inteligencia que vive en documentos internos y notas rara vez llega a quienes la necesitan. Aksum acorta la distancia entre lo que tu equipo sabe y lo que puede comunicar.",
         },
         {
           stat: "Una sola fuente",
@@ -557,19 +557,19 @@ export const es: Dictionary = {
       ],
       cta: {
         headline: "¿Listo para poner tu inteligencia a trabajar?",
-        body: "Descubre cómo Sovereign convierte el conocimiento interno en piezas que tu equipo realmente puede usar.",
+        body: "Descubre cómo Aksum convierte el conocimiento interno en piezas que tu equipo realmente puede usar.",
       },
     },
     connect: {
-      metaTitle: "Conecta tu Workflow — Sovereign",
+      metaTitle: "Conecta tu Workflow — Aksum",
       metaDescription:
-        "Lleva el contexto comercial, los hilos de comunicación y la inteligencia de proyecto a un mismo entorno operativo. Sovereign conecta las señales con las que los equipos ya trabajan — para que la inteligencia no esté aislada de la ejecución.",
+        "Lleva el contexto comercial, los hilos de comunicación y la inteligencia de proyecto a un mismo entorno operativo. Aksum conecta las señales con las que los equipos ya trabajan — para que la inteligencia no esté aislada de la ejecución.",
       crumb: "Conecta tu Workflow",
       eyebrow: "Conecta tu Workflow",
       headlineLine1: "Inteligencia conectada",
       headlineLine2: "con cómo trabajas.",
       lead:
-        "Sovereign reúne las conversaciones, los objetivos y el contexto sobre los que los equipos comerciales ya se apoyan — para que la inteligencia no esté aislada de las decisiones y la ejecución que debería sostener.",
+        "Aksum reúne las conversaciones, los objetivos y el contexto sobre los que los equipos comerciales ya se apoyan — para que la inteligencia no esté aislada de las decisiones y la ejecución que debería sostener.",
       comms: {
         eyebrow: "01 — Comunicaciones",
         titleLine1: "Cada conversación,",
@@ -604,7 +604,7 @@ export const es: Dictionary = {
         titleLine1: "Objetivos, señales y",
         titleLine2: "fuentes en una sola vista.",
         body:
-          "La vista de proyecto de Sovereign muestra no solo lo acordado, sino también lo reunido — objetivos de ingresos, avance de operaciones, contexto de equipo y todo el rango de fuentes que alimentan el proyecto. Una vista compartida de la realidad operativa.",
+          "La vista de proyecto de Aksum muestra no solo lo acordado, sino también lo reunido — objetivos de ingresos, avance de operaciones, contexto de equipo y todo el rango de fuentes que alimentan el proyecto. Una vista compartida de la realidad operativa.",
         explainBody:
           "Esta es una vista de proyecto en uso — no un dashboard de reporting. Las cifras de ingresos, las etapas de operación, los miembros del equipo y los contadores de fuentes son contexto vivo del proyecto Angola 2025. La pestaña Sources muestra cada entrevista, correo, nota de reunión e informe que alimenta la inteligencia del proyecto. Nada es estático ni decorativo.",
         benefits: [
@@ -616,7 +616,7 @@ export const es: Dictionary = {
           {
             title: "Visibilidad de proyecto más allá de campos estáticos",
             body:
-              "La vista de proyecto de Sovereign muestra no solo lo acordado, sino lo reunido — reuniones, correos, entrevistas y notas — para que el equipo trabaje desde una foto completa.",
+              "La vista de proyecto de Aksum muestra no solo lo acordado, sino lo reunido — reuniones, correos, entrevistas y notas — para que el equipo trabaje desde una foto completa.",
           },
           {
             title: "Una sola vista compartida de la realidad del proyecto",
@@ -652,7 +652,7 @@ export const es: Dictionary = {
       ],
       cta: {
         headline: "¿Listo para conectar tu contexto operativo?",
-        body: "Descubre cómo Sovereign reúne inteligencia y ejecución en un mismo entorno.",
+        body: "Descubre cómo Aksum reúne inteligencia y ejecución en un mismo entorno.",
       },
     },
   },

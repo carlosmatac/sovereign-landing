@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 
-// ─── Design tokens (Sovereign dark panel system) ──────────────────────────────
+// ─── Design tokens (Aksum dark panel system) ──────────────────────────────
 // Document cards render on the same dark surface family as the other panels.
 // All text uses white/opacity tones consistent with the rest of the system.
 
@@ -281,7 +281,7 @@ export function MarketingActivationShowcase() {
             className="text-[10.5px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Sovereign · Output
+            Aksum · Output
           </span>
         </div>
 
@@ -413,7 +413,7 @@ export function MarketingActivationComposition() {
             className="text-[12px] leading-[1.72] tracking-[-0.010em]"
             style={{ color: "rgba(255,255,255,0.46)" }}
           >
-            Sovereign doesn&apos;t just extract data — it builds an authority layer for strategic
+            Aksum doesn&apos;t just extract data — it builds an authority layer for strategic
             communication. We turn fragmented frontier-market signals into high-fidelity outbound
             assets, from specialist newsletters to LinkedIn-ready briefings, ensuring every message
             is grounded in primary-source truth.

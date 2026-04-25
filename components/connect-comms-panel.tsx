@@ -331,7 +331,7 @@ export function ConnectCommsPanel() {
               className="text-[10.5px] font-medium uppercase tracking-[0.07em]"
               style={{ color: "rgba(255,255,255,0.28)" }}
             >
-              Sovereign · Communications
+              Aksum · Communications
             </span>
           </div>
         </div>
@@ -439,7 +439,7 @@ export function ConnectCommsPanel() {
           </AnimatePresence>
         </div>
 
-        {/* Context strip — shows what Sovereign knows about this thread */}
+        {/* Context strip — shows what Aksum knows about this thread */}
         <div
           className="shrink-0 px-5 py-3"
           style={{ borderTop: `1px solid ${DIVIDER}` }}
