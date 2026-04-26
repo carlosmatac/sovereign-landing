@@ -397,7 +397,7 @@ Three pillar blocks. All use an **editorial two-column copy layout** above the d
 - Visual container: `mx-auto max-w-5xl` (no fixed height — the composition controls its own height)
 - Visual: `MarketingActivationComposition` (`components/marketing-activation-showcase.tsx`) — a **two-column composition**:
   - **Left (57%)**: `MarketingActivationShowcase` — dark Sovereign panel with traffic lights, "Sovereign · Output" label, tab strip (LinkedIn / Newsletter / Outreach / Brief), auto-rotating output cards every 4.5s, pauses on hover. Height: `h-[440px]` on mobile, `lg:h-full` on desktop.
-  - **Right (flex-1)**: `/public/mountain.png` displayed full-bleed (`object-cover`) with a cinematic scrim (`linear-gradient to top`) and an editorial text block anchored at the bottom: headline *"Deploy authority where others only see uncertainty."* (serif, `text-[18px]`) + supporting paragraph. Height: `h-[300px]` on mobile, `lg:h-auto` on desktop.
+  - **Right (flex-1)**: `/public/square(1).png` displayed full-bleed (`object-cover`) with a cinematic scrim (`linear-gradient to top`) and an editorial text block anchored at the bottom: headline *"Deploy authority where others only see uncertainty."* (serif, `text-[18px]`) + supporting paragraph. Height: `h-[300px]` on mobile, `lg:h-auto` on desktop.
 - On desktop the two columns share a `lg:h-[520px]` parent. On mobile they stack vertically.
 - Atmospheric glow: centered top radial
 
