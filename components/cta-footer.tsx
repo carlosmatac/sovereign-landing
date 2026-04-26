@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
@@ -10,200 +9,121 @@ import { useT } from "@/lib/i18n/locale-context"
 const GRAIN_BG =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E\")"
 
-// Fine dot grid — 32px spacing, most open in the closing section
-const DOT_GRID =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
-
-// ─── Cropped brand strip ──────────────────────────────────────────────────────
+// ─── Final CTA ────────────────────────────────────────────────────────────────
 //
-// A horizontal editorial strip with a strict height that acts as a clipping
-// mask. The AKSUM wordmark inside is rendered intentionally far taller than
-// the strip — the strip's `overflow: hidden` cuts off the top and bottom of
-// the letterforms so only a strong horizontal slice is visible. A faint dot
-// grid behind the wordmark integrates the strip tonally with the surrounding
-// section so the band itself has no visible edges.
+// Cinematic full-bleed close-out section. The previous implementation wrapped
+// a hero image inside a rounded card with a headline + small logo; we now
+// give the image the entire section width (edge-to-edge), drop the headline
+// and internal mark, and let the demo button float as the only foreground
+// element. The footer row underneath is preserved.
 //
-// We deliberately use a plain <img> here (not next/image): the asset is a
-// base64-PNG packaged inside an SVG, and next/image's width/height props
-// fight CSS height overrides for that case, which prevents the crop. A bare
-// <img> with an explicit CSS height that exceeds the parent is the only
-// reliable way to force the visible cropping behaviour.
-
-// Precise dot field — 20px grid, 0.9px radius dots, architectural / technical substrate
-const BAND_GRID =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='0.5' cy='0.5' r='0.9' fill='white' fill-opacity='0.18'/%3E%3C/svg%3E\")"
-
-function AksumWordmark() {
-  return (
-    <div className="w-full" role="img" aria-label="Aksum">
-      <div
-        className="relative w-full overflow-hidden"
-        style={{
-          // Fixed clipping band — strict, no overflow allowed.
-          height: "clamp(120px, 15vw, 190px)",
-        }}
-      >
-        {/* Faint dot grid behind the wordmark — tonally integrates the band
-            with the rest of the section so it doesn't read as a pasted
-            rectangle. */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={{
-            backgroundImage: BAND_GRID,
-            backgroundRepeat: "repeat",
-            backgroundSize: "20px 20px",
-            opacity: 0.55,
-          }}
-        />
-
-        {/*
-          Oversized wordmark — driven by an explicit CSS height that is
-          always significantly larger than the parent band (roughly 2.5–3×).
-          Width follows the SVG's natural aspect ratio (≈ 2.47:1).
-
-          Sizing budget across breakpoints:
-            • mobile (~375 px wide):   band ≈ 120 px / logo ≈ 320 px tall  → 200 px cropped
-            • tablet (~768 px):        band ≈ 120 px / logo ≈ 340 px tall  → 220 px cropped
-            • laptop (~1024 px):       band ≈ 154 px / logo ≈ 410 px tall  → 256 px cropped
-            • desktop (~1440 px):      band ≈ 190 px / logo ≈ 540 px tall  → 350 px cropped
-
-          The wordmark is centred via absolute positioning + translate so the
-          visible slice is always the strong middle of the letters (not the
-          top, not the bottom).
-        */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/aksum_lines.svg"
-          alt=""
-          aria-hidden="true"
-          draggable={false}
-          className="pointer-events-none absolute left-1/2 top-1/2 block max-w-none -translate-x-1/2 -translate-y-1/2 select-none"
-          style={{
-            height: "clamp(320px, 38vw, 540px)",
-            width: "auto",
-            opacity: 0.6,
-          }}
-        />
-      </div>
-    </div>
-  )
-}
+// Implementation notes:
+//   • The image is rendered with `fill` inside an absolutely-positioned layer
+//     so it spans the section regardless of viewport width, with no card
+//     border or rounded-corner treatment.
+//   • A soft vertical scrim sits above the image purely to keep the white
+//     pill button readable on lighter portions of the photograph; we never
+//     overpower the image.
+//   • The button is intentionally placed below the vertical centre using a
+//     `pt-[60%] pb-[18%]` pattern on a `min-h` section: the top padding is
+//     larger than the bottom, so the foreground content reads as anchored
+//     toward the lower third of the cinematic frame.
+//   • The copyright/footer row keeps its existing nav links so the legal
+//     surface area is unchanged.
 
 export function CTAFooter() {
   const t = useT()
   return (
     <section
-      className="relative overflow-hidden border-t border-white/[0.07] px-6 pb-0 pt-16 md:pt-20"
+      className="relative overflow-hidden border-t border-white/[0.07]"
       style={{ backgroundColor: "#060D1C" }}
     >
-      {/* Film grain */}
+      {/* Full-bleed cinematic image + button --------------------------------- */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
+        className="relative w-full overflow-hidden"
         style={{
-          backgroundImage: GRAIN_BG,
-          backgroundRepeat: "repeat",
-          backgroundSize: "300px 300px",
-          opacity: 0.035,
+          // Cinematic aspect: wide, never too tall on mobile, generous on
+          // desktop. clamp keeps the section from collapsing on phones or
+          // ballooning on ultrawide displays.
+          aspectRatio: "16 / 7",
+          minHeight: "clamp(420px, 60vw, 720px)",
         }}
-      />
+      >
+        {/* The CTA artwork. `fill` + `object-cover` guarantees edge-to-edge
+            coverage at every breakpoint without the previous rounded card. */}
+        <Image
+          src="/cta(1).png"
+          alt=""
+          aria-hidden="true"
+          fill
+          priority={false}
+          sizes="100vw"
+          className="object-cover"
+        />
 
-      {/* Dot grid */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          backgroundImage: DOT_GRID,
-          backgroundRepeat: "repeat",
-          backgroundSize: "32px 32px",
-          opacity: 0.022,
-        }}
-      />
-
-      <div className="relative z-10">
-        {/* Interactive brand wordmark — breaks out of section px-6 to span full width */}
-        <div className="-mx-6">
-          <AksumWordmark />
-        </div>
-
-        {/* Bridge image with copy overlaid inside */}
-        <motion.div
-          className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl"
+        {/* Subtle scrim — only there to ensure button legibility on the
+            warmer edges of the artwork. Strongest at the bottom where the
+            button sits, softest across the upper half so the image breathes. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
           style={{
-            border: "1px solid rgba(255,255,255,0.08)",
-            boxShadow:
-              "0 0 0 1px rgba(255,255,255,0.025), 0 32px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4)",
+            background:
+              "linear-gradient(to bottom, rgba(6,13,28,0.18) 0%, rgba(6,13,28,0.10) 45%, rgba(6,13,28,0.42) 100%)",
           }}
-          whileHover={{ scale: 1.013, y: -5 }}
-          transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          {/* Photo */}
-          <Image
-            src="/bridge2.png"
-            alt="Aksum — infrastructure at the frontier"
-            width={1920}
-            height={1080}
-            className="w-full object-cover"
-            priority={false}
-          />
+        />
 
-          {/* Strong dark scrim so text is always legible */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(4,9,22,0.72) 0%, rgba(4,9,22,0.38) 45%, rgba(4,9,22,0.55) 100%)",
-            }}
-          />
+        {/* Light film grain — keeps the photographic surface cohesive with
+            the rest of the dark landing sections. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: GRAIN_BG,
+            backgroundRepeat: "repeat",
+            backgroundSize: "300px 300px",
+            opacity: 0.04,
+          }}
+        />
 
-          {/* Top edge fade — blends into section bg */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-16"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(6,13,28,0.60) 0%, transparent 100%)",
-            }}
-          />
+        {/* Top edge fade — blends the section into the prior surface so the
+            image never reads as a pasted rectangle. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-20"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(6,13,28,0.85) 0%, transparent 100%)",
+          }}
+        />
 
-          {/* Bottom edge fade — dissolves into the footer */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-28"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(6,13,28,0.85) 0%, transparent 100%)",
-            }}
-          />
+        {/* Bottom edge fade — dissolves into the footer band underneath. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(6,13,28,0.95) 0%, transparent 100%)",
+          }}
+        />
 
-          {/* Copy — positioned over the image */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-            <Image
-              src="/aksum_white.svg"
-              alt="Aksum"
-              width={44}
-              height={44}
-              className="mb-6 opacity-[0.22]"
-            />
-            <h2
-              className="mb-8 text-balance font-serif text-4xl font-normal tracking-[-0.03em] text-white md:text-5xl"
-              style={{ textShadow: "0 2px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.65)" }}
-            >
-              {t.ctaFooter.headline}
-            </h2>
-            <Button
-              asChild
-              size="lg"
-              className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/90"
-            >
-              <Link href="/request-demo">{t.ctaFooter.cta}</Link>
-            </Button>
-          </div>
-        </motion.div>
+        {/* Foreground — only the demo button, anchored slightly below
+            vertical centre so it reads as a lower-third action point.
+            We use absolute positioning + `top: 62%` to keep the placement
+            consistent across breakpoints regardless of section height. */}
+        <div className="absolute inset-x-0 top-[62%] flex justify-center px-6">
+          <Button
+            asChild
+            size="lg"
+            className="rounded-full bg-white px-9 py-6 text-[15px] font-medium tracking-[-0.011em] text-[#070E1F] shadow-[0_18px_48px_rgba(0,0,0,0.45)] transition-transform duration-300 hover:bg-white/95 hover:scale-[1.02]"
+          >
+            <Link href="/request-demo">{t.ctaFooter.cta}</Link>
+          </Button>
+        </div>
+      </div>
 
-        {/* Footer */}
+      {/* Footer row — copyright + nav. Preserved as-is. ---------------------- */}
+      <div className="relative px-6">
         <footer className="mx-auto flex max-w-5xl flex-col items-center gap-6 border-t border-white/[0.07] pb-8 pt-7 md:flex-row md:justify-between">
           <div className="flex items-center gap-3">
             <Image

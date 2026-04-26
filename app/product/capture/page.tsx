@@ -41,7 +41,7 @@ const UTTERANCES = [
   {
     speaker: "Matilda Rojas",
     time: "0:00 – 0:20",
-    text: "Mr. Green, thank you for receiving us in Abuja. Nigeria's energy sector feels like it is entering another defining phase — reforms under the Petroleum Industry Act, a stronger push on gas, the rise of domestic refining. From your perspective, what defines this moment?",
+    text: "Mr. Green, thank you for receiving us in Abuja. Nigeria's energy sector feels like it is entering another defining phase: reforms under the Petroleum Industry Act, a stronger push on gas, the rise of domestic refining. From your perspective, what defines this moment?",
   },
   {
     speaker: "Mr. Green",
@@ -147,15 +147,15 @@ function UploadPanel() {
             <Archive className="h-4 w-4" style={{ color: ACCENT_BLUE }} strokeWidth={1.5} />
           </div>
           <p className="text-[11px] font-medium" style={{ color: TEXT_PRIMARY }}>Drop file here or click to browse</p>
-          <p className="text-[9.5px]" style={{ color: TEXT_DIM }}>MP3, M4A, WAV, PDF, DOCX — max 500 MB</p>
+          <p className="text-[9.5px]" style={{ color: TEXT_DIM }}>MP3, M4A, WAV, PDF, DOCX (max 500 MB)</p>
         </div>
       </div>
 
       {/* Metadata row */}
       <div className="grid grid-cols-2 gap-2 px-4 pb-4">
         {[
-          { label: "Source title", placeholder: "e.g. Minister of Energy — Abuja, Feb 2026" },
-          { label: "Project", placeholder: "Nigeria 2026 — Select project" },
+          { label: "Source title", placeholder: "e.g. Minister of Energy, Abuja, Feb 2026" },
+          { label: "Project", placeholder: "Nigeria 2026 · Select project" },
           { label: "Subject name", placeholder: "e.g. Mr. Green" },
           { label: "Organisation", placeholder: "e.g. NNPC Ltd." },
         ].map(({ label, placeholder }) => (
@@ -200,7 +200,7 @@ function TranscriptPanel() {
     <PanelChrome>
       <PanelHeader
         title="Transcript review"
-        sub="Nigeria 1 — NNPC — Mr. Green  ·  Review status: draft"
+        sub="Nigeria 1 · NNPC · Mr. Green  ·  Review status: draft"
       />
 
       {/* Search bar */}

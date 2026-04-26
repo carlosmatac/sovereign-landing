@@ -38,7 +38,7 @@ function LinkedInCard() {
       </div>
       <div className="space-y-2.5 text-[12px] leading-relaxed tracking-[-0.010em] text-white/55">
         <p>
-          The infrastructure gap in Southeast Asian logistics isn{"'"}t closing — it{"'"}s
+          The infrastructure gap in Southeast Asian logistics isn{"'"}t closing; it{"'"}s
           shifting. Three signals from our latest research:
         </p>
         <p>
@@ -77,7 +77,7 @@ function NewsletterCard() {
       <div className="space-y-2.5 text-[12px] leading-relaxed tracking-[-0.010em] text-white/52">
         <p>
           Over the past quarter, three Gulf-based sovereign funds have increased their
-          exposure to sub-Saharan mobile infrastructure — but through secondary markets,
+          exposure to sub-Saharan mobile infrastructure, but through secondary markets,
           not headline deals.
         </p>
         <p>
@@ -102,7 +102,7 @@ function OutreachCard() {
         <div className="flex items-start gap-2 text-[10.5px]">
           <span className="w-8 shrink-0 text-[#4a5060]">Re</span>
           <span className="text-white/55">
-            Following up — Horizon{"'"}s Southeast Asia pipeline
+            Following up: Horizon{"'"}s Southeast Asia pipeline
           </span>
         </div>
       </div>
@@ -111,7 +111,7 @@ function OutreachCard() {
         <p>Julia,</p>
         <p>
           Good speaking with you at the Singapore forum. You mentioned Horizon is
-          evaluating two logistics-adjacent deals in the Mekong corridor — I wanted to
+          evaluating two logistics-adjacent deals in the Mekong corridor, so I wanted to
           share some context that might be relevant.
         </p>
         <p>
@@ -144,7 +144,7 @@ function StakeholderBriefCard() {
       </div>
       <div className="h-px" style={{ background: DIVIDER }} />
       <h4 className="font-serif text-[15px] font-normal leading-snug tracking-[-0.020em] text-white/88">
-        Board Preparation: Equinox Media — Expansion Review
+        Board Preparation: Equinox Media · Expansion Review
       </h4>
       <div className="space-y-3 text-[12px] leading-relaxed tracking-[-0.010em] text-white/52">
         <div>
@@ -163,7 +163,7 @@ function StakeholderBriefCard() {
           </p>
           <p>
             Lead with the regulatory tailwind in Kenya{"'"}s media licensing reform.
-            Reference the Frontier Group precedent — they achieved breakeven in 14 months
+            Reference the Frontier Group precedent: they achieved breakeven in 14 months
             by co-locating sales and editorial operations.
           </p>
         </div>
@@ -413,7 +413,7 @@ export function MarketingActivationComposition() {
             className="text-[12px] leading-[1.72] tracking-[-0.010em]"
             style={{ color: "rgba(255,255,255,0.46)" }}
           >
-            Aksum doesn&apos;t just extract data — it builds an authority layer for strategic
+            Aksum doesn&apos;t just extract data; it builds an authority layer for strategic
             communication. We turn fragmented frontier-market signals into high-fidelity outbound
             assets, from specialist newsletters to LinkedIn-ready briefings, ensuring every message
             is grounded in primary-source truth.

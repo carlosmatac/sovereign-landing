@@ -9,16 +9,16 @@ import { Send } from "lucide-react"
 const PRIOR_USER = "Walk me through our South America accounts"
 
 const PRIOR_RESPONSE =
-  "4 accounts with engagement in the past quarter. Manila Energy leads on signal density — 3 internal documents and a recorded CEO conversation, all pointing to active expansion interest. Signal is there. Hasn't been formally actioned."
+  "4 accounts with engagement in the past quarter. Manila Energy leads on signal density: 3 internal documents and a recorded CEO conversation, all pointing to active expansion interest. Signal is there. Hasn't been formally actioned."
 
 const QUESTION = "What do we already know about Manila Energy?"
 
 const INSIGHTS = [
   {
     index: "01",
-    headline: "Intent confirmed across your own files — never formally tracked",
+    headline: "Intent confirmed across your own files, never formally tracked",
     detail:
-      "Manila Energy appears in three separate internal documents: the Panama project debrief, the Q3 Colombia brief, and a regional strategy note. Each time, the context is the same — South America as an active expansion track. The signal was consistent. It was never captured in any account record.",
+      "Manila Energy appears in three separate internal documents: the Panama project debrief, the Q3 Colombia brief, and a regional strategy note. Each time, the context is the same: South America as an active expansion track. The signal was consistent. It was never captured in any account record.",
   },
   {
     index: "02",
@@ -28,9 +28,9 @@ const INSIGHTS = [
   },
   {
     index: "03",
-    headline: "The account went quiet — not cold",
+    headline: "The account went quiet, not cold",
     detail:
-      "Follow-up threads show four unanswered emails after the CEO conversation, each referencing market entry sequencing and local introductions. Manila Energy never formally closed the door. The conversation stalled. It is still recoverable — with the right context and the right framing.",
+      "Follow-up threads show four unanswered emails after the CEO conversation, each referencing market entry sequencing and local introductions. Manila Energy never formally closed the door. The conversation stalled. It is still recoverable, with the right context and the right framing.",
   },
 ]
 
@@ -168,7 +168,7 @@ function InterviewDetailBackground() {
           ← Back to Interviews
         </p>
         <h2 className="mb-1.5 text-[13px] font-semibold leading-snug tracking-[-0.015em] text-white">
-          Manila Energy — South America Strategy
+          Manila Energy: South America Strategy
         </h2>
         <div className="mb-1 flex flex-wrap items-center gap-x-2.5 gap-y-1">
           {["Feb 2026", "Philippines", "48m 22s", "2 speakers (recorded)"].map((m) => (
@@ -211,7 +211,7 @@ function InterviewDetailBackground() {
           <p className="mb-4 text-[10px] leading-[1.72] tracking-[-0.005em] text-[#777]">
             The conversation centres on Manila Energy{"'"}s ambitions to establish a regional presence
             in South America, with Chile and Colombia identified as primary entry points. Santos
-            outlines a phased approach — beginning with regulatory alignment and local partnership
+            outlines a phased approach, beginning with regulatory alignment and local partnership
             development before committing capital. He emphasises stakeholder credibility and trusted
             local anchors as non-negotiable prerequisites for formal market entry.
           </p>
@@ -244,7 +244,7 @@ function InterviewDetailBackground() {
             <div>
               <p className="mb-0.5 text-[8.5px] font-semibold text-[#4a5060]">B. Carles</p>
               <p className="text-[9.5px] leading-[1.68] text-[#666]">
-                "What{"'"}s driving Manila Energy{"'"}s renewed focus on South America — particularly
+                "What{"'"}s driving Manila Energy{"'"}s renewed focus on South America, particularly
                 now, after years of concentration in Southeast Asia?"
               </p>
             </div>
@@ -253,14 +253,14 @@ function InterviewDetailBackground() {
               <p className="text-[9.5px] leading-[1.68] text-[#666]">
                 "The fundamentals changed. Chile{"'"}s energy transition is creating procurement
                 windows that didn{"'"}t exist three years ago. And in Colombia, the infrastructure
-                gap is widening in our direction. We{"'"}re moving deliberately — the question
+                gap is widening in our direction. We{"'"}re moving deliberately; the question
                 isn{"'"}t whether, it{"'"}s how and with whom."
               </p>
             </div>
             <div>
               <p className="mb-0.5 text-[8.5px] font-semibold text-[#4a5060]">B. Carles</p>
               <p className="text-[9.5px] leading-[1.68] text-[#666]">
-                "And local credibility — how critical is that to the timeline?"
+                "And local credibility, how critical is that to the timeline?"
               </p>
             </div>
             <div>

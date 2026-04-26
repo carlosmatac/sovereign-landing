@@ -22,14 +22,14 @@ function NewsletterOutput() {
       </div>
       <div className="h-px" style={{ background: DIVIDER }} />
       <h4 className="font-serif text-[16px] font-normal leading-snug tracking-[-0.020em] text-white/88">
-        West Africa's infrastructure cycle is entering a new phase — and most capital is still positioned for the last one
+        West Africa's infrastructure cycle is entering a new phase, and most capital is still positioned for the last one
       </h4>
       <div className="space-y-3 text-[12px] leading-relaxed tracking-[-0.010em] text-white/52">
         <p>
           Across 38 stakeholder conversations conducted this quarter, a consistent pattern has emerged: the infrastructure investment thesis that drove capital allocation into West Africa between 2019 and 2023 is no longer the dominant frame among the region's most active operators.
         </p>
         <p>
-          Three signals stand out. First, the regulatory environment in Nigeria has shifted materially since the Petroleum Industry Act — execution risk has declined, but the window for first-mover advantage is narrowing. Second, Ghana's port modernisation programme is creating procurement opportunities that are not yet visible in public tender databases. Third, the Francophone corridor — Côte d'Ivoire to Senegal — is attracting a new class of infrastructure investor that is not yet well-covered by existing research.
+          Three signals stand out. First, the regulatory environment in Nigeria has shifted materially since the Petroleum Industry Act: execution risk has declined, but the window for first-mover advantage is narrowing. Second, Ghana's port modernisation programme is creating procurement opportunities that are not yet visible in public tender databases. Third, the Francophone corridor (Côte d'Ivoire to Senegal) is attracting a new class of infrastructure investor that is not yet well-covered by existing research.
         </p>
         <div
           className="rounded-lg px-4 py-3"
@@ -63,7 +63,7 @@ function BoardBriefOutput() {
       </div>
       <div className="h-px" style={{ background: DIVIDER }} />
       <h4 className="font-serif text-[16px] font-normal leading-snug tracking-[-0.020em] text-white/88">
-        Lagos Infrastructure Fund — Q1 2026 Review &amp; Strategic Outlook
+        Lagos Infrastructure Fund · Q1 2026 Review &amp; Strategic Outlook
       </h4>
       <div className="space-y-3 text-[12px] leading-relaxed tracking-[-0.010em] text-white/52">
         <div>
@@ -71,7 +71,7 @@ function BoardBriefOutput() {
             Executive Summary
           </p>
           <p>
-            The fund's three active positions are performing within projected parameters. The Apapa port logistics investment has reached operational breakeven 11 weeks ahead of schedule. The Abuja commercial real estate position remains on hold pending resolution of the zoning amendment — legal counsel expects a decision by May 2026.
+            The fund's three active positions are performing within projected parameters. The Apapa port logistics investment has reached operational breakeven 11 weeks ahead of schedule. The Abuja commercial real estate position remains on hold pending resolution of the zoning amendment; legal counsel expects a decision by May 2026.
           </p>
         </div>
         <div>
@@ -98,7 +98,7 @@ function BoardBriefOutput() {
             Risk Flags
           </p>
           <p className="text-[11.5px] leading-relaxed text-white/52">
-            Currency volatility in the naira corridor remains the primary macro risk. Our analysis of 12 central bank communications since January 2026 suggests the current stabilisation is structural, not cyclical — but the board should note that three of our portfolio companies have unhedged naira exposure above 40%.
+            Currency volatility in the naira corridor remains the primary macro risk. Our analysis of 12 central bank communications since January 2026 suggests the current stabilisation is structural, not cyclical; the board should note that three of our portfolio companies have unhedged naira exposure above 40%.
           </p>
         </div>
       </div>
@@ -117,7 +117,7 @@ function InvestorMemoOutput() {
       </div>
       <div className="h-px" style={{ background: DIVIDER }} />
       <h4 className="font-serif text-[16px] font-normal leading-snug tracking-[-0.020em] text-white/88">
-        Pacific Corridor Infrastructure Programme — Series B Investment Case
+        Pacific Corridor Infrastructure Programme · Series B Investment Case
       </h4>
       <div className="space-y-3 text-[12px] leading-relaxed tracking-[-0.010em] text-white/52">
         <div>
@@ -125,7 +125,7 @@ function InvestorMemoOutput() {
             Opportunity
           </p>
           <p>
-            The Pacific Corridor Programme represents a $340M infrastructure deployment across Chile and Colombia, structured as a phased joint venture between Manila Energy and Andes Power. The regulatory pathway has been confirmed at the ministerial level — a process that took 14 months and is documented in 22 internal stakeholder conversations.
+            The Pacific Corridor Programme represents a $340M infrastructure deployment across Chile and Colombia, structured as a phased joint venture between Manila Energy and Andes Power. The regulatory pathway has been confirmed at the ministerial level (a process that took 14 months and is documented in 22 internal stakeholder conversations).
           </p>
         </div>
         <div>
@@ -133,7 +133,7 @@ function InvestorMemoOutput() {
             Why Now
           </p>
           <p>
-            Chile's energy transition procurement cycle opens in Q3 2026. The window for anchor positioning closes when the Ministry of Energy finalises its approved vendor list — expected in June. Three competing consortia are known to be in preparation; none has the stakeholder depth that the current intelligence base provides.
+            Chile's energy transition procurement cycle opens in Q3 2026. The window for anchor positioning closes when the Ministry of Energy finalises its approved vendor list, expected in June. Three competing consortia are known to be in preparation; none has the stakeholder depth that the current intelligence base provides.
           </p>
         </div>
         <div className="flex items-center gap-6">
@@ -164,7 +164,7 @@ function AnnualReviewOutput() {
       </div>
       <div className="h-px" style={{ background: DIVIDER }} />
       <h4 className="font-serif text-[16px] font-normal leading-snug tracking-[-0.020em] text-white/88">
-        Emerging Markets Infrastructure — Signals, Themes, and Strategic Implications
+        Emerging Markets Infrastructure: Signals, Themes, and Strategic Implications
       </h4>
       <div className="space-y-3 text-[12px] leading-relaxed tracking-[-0.010em] text-white/52">
         <p>
@@ -175,7 +175,7 @@ function AnnualReviewOutput() {
             {
               n: "01",
               title: "Execution has replaced access as the primary differentiator",
-              body: "In 2023, the dominant challenge was market access. By 2025, the organisations generating the strongest returns were those that had solved execution — not those with the best deal flow.",
+              body: "In 2023, the dominant challenge was market access. By 2025, the organisations generating the strongest returns were those that had solved execution, not those with the best deal flow.",
             },
             {
               n: "02",

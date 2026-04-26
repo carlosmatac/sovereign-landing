@@ -10,13 +10,13 @@ const KEY_SIGNALS = [
   {
     n: "01",
     title: "Regulatory consolidation is accelerating in the Lagos corridor",
-    body: "Three separate ministry-level conversations conducted between October 2025 and February 2026 confirm that the Federal Government's infrastructure licensing reform — delayed twice since 2022 — will be enacted before Q3 2026. The implications for independent power producers are material and not yet reflected in public market pricing.",
+    body: "Three separate ministry-level conversations conducted between October 2025 and February 2026 confirm that the Federal Government's infrastructure licensing reform (delayed twice since 2022) will be enacted before Q3 2026. The implications for independent power producers are material and not yet reflected in public market pricing.",
     sources: ["Ministry briefing · Oct 2025", "NNPC stakeholder session · Jan 2026", "Policy review · Feb 2026"],
   },
   {
     n: "02",
     title: "The Francophone corridor is attracting a new class of infrastructure investor",
-    body: "Intelligence gathered across 14 conversations in Côte d'Ivoire, Senegal, and Cameroon between Q3 and Q4 2025 reveals a pattern of Gulf-based sovereign capital entering through secondary channels — not headline transactions. This is not visible in public deal databases. The entry strategy is consistently structured around logistics and cold-chain assets.",
+    body: "Intelligence gathered across 14 conversations in Côte d'Ivoire, Senegal, and Cameroon between Q3 and Q4 2025 reveals a pattern of Gulf-based sovereign capital entering through secondary channels, not headline transactions. This is not visible in public deal databases. The entry strategy is consistently structured around logistics and cold-chain assets.",
     sources: ["Abidjan sector brief · Q3 2025", "Dakar infrastructure session · Q4 2025", "Gulf capital mapping · internal"],
   },
   {
@@ -29,7 +29,7 @@ const KEY_SIGNALS = [
 
 const IMPLICATIONS = [
   "Capital positioned for the 2019–2023 infrastructure thesis is likely misaligned with current opportunity. The risk/return profile of the Lagos corridor has improved materially, but requires operational presence to capture.",
-  "The Francophone corridor opportunity is time-sensitive. The window for anchor positioning in the Côte d'Ivoire logistics market closes when the government's approved vendor list is finalised — expected June 2026.",
+  "The Francophone corridor opportunity is time-sensitive. The window for anchor positioning in the Côte d'Ivoire logistics market closes when the government's approved vendor list is finalised, expected June 2026.",
   "Organisations that have built deep stakeholder relationships in the regulatory layer are structurally advantaged. The intelligence gathered in this review cannot be replicated through desk research or public data sources.",
 ]
 
@@ -339,7 +339,7 @@ export function ActivateReportSurface() {
             className="mb-3 text-[9.5px] font-semibold uppercase tracking-[0.12em]"
             style={{ color: "rgba(255,255,255,0.22)" }}
           >
-            Appendix — Source References
+            Appendix: Source References
           </p>
           <div className="space-y-1.5">
             {[

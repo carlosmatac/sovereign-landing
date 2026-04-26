@@ -40,7 +40,7 @@ const SECTIONS: ConversationSection[] = [
             type: "insight",
             index: "01",
             content:
-              "Meridian's head of infrastructure, David Lowe, stated in your March 2025 interview that they were actively reducing exposure to greenfield risk — specifically in markets without a functioning regulatory anchor. That conversation is stored in the Lagos Infrastructure brief.",
+              "Meridian's head of infrastructure, David Lowe, stated in your March 2025 interview that they were actively reducing exposure to greenfield risk, specifically in markets without a functioning regulatory anchor. That conversation is stored in the Lagos Infrastructure brief.",
             sources: ["Lagos Infrastructure brief · Mar 2025", "David Lowe interview · 48m"],
           },
           {
@@ -53,7 +53,7 @@ const SECTIONS: ConversationSection[] = [
           {
             type: "signal",
             content:
-              "Two other internal documents reference Meridian in the context of the Nigeria corridor — both from Q4 2024. The framing in both is consistent: they are watching, not moving. That may have changed.",
+              "Two other internal documents reference Meridian in the context of the Nigeria corridor, both from Q4 2024. The framing in both is consistent: they are watching, not moving. That may have changed.",
           },
         ],
       },
@@ -76,7 +76,7 @@ const SECTIONS: ConversationSection[] = [
             type: "insight",
             index: "01",
             content:
-              "What worked in the September 2024 conversation was the specificity around the Abuja corridor — Okonkwo responded directly to the infrastructure gap data from the Nigeria brief. That was the moment the conversation shifted.",
+              "What worked in the September 2024 conversation was the specificity around the Abuja corridor: Okonkwo responded directly to the infrastructure gap data from the Nigeria brief. That was the moment the conversation shifted.",
             sources: ["Sep 2024 meeting notes · 22 min"],
           },
           {
@@ -100,7 +100,7 @@ const SECTIONS: ConversationSection[] = [
           {
             type: "text",
             content:
-              "Manila Energy appears across 14 internal sources spanning 18 months. The account has never been formally opened — but the intelligence density is unusually high for a prospect at this stage.",
+              "Manila Energy appears across 14 internal sources spanning 18 months. The account has never been formally opened, but the intelligence density is unusually high for a prospect at this stage.",
           },
           {
             type: "insight",
@@ -113,14 +113,14 @@ const SECTIONS: ConversationSection[] = [
             type: "insight",
             index: "02",
             content:
-              "The Q3 Colombia brief references Manila Energy in the context of a competitor approach — another firm made contact in August 2025. Santos's response, as recorded in your notes, was non-committal but not dismissive. The window is still open.",
+              "The Q3 Colombia brief references Manila Energy in the context of a competitor approach: another firm made contact in August 2025. Santos's response, as recorded in your notes, was non-committal but not dismissive. The window is still open.",
             sources: ["Q3 Colombia brief · internal", "Aug 2025 competitor note"],
           },
           {
             type: "insight",
             index: "03",
             content:
-              "Four unanswered follow-up emails from your team between September and December 2025. Each referenced market entry sequencing and local introductions. Manila Energy never formally closed the door — the conversation stalled on your side.",
+              "Four unanswered follow-up emails from your team between September and December 2025. Each referenced market entry sequencing and local introductions. Manila Energy never formally closed the door; the conversation stalled on your side.",
             sources: ["Follow-up thread · Sep–Dec 2025 · 4 messages"],
           },
         ],
@@ -138,20 +138,20 @@ const SECTIONS: ConversationSection[] = [
             type: "insight",
             index: "01",
             content:
-              "Carlos Vega appears in the Andes Power account as a former board observer — referenced in the 2024 annual strategy brief. He is not currently listed as an active contact, but the relationship predates the current leadership team.",
+              "Carlos Vega appears in the Andes Power account as a former board observer, referenced in the 2024 annual strategy brief. He is not currently listed as an active contact, but the relationship predates the current leadership team.",
             sources: ["Andes Power strategy brief · 2024", "Entity record · Carlos Vega"],
           },
           {
             type: "insight",
             index: "02",
             content:
-              "Vega also appears in the Chile Ministry of Energy context — specifically in a 2023 regulatory consultation document stored in the Santiago corridor project. That connection is not visible in your CRM. It is only surfaced here because both sources are in the same workspace.",
+              "Vega also appears in the Chile Ministry of Energy context, specifically in a 2023 regulatory consultation document stored in the Santiago corridor project. That connection is not visible in your CRM. It is only surfaced here because both sources are in the same workspace.",
             sources: ["Santiago corridor project · 2023", "Chile Ministry consultation doc"],
           },
           {
             type: "signal",
             content:
-              "The overlap between Vega, Andes Power, and the Chile Ministry creates a triangulation point that has commercial relevance for the Manila Energy approach. Santos named Andes Power as a company he was 'monitoring closely' — and Vega is the bridge.",
+              "The overlap between Vega, Andes Power, and the Chile Ministry creates a triangulation point that has commercial relevance for the Manila Energy approach. Santos named Andes Power as a company he was 'monitoring closely', and Vega is the bridge.",
           },
         ],
       },
@@ -182,13 +182,13 @@ const SECTIONS: ConversationSection[] = [
             type: "insight",
             index: "03",
             content:
-              "The NNPC representative on the committee, Emeka Osei, has not spoken in the last two sessions. His silence follows a pattern visible in the Q4 2025 project brief — there is a noted tension between his position and the committee's current direction. Worth monitoring.",
+              "The NNPC representative on the committee, Emeka Osei, has not spoken in the last two sessions. His silence follows a pattern visible in the Q4 2025 project brief: there is a noted tension between his position and the committee's current direction. Worth monitoring.",
             sources: ["Q4 2025 project brief · internal", "Session attendance records"],
           },
           {
             type: "signal",
             content:
-              "One external document in your workspace — a Reuters piece from March 2026 — references a policy shift that directly affects Phase 2 of the Lagos Infrastructure plan. It has not been discussed in any internal document. You may be the only person in the room who has seen it.",
+              "One external document in your workspace (a Reuters piece from March 2026) references a policy shift that directly affects Phase 2 of the Lagos Infrastructure plan. It has not been discussed in any internal document. You may be the only person in the room who has seen it.",
           },
         ],
       },

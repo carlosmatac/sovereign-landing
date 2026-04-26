@@ -38,7 +38,7 @@ interface Thread {
 const THREADS: Thread[] = [
   {
     id: "t1",
-    subject: "Pacific Corridor — regulatory timeline confirmation",
+    subject: "Pacific Corridor: regulatory timeline confirmation",
     account: "Manila Energy",
     accountType: "Company",
     status: "active",
@@ -50,7 +50,7 @@ const THREADS: Thread[] = [
         initials: "AS",
         role: "CEO · Manila Energy",
         time: "Tue 8 Apr, 09:14",
-        body: "Following our conversation last week — I've confirmed with the Ministry that the approved vendor list will be finalised no later than 15 June. The window we discussed is real. I'd suggest we move the internal review forward.",
+        body: "Following our conversation last week, I've confirmed with the Ministry that the approved vendor list will be finalised no later than 15 June. The window we discussed is real. I'd suggest we move the internal review forward.",
         tags: ["Chile Ministry", "Pacific Corridor", "Regulatory"],
       },
       {
@@ -58,7 +58,7 @@ const THREADS: Thread[] = [
         initials: "BC",
         role: "Account Lead",
         time: "Tue 8 Apr, 11:02",
-        body: "Understood. I'll brief the team today and we can schedule the internal review for next week. One question — is the June 15 date firm, or is there still room for slippage on their side?",
+        body: "Understood. I'll brief the team today and we can schedule the internal review for next week. One question: is the June 15 date firm, or is there still room for slippage on their side?",
         isOwn: true,
       },
       {
@@ -66,14 +66,14 @@ const THREADS: Thread[] = [
         initials: "AS",
         role: "CEO · Manila Energy",
         time: "Tue 8 Apr, 14:38",
-        body: "Firm as of this morning. The Minister's office confirmed it in writing. I'll forward the note. Worth noting: Andes Power has been told the same date — they're moving faster than we expected.",
+        body: "Firm as of this morning. The Minister's office confirmed it in writing. I'll forward the note. Worth noting: Andes Power has been told the same date, and they're moving faster than we expected.",
         tags: ["Andes Power", "Competitive signal"],
       },
     ],
   },
   {
     id: "t2",
-    subject: "Lagos Infrastructure — Q2 steering committee prep",
+    subject: "Lagos Infrastructure: Q2 steering committee prep",
     account: "Lagos Infrastructure Fund",
     accountType: "Fund",
     status: "pending",
@@ -85,7 +85,7 @@ const THREADS: Thread[] = [
         initials: "AD",
         role: "Committee Chair",
         time: "Mon 7 Apr, 16:22",
-        body: "Before Thursday's session — I want to make sure the revised financing model is on the agenda. It was raised in January and never formally addressed. I'd like a number, not a range, this time.",
+        body: "Before Thursday's session, I want to make sure the revised financing model is on the agenda. It was raised in January and never formally addressed. I'd like a number, not a range, this time.",
         tags: ["Financing model", "Steering committee"],
       },
       {
@@ -100,7 +100,7 @@ const THREADS: Thread[] = [
   },
   {
     id: "t3",
-    subject: "Frontier Group — Abuja corridor follow-up",
+    subject: "Frontier Group: Abuja corridor follow-up",
     account: "Frontier Group",
     accountType: "Company",
     status: "resolved",
@@ -112,7 +112,7 @@ const THREADS: Thread[] = [
         initials: "SO",
         role: "CFO · Frontier Group",
         time: "Fri 4 Apr, 10:08",
-        body: "The Abuja corridor data you shared was exactly what we needed. The infrastructure gap analysis landed well with the investment committee. We're ready to move to the next stage — can we schedule a call for next week?",
+        body: "The Abuja corridor data you shared was exactly what we needed. The infrastructure gap analysis landed well with the investment committee. We're ready to move to the next stage. Can we schedule a call for next week?",
         tags: ["Abuja corridor", "Investment committee"],
       },
     ],

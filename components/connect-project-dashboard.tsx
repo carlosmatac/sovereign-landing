@@ -20,11 +20,11 @@ const TEXT_GHOST   = "rgba(255,255,255,0.18)"
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const DEALS = [
-  { name: "Sonangol — Annual Report",     value: "$48,000",  stage: "Closed",     stageColor: ACCENT_GREEN },
-  { name: "Ministry of Finance — Brief",  value: "$22,500",  stage: "Invoiced",   stageColor: ACCENT_AMBER },
-  { name: "Cabinda Energy — Sector Pack", value: "$31,000",  stage: "In Review",  stageColor: ACCENT_BLUE  },
-  { name: "Angola LNG — Strategy Note",   value: "$18,000",  stage: "Drafting",   stageColor: "rgba(147,147,147,0.55)" },
-  { name: "MINPET — Regulatory Brief",    value: "$14,500",  stage: "Pending",    stageColor: ACCENT_AMBER },
+  { name: "Sonangol: Annual Report",     value: "$48,000",  stage: "Closed",     stageColor: ACCENT_GREEN },
+  { name: "Ministry of Finance: Brief",  value: "$22,500",  stage: "Invoiced",   stageColor: ACCENT_AMBER },
+  { name: "Cabinda Energy: Sector Pack", value: "$31,000",  stage: "In Review",  stageColor: ACCENT_BLUE  },
+  { name: "Angola LNG: Strategy Note",   value: "$18,000",  stage: "Drafting",   stageColor: "rgba(147,147,147,0.55)" },
+  { name: "MINPET: Regulatory Brief",    value: "$14,500",  stage: "Pending",    stageColor: ACCENT_AMBER },
 ]
 
 const TEAM = [
@@ -46,7 +46,7 @@ const ACTIVITY = [
   { time: "Today, 09:14",   text: "Adrian Santos email linked to account context",    type: "email"    },
   { time: "Today, 08:30",   text: "Steering committee notes uploaded and processed",  type: "meeting"  },
   { time: "Yesterday",      text: "Cabinda Energy draft reviewed and approved",        type: "deal"     },
-  { time: "Mon 7 Apr",      text: "Ministry of Finance invoice sent — $22,500",        type: "invoice"  },
+  { time: "Mon 7 Apr",      text: "Ministry of Finance invoice sent: $22,500",        type: "invoice"  },
   { time: "Fri 4 Apr",      text: "Sonangol Annual Report delivered and closed",       type: "closed"   },
 ]
 

@@ -85,7 +85,7 @@ export async function sendDemoRequest(
       from:     FROM_ADDRESS,
       to:       TO_ADDRESS,
       replyTo:  email,
-      subject:  `Demo request — ${firstName} ${lastName} · ${company}`,
+      subject:  `Demo request: ${firstName} ${lastName} · ${company}`,
       html,
     })
     return { status: "success" }

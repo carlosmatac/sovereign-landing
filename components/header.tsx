@@ -85,7 +85,13 @@ const HEADER_DURATION = "520ms"
 //   SUM → 1346.67 × 885.33 (≈ 1.5212 aspect)
 const LOGO_AK_ASPECT = 1
 const LOGO_SUM_ASPECT = 1346.6667 / 885.33331 // ≈ 1.5212
-const LOGO_GAP = 4 // px — precise visual gap between AK and SUM
+// Slight negative value pulls the SUM wrapper into AK's intrinsic right
+// whitespace so the two assets read as one cohesive `AKSUM` wordmark in
+// the expanded state without becoming visually fused. The SVG files each
+// carry their own internal padding around the glyphs; with no overlap
+// the wordmark feels "split in half", with too much overlap the K and S
+// kiss. -4px keeps a precise but unbroken letter rhythm.
+const LOGO_GAP = -4 // px — overlap between AK and SUM in the fitted state
 
 // ─── Product pillars ──────────────────────────────────────────────────────────
 // Static metadata only (icon + href + dictionary key). The visible label and
@@ -300,17 +306,25 @@ export function Header() {
                 />
 
                 {/* SUM — width-collapsing wrapper that clips from the right
-                    and pulls the inner image leftwards into the AK mark. */}
+                    and pulls the inner image leftwards into the AK mark.
+                    The wrapper itself carries a negative `marginLeft` so it
+                    sits inside AK's right-edge whitespace, which tightens
+                    the perceived gap between AK and SUM without clipping
+                    SUM's right edge. Both `width` and `marginLeft` animate
+                    to 0 when detached, so the bar returns to AK-only with
+                    no residual offset and no layout jump. */}
                 <div
                   aria-hidden="true"
                   style={{
                     height: `${sumH}px`,
-                    width: detached ? "0px" : `${LOGO_GAP + sumW}px`,
+                    width: detached ? "0px" : `${sumW}px`,
+                    marginLeft: detached ? "0px" : `${LOGO_GAP}px`,
                     overflow: "hidden",
                     display: "flex",
                     alignItems: "center",
                     transition: [
                       `width ${HEADER_DURATION} ${HEADER_EASE}`,
+                      `margin-left ${HEADER_DURATION} ${HEADER_EASE}`,
                       `height ${HEADER_DURATION} ${HEADER_EASE}`,
                     ].join(", "),
                   }}
@@ -323,7 +337,6 @@ export function Header() {
                     style={{
                       height: `${sumH}px`,
                       width: `${sumW}px`,
-                      marginLeft: `${LOGO_GAP}px`,
                       opacity: detached ? 0 : 1,
                       transform: detached
                         ? `translateX(-${Math.round(sumW * 0.35)}px)`
