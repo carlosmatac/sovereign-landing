@@ -103,55 +103,43 @@ export default async function RequestDemoPage() {
       </div>
 
       {/* ── Right column — image ───────────────────────────────────────────── */}
-      <div className="relative h-[56vw] w-full lg:sticky lg:top-0 lg:h-screen lg:w-1/2">
-        <Image
-          src="/dessert.png"
-          alt={r.sideCallout.imageAlt}
-          fill
-          className="object-cover object-center"
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          priority
-        />
-
-        {/* Dark gradient scrim — top to bottom, ensures text legibility at bottom */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(4,9,22,0.92) 0%, rgba(4,9,22,0.52) 40%, rgba(4,9,22,0.12) 72%, transparent 100%)",
-          }}
-        />
-
-        {/* Left edge fade — blends into the form panel on desktop */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-y-0 left-0 hidden w-24 lg:block"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(6,13,28,0.72) 0%, transparent 100%)",
-          }}
-        />
-
-        {/* Editorial statement — bottom-anchored */}
-        <div className="absolute bottom-0 left-0 right-0 px-8 pb-10 md:px-12 md:pb-12">
-          <div
-            aria-hidden="true"
-            className="mb-5 h-px w-8"
-            style={{ background: "rgba(255,255,255,0.18)" }}
+      {/*
+        The outer wrapper handles sizing + the lg:sticky behaviour.
+        Next.js <Image fill> requires its *direct* parent to have
+        position relative|absolute|fixed (sticky is not allowed), so the
+        Image lives inside a nested `relative` container.
+      */}
+      <div className="h-[56vw] w-full lg:sticky lg:top-0 lg:h-screen lg:w-1/2">
+        <div className="relative h-full w-full">
+          <Image
+            src="/book.png"
+            alt={r.sideCallout.imageAlt}
+            fill
+            className="object-cover object-center"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            priority
           />
-          <h2
-            className="mb-3 font-serif text-2xl font-normal leading-snug tracking-[-0.025em] md:text-3xl"
-            style={{ color: "rgba(255,255,255,0.92)" }}
-          >
-            {r.sideCallout.headline}
-          </h2>
-          <p
-            className="max-w-xs text-[13px] leading-relaxed tracking-[-0.011em] md:text-[14px]"
-            style={{ color: "rgba(255,255,255,0.48)" }}
-          >
-            {r.sideCallout.body}
-          </p>
+
+          {/* Editorial statement — bottom-anchored */}
+          <div className="absolute bottom-0 left-0 right-0 px-8 pb-10 md:px-12 md:pb-12">
+            <div
+              aria-hidden="true"
+              className="mb-5 h-px w-8"
+              style={{ background: "rgba(255,255,255,0.18)" }}
+            />
+            <h2
+              className="mb-3 font-serif text-2xl font-normal leading-snug tracking-[-0.025em] md:text-3xl"
+              style={{ color: "rgba(255,255,255,0.92)" }}
+            >
+              {r.sideCallout.headline}
+            </h2>
+            <p
+              className="max-w-xs text-[13px] leading-relaxed tracking-[-0.011em] md:text-[14px]"
+              style={{ color: "rgba(255,255,255,0.48)" }}
+            >
+              {r.sideCallout.body}
+            </p>
+          </div>
         </div>
       </div>
     </main>

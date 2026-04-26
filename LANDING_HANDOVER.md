@@ -498,7 +498,7 @@ Premium editorial page. Uses `<Header />`. Structure:
 Full-page two-column form. No `<Header />` (focused conversion page).
 
 - **Left:** Form with `DemoForm` client component. Fields: First/Last name, Work email, Phone (country code selector + number), Company, Role, Problem (textarea), Message (textarea optional). Submit via Next.js Server Action → Resend.
-- **Right:** `dessert.png` full-bleed with scrim + editorial statement (*"Ready to shape the future?"*).
+- **Right:** `book.png` full-bleed with scrim + editorial statement (*"Ready to shape the future?"*).
 - **Country code selector:** Custom dropdown, 80 countries, flag emoji + dial code, search input, click-outside close. State held in `DemoForm` via `useState<Country>`.
 - **Server action:** `app/actions/send-demo-request.ts`. Lazy-initialises `Resend` (requires `RESEND_API_KEY` env var). Sends to `team@aksum.ai`, `reply-to` = submitter email. Validates required fields server-side. Returns `FormState { status, message }`.
 - **Mobile:** Image stacks below the form at `h-[56vw]`.
