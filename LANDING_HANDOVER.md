@@ -75,18 +75,21 @@ The implicit promise is not that Sovereign is a smarter search engine or a bette
 The landing organises Sovereign's capabilities across three areas. These are not rigid product SKUs — they are commercial frames that make Sovereign's value legible to different parts of a client organisation.
 
 ### 5.1 Sales Intelligence
+
 Helping commercial teams enter conversations with better context, stronger positioning, and a clearer picture of relationships and priorities. The emphasis is on deal readiness and confidence, not on data processing.
 
 *Framing to avoid:* "relationship mapping", "GraphRAG", "cross-project sentiment analysis"  
 *Framing to use:* "know who matters before the meeting", "turn prior knowledge into deal advantage", "context that closes"
 
 ### 5.2 Strategic Intelligence
+
 Identifying patterns, themes, and signals across internal information that inform decisions: where to focus, what is emerging, which opportunities are underserved. Relevant to editorial, strategy, and leadership audiences.
 
 *Framing to avoid:* "multi-modal ingestion", "trend detection across interviews", "prep doc processing"  
 *Framing to use:* "surface the signals your team is too busy to read", "turn information overload into strategic clarity", "decisions grounded in everything you already know"
 
 ### 5.3 Marketing Activation
+
 Turning processed intelligence into targeted outbound content — for sales outreach, newsletters, social platforms, or stakeholder communication. The emphasis is on speed and relevance, not automation for its own sake.
 
 *Framing to avoid:* "auto-generated content", "zero manual effort", "from interviews to LinkedIn posts"  
@@ -97,6 +100,7 @@ Turning processed intelligence into targeted outbound content — for sales outr
 ## 6. What the Landing Should Avoid
 
 **In copy and messaging:**
+
 - Do not lead with technology names (GraphRAG, embeddings, LLMs, vector search, etc.)
 - Do not frame Sovereign as a tool built for TBY or built around interview content specifically
 - Do not use language that positions Sovereign as a narrow vertical product
@@ -105,6 +109,7 @@ Turning processed intelligence into targeted outbound content — for sales outr
 - Do not let the headline message be about the technology; it must be about the outcome
 
 **In development and implementation:**
+
 - Do not alter the hero panel shell (outer div, sidebar, central panel wrapper) without explicit instruction
 - Do not replace the live visual components (dashboard panel, intelligence map, card rotator) with placeholders or static images
 - Do not add new sections that alter the positioning or introduce messaging not covered in this document without first checking alignment
@@ -116,7 +121,7 @@ Turning processed intelligence into targeted outbound content — for sales outr
 
 The landing uses a documented design system. Before making any visual changes, read:
 
-**`docs/sovereign-application.md`** — the Brand & Design System reference.
+`**docs/sovereign-application.md`** — the Brand & Design System reference.
 
 Key principles in force on the landing:
 
@@ -149,20 +154,17 @@ Fixed navigation bar, 64px height. `"use client"` directive required (Radix inte
 **Navigation structure (4 items):**
 
 1. **Product** — wide panel (560px, `rounded-2xl`), 2-column grid of 4 capability pillars:
-   - Capture & Organise → `/product/capture` (Archive icon)
-   - Prepare & Sell → `#sales-intelligence` (TrendingUp icon)
-   - Activate & Publish → `#marketing-activation` (Megaphone icon)
-   - Connect Your Workflow → `#connect` (Settings2 icon)
+  - Capture & Organise → `/product/capture` (Archive icon)
+  - Prepare & Sell → `#sales-intelligence` (TrendingUp icon)
+  - Activate & Publish → `#marketing-activation` (Megaphone icon)
+  - Connect Your Workflow → `#connect` (Settings2 icon)
    Each item: 7×7px icon container + title (`text-[13px] font-medium`) + description (`text-[12px]`). Hover: `bg-white/[0.05]` row, title brightens.
-
 2. **Use Cases** — wide panel (480px), 2-column grid of 4 audience entries:
-   - Sales Teams → `#sales-intelligence` (BarChart2)
-   - Editorial Teams → `#strategic-intelligence` (BookOpen)
-   - Marketing Teams → `#marketing-activation` (GitMerge)
-   - Leadership & Strategy → `#strategic-intelligence` (Users)
-
+  - Sales Teams → `#sales-intelligence` (BarChart2)
+  - Editorial Teams → `#strategic-intelligence` (BookOpen)
+  - Marketing Teams → `#marketing-activation` (GitMerge)
+  - Leadership & Strategy → `#strategic-intelligence` (Users)
 3. **About** — compact panel (176px): Our Story → `/about`, Contact → `/contact`.
-
 4. **Request Demo** — CTA button (white pill).
 
 **Dropdown panel tokens:** `bg: rgba(6,13,28,0.97)`, `backdropFilter: blur(24px)`, `border-white/[0.09]`, `rounded-2xl`, `sideOffset={12}`. Section eyebrow at `text-[10px] uppercase tracking-[0.12em] opacity-28`.
@@ -174,11 +176,13 @@ Fixed navigation bar, 64px height. `"use client"` directive required (Radix inte
 A centered, cinematic dark composition. Everything is centered vertically.
 
 **Background:**
+
 - Base color: `#060D1C` (deep navy, near-black)
 - Subtle radial depth gradient — barely perceptible lighter zone at top-center
 - Film grain texture overlay at 3.5% opacity (SVG feTurbulence, tiled at 300px)
 
 **Copy block (centered, `max-w-3xl`):**
+
 - Sovereign logomark stamp (`sovereign_logo.svg`, 20% opacity)
 - Badge pill: *"Intelligence for the organisations that move markets"*
 - Headline: *"What your organisation knows, finally put to work."* (Playfair Display, 4xl–6xl)
@@ -196,11 +200,13 @@ A high-fidelity product UI panel that is the main visual anchor of the hero. It 
 The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` component. It renders a fixed shell with a left sidebar and a central content area. The central content area swaps between views based on `activeNav` state.
 
 **Panel shell (never modify without explicit instruction):**
+
 - Outer container: `aspectRatio: "880/498"`, `background: "#070E1F"`, `rounded-[17px]`, `border border-[rgba(147,147,147,0.16)]`, multi-layer `boxShadow`
 - Left sidebar: `width: "22%"`, `px-5 py-5`, white landscape logo (`sovereign.svg`, `opacity-80`), `NavSection` ×2 (Platform + System)
 - Central panel: `my-[1%] mr-[1%] flex flex-1 flex-col overflow-hidden rounded-[6px] border border-[rgba(147,147,147,0.2)]`, subtle linear-gradient background
 
 **Active nav state:**
+
 - Managed by `useState("Network Explorer")` in `HeroDashboardPanel`
 - `handleNavClick` whitelists routable views — you must add a view's label string here to make it clickable
 - Conditional render chain (order matters — default falls through to `NetworkExplorerPanel`):
@@ -210,18 +216,21 @@ The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` compo
 
 **Currently implemented views:**
 
-| View | Default | Component | Nav label |
-|------|---------|-----------|-----------|
-| Network Explorer | ✓ | `NetworkExplorerPanel` | `"Network Explorer"` |
-| Dashboard | — | `DashboardPanel` | `"Dashboard"` |
-| Projects | — | `ProjectsPanel` | `"Projects"` |
-| Interviews | — | `InterviewsPanel` | `"Interviews"` |
+
+| View             | Default | Component              | Nav label            |
+| ---------------- | ------- | ---------------------- | -------------------- |
+| Network Explorer | ✓       | `NetworkExplorerPanel` | `"Network Explorer"` |
+| Dashboard        | —       | `DashboardPanel`       | `"Dashboard"`        |
+| Projects         | —       | `ProjectsPanel`        | `"Projects"`         |
+| Interviews       | —       | `InterviewsPanel`      | `"Interviews"`       |
+
 
 Copilot and Platform Administration are listed in the sidebar but are not yet routed (clicking them is inert).
 
 **The four views in detail:**
 
 **Network Explorer (default)**
+
 - Interactive SVG graph (viewBox `0 0 580 320`), 7 nodes, 7 edges
 - Controls row: project selector dropdown + 5 entity-type filter pills (Person, Company, Government, Organization, Event) + "Hide isolated" utility
 - Node colors by type: Person `#5B9CF6`, Company `#34D399`, Government `#A78BFA`, Organization `#7DD3FC`, Event `#FBBF24`
@@ -231,6 +240,7 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 - Filter pills are interactive: toggling a type hides those nodes/edges; deselects selected node if its type is toggled off
 
 **Dashboard**
+
 - 3 KPI cards: Projects (6), Interviews (6 completed), Entities (34 mapped)
 - Bar chart: "Interviews by Project" — horizontal CSS bars, 6 projects, max value 3
 - Donut chart: "Topic Distribution" — SVG arcs, 8 topics (energy, infrastructure, industrialization, logistics, gas, policy, risk, banking)
@@ -238,11 +248,13 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 - Hover interactions: KPI cards lift on hover; bar rows brighten label+value+bar; donut slices sync with legend row hover (non-hovered slices dim to `0.18` opacity)
 
 **Projects**
+
 - 3×3 card grid (7 cards, last row has 1 card)
 - Cards: project name, region pill, description, location+updated footer
 - Projects: Nigeria, Algeria, Namibia, Angola, Panama, Oman, Qatar (all 2026)
 
 **Interviews**
+
 - Vertical list of 6 rows, `flex-1` distribution (equal height rows)
 - Each row: indigo-tinted mic icon container, person name (bold), interview title · project (muted), duration with clock icon, "Ready" status (`#4ADE80`)
 - Action buttons in header: "View Projects" (ghost) + "Upload Interview" (elevated)
@@ -255,11 +267,13 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 Follow this exact pattern. Do not deviate from the token system.
 
 **Step 1 — Define data constants** (outside the component, at module level):
+
 ```ts
 const myViewData = [ ... ]
 ```
 
 **Step 2 — Write the view component** (returns a fragment, never a wrapper div):
+
 ```tsx
 function MyViewPanel() {
   return (
@@ -287,6 +301,7 @@ function MyViewPanel() {
 ```
 
 **Step 3 — Register in `handleNavClick`:**
+
 ```ts
 if (label === "My View" || label === "Dashboard" || ...) {
   setActiveNav(label)
@@ -294,6 +309,7 @@ if (label === "My View" || label === "Dashboard" || ...) {
 ```
 
 **Step 4 — Add to conditional render chain:**
+
 ```tsx
 {activeNav === "My View"    ? <MyViewPanel />
   : activeNav === "Dashboard" ? <DashboardPanel />
@@ -303,25 +319,27 @@ if (label === "My View" || label === "Dashboard" || ...) {
 
 **Panel-internal design tokens — always use these, never invent new ones:**
 
-| Element | Value |
-|---------|-------|
-| Panel header border | `border-[rgba(147,147,147,0.14)]` |
-| Section dividers | `border-[rgba(147,147,147,0.10)]` |
-| Card/surface borders | `border-[rgba(147,147,147,0.15)]` — `border-[rgba(147,147,147,0.22)]` |
-| Hover border | `border-[rgba(147,147,147,0.30)]` — `border-[rgba(147,147,147,0.38)]` |
-| Hover surface | `bg-white/[0.03]` — `bg-white/[0.06]` |
-| Primary text | `text-white` / `text-white/75` |
-| Secondary text | `text-[#777]` — `text-[#8a8a8a]` |
-| Muted text | `text-[#555]` — `text-[#666]` |
-| Very muted / metadata | `text-[#4a5060]` — `text-[#5e6878]` |
-| Heading (section title) | `text-[10px] font-semibold text-white` |
-| Body (content) | `text-[8px]` — `text-[9.5px]` (never above `10px` in content areas) |
-| KPI numbers | `text-[18px] font-bold text-white` |
-| Graph canvas bg | `#050C1A` |
-| Floating card bg | `#080F1E` — `#0A1428` |
-| Icons | Lucide, `strokeWidth={1.5}`, 7–11px |
-| Transitions | `duration-150` for color/border, `duration-200` for opacity |
-| Active nav item | `bg-white/[0.08]` on the nav item div |
+
+| Element                 | Value                                                                 |
+| ----------------------- | --------------------------------------------------------------------- |
+| Panel header border     | `border-[rgba(147,147,147,0.14)]`                                     |
+| Section dividers        | `border-[rgba(147,147,147,0.10)]`                                     |
+| Card/surface borders    | `border-[rgba(147,147,147,0.15)]` — `border-[rgba(147,147,147,0.22)]` |
+| Hover border            | `border-[rgba(147,147,147,0.30)]` — `border-[rgba(147,147,147,0.38)]` |
+| Hover surface           | `bg-white/[0.03]` — `bg-white/[0.06]`                                 |
+| Primary text            | `text-white` / `text-white/75`                                        |
+| Secondary text          | `text-[#777]` — `text-[#8a8a8a]`                                      |
+| Muted text              | `text-[#555]` — `text-[#666]`                                         |
+| Very muted / metadata   | `text-[#4a5060]` — `text-[#5e6878]`                                   |
+| Heading (section title) | `text-[10px] font-semibold text-white`                                |
+| Body (content)          | `text-[8px]` — `text-[9.5px]` (never above `10px` in content areas)   |
+| KPI numbers             | `text-[18px] font-bold text-white`                                    |
+| Graph canvas bg         | `#050C1A`                                                             |
+| Floating card bg        | `#080F1E` — `#0A1428`                                                 |
+| Icons                   | Lucide, `strokeWidth={1.5}`, 7–11px                                   |
+| Transitions             | `duration-150` for color/border, `duration-200` for opacity           |
+| Active nav item         | `bg-white/[0.08]` on the nav item div                                 |
+
 
 ---
 
@@ -342,21 +360,25 @@ This acts as a quiet editorial bridge between the Hero and Features sections. It
 Three pillar blocks. All use an **editorial two-column copy layout** above the demo visual. All dark-themed, with grain + dot grid + per-section atmospheric gradient. Section borders: `border-white/[0.08]`.
 
 **Copy layout (all three pillars):**
+
 - Eyebrow on its own row, left-aligned (`mb-8`)
 - Below it: a `grid grid-cols-[3fr_2fr] items-end gap-16` row — headline (left, 60%) + description (right, 40%)
 - Container: `max-w-5xl px-6 pt-24 pb-14`
 - No centering. No icon boxes. Asymmetric, editorial, Linear-inspired.
 
 **Visual layout:**
+
 - Visual placed below copy, either full-width (`visualFullWidth: true`) or in a `visualWrapperClass`-controlled container (`px-6 pb-24 md:pb-32`)
 
-**`Slide` interface fields:**
+`**Slide` interface fields:**
+
 - `id`, `eyebrow`, `title`, `description`, `showcaseComponent` — core
 - `visualFullWidth?: boolean` — full-width visual with hairline rule separator
 - `visualWrapperClass?: string` — Tailwind string for inner container; defaults to `mx-auto max-w-5xl`
 - `atmoGradient: string` — per-section radial gradient
 
 **Pillar 01 — Sales Intelligence** (`id="sales-intelligence"`)
+
 - Visual container: `mx-auto max-w-5xl`
 - Visual: `SalesIntelligenceComposition` (`components/sales-intelligence-panel.tsx`) — a **layered two-panel composition**:
   - **Background panel** (`InterviewDetailBackground`): fictional Manila Energy interview detail view. Positioned `absolute left-0`, `w-[62%]`, `opacity: 0.72`, **no blur of any kind**. `rounded-[17px]`, `border rgba(147,147,147,0.13)`. Shows chrome, header, audio bar, executive summary, topics, transcript excerpt, entities sidebar. Secondary hierarchy is achieved via lower opacity and positional layering — never with `filter: blur()`, `backdrop-blur`, or gradient veils.
@@ -365,11 +387,13 @@ Three pillar blocks. All use an **editorial two-column copy layout** above the d
 - Atmospheric glow: centered top radial
 
 **Pillar 02 — Strategic Intelligence** (`id="strategic-intelligence"`)
+
 - Visual container: full-width (`visualFullWidth: true`), hairline rule separator above
 - Visual: `FloatingEntityScene` — full-width static SVG with 30 entity nodes at 4 depth levels. Hover interactions. No animation.
 - Atmospheric glow: centered top radial
 
 **Pillar 03 — Marketing Activation** (`id="marketing-activation"`)
+
 - Visual container: `mx-auto max-w-5xl` (no fixed height — the composition controls its own height)
 - Visual: `MarketingActivationComposition` (`components/marketing-activation-showcase.tsx`) — a **two-column composition**:
   - **Left (57%)**: `MarketingActivationShowcase` — dark Sovereign panel with traffic lights, "Sovereign · Output" label, tab strip (LinkedIn / Newsletter / Outreach / Brief), auto-rotating output cards every 4.5s, pauses on hover. Height: `h-[440px]` on mobile, `lg:h-full` on desktop.
@@ -382,16 +406,15 @@ Three pillar blocks. All use an **editorial two-column copy layout** above the d
 Dark-themed closing section. Background: `#060D1C` with grain overlay, dot grid, and double radial gradient.
 
 **Structure (top to bottom):**
-1. **`SovereignWordmark` band** — a full-width interactive horizontal band above the bridge image.
-   - Contains a subtle aligned mesh grid (`SVG path`, `stroke-opacity: 0.12`) tiled at 24px.
-   - The lowercase word **"sovereign"** in Gabarito Bold, `clamp(52px, 9vw, 124px)`, centered.
-   - **Desktop (pointer device):** A `motion.div` "frosted veil" sits on top using `backdropFilter: blur(16px)` + `background: rgba(6,13,28,0.60)`. A spring-driven `mask-image` (radial gradient centered on cursor) locally removes the veil where the cursor is, revealing the sharp content beneath — "hidden signal behind glass" effect.
-   - **Mobile / touch (`hover: none`):** The veil is skipped entirely; the wordmark is fully visible at `rgba(255,255,255,0.88)`.
-   - The band breaks out of section `px-6` via `-mx-6` wrapper.
 
+1. `**SovereignWordmark` band** — a full-width interactive horizontal band above the bridge image.
+  - Contains a subtle aligned mesh grid (`SVG path`, `stroke-opacity: 0.12`) tiled at 24px.
+  - The lowercase word **"sovereign"** in Gabarito Bold, `clamp(52px, 9vw, 124px)`, centered.
+  - **Desktop (pointer device):** A `motion.div` "frosted veil" sits on top using `backdropFilter: blur(16px)` + `background: rgba(6,13,28,0.60)`. A spring-driven `mask-image` (radial gradient centered on cursor) locally removes the veil where the cursor is, revealing the sharp content beneath — "hidden signal behind glass" effect.
+  - **Mobile / touch (`hover: none`):** The veil is skipped entirely; the wordmark is fully visible at `rgba(255,255,255,0.88)`.
+  - The band breaks out of section `px-6` via `-mx-6` wrapper.
 2. **Bridge hero image** (`/bridge2.png`, `mx-auto max-w-6xl`) — main visual anchor. `rounded-2xl`, multi-layer box shadow. Subtle `whileHover` lift. Overlaid: logomark stamp (22% opacity), headline *"Ready to put your intelligence to work?"*, **"Request Demo" `<Button asChild>` → `<Link href="/request-demo">`**.
-
-3. **`<footer>` bar** (`max-w-5xl mx-auto`): © 2026 Sovereign Data · **Contact → `/contact`** · Privacy Policy · Terms of Service
+3. `**<footer>` bar** (`max-w-5xl mx-auto`): © 2026 Sovereign Data · **Contact → `/contact`** · Privacy Policy · Terms of Service
 
 Top and bottom linear gradient fades blend the bridge image into the dark section bg.
 
@@ -402,21 +425,27 @@ Top and bottom linear gradient fades blend the bridge image into the dark sectio
 These are confirmed pending tasks — not speculative suggestions.
 
 ### 9.1 ~~Header logo on dark hero~~ — RESOLVED
+
 The header now always uses `sovereign.svg` and is never in a light state. No CSS filter needed.
 
 ### 9.2 Hero panel — Copilot view
+
 The Copilot nav item is listed in the sidebar but clicking it is inert. A future pass should implement a Copilot view (likely a chat/Q&A interface or a document synthesis preview).
 
 ### 9.3 Trust banner real client logos
+
 The five client names (Meridian, Frontier Group, etc.) are placeholders. When real client logos are confirmed, replace the text spans with `<Image>` elements and adjust the layout accordingly.
 
 ### 9.4 ~~Feature section media for Sales Intelligence~~ — RESOLVED
+
 The Lottie animation (`scene1.json`) has been replaced with `SalesIntelligencePanel` — a fully interactive Copilot-style mini panel. See §8.4 Pillar 01 for the full specification.
 
 ### 9.5 ~~Hash-link scroll targets~~ — RESOLVED
+
 `id={slide.id}` is now set on the outer `motion.div` in `features.tsx` for all feature blocks. The anchor links (`#sales-intelligence`, `#strategic-intelligence`, `#marketing-activation`) scroll correctly.
 
 ### 9.6 ~~Hero panel mobile scaling~~ — RESOLVED
+
 `HeroDashboardPanelMobile` (`components/hero-dashboard-panel.tsx`) is shown on `< lg` breakpoints, hidden on `lg+`. It renders the Interviews view at readable 12–13px font sizes with no aspect ratio constraint — full-width, auto height. The full `HeroDashboardPanel` remains on desktop only.
 
 ---
@@ -437,21 +466,24 @@ A dedicated mobile pass was completed. Key changes:
 
 The site now has five routes:
 
-| Route | File | Description |
-|-------|------|-------------|
-| `/` | `app/page.tsx` | Main landing page |
-| `/about` | `app/about/page.tsx` | Our Story editorial page |
-| `/request-demo` | `app/request-demo/page.tsx` | Demo request form (two-column) |
-| `/contact` | `app/contact/page.tsx` | Contact page (with Header) |
-| `/product/capture` | `app/product/capture/page.tsx` | Capture & Organise product page |
-| `/product/prepare` | `app/product/prepare/page.tsx` | Prepare & Sell product page |
-| `/product/activate` | `app/product/activate/page.tsx` | Activate & Publish product page |
-| `/product/connect`  | `app/product/connect/page.tsx`  | Connect Your Workflow product page |
+
+| Route               | File                            | Description                                 |
+| ------------------- | ------------------------------- | ------------------------------------------- |
+| `/`                 | `app/page.tsx`                  | Main landing page                           |
+| `/about`            | `app/about/page.tsx`            | Our Story editorial page                    |
+| `/request-demo`     | `app/request-demo/page.tsx`     | Demo request form (two-column)              |
+| `/contact`          | `app/contact/page.tsx`          | Contact page (with Header)                  |
+| `/product/capture`  | `app/product/capture/page.tsx`  | Capture & Organise product page             |
+| `/product/prepare`  | `app/product/prepare/page.tsx`  | Prepare & Sell product page                 |
+| `/product/activate` | `app/product/activate/page.tsx` | Activate & Publish product page             |
+| `/product/connect`  | `app/product/connect/page.tsx`  | Connect Your Workflow product page          |
 | `/use-cases`        | `app/use-cases/page.tsx`        | Who it's built for — audience overview page |
+
 
 ### 12.1 `/about` — Our Story
 
 Premium editorial page. Uses `<Header />`. Structure:
+
 - **Hero:** `max-w-5xl` editorial two-column layout (`lg:grid-cols-[1fr_auto]`). Left: eyebrow + serif headline + lead paragraph. Right (desktop only, `hidden lg:block`): `290×290px` square containing `3D.mp4` video (`autoPlay muted loop playsInline`, `object-cover`, `saturate(0.82) contrast(1.06) brightness(0.84)`), `rounded-2xl`, `border-white/[0.07]`, deep shadow. No full-bleed background image.
 - **Story body:** `max-w-5xl`. Split into two grid blocks separated by the port image break:
   - *Opening grid* (`lg:grid-cols-2`): Left — Instinct + Field paragraphs. Right — Shift paragraph (elevated `text-white/72`).
@@ -464,15 +496,16 @@ Premium editorial page. Uses `<Header />`. Structure:
 ### 12.2 `/request-demo` — Demo Request
 
 Full-page two-column form. No `<Header />` (focused conversion page).
+
 - **Left:** Form with `DemoForm` client component. Fields: First/Last name, Work email, Phone (country code selector + number), Company, Role, Problem (textarea), Message (textarea optional). Submit via Next.js Server Action → Resend.
 - **Right:** `dessert.png` full-bleed with scrim + editorial statement (*"Ready to shape the future?"*).
 - **Country code selector:** Custom dropdown, 80 countries, flag emoji + dial code, search input, click-outside close. State held in `DemoForm` via `useState<Country>`.
-- **Server action:** `app/actions/send-demo-request.ts`. Lazy-initialises `Resend` (requires `RESEND_API_KEY` env var). Sends to `team@svgndata.com`, `reply-to` = submitter email. Validates required fields server-side. Returns `FormState { status, message }`.
+- **Server action:** `app/actions/send-demo-request.ts`. Lazy-initialises `Resend` (requires `RESEND_API_KEY` env var). Sends to `team@aksum.ai`, `reply-to` = submitter email. Validates required fields server-side. Returns `FormState { status, message }`.
 - **Mobile:** Image stacks below the form at `h-[56vw]`.
 
 ### 12.3 `/contact`
 
-Minimal centered page. Uses `<Header />` (added April 2026). Structure: `<div min-h-screen>` → `<Header />` → fixed-position grain/dot textures (z-0) → centered content div (`pt-28 pb-20` to clear fixed header). Content: Sovereign landscape logo (opacity 0.45), eyebrow, serif headline "Get in touch.", hairline divider, supporting copy, `team@svgndata.com` mailto link, "Request a demo" outline button, back link.
+Minimal centered page. Uses `<Header />` (added April 2026). Structure: `<div min-h-screen>` → `<Header />` → fixed-position grain/dot textures (z-0) → centered content div (`pt-28 pb-20` to clear fixed header). Content: Sovereign landscape logo (opacity 0.45), eyebrow, serif headline "Get in touch.", hairline divider, supporting copy, `team@aksum.ai` mailto link, "Request a demo" outline button, back link.
 
 **Critical:** Do NOT use `overflow-hidden` or `<main>` as the page root — this breaks the fixed header's dropdown stacking context and causes React hydration errors that blank out the entire site. Always use `<div>` as the page wrapper.
 
@@ -481,6 +514,7 @@ Minimal centered page. Uses `<Header />` (added April 2026). Structure: `<div mi
 Product subpage. Uses `<Header />`. Route: `/product/capture`. Three-step editorial layout matching the Features section visual language.
 
 **Structure (top to bottom):**
+
 1. **Hero** — breadcrumb (`Platform → Capture & Organise`), icon badge (Archive, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
 2. **Step 01 — Bring it in** — copy row + `UploadPanel`: source type selector (4 cards), drag-and-drop zone, metadata fields, "Capture & process" CTA.
 3. **Step 02 — Review & refine** — copy row + `TranscriptPanel`: utterance cards with speaker/timestamp, audio scrubber bars, "Key passage" badge, "Mark as reviewed" CTA.
@@ -490,11 +524,13 @@ Product subpage. Uses `<Header />`. Route: `/product/capture`. Three-step editor
 7. **Footer nav** — same two-link pattern as About.
 
 **Panel token system** (all three panels use these constants):
+
 - `PANEL_BG = "#070E1F"`, `PANEL_BORDER = "rgba(147,147,147,0.16)"`, `DIVIDER = "rgba(147,147,147,0.10)"`
 - Accent colours: blue `#5B9CF6`, green `#4ADE80`, amber `#FBBF24`
 - All panels are static (no client interactivity) — the page is a Server Component.
 
 **Messaging principles for this page:**
+
 - Frame the review workflow positively: Sovereign *preserves nuance* and *protects critical detail* — never "the AI makes mistakes"
 - No technical vocabulary: no ingestion, pipelines, entity resolution, retrieval, ASR
 - Audience: editors, researchers, commercially minded operators
@@ -504,6 +540,7 @@ Product subpage. Uses `<Header />`. Route: `/product/capture`. Three-step editor
 Product subpage. Uses `<Header />`. Route: `/product/prepare`. Two-showcase editorial layout — Copilot first, Network Explorer second.
 
 **Structure (top to bottom):**
+
 1. **Hero** — breadcrumb (`Platform → Prepare & Sell`), icon badge (TrendingUp, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
 2. **Copilot showcase** — copy row + `PrepareSellCopilot` (`components/prepare-sell-copilot.tsx`): a tabbed, multi-section conversation panel with 5 sections (Sales Intelligence / Commercial Preparation / Account Context / Relationship Context / Meeting Preparation). Each section contains a user query and a multi-block Sovereign response — insight cards, signal cards (amber), warning cards (red), and source reference pills. Footer bar shows live entity/source/connection counts.
 3. **Copilot benefits grid** — 2×2 hairline-bordered grid, serif `h3` titles.
@@ -515,10 +552,12 @@ Product subpage. Uses `<Header />`. Route: `/product/prepare`. Two-showcase edit
 9. **Footer nav** — same two-link pattern as other product pages.
 
 **Key components:**
+
 - `PrepareSellCopilot` — `"use client"`. Tabbed conversation panel. 5 `ConversationSection` objects, each with exchanges containing `ResponseBlock[]` typed as `text | insight | signal | warning`. Source reference pills rendered as blue-tinted chips. Footer shows entity/source/connection counts.
 - `PrepareSellGraph` — `"use client"`. Interactive SVG graph, `viewBox="0 0 760 420"`. 22 nodes, 28 edges. `NodeType`: Person / Company / Government / Region / Document / Initiative. Edge `strength`: strong / medium / weak (controls opacity). Click to select, hover to preview connections. Detail card: absolute bottom-left, shows type, name, mention count, connected entities. Filter pills toggle node types. Legend strip.
 
 **Messaging principles for this page:**
+
 - Copilot responses must feel grounded in internal memory — references to prior meetings, stored documents, follow-up threads, and relationship history
 - No generic advice — every insight is anchored in a specific internal source
 - Graph entities correspond to entities mentioned in the Copilot conversations
@@ -531,6 +570,7 @@ Product subpage. Uses `<Header />`. Route: `/product/prepare`. Two-showcase edit
 Product subpage. Uses `<Header />`. Route: `/product/activate`. Two-showcase editorial layout — Output Panel first, Report Surface second.
 
 **Structure (top to bottom):**
+
 1. **Hero** — breadcrumb (`Platform → Activate & Publish`), icon badge (Megaphone, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
 2. **Output Panel showcase** — copy row + `ActivateOutputPanel` (`components/activate-output-panel.tsx`): a tabbed panel with 4 output formats (Newsletter / Board Brief / Investor Memo / Annual Review). Auto-rotates every 5s, pauses on hover. Progress bar in tab strip shows rotation timing. Footer strip shows source/entity counts.
 3. **Output benefits grid** — 2×2 hairline-bordered grid.
@@ -542,10 +582,12 @@ Product subpage. Uses `<Header />`. Route: `/product/activate`. Two-showcase edi
 9. **Footer nav** — same two-link pattern.
 
 **Key components:**
+
 - `ActivateOutputPanel` — `"use client"`. 4 tabs: Newsletter (intelligence brief with signal callout), Board Brief (executive summary + key decisions + risk flags), Investor Memo (opportunity + why now + IRR/hold/anchor stats), Annual Review (synthesis intro + two numbered theme cards). Auto-rotate with animated progress bar. Source/entity footer.
 - `ActivateReportSurface` — Server Component (no `"use client"`). Full document layout: window chrome with "Confidential" + "Final Draft" badges, Sovereign geometric seal (SVG), title, executive summary, 4-column coverage stats grid, 3 key signals with source reference pills, implications list, recommended actions with colour-coded priority badges (Immediate/red, Short-term/amber, Strategic/blue), appendix stub. Bottom fade-out gradient + "Full report · 34 pages" hint.
 
 **Messaging principles for this page:**
+
 - Frame as intelligence turned into authoritative output — not content generation or AI writing
 - Every output tab and report section references real internal sources, named stakeholders, and specific intelligence
 - Audience: commercial teams, editorial teams, board-facing communicators, strategy directors
@@ -558,6 +600,7 @@ Product subpage. Uses `<Header />`. Route: `/product/activate`. Two-showcase edi
 Product subpage. Uses `<Header />`. Route: `/product/connect`. Two-showcase editorial layout — Communications panel first, Project Dashboard second.
 
 **Structure (top to bottom):**
+
 1. **Hero** — breadcrumb (`Platform → Connect Your Workflow`), icon badge (Settings2, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
 2. **Communications showcase** — copy row + `ConnectCommsPanel` (`components/connect-comms-panel.tsx`): a two-column panel with a thread list on the left and a message detail view on the right. 3 threads (Manila Energy Pacific Corridor, Lagos Infrastructure steering committee, Frontier Group Abuja). Click to switch thread. Each message shows sender avatar, role, timestamp, body, and context tags (linked to account memory). Status badges (Active/Pending/Resolved). Context strip at bottom shows deduplicated tags from the active thread.
 3. **Communications benefits grid** — 2×2 hairline-bordered grid.
@@ -569,10 +612,12 @@ Product subpage. Uses `<Header />`. Route: `/product/connect`. Two-showcase edit
 9. **Footer nav** — same two-link pattern.
 
 **Key components:**
+
 - `ConnectCommsPanel` — `"use client"`. Two-column layout: left thread list (search bar, filter pills, 3 thread items with unread indicator and status badge), right message detail (thread header with account type/name, animated message list with `AnimatePresence`, context tag strip at bottom). Thread items highlight active with blue left border.
 - `ConnectProjectDashboard` — `"use client"`. Three tabs: Overview (4 KPI cards, revenue progress bar with collected/pending split, 2-column recent deals + activity feed, team avatars), Deals (sortable-looking table with pipeline total row), Sources (bar chart per source type + recent sources list with type badges). Window chrome with project identity bar (name, region pill, geography/owner, team avatars).
 
 **Messaging principles for this page:**
+
 - Frame as connected operating context — not integrations or API settings
 - Communication threads are part of account intelligence, not a separate inbox
 - The project dashboard is a working system, not a reporting tool
@@ -585,6 +630,7 @@ Product subpage. Uses `<Header />`. Route: `/product/connect`. Two-showcase edit
 Audience overview page. Uses `<Header />`. Route: `/use-cases`. Four audience sections, each with a distinct layout composition and image placeholder.
 
 **Structure (top to bottom):**
+
 1. **Hero** — eyebrow "Use Cases", large serif headline *"Who it's built for."*, short lead paragraph.
 2. **01 Sales Teams** (`id="sales"`) — wide cinematic `aspect-[21/8]` placeholder (dot grid, blue glow), copy centred below. Full-width composition.
 3. **02 Editorial Teams** (`id="editorial"`) — portrait `aspect-[3/4]` placeholder left (38%), copy right with three bullet points (green accent dots). Left-image asymmetric layout. Section glow: green tint left.
@@ -594,13 +640,15 @@ Audience overview page. Uses `<Header />`. Route: `/use-cases`. Four audience se
 7. **CTA strip** — serif headline + two CTAs.
 8. **Footer nav** — same two-link pattern.
 
-**`ImagePlaceholder` component** (defined inline in the page file, Server Component):
+`**ImagePlaceholder` component** (defined inline in the page file, Server Component):
+
 - Props: `label` (bottom-left caption), `aspectClass` (Tailwind aspect/height class), `glowColor` (radial gradient fill), `gridPattern` ("dots" | "lines" | "cross")
 - Background: `#06111F`, hairline border, subtle pattern overlay, radial atmospheric glow, inner hairline frame, bottom-left label at `text-[9.5px] uppercase tracking-[0.14em] opacity-18`
 
 **Header nav update:** All four Use Cases dropdown links now point to `/use-cases#sales`, `/use-cases#editorial`, `/use-cases#marketing`, `/use-cases#leadership` (were `#sales-intelligence` etc. hash-only links).
 
 **Design principles for this page:**
+
 - Four distinct layout compositions — no two sections use the same image/copy arrangement
 - Each section has a subtly different atmospheric glow accent (blue → green → violet → amber)
 - Placeholder blocks use varied aspect ratios: `21/8` cinematic, `3/4` portrait, `1/1` square, `3/1` horizontal band
@@ -610,6 +658,7 @@ Audience overview page. Uses `<Header />`. Route: `/use-cases`. Four audience se
 ### 12.9 Fonts
 
 `app/layout.tsx` loads three Google fonts via `next/font/google`:
+
 - `Inter` → `--font-sans` (body)
 - `Playfair_Display` weights 400/700/900 → `--font-serif` (headings)
 - `Gabarito` weights 400/700 → `--font-gabarito` (CTA wordmark only)
@@ -621,27 +670,16 @@ Audience overview page. Uses `<Header />`. Route: `/use-cases`. Four audience se
 If you are a coding or content agent working on this landing page, follow this protocol:
 
 1. **Read this entire document before making any change.** Every section exists for a reason.
-
 2. **Read `docs/sovereign-application.md` before making any visual change.** It governs colour, typography, spacing, icons, and component conventions. Changes that conflict with it will be rejected.
-
 3. **Preserve positioning consistency.** Every copy change must align with the positioning in Sections 2, 3, and 4.
-
 4. **Keep copy concise and premium.** When in doubt, make it shorter. One sharp sentence outperforms three adequate ones.
-
 5. **Do not introduce technical language in primary copy.** No GraphRAG, embeddings, pipelines, or model references in headlines, subheadlines, or feature descriptions.
-
 6. **The hero panel shell is fixed.** Do not touch the outer container, sidebar, or central panel wrapper. New views go inside the central panel only, following the exact pattern in Section 8.2.2. When adding a new panel view, always: (a) define data outside the component, (b) write a fragment-returning function component, (c) register the label in `handleNavClick`, (d) add a ternary branch before the default `<NetworkExplorerPanel />`.
-
 7. **The page is globally dark.** The `dark` class is on `<html>`. Do not add light-background sections. Do not use `bg-background` for section backgrounds — use explicit hex values with grain and gradient overlays to match the established atmospheric style.
-
 8. **Do not remove or rewrite sections wholesale** without explicit instruction. Refine and improve; do not reinvent.
-
 9. **Do not tie the copy back to TBY, interviews, or emerging markets** unless a specific task explicitly calls for it.
-
 10. **Use the correct logo variant.** Dark backgrounds → `sovereign.svg`. Light backgrounds → `sovereign_log_apaisado.svg`. Never both in the same context. Never filter the wrong one. The full page is currently dark — use the white variant everywhere.
-
 11. **When improving copy,** always ask: does this read as something a serious B2B buyer would believe and respect? If it sounds like startup marketing filler, it is wrong.
-
 12. **If something is unclear,** flag it rather than guess. Positioning drift is harder to reverse than a missed deadline.
 
 ---

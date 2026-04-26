@@ -93,10 +93,10 @@ export default async function RequestDemoPage() {
           <p className="mt-12 text-[12px]" style={{ color: "rgba(255,255,255,0.20)" }}>
             {r.questions}{" "}
             <a
-              href="mailto:team@svgndata.com"
+              href="mailto:team@aksum.ai"
               className="underline underline-offset-2 transition-colors hover:text-white/50"
             >
-              team@svgndata.com
+              team@aksum.ai
             </a>
           </p>
         </div>

@@ -6,7 +6,7 @@ import { Resend } from "resend"
 // Environment
 // ---------------------------------------------------------------------------
 // Set RESEND_API_KEY in your Vercel project settings.
-// "From" domain: update FROM_ADDRESS below once you verify svgndata.com in
+// "From" domain: update FROM_ADDRESS below once you verify aksum.ai in
 // the Resend dashboard (Domains → Add Domain). Until then, Resend's shared
 // onboarding address works for testing but can only deliver to the account
 // owner's verified email.
@@ -20,7 +20,7 @@ function getResend() {
   return new Resend(key)
 }
 
-const TO_ADDRESS   = "team@svgndata.com"
+const TO_ADDRESS   = "team@aksum.ai"
 const FROM_ADDRESS = "Aksum <onboarding@resend.dev>"
 
 export type FormState = {
@@ -93,7 +93,7 @@ export async function sendDemoRequest(
     console.error("sendDemoRequest error:", err)
     return {
       status: "error",
-      message: "Something went wrong. Please email us directly at team@svgndata.com.",
+      message: "Something went wrong. Please email us directly at team@aksum.ai.",
     }
   }
 }

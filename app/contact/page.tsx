@@ -99,11 +99,11 @@ export default async function ContactPage() {
 
           {/* Email — primary action */}
           <a
-            href="mailto:team@svgndata.com"
+            href="mailto:team@aksum.ai"
             className="group inline-flex items-center gap-2 font-serif text-xl tracking-[-0.018em] transition-opacity hover:opacity-70 md:text-2xl"
             style={{ color: "rgba(255,255,255,0.88)" }}
           >
-            team@svgndata.com
+            team@aksum.ai
           </a>
 
           {/* Secondary action */}
