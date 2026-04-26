@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { Header } from "@/components/header"
+import { AKLineCut } from "@/components/ak-line-cut"
 import { getServerT } from "@/lib/i18n/server"
 import { getDictionary } from "@/lib/i18n/config"
 
@@ -100,37 +101,24 @@ export default async function AboutPage() {
                 </p>
               </div>
 
-              {/* Right — 3D video in a contained square inset */}
+              {/* Right — code-generated AK line-cut. No card, no border,
+                  no panel: the SVG sits flush on the section background so
+                  the monogram reads as if it were etched directly into the
+                  page. The wrapper aspect (≈ 1.75:1) matches the AK's
+                  bounding box so the glyphs fill the box edge-to-edge and
+                  align vertically with the headline on the left. The
+                  small top translate nudges the centre of the wordmark to
+                  the optical centre of the headline block. */}
               <div
-                className="relative hidden overflow-hidden rounded-2xl lg:block"
+                className="hidden self-center lg:block"
                 style={{
-                  width: "290px",
-                  height: "290px",
+                  width: "520px",
+                  height: "300px",
                   flexShrink: 0,
-                  border: "1px solid rgba(255,255,255,0.07)",
-                  boxShadow: "0 32px 80px -24px rgba(0,0,0,0.70)",
+                  transform: "translateY(8px)",
                 }}
               >
-                <video
-                  className="absolute inset-0 h-full w-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  aria-hidden="true"
-                  style={{
-                    filter: "saturate(0.82) contrast(1.06) brightness(0.84)",
-                  }}
-                >
-                  <source src="/AK_3d.mp4" type="video/mp4" />
-                </video>
-                <div
-                  className="absolute inset-x-0 bottom-0 h-24"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(6,13,28,0.65) 0%, transparent 100%)",
-                  }}
-                />
+                <AKLineCut className="h-full w-full" />
               </div>
             </div>
 
@@ -198,48 +186,17 @@ export default async function AboutPage() {
             </div>
 
             {/* ── Editorial image break ──────────────────────────────────── */}
-            {/* Extends slightly beyond the text px-6 on each side */}
-            <div className="group relative -mx-0 mt-16 overflow-hidden rounded-2xl sm:-mx-4 md:mt-20">
-              <div className="relative h-[280px] w-full overflow-hidden rounded-2xl sm:h-[360px] md:h-[440px]">
-                <Image
-                  src="/port.png"
-                  alt={a.imageAlt}
-                  fill
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-                  style={{
-                    objectPosition: "center 40%",
-                    filter: "saturate(0.88) contrast(1.04) brightness(0.86)",
-                    transitionProperty: "transform, filter",
-                  }}
-                />
-
-                {/* Cinematic scrim — heavier at bottom where text sits */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(6,13,28,0.90) 0%, rgba(6,13,28,0.48) 40%, rgba(6,13,28,0.12) 100%)",
-                  }}
-                />
-                {/* Subtle side vignettes for depth */}
-                <div
-                  className="absolute inset-y-0 left-0 w-1/5"
-                  style={{
-                    background:
-                      "linear-gradient(to right, rgba(6,13,28,0.45) 0%, transparent 100%)",
-                  }}
-                />
-
-                {/* Editorial text — bottom left */}
-                <div className="absolute bottom-0 left-0 p-6 sm:p-8 md:p-10">
-                  <p
-                    className="font-serif text-xl font-normal leading-[1.18] tracking-[-0.022em] text-white sm:text-2xl md:text-[1.65rem]"
-                    style={{ textShadow: "0 1px 12px rgba(0,0,0,0.55)" }}
-                  >
-                    {a.imageQuote}
-                  </p>
-                </div>
-              </div>
+            {/* The signal artwork is its own composition; no scrim, vignette,
+                hover transform, or text overlay sits on top of it. */}
+            <div className="relative -mx-0 mt-16 sm:-mx-4 md:mt-20">
+              <Image
+                src="/signal.png"
+                alt={a.imageAlt}
+                width={2048}
+                height={880}
+                className="h-auto w-full"
+                priority={false}
+              />
             </div>
 
             {/* ── Closing columns: Pattern | Purpose ──────────────────────── */}
