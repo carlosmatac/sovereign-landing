@@ -380,7 +380,7 @@ export function MarketingActivationComposition() {
         style={{ border: "1px solid rgba(147,147,147,0.13)" }}
       >
         <Image
-          src="/square(1).png"
+          src="/square(2).png"
           alt=""
           fill
           className="object-cover object-center"

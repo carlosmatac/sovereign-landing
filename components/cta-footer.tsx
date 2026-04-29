@@ -38,27 +38,30 @@ export function CTAFooter() {
       className="relative overflow-hidden border-t border-white/[0.07]"
       style={{ backgroundColor: "#060D1C" }}
     >
-      {/* Full-bleed cinematic image + button --------------------------------- */}
+      {/* Full-bleed cinematic image + button ---------------------------------
+          The section's aspect ratio is locked to the artwork's *natural*
+          ratio (1024×683 → 3:2 ≈ 1.5). Matching ratios means `object-cover`
+          never has to crop, so the AKSUM wordmark + headline baked into the
+          image stay exactly on the section's centre axis — which is the
+          same axis the centred Request Demo button uses. No misalignment
+          between in-image typography and foreground button at any width.
+          A small `minHeight` floor only kicks in on extremely narrow
+          phones to keep the band from collapsing visually. */}
       <div
         className="relative w-full overflow-hidden"
         style={{
-          // Cinematic aspect: wide, never too tall on mobile, generous on
-          // desktop. clamp keeps the section from collapsing on phones or
-          // ballooning on ultrawide displays.
-          aspectRatio: "16 / 7",
-          minHeight: "clamp(420px, 60vw, 720px)",
+          aspectRatio: "1024 / 683",
+          minHeight: "320px",
         }}
       >
-        {/* The CTA artwork. `fill` + `object-cover` guarantees edge-to-edge
-            coverage at every breakpoint without the previous rounded card. */}
         <Image
-          src="/cta(1).png"
+          src="/cta 2.png"
           alt=""
           aria-hidden="true"
           fill
           priority={false}
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-center"
         />
 
         {/* Subtle scrim — only there to ensure button legibility on the
@@ -69,7 +72,7 @@ export function CTAFooter() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(6,13,28,0.18) 0%, rgba(6,13,28,0.10) 45%, rgba(6,13,28,0.42) 100%)",
+              "linear-gradient(to bottom, rgba(6,13,28,0.10) 0%, rgba(6,13,28,0.04) 50%, rgba(6,13,28,0.30) 100%)",
           }}
         />
 
@@ -86,32 +89,38 @@ export function CTAFooter() {
           }}
         />
 
-        {/* Top edge fade — blends the section into the prior surface so the
-            image never reads as a pasted rectangle. */}
+        {/* Top edge dissolve — long, page-coloured, multi-stop gradient.
+            Tall enough (≈ 28% of the band on desktop, ≈ 22% on mobile) and
+            tinted with the exact section background (#060D1C) so the
+            transition reads as a true dissolve into the page rather than a
+            visible seam between dark navy and the lighter artwork. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-20"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[22%] md:h-[28%]"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(6,13,28,0.85) 0%, transparent 100%)",
+              "linear-gradient(to bottom, #060D1C 0%, rgba(6,13,28,0.92) 18%, rgba(6,13,28,0.70) 38%, rgba(6,13,28,0.38) 62%, rgba(6,13,28,0.14) 82%, transparent 100%)",
           }}
         />
 
-        {/* Bottom edge fade — dissolves into the footer band underneath. */}
+        {/* Bottom edge dissolve — mirrors the top, slightly stronger so the
+            section dies cleanly into the footer band underneath without a
+            visible boundary line. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[24%] md:h-[30%]"
           style={{
             background:
-              "linear-gradient(to top, rgba(6,13,28,0.95) 0%, transparent 100%)",
+              "linear-gradient(to top, #060D1C 0%, rgba(6,13,28,0.95) 18%, rgba(6,13,28,0.74) 38%, rgba(6,13,28,0.42) 62%, rgba(6,13,28,0.16) 82%, transparent 100%)",
           }}
         />
 
-        {/* Foreground — only the demo button, anchored slightly below
-            vertical centre so it reads as a lower-third action point.
-            We use absolute positioning + `top: 62%` to keep the placement
-            consistent across breakpoints regardless of section height. */}
-        <div className="absolute inset-x-0 top-[62%] flex justify-center px-6">
+        {/* Foreground — only the demo button. Anchored at ~76% from the top
+            of the band, which sits directly under the "intelligence to
+            work?" subtitle baked into the artwork. Because the section
+            aspect ratio matches the image, this percentage maps to the
+            same image coordinate at every viewport width. */}
+        <div className="absolute inset-x-0 top-[76%] flex justify-center px-6">
           <Button
             asChild
             size="lg"
