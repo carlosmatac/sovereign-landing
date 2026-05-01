@@ -73,6 +73,41 @@ function ThinkingDots() {
   )
 }
 
+// Blinking text caret used inside the simulated copilot input. We render
+// it as a thin tinted bar (2px wide, ~14px tall) driven by a plain CSS
+// keyframe (`sv-caret-blink` in app/globals.css). CSS gives us a *hard*
+// on/off flip at the 50% mark, which reads as a real text-cursor blink;
+// Framer Motion's `times` array can't reliably express two equal stops
+// in a row, so we keep this off the JS animation system entirely.
+//
+// `position: relative; top: 1.5px` aligns the bar's vertical centre with
+// the cap-height of the surrounding text, otherwise the caret sits
+// slightly above baseline due to descender padding. The caret colour
+// borrows the existing #5B9CF6 accent so it reads as part of the
+// active-input language.
+function BlinkingCaret({ side = "end" }: { side?: "start" | "end" }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`inline-block align-middle ${
+        side === "start" ? "mr-[6px]" : "ml-[2px]"
+      }`}
+      style={{
+        width: "2px",
+        height: "14px",
+        background:
+          "linear-gradient(180deg, rgba(120,175,255,1) 0%, rgba(91,156,246,0.85) 100%)",
+        borderRadius: "1px",
+        boxShadow: "0 0 8px rgba(91,156,246,0.55)",
+        position: "relative",
+        top: "1.5px",
+        animation: "sv-caret-blink 1.05s steps(1, end) infinite",
+        willChange: "opacity",
+      }}
+    />
+  )
+}
+
 function UserBubble({ text, faded = false }: { text: string; faded?: boolean }) {
   return (
     <div className="flex justify-end">
@@ -306,6 +341,7 @@ function InterviewDetailBackground() {
 
 function SalesIntelligencePanel() {
   const [phase, setPhase] = useState<Phase>("idle")
+  const [inputFocused, setInputFocused] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -320,14 +356,27 @@ function SalesIntelligencePanel() {
     timerRef.current = setTimeout(() => setPhase("revealed"), 2600)
   }
 
+  // ── Foreground panel ────────────────────────────────────────────────────
+  // Sharper than the background interview panel. The fill is a top-down
+  // gradient (rather than the flat #070E1F used by background panels) so
+  // the surface picks up a faint highlight that reads as "this is the
+  // active panel". Border + shadow are heavier so the panel feels lifted
+  // out of the composition. Height is generous to accommodate the wider
+  // composition above it.
   return (
     <div
-      className="flex h-[480px] w-full flex-col overflow-hidden rounded-[17px]"
+      className="relative flex h-[560px] w-full flex-col overflow-hidden rounded-[18px]"
       style={{
-        background: "#070E1F",
-        border: "1px solid rgba(147,147,147,0.16)",
-        boxShadow:
-          "0 0 0 1px rgba(255,255,255,0.025), 0 36px 80px -16px rgba(0,0,0,0.75), 0 8px 24px -6px rgba(0,0,0,0.55)",
+        background:
+          "linear-gradient(180deg, #0B1631 0%, #081024 30%, #060E1F 100%)",
+        border: "1px solid rgba(178,194,224,0.18)",
+        boxShadow: [
+          "inset 0 1px 0 rgba(255,255,255,0.045)",
+          "0 0 0 1px rgba(255,255,255,0.030)",
+          "0 48px 110px -18px rgba(0,0,0,0.78)",
+          "0 14px 32px -8px rgba(0,0,0,0.60)",
+          "0 0 60px -10px rgba(91,156,246,0.08)",
+        ].join(", "),
       }}
     >
       {/* Window chrome */}
@@ -474,24 +523,36 @@ function SalesIntelligencePanel() {
                       delay: i * 0.19,
                       ease: [0.25, 0.1, 0.25, 1],
                     }}
-                    className="rounded-[8px] px-4 py-3.5"
+                    className="relative rounded-[8px] px-4 py-3.5"
                     style={{
-                      background: "rgba(255,255,255,0.024)",
-                      border: "1px solid rgba(147,147,147,0.10)",
+                      background: "rgba(255,255,255,0.028)",
+                      border: "1px solid rgba(147,147,147,0.12)",
                     }}
                   >
+                    {/* Citation accent — a 2px tinted bar at the left edge
+                        ties each insight back to the blue accent used by
+                        the input/send button, so the foreground panel
+                        carries one consistent action colour. */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-0 top-2.5 bottom-2.5 w-[2px] rounded-r-full"
+                      style={{
+                        background:
+                          "linear-gradient(to bottom, rgba(91,156,246,0.55), rgba(91,156,246,0.18))",
+                      }}
+                    />
                     <div className="flex items-start gap-3">
                       <span
                         className="mt-0.5 shrink-0 text-[9px] font-semibold tabular-nums tracking-[0.04em]"
-                        style={{ color: "rgba(255,255,255,0.17)" }}
+                        style={{ color: "rgba(91,156,246,0.55)" }}
                       >
                         {item.index}
                       </span>
                       <div>
-                        <p className="mb-1.5 text-[12.5px] font-medium leading-snug tracking-[-0.012em] text-white/85">
+                        <p className="mb-1.5 text-[12.5px] font-medium leading-snug tracking-[-0.012em] text-white/90">
                           {item.headline}
                         </p>
-                        <p className="text-[11px] leading-[1.65] tracking-[-0.005em] text-[#757575]">
+                        <p className="text-[11px] leading-[1.65] tracking-[-0.005em] text-[#8a8f9c]">
                           {item.detail}
                         </p>
                       </div>
@@ -504,44 +565,107 @@ function SalesIntelligencePanel() {
         </AnimatePresence>
       </div>
 
-      {/* Input footer — shrink-0 keeps it pinned regardless of conversation height */}
-      <div
-        className="shrink-0 px-4 pb-4 pt-3"
-        style={{ borderTop: "1px solid rgba(147,147,147,0.08)" }}
-      >
+      {/* ── Input footer ────────────────────────────────────────────────
+          Re-built as a proper actionable surface. The container reads
+          as a lifted "input row" rather than a faded label:
+            • dark fill noticeably distinct from the panel surface
+            • crisp 1px border + a subtle inset highlight (top edge)
+            • focus state adds a soft blue ring + brightens the border,
+              tying into the existing #5B9CF6 accent used elsewhere
+            • placeholder text is more readable (white/55 vs the old
+              white/42), with a small "/" badge that hints at a real
+              keyboard affordance — exactly like the Linear reference
+            • send button uses a filled blue accent so it clearly reads
+              as the primary action; idle shows a soft glow ring */}
+      <div className="shrink-0 px-4 pb-4 pt-3.5">
         <motion.div
-          className="flex items-center gap-3 rounded-[9px] px-4 py-[11px] transition-colors duration-200"
+          tabIndex={phase === "idle" ? 0 : -1}
+          onFocus={() => setInputFocused(true)}
+          onBlur={() => setInputFocused(false)}
+          className="flex items-center gap-3 rounded-[10px] px-3.5 py-3 transition-all duration-200 outline-none"
           style={{
-            background: "rgba(255,255,255,0.025)",
+            background:
+              phase === "idle"
+                ? "rgba(8,14,32,0.80)"
+                : "rgba(8,14,32,0.50)",
             border: `1px solid ${
-              phase === "idle" ? "rgba(147,147,147,0.16)" : "rgba(147,147,147,0.07)"
+              phase === "idle"
+                ? inputFocused
+                  ? "rgba(91,156,246,0.45)"
+                  : "rgba(178,194,224,0.20)"
+                : "rgba(147,147,147,0.08)"
             }`,
+            boxShadow:
+              phase === "idle"
+                ? inputFocused
+                  ? "inset 0 1px 0 rgba(255,255,255,0.04), 0 0 0 3px rgba(91,156,246,0.10)"
+                  : "inset 0 1px 0 rgba(255,255,255,0.04)"
+                : "none",
           }}
         >
+          {/* Input text — switches between the active prompt (with a
+              trailing caret) and a soft placeholder (with a leading
+              caret) once the message has been sent. The wrapping span
+              uses `truncate`/`min-w-0` so very narrow viewports never
+              push the send button out of the row. */}
           <span
-            className="flex-1 truncate text-[12px] tracking-[-0.011em] transition-colors duration-200"
+            className="flex min-w-0 flex-1 items-center truncate text-[12.5px] tracking-[-0.011em] transition-colors duration-200"
             style={{
               color:
                 phase === "idle"
-                  ? "rgba(255,255,255,0.42)"
-                  : "rgba(255,255,255,0.16)",
+                  ? "rgba(255,255,255,0.62)"
+                  : "rgba(255,255,255,0.34)",
             }}
           >
-            {QUESTION}
+            {phase === "idle" ? (
+              <>
+                <span className="truncate">{QUESTION}</span>
+                <BlinkingCaret side="end" />
+              </>
+            ) : (
+              <>
+                <BlinkingCaret side="start" />
+                <span className="truncate">Talk with Aksum</span>
+              </>
+            )}
           </span>
+
+          {/* Keyboard hint — present only at idle, mirrors the Linear-style
+              "/" affordance. Recedes once the user has acted. */}
+          {phase === "idle" && (
+            <span
+              className="hidden shrink-0 items-center gap-1 rounded-[5px] px-1.5 py-[2px] text-[9.5px] font-medium uppercase tracking-[0.06em] sm:flex"
+              style={{
+                background: "rgba(178,194,224,0.06)",
+                border: "1px solid rgba(178,194,224,0.12)",
+                color: "rgba(255,255,255,0.40)",
+              }}
+            >
+              <span className="font-mono text-[10px] leading-none">/</span>
+              <span className="leading-none">ask</span>
+            </span>
+          )}
+
           <motion.button
             onClick={handleSend}
             disabled={phase !== "idle"}
-            whileHover={phase === "idle" ? { scale: 1.06 } : {}}
-            whileTap={phase === "idle" ? { scale: 0.93 } : {}}
-            className="flex h-[28px] w-[28px] shrink-0 items-center justify-center rounded-[7px] transition-all duration-200"
+            whileHover={phase === "idle" ? { scale: 1.05 } : {}}
+            whileTap={phase === "idle" ? { scale: 0.94 } : {}}
+            className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-[8px] transition-all duration-200"
             style={{
               background:
-                phase === "idle" ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.03)",
-              border:
                 phase === "idle"
-                  ? "1px solid rgba(255,255,255,0.17)"
-                  : "1px solid rgba(147,147,147,0.07)",
+                  ? "linear-gradient(180deg, rgba(91,156,246,0.95) 0%, rgba(74,135,225,0.95) 100%)"
+                  : "rgba(178,194,224,0.04)",
+              border: `1px solid ${
+                phase === "idle"
+                  ? "rgba(91,156,246,0.55)"
+                  : "rgba(147,147,147,0.08)"
+              }`,
+              boxShadow:
+                phase === "idle"
+                  ? "inset 0 1px 0 rgba(255,255,255,0.20), 0 4px 14px -2px rgba(91,156,246,0.40)"
+                  : "none",
               cursor: phase === "idle" ? "pointer" : "default",
             }}
           >
@@ -550,8 +674,8 @@ function SalesIntelligencePanel() {
               style={{
                 color:
                   phase === "idle"
-                    ? "rgba(255,255,255,0.70)"
-                    : "rgba(255,255,255,0.16)",
+                    ? "rgba(255,255,255,0.96)"
+                    : "rgba(255,255,255,0.18)",
               }}
             />
           </motion.button>
@@ -562,24 +686,65 @@ function SalesIntelligencePanel() {
 }
 
 // ─── Composition: layered foreground + background ─────────────────────────────
+//
+// Hierarchy principle (taken from the Linear reference): only the *background*
+// panel reads as recessed. The foreground panel must look fully active —
+// crisp, readable, with stronger borders and shadows than the surrounding
+// surface. The background can be dimmed and gently blurred; the foreground
+// must not.
+//
+// Layout principle: now that the section container is `max-w-[1320px]`
+// (matching the hero dashboard), we let both panels be substantially larger
+// instead of leaving empty horizontal space:
+//   • background interview panel: 60% width, parked at the left, dimmed
+//   • foreground copilot panel : 50% width, parked at the right, sharp
+//   • the two overlap by ~10% of the container, which gives the
+//     composition real depth without colliding the readable content of
+//     either panel.
+//
+// Heights are bumped (foreground panel is 560px, composition `minHeight`
+// is 580px) so the wider container does not feel under-filled vertically.
 
 export function SalesIntelligenceComposition() {
   return (
-    <div className="relative w-full overflow-hidden" style={{ minHeight: 480 }}>
-      {/* Background interview panel — no blur, clearly readable, secondary through opacity only */}
+    <div className="relative w-full overflow-hidden" style={{ minHeight: 580 }}>
+      {/* Background interview panel — visibly recessed:
+            • lower opacity (0.55) pushes it behind the foreground
+            • slight blur (~1px) softens the type so the eye is not
+              pulled into reading it
+            • a desaturating filter takes the colour temperature down
+              so the foreground panel reads as the warm/active surface
+          The wrapper still uses `pointer-events-none` so the recessed
+          panel never steals interaction from the foreground. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-2 hidden w-[62%] lg:block"
+        className="pointer-events-none absolute left-0 top-3 hidden w-[60%] lg:block"
         style={{
-          opacity: 0.80,
+          opacity: 0.55,
+          filter: "blur(1px) saturate(0.85)",
           zIndex: 0,
         }}
       >
         <InterviewDetailBackground />
       </div>
 
-      {/* Foreground chat panel — narrower, right-aligned at desktop */}
-      <div className="relative z-20 lg:ml-auto lg:w-[43%]">
+      {/* A subtle dark wash over the background panel further pushes it
+          into the depth plane. Sits between the background and the
+          foreground in the z-stack so only the background gets dimmed. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 hidden w-[60%] lg:block"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(6,13,28,0.32) 0%, rgba(6,13,28,0.55) 100%)",
+          zIndex: 10,
+        }}
+      />
+
+      {/* Foreground chat panel — wider than before (50%) and right-aligned
+          at desktop. Sits visibly above the background plane via the
+          stronger border + shadow defined inside <SalesIntelligencePanel>. */}
+      <div className="relative z-20 lg:ml-auto lg:w-[50%]">
         <SalesIntelligencePanel />
       </div>
 

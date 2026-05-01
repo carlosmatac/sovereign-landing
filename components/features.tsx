@@ -47,7 +47,9 @@ const slidesMeta: SlideMeta[] = [
     id: "sales-intelligence",
     copyKey: "salesIntelligence",
     showcaseComponent: <SalesIntelligenceComposition />,
-    visualWrapperClass: "mx-auto max-w-5xl",
+    // Wider container matches the hero dashboard's max-w-[1320px] so the
+    // composition feels equally immersive instead of a small centred mockup.
+    visualWrapperClass: "mx-auto max-w-[1320px]",
     atmoGradient:
       "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(6,16,52,0.80) 0%, transparent 60%)",
   },
