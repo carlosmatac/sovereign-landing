@@ -211,7 +211,7 @@ The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` compo
 - `handleNavClick` whitelists routable views — you must add a view's label string here to make it clickable
 - Conditional render chain (order matters — default falls through to `NetworkExplorerPanel`):
   ```
-  Dashboard → Projects → Interviews → NetworkExplorer (default)
+  Dashboard → Projects → Intelligence → NetworkExplorer (default)
   ```
 
 **Currently implemented views:**
@@ -222,7 +222,7 @@ The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` compo
 | Network Explorer | ✓       | `NetworkExplorerPanel` | `"Network Explorer"` |
 | Dashboard        | —       | `DashboardPanel`       | `"Dashboard"`        |
 | Projects         | —       | `ProjectsPanel`        | `"Projects"`         |
-| Interviews       | —       | `InterviewsPanel`      | `"Interviews"`       |
+| Intelligence     | —       | `IntelligencePanel`    | `"Intelligence"`     |
 
 
 Copilot and Platform Administration are listed in the sidebar but are not yet routed (clicking them is inert).
@@ -241,8 +241,8 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 
 **Dashboard**
 
-- 3 KPI cards: Projects (6), Interviews (6 completed), Entities (34 mapped)
-- Bar chart: "Interviews by Project" — horizontal CSS bars, 6 projects, max value 3
+- 3 KPI cards: Projects (6), Sources (6 completed), Entities (34 mapped)
+- Bar chart: "Sources by Project" — horizontal CSS bars, 6 projects, max value 3
 - Donut chart: "Topic Distribution" — SVG arcs, 8 topics (energy, infrastructure, industrialization, logistics, gas, policy, risk, banking)
 - Pipeline Status card: Completed/Processing/Failed counts
 - Hover interactions: KPI cards lift on hover; bar rows brighten label+value+bar; donut slices sync with legend row hover (non-hovered slices dim to `0.18` opacity)
@@ -253,12 +253,13 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 - Cards: project name, region pill, description, location+updated footer
 - Projects: Nigeria, Algeria, Namibia, Angola, Panama, Oman, Qatar (all 2026)
 
-**Interviews**
+**Intelligence**
 
+- Header title: "Intelligence Library"; subtitle frames it as a cross-project source library for uploaded audio, documents, and text-based intelligence
 - Vertical list of 6 rows, `flex-1` distribution (equal height rows)
-- Each row: indigo-tinted mic icon container, person name (bold), interview title · project (muted), duration with clock icon, "Ready" status (`#4ADE80`)
-- Action buttons in header: "View Projects" (ghost) + "Upload Interview" (elevated)
-- Interviews: Adrian Santos / María Gutierrez / Luis Ortega / Daniel Okafor / Sofia Benavides / Karim Haddad
+- Each row: indigo-tinted mic icon container, person name (bold), source title · project (muted), duration with clock icon, "Ready" status (`#4ADE80`)
+- Action buttons in header: "View Projects" (ghost) + "Add Source" (elevated)
+- Sources: Adrian Santos / María Gutierrez / Luis Ortega / Daniel Okafor / Sofia Benavides / Karim Haddad
 
 ---
 
@@ -287,7 +288,7 @@ function MyViewPanel() {
               One-line description of this view.
             </p>
           </div>
-          {/* Optional: action buttons — see InterviewsPanel for pattern */}
+          {/* Optional: action buttons — see IntelligencePanel for pattern */}
         </div>
       </div>
 
@@ -446,7 +447,7 @@ The Lottie animation (`scene1.json`) has been replaced with `SalesIntelligencePa
 
 ### 9.6 ~~Hero panel mobile scaling~~ — RESOLVED
 
-`HeroDashboardPanelMobile` (`components/hero-dashboard-panel.tsx`) is shown on `< lg` breakpoints, hidden on `lg+`. It renders the Interviews view at readable 12–13px font sizes with no aspect ratio constraint — full-width, auto height. The full `HeroDashboardPanel` remains on desktop only.
+`HeroDashboardPanelMobile` (`components/hero-dashboard-panel.tsx`) is shown on `< lg` breakpoints, hidden on `lg+`. It renders the Intelligence view at readable 12–13px font sizes with no aspect ratio constraint — full-width, auto height. The full `HeroDashboardPanel` remains on desktop only.
 
 ---
 

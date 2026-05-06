@@ -177,7 +177,7 @@ const EDGES: GEdge[] = [
 const platformNav = [
   { icon: LayoutGrid,    label: "Dashboard"        },
   { icon: FolderOpen,    label: "Projects"         },
-  { icon: Activity,      label: "Interviews"       },
+  { icon: Activity,      label: "Intelligence"     },
   { icon: MessageSquare, label: "Copilot"          },
   { icon: Network,       label: "Network Explorer" },
 ]
@@ -296,27 +296,27 @@ function ProjectsPanel() {
   )
 }
 
-// ─── InterviewsPanel ──────────────────────────────────────────────────────────
+// ─── IntelligencePanel ────────────────────────────────────────────────────────
 
-const interviews = [
-  { id: "i1", person: "Adrian Santos",    title: "Manila Energy Expansion Strategy",        project: "Philippines 2026", duration: "22:14" },
-  { id: "i2", person: "María Gutierrez",  title: "Chile Energy Regulation Outlook",          project: "Chile 2026",       duration: "31:48" },
-  { id: "i3", person: "Luis Ortega",      title: "Cross-Border Infrastructure Partnerships", project: "Colombia 2026",    duration: "18:55" },
-  { id: "i4", person: "Daniel Okafor",    title: "Industrial Growth in West Africa",         project: "Nigeria 2026",     duration: "27:33" },
-  { id: "i5", person: "Sofia Benavides",  title: "Andean Power Market Entry",                project: "Peru 2026",        duration: "19:41" },
-  { id: "i6", person: "Karim Haddad",     title: "Regional Investment Signals in Energy",    project: "UAE 2026",         duration: "24:07" },
+const sources = [
+  { id: "s1", person: "Adrian Santos",    title: "Manila Energy Expansion Strategy",        project: "Philippines 2026", duration: "22:14" },
+  { id: "s2", person: "María Gutierrez",  title: "Chile Energy Regulation Outlook",          project: "Chile 2026",       duration: "31:48" },
+  { id: "s3", person: "Luis Ortega",      title: "Cross-Border Infrastructure Partnerships", project: "Colombia 2026",    duration: "18:55" },
+  { id: "s4", person: "Daniel Okafor",    title: "Industrial Growth in West Africa",         project: "Nigeria 2026",     duration: "27:33" },
+  { id: "s5", person: "Sofia Benavides",  title: "Andean Power Market Entry",                project: "Peru 2026",        duration: "19:41" },
+  { id: "s6", person: "Karim Haddad",     title: "Regional Investment Signals in Energy",    project: "UAE 2026",         duration: "24:07" },
 ]
 
-function InterviewsPanel() {
+function IntelligencePanel() {
   return (
     <>
       {/* Panel header ───────────────────────────────────────────────────────── */}
       <div className="border-b border-[rgba(147,147,147,0.14)] px-4 py-2.5">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-semibold text-white">All Interviews</p>
+            <p className="text-[10px] font-semibold text-white">Intelligence Library</p>
             <p className="mt-[2px] text-[8px] leading-snug text-[#777]">
-              Cross-project interview index. Start in Projects to manage interviews in context.
+              Cross-project source library for uploaded audio, documents, and text-based intelligence. Start in Projects to manage sources in context.
             </p>
           </div>
           {/* Action buttons */}
@@ -333,17 +333,17 @@ function InterviewsPanel() {
                 className="text-white/65"
                 style={{ width: "8px", height: "8px" }}
               />
-              <span className="text-[8px] font-medium text-white/70">Upload Interview</span>
+              <span className="text-[8px] font-medium text-white/70">Add Source</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Interview list ─────────────────────────────────────────────────────── */}
+      {/* Source list ────────────────────────────────────────────────────────── */}
       <div className="flex flex-1 flex-col gap-[6px] overflow-hidden p-3">
-        {interviews.map((iv) => (
+        {sources.map((src) => (
           <div
-            key={iv.id}
+            key={src.id}
             className="group flex flex-1 cursor-pointer items-center gap-2.5 rounded-[5px] border border-[rgba(147,147,147,0.15)] px-3 transition-all duration-150 hover:border-[rgba(147,147,147,0.30)] hover:bg-white/[0.025]"
           >
             {/* Mic icon */}
@@ -364,12 +364,12 @@ function InterviewsPanel() {
             {/* Name + topic */}
             <div className="min-w-0 flex-1">
               <p className="truncate text-[9.5px] font-semibold leading-none text-white">
-                {iv.person}
+                {src.person}
               </p>
               <p className="mt-[3px] truncate text-[8px] leading-none text-[#686868]">
-                {iv.title}
+                {src.title}
                 <span className="mx-[5px] opacity-40">·</span>
-                {iv.project}
+                {src.project}
               </p>
             </div>
 
@@ -380,7 +380,7 @@ function InterviewsPanel() {
                   className="text-[#4a4a4a]"
                   style={{ width: "7px", height: "7px" }}
                 />
-                <span className="text-[8px] text-[#5e5e5e]">{iv.duration}</span>
+                <span className="text-[8px] text-[#5e5e5e]">{src.duration}</span>
               </div>
               <span className="text-[8px] font-medium text-[#4ADE80]">Ready</span>
             </div>
@@ -686,7 +686,7 @@ function NetworkExplorerPanel() {
 
 const kpiCards = [
   { label: "PROJECTS",   value: "6",  sub: "Active intelligence projects", icon: FolderOpen, color: "#5B9CF6" },
-  { label: "INTERVIEWS", value: "6",  sub: "6 completed · 0 processing",   icon: Mic,        color: "#A78BFA" },
+  { label: "SOURCES",    value: "6",  sub: "6 completed · 0 processing",   icon: Mic,        color: "#A78BFA" },
   { label: "ENTITIES",   value: "34", sub: "34 relationships mapped",       icon: Users,      color: "#FB923C" },
 ]
 
@@ -773,7 +773,7 @@ function DashboardPanel() {
               className="text-white/65"
               style={{ width: "8px", height: "8px" }}
             />
-            <span className="text-[8px] font-medium text-white/70">Upload Interview</span>
+            <span className="text-[8px] font-medium text-white/70">Add Source</span>
           </button>
         </div>
       </div>
@@ -812,7 +812,7 @@ function DashboardPanel() {
       {/* Charts area ────────────────────────────────────────────────────────── */}
       <div className="flex flex-1 gap-[6px] overflow-hidden px-3 pb-3 pt-[7px]">
 
-        {/* Left — Interviews by Project (horizontal bar chart) ──────────────── */}
+        {/* Left — Sources by Project (horizontal bar chart) ─────────────────── */}
         <div className="flex flex-1 flex-col overflow-hidden rounded-[5px] border border-[rgba(147,147,147,0.15)]">
           {/* Chart header */}
           <div className="flex items-start gap-1.5 border-b border-[rgba(147,147,147,0.10)] px-3 py-[7px]">
@@ -822,8 +822,8 @@ function DashboardPanel() {
               strokeWidth={1.5}
             />
             <div>
-              <p className="text-[8.5px] font-semibold text-white/75">Interviews by Project</p>
-              <p className="mt-[1px] text-[7px] text-[#555]">Completed interviews per project</p>
+              <p className="text-[8.5px] font-semibold text-white/75">Sources by Project</p>
+              <p className="mt-[1px] text-[7px] text-[#555]">Completed sources per project</p>
             </div>
           </div>
 
@@ -886,7 +886,7 @@ function DashboardPanel() {
               />
               <div>
                 <p className="text-[8.5px] font-semibold text-white/75">Topic Distribution</p>
-                <p className="mt-[1px] text-[7px] text-[#555]">Top 8 themes across all interviews</p>
+                <p className="mt-[1px] text-[7px] text-[#555]">Top 8 themes across all sources</p>
               </div>
             </div>
 
@@ -960,7 +960,7 @@ function DashboardPanel() {
           {/* Pipeline Status ─────────────────────────────────────────────────── */}
           <div className="rounded-[5px] border border-[rgba(147,147,147,0.15)] px-3 py-2.5">
             <p className="text-[8.5px] font-semibold text-white/75">Pipeline Status</p>
-            <p className="mb-[8px] mt-[2px] text-[7px] text-[#555]">Interview processing</p>
+            <p className="mb-[8px] mt-[2px] text-[7px] text-[#555]">Source processing</p>
             <div className="flex flex-col gap-[6px]">
               {pipelineRows.map((row) => (
                 <div
@@ -1003,7 +1003,7 @@ function DashboardPanel() {
 // ─── Mobile-optimised hero panel ─────────────────────────────────────────────
 // The full HeroDashboardPanel uses 7–10 px internal type and a fixed aspect
 // ratio — both unreadable below lg breakpoint. This component renders a clean,
-// single-view Interviews panel at readable mobile scale, using the same design
+// single-view Intelligence panel at readable mobile scale, using the same design
 // tokens as the desktop panel.
 
 export function HeroDashboardPanelMobile() {
@@ -1037,7 +1037,7 @@ export function HeroDashboardPanelMobile() {
             className="text-[11px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Aksum · Interviews
+            Aksum · Intelligence
           </span>
         </div>
         <div
@@ -1059,21 +1059,21 @@ export function HeroDashboardPanelMobile() {
         className="px-4 pb-3 pt-3.5"
         style={{ borderBottom: "1px solid rgba(147,147,147,0.08)" }}
       >
-        <p className="text-[12px] font-semibold text-white">All Interviews</p>
+        <p className="text-[12px] font-semibold text-white">Intelligence Library</p>
         <p className="mt-0.5 text-[10.5px] text-[#5e6878]">
-          6 interviews across active projects · 6 ready
+          6 sources across active projects · 6 ready
         </p>
       </div>
 
-      {/* Interview rows */}
+      {/* Source rows */}
       <div>
-        {interviews.map((iv, idx) => (
+        {sources.map((src, idx) => (
           <div
-            key={iv.id}
+            key={src.id}
             className="flex items-center gap-3 px-4 py-3.5"
             style={{
               borderBottom:
-                idx < interviews.length - 1 ? "1px solid rgba(147,147,147,0.07)" : undefined,
+                idx < sources.length - 1 ? "1px solid rgba(147,147,147,0.07)" : undefined,
             }}
           >
             {/* Mic icon */}
@@ -1089,11 +1089,11 @@ export function HeroDashboardPanelMobile() {
 
             {/* Name + title */}
             <div className="min-w-0 flex-1">
-              <p className="text-[13px] font-semibold leading-none text-white">{iv.person}</p>
+              <p className="text-[13px] font-semibold leading-none text-white">{src.person}</p>
               <p className="mt-1 truncate text-[11px] leading-none text-[#5e6878]">
-                {iv.title}
+                {src.title}
                 <span className="mx-[5px] opacity-40">·</span>
-                {iv.project}
+                {src.project}
               </p>
             </div>
 
@@ -1101,7 +1101,7 @@ export function HeroDashboardPanelMobile() {
             <div className="flex shrink-0 flex-col items-end gap-1">
               <div className="flex items-center gap-1">
                 <Clock className="h-3 w-3 text-[#4a4a4a]" />
-                <span className="text-[11px] tabular-nums text-[#5e5e5e]">{iv.duration}</span>
+                <span className="text-[11px] tabular-nums text-[#5e5e5e]">{src.duration}</span>
               </div>
               <span className="text-[11px] font-medium text-[#4ADE80]">Ready</span>
             </div>
@@ -1119,7 +1119,7 @@ export function HeroDashboardPanel() {
     if (
       label === "Dashboard"        ||
       label === "Projects"         ||
-      label === "Interviews"       ||
+      label === "Intelligence"     ||
       label === "Network Explorer"
     ) {
       setActiveNav(label)
@@ -1222,9 +1222,9 @@ export function HeroDashboardPanel() {
           background: "linear-gradient(135deg, rgba(255,255,255,0.012) 0%, #070E1F 28%)",
         }}
       >
-        {activeNav === "Dashboard"   ? <DashboardPanel />
-          : activeNav === "Projects"   ? <ProjectsPanel />
-          : activeNav === "Interviews" ? <InterviewsPanel />
+        {activeNav === "Dashboard"     ? <DashboardPanel />
+          : activeNav === "Projects"     ? <ProjectsPanel />
+          : activeNav === "Intelligence" ? <IntelligencePanel />
           : <NetworkExplorerPanel />}
       </div>
 
