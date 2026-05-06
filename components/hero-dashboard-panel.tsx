@@ -5,7 +5,7 @@ import Image from "next/image"
 import {
   LayoutGrid,
   FolderOpen,
-  Activity,
+  BookOpen,
   MessageSquare,
   Network,
   Shield,
@@ -19,6 +19,9 @@ import {
   TrendingUp,
   Hash,
   Users,
+  CheckCircle2,
+  AlertCircle,
+  ArrowUpRight,
 } from "lucide-react"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -177,7 +180,7 @@ const EDGES: GEdge[] = [
 const platformNav = [
   { icon: LayoutGrid,    label: "Dashboard"        },
   { icon: FolderOpen,    label: "Projects"         },
-  { icon: Activity,      label: "Intelligence"     },
+  { icon: BookOpen,      label: "Knowledge"        },
   { icon: MessageSquare, label: "Copilot"          },
   { icon: Network,       label: "Network Explorer" },
 ]
@@ -296,7 +299,7 @@ function ProjectsPanel() {
   )
 }
 
-// ─── IntelligencePanel ────────────────────────────────────────────────────────
+// ─── KnowledgePanel ────────────────────────────────────────────────────────────
 
 const sources = [
   { id: "s1", person: "Adrian Santos",    title: "Manila Energy Expansion Strategy",        project: "Philippines 2026", duration: "22:14" },
@@ -307,16 +310,16 @@ const sources = [
   { id: "s6", person: "Karim Haddad",     title: "Regional Investment Signals in Energy",    project: "UAE 2026",         duration: "24:07" },
 ]
 
-function IntelligencePanel() {
+function KnowledgePanel() {
   return (
     <>
       {/* Panel header ───────────────────────────────────────────────────────── */}
       <div className="border-b border-[rgba(147,147,147,0.14)] px-4 py-2.5">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-semibold text-white">Intelligence Library</p>
+            <p className="text-[10px] font-semibold text-white">Knowledge Library</p>
             <p className="mt-[2px] text-[8px] leading-snug text-[#777]">
-              Cross-project source library for uploaded audio, documents, and text-based intelligence. Start in Projects to manage sources in context.
+              Cross-project source library for uploaded audio, documents, and text-based knowledge. Start in Projects to manage sources in context.
             </p>
           </div>
           {/* Action buttons */}
@@ -685,21 +688,25 @@ function NetworkExplorerPanel() {
 // ─── DashboardPanel ───────────────────────────────────────────────────────────
 
 const kpiCards = [
-  { label: "PROJECTS",   value: "6",  sub: "Active intelligence projects", icon: FolderOpen, color: "#5B9CF6" },
-  { label: "SOURCES",    value: "6",  sub: "6 completed · 0 processing",   icon: Mic,        color: "#A78BFA" },
-  { label: "ENTITIES",   value: "34", sub: "34 relationships mapped",       icon: Users,      color: "#FB923C" },
+  { label: "PROJECTS",  value: "1",  sub: "Active knowledge projects", icon: FolderOpen, color: "#5B9CF6" },
+  { label: "KNOWLEDGE", value: "6",  sub: "4 completed · 0 processing", icon: BookOpen,   color: "#A78BFA" },
+  { label: "ENTITIES",  value: "56", sub: "15 relationships mapped",    icon: Users,      color: "#FB923C" },
 ]
 
 const barData = [
-  { shortLabel: "Philippines", value: 3 },
-  { shortLabel: "Chile",       value: 2 },
-  { shortLabel: "Colombia",    value: 2 },
-  { shortLabel: "Nigeria",     value: 2 },
-  { shortLabel: "Peru",        value: 1 },
-  { shortLabel: "UAE",         value: 1 },
+  { shortLabel: "Angola", value: 6 },
 ]
 
-const BAR_MAX = 3
+const BAR_MAX = 6
+
+const recentKnowledge = [
+  { id: "k1", name: "Angola 7",                                    project: "Angola", country: "Angola", date: "5 May 2026", status: "Ready"  },
+  { id: "k2", name: "Reunion Clara",                               project: "Angola", country: "Angola", date: "5 May 2026", status: "Ready"  },
+  { id: "k3", name: "Reunion Clara",                               project: "Angola", country: "Angola", date: "5 May 2026", status: "Failed" },
+  { id: "k4", name: "Reunión Clara - One World Media",             project: "Angola", country: "Angola", date: "4 May 2026", status: "Failed" },
+  { id: "k5", name: "Interview Angola",                            project: "Angola", country: "Angola", date: "1 May 2026", status: "Ready"  },
+  { id: "k6", name: "Interview Angola - Luis Filipe Rodrigues Lélis", project: "Angola", country: "Angola", date: "1 May 2026", status: "Ready"  },
+]
 
 const topicData = [
   { label: "energy",           value: 4, color: "#38BDF8" },
@@ -715,9 +722,16 @@ const topicData = [
 const DONUT_TOTAL = topicData.reduce((s, d) => s + d.value, 0)
 
 const pipelineRows = [
-  { label: "Completed",  value: 6, color: "#4ADE80" },
+  { label: "Completed",  value: 4, color: "#4ADE80", icon: CheckCircle2 },
   { label: "Processing", value: 0, color: "#60A5FA" },
-  { label: "Failed",     value: 0, color: "#FB7185" },
+  { label: "Failed",     value: 2, color: "#FB7185", icon: AlertCircle },
+]
+
+const quickActions = [
+  { label: "Add Source",       sub: "Add a new source", icon: Plus },
+  { label: "Copilot",          sub: "",                 icon: MessageSquare },
+  { label: "Network Explorer", sub: "",                 icon: Network },
+  { label: "New Project",      sub: "",                 icon: FolderOpen },
 ]
 
 // Compute SVG path for a donut slice (angles in degrees, clockwise from top)
@@ -760,15 +774,15 @@ function DashboardPanel() {
   return (
     <>
       {/* Panel header ───────────────────────────────────────────────────────── */}
-      <div className="border-b border-[rgba(147,147,147,0.14)] px-4 py-2.5">
+      <div className="border-b border-[rgba(147,147,147,0.14)] px-5 py-4">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-[10px] font-semibold text-white">Dashboard</p>
-            <p className="mt-[2px] text-[8px] leading-snug text-[#777]">
-              High-level intelligence overview across all active projects
+            <p className="text-[16px] font-semibold tracking-[-0.02em] text-white">Dashboard</p>
+            <p className="mt-[3px] text-[8px] leading-snug text-[#777]">
+              Snapshot · 6 May 2026 · 1 project · 6 sources
             </p>
           </div>
-          <button className="flex items-center gap-[5px] rounded-[4px] border border-[rgba(147,147,147,0.32)] bg-white/[0.05] px-2 py-[3.5px] transition-colors hover:bg-white/[0.09]">
+          <button className="flex items-center gap-[5px] rounded-[4px] border border-[rgba(147,147,147,0.32)] bg-white/[0.05] px-2.5 py-[5px] transition-colors hover:bg-white/[0.09]">
             <Plus
               className="text-white/65"
               style={{ width: "8px", height: "8px" }}
@@ -779,16 +793,16 @@ function DashboardPanel() {
       </div>
 
       {/* KPI cards ──────────────────────────────────────────────────────────── */}
-      <div className="grid grid-cols-3 gap-[6px] px-3 pb-0 pt-2.5">
+      <div className="grid grid-cols-3 gap-[7px] px-4 pb-0 pt-3">
         {kpiCards.map((card) => {
           const Icon = card.icon
           return (
             <div
               key={card.label}
-              className="cursor-pointer rounded-[5px] border border-[rgba(147,147,147,0.15)] px-3 py-2.5 transition-all duration-150 hover:border-[rgba(147,147,147,0.32)] hover:bg-white/[0.03]"
+              className="cursor-pointer rounded-[5px] border border-[rgba(147,147,147,0.15)] bg-white/[0.01] px-3 py-3 transition-all duration-150 hover:border-[rgba(147,147,147,0.32)] hover:bg-white/[0.03]"
             >
               <div className="mb-[7px] flex items-center justify-between">
-                <span className="text-[7.5px] font-semibold uppercase tracking-[0.07em] text-[#555]">
+                <span className="text-[7.5px] font-semibold uppercase tracking-[0.07em] text-[#777]">
                   {card.label}
                 </span>
                 <div
@@ -809,189 +823,227 @@ function DashboardPanel() {
         })}
       </div>
 
-      {/* Charts area ────────────────────────────────────────────────────────── */}
-      <div className="flex flex-1 gap-[6px] overflow-hidden px-3 pb-3 pt-[7px]">
+      {/* Dashboard body ─────────────────────────────────────────────────────── */}
+      <div className="grid flex-1 grid-cols-[2.15fr_1fr] gap-[7px] overflow-hidden p-4 pt-[7px]">
+        <div className="flex min-w-0 flex-col gap-[7px] overflow-hidden">
+          {/* Recent Knowledge */}
+          <div className="flex flex-[1.55] flex-col overflow-hidden rounded-[5px] border border-[rgba(147,147,147,0.15)]">
+            <div className="flex items-start justify-between border-b border-[rgba(147,147,147,0.10)] px-3 py-[7px]">
+              <div>
+                <p className="text-[8.5px] font-semibold text-white/80">Recent Knowledge</p>
+                <p className="mt-[1px] text-[7px] text-[#555]">Latest uploaded sources</p>
+              </div>
+              <button className="flex items-center gap-1 text-[7px] font-medium text-white/35 transition-colors hover:text-white/60">
+                View all knowledge
+                <ArrowUpRight style={{ width: "7px", height: "7px" }} strokeWidth={1.5} />
+              </button>
+            </div>
 
-        {/* Left — Sources by Project (horizontal bar chart) ─────────────────── */}
-        <div className="flex flex-1 flex-col overflow-hidden rounded-[5px] border border-[rgba(147,147,147,0.15)]">
-          {/* Chart header */}
-          <div className="flex items-start gap-1.5 border-b border-[rgba(147,147,147,0.10)] px-3 py-[7px]">
-            <TrendingUp
-              className="mt-px shrink-0 text-[#555]"
-              style={{ width: "8px", height: "8px" }}
-              strokeWidth={1.5}
-            />
-            <div>
-              <p className="text-[8.5px] font-semibold text-white/75">Sources by Project</p>
-              <p className="mt-[1px] text-[7px] text-[#555]">Completed sources per project</p>
+            <div className="flex flex-1 flex-col gap-[5px] overflow-hidden p-2.5">
+              {recentKnowledge.map((item) => {
+                const isReady = item.status === "Ready"
+                return (
+                  <div
+                    key={item.id}
+                    className="group flex flex-1 cursor-pointer items-center gap-2.5 rounded-[5px] border border-[rgba(147,147,147,0.12)] px-2.5 transition-all duration-150 hover:border-[rgba(147,147,147,0.28)] hover:bg-white/[0.025]"
+                  >
+                    <div
+                      className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border"
+                      style={{
+                        background: `${isReady ? "#4ADE80" : "#FB7185"}12`,
+                        borderColor: `${isReady ? "#4ADE80" : "#FB7185"}38`,
+                      }}
+                    >
+                      {isReady ? (
+                        <CheckCircle2 className="text-[#4ADE80]" style={{ width: "8px", height: "8px" }} strokeWidth={1.6} />
+                      ) : (
+                        <AlertCircle className="text-[#FB7185]" style={{ width: "8px", height: "8px" }} strokeWidth={1.6} />
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[8.5px] font-semibold leading-none text-white/85">{item.name}</p>
+                      <p className="mt-[3px] truncate text-[7px] leading-none text-[#5e6878]">
+                        {item.project}
+                        <span className="mx-[5px] opacity-40">·</span>
+                        {item.country}
+                        <span className="mx-[5px] opacity-40">·</span>
+                        {item.date}
+                      </p>
+                    </div>
+                    <span
+                      className="rounded-full border px-1.5 py-[2.5px] text-[6.5px] font-semibold uppercase tracking-[0.08em]"
+                      style={{
+                        color: isReady ? "#4ADE80" : "#FB7185",
+                        background: isReady ? "rgba(74,222,128,0.07)" : "rgba(251,113,133,0.07)",
+                        borderColor: isReady ? "rgba(74,222,128,0.18)" : "rgba(251,113,133,0.18)",
+                      }}
+                    >
+                      {item.status}
+                    </span>
+                  </div>
+                )
+              })}
             </div>
           </div>
 
-          {/* Bars */}
-          <div className="flex flex-1 flex-col justify-center gap-[9px] px-3 py-3">
-            {barData.map((bar) => (
-              <div
-                key={bar.shortLabel}
-                className="group flex cursor-pointer items-center gap-2"
-              >
-                {/* Label — brightens on row hover */}
-                <span className="w-[52px] shrink-0 truncate text-right text-[7.5px] text-[#5a5a5a] transition-colors duration-150 group-hover:text-white/65">
-                  {bar.shortLabel}
-                </span>
-                {/* Track — brightens slightly on row hover */}
-                <div
-                  className="relative flex-1 overflow-hidden rounded-full transition-all duration-150 group-hover:opacity-90"
-                  style={{ height: "6px", background: "rgba(255,255,255,0.05)" }}
-                >
-                  <div
-                    className="absolute left-0 top-0 h-full rounded-full"
-                    style={{
-                      width: `${(bar.value / BAR_MAX) * 100}%`,
-                      background: "linear-gradient(90deg, #3A5BA0 0%, #4E78CF 100%)",
-                    }}
-                  />
-                  {/* Highlight overlay on hover */}
-                  <div className="absolute inset-0 rounded-full bg-white opacity-0 transition-opacity duration-150 group-hover:opacity-[0.06]" />
+          <div className="grid flex-[0.75] grid-cols-2 gap-[7px] overflow-hidden">
+            {/* Knowledge by Project */}
+            <div className="flex flex-col overflow-hidden rounded-[5px] border border-[rgba(147,147,147,0.15)]">
+              <div className="flex items-start gap-1.5 border-b border-[rgba(147,147,147,0.10)] px-3 py-[7px]">
+                <TrendingUp className="mt-px shrink-0 text-[#555]" style={{ width: "8px", height: "8px" }} strokeWidth={1.5} />
+                <div>
+                  <p className="text-[8.5px] font-semibold text-white/75">Knowledge by Project</p>
+                  <p className="mt-[1px] text-[7px] text-[#555]">Completed sources per project</p>
                 </div>
-                {/* Value — brightens on row hover */}
-                <span className="w-[8px] shrink-0 text-left text-[7.5px] text-[#5a5a5a] transition-colors duration-150 group-hover:text-white/65">
-                  {bar.value}
-                </span>
               </div>
-            ))}
-
-            {/* X-axis tick labels */}
-            <div className="flex items-center gap-2">
-              <span className="w-[52px] shrink-0" />
-              <div className="flex flex-1 justify-between">
-                {[0, 1, 2, 3].map((n) => (
-                  <span key={n} className="text-[6.5px] text-[#444]">{n}</span>
+              <div className="flex flex-1 flex-col justify-center gap-[9px] px-3 py-3">
+                {barData.map((bar) => (
+                  <div key={bar.shortLabel} className="group flex cursor-pointer items-center gap-2">
+                    <span className="w-[42px] shrink-0 truncate text-right text-[7.5px] text-[#5a5a5a] transition-colors duration-150 group-hover:text-white/65">
+                      {bar.shortLabel}
+                    </span>
+                    <div className="relative flex-1 overflow-hidden rounded-full transition-all duration-150 group-hover:opacity-90" style={{ height: "6px", background: "rgba(255,255,255,0.05)" }}>
+                      <div
+                        className="absolute left-0 top-0 h-full rounded-full"
+                        style={{
+                          width: `${(bar.value / BAR_MAX) * 100}%`,
+                          background: "linear-gradient(90deg, #3A5BA0 0%, #4E78CF 100%)",
+                        }}
+                      />
+                      <div className="absolute inset-0 rounded-full bg-white opacity-0 transition-opacity duration-150 group-hover:opacity-[0.06]" />
+                    </div>
+                    <span className="w-[8px] shrink-0 text-left text-[7.5px] text-[#5a5a5a] transition-colors duration-150 group-hover:text-white/65">
+                      {bar.value}
+                    </span>
+                  </div>
                 ))}
               </div>
-              <span className="w-[8px] shrink-0" />
+            </div>
+
+            {/* Topic Distribution */}
+            <div className="flex flex-col overflow-hidden rounded-[5px] border border-[rgba(147,147,147,0.15)]">
+              <div className="flex items-start gap-1.5 border-b border-[rgba(147,147,147,0.10)] px-3 py-[7px]">
+                <Hash className="mt-px shrink-0 text-[#555]" style={{ width: "8px", height: "8px" }} strokeWidth={1.5} />
+                <div>
+                  <p className="text-[8.5px] font-semibold text-white/75">Topic Distribution</p>
+                  <p className="mt-[1px] text-[7px] text-[#555]">Top 8 themes across all sources</p>
+                </div>
+              </div>
+
+              <div className="flex flex-1 items-center gap-2 overflow-hidden px-3 py-2">
+                <svg viewBox="0 0 76 76" className="h-[62px] w-[62px] shrink-0" aria-hidden="true">
+                  {(() => {
+                    let angle = -90
+                    const gap = 1.2
+                    return topicData.map((item) => {
+                      const span  = (item.value / DONUT_TOTAL) * 360
+                      const start = angle + gap / 2
+                      const end   = angle + span - gap / 2
+                      angle += span
+                      return (
+                        <path
+                          key={item.label}
+                          d={donutSlicePath(38, 38, 32, 20, start, end)}
+                          fill={item.color}
+                          opacity={sliceOpacity(item.label)}
+                          style={{ transition: "opacity 0.18s ease", cursor: "pointer" }}
+                          onMouseEnter={() => setHoveredTopic(item.label)}
+                          onMouseLeave={() => setHoveredTopic(null)}
+                        />
+                      )
+                    })
+                  })()}
+                </svg>
+                <div className="flex min-w-0 flex-1 flex-col gap-[4px]">
+                  {topicData.slice(0, 4).map((item) => {
+                    const isHov = hoveredTopic === item.label
+                    const isDim = hoveredTopic !== null && !isHov
+                    return (
+                      <div
+                        key={item.label}
+                        className="flex cursor-pointer items-center gap-1.5"
+                        style={{ transition: "opacity 0.18s ease", opacity: isDim ? 0.35 : 1 }}
+                        onMouseEnter={() => setHoveredTopic(item.label)}
+                        onMouseLeave={() => setHoveredTopic(null)}
+                      >
+                        <span className="h-[5px] w-[5px] shrink-0 rounded-full" style={{ background: item.color }} />
+                        <span className="min-w-0 flex-1 truncate text-[7px] transition-colors duration-150" style={{ color: isHov ? "rgba(255,255,255,0.75)" : "#5e6878" }}>
+                          {item.label}
+                        </span>
+                        <span className="shrink-0 text-[7px] transition-colors duration-150" style={{ color: isHov ? "rgba(255,255,255,0.60)" : "#4a5060" }}>
+                          {item.value}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Right column ──────────────────────────────────────────────────────── */}
-        <div className="flex w-[37%] flex-col gap-[6px] overflow-hidden">
-
-          {/* Topic Distribution (donut) ─────────────────────────────────────── */}
-          <div className="flex flex-1 flex-col overflow-hidden rounded-[5px] border border-[rgba(147,147,147,0.15)]">
-            <div className="flex items-start gap-1.5 border-b border-[rgba(147,147,147,0.10)] px-3 py-[7px]">
-              <Hash
-                className="mt-px shrink-0 text-[#555]"
-                style={{ width: "8px", height: "8px" }}
-                strokeWidth={1.5}
-              />
-              <div>
-                <p className="text-[8.5px] font-semibold text-white/75">Topic Distribution</p>
-                <p className="mt-[1px] text-[7px] text-[#555]">Top 8 themes across all sources</p>
-              </div>
-            </div>
-
-            {/* Donut SVG + legend */}
-            <div className="flex flex-1 items-center gap-3 overflow-hidden px-3 py-2">
-              {/* SVG donut — slices respond to hoveredTopic */}
-              <svg
-                viewBox="0 0 76 76"
-                className="h-[72px] w-[72px] shrink-0"
-                aria-hidden="true"
-              >
-                {(() => {
-                  let angle = -90
-                  const gap = 1.2
-                  return topicData.map((item) => {
-                    const span  = (item.value / DONUT_TOTAL) * 360
-                    const start = angle + gap / 2
-                    const end   = angle + span - gap / 2
-                    angle += span
-                    return (
-                      <path
-                        key={item.label}
-                        d={donutSlicePath(38, 38, 32, 20, start, end)}
-                        fill={item.color}
-                        opacity={sliceOpacity(item.label)}
-                        style={{ transition: "opacity 0.18s ease", cursor: "pointer" }}
-                        onMouseEnter={() => setHoveredTopic(item.label)}
-                        onMouseLeave={() => setHoveredTopic(null)}
-                      />
-                    )
-                  })
-                })()}
-              </svg>
-
-              {/* Legend — hovering a row syncs with the donut slice */}
-              <div className="flex min-w-0 flex-1 flex-col gap-[5px]">
-                {topicData.map((item) => {
-                  const isHov = hoveredTopic === item.label
-                  const isDim = hoveredTopic !== null && !isHov
-                  return (
-                    <div
-                      key={item.label}
-                      className="flex cursor-pointer items-center gap-1.5"
-                      style={{ transition: "opacity 0.18s ease", opacity: isDim ? 0.35 : 1 }}
-                      onMouseEnter={() => setHoveredTopic(item.label)}
-                      onMouseLeave={() => setHoveredTopic(null)}
-                    >
-                      <span
-                        className="h-[5px] w-[5px] shrink-0 rounded-full"
-                        style={{ background: item.color }}
-                      />
-                      <span
-                        className="min-w-0 flex-1 truncate text-[7px] transition-colors duration-150"
-                        style={{ color: isHov ? "rgba(255,255,255,0.75)" : "#5e6878" }}
-                      >
-                        {item.label}
-                      </span>
-                      <span
-                        className="shrink-0 text-[7px] transition-colors duration-150"
-                        style={{ color: isHov ? "rgba(255,255,255,0.60)" : "#4a5060" }}
-                      >
-                        {item.value}
-                      </span>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Pipeline Status ─────────────────────────────────────────────────── */}
+        <div className="flex min-w-0 flex-col gap-[7px] overflow-hidden">
+          {/* Pipeline Status */}
           <div className="rounded-[5px] border border-[rgba(147,147,147,0.15)] px-3 py-2.5">
             <p className="text-[8.5px] font-semibold text-white/75">Pipeline Status</p>
             <p className="mb-[8px] mt-[2px] text-[7px] text-[#555]">Source processing</p>
-            <div className="flex flex-col gap-[6px]">
-              {pipelineRows.map((row) => (
-                <div
-                  key={row.label}
-                  className="group flex cursor-default items-center gap-2"
-                >
-                  <span
-                    className="h-[6px] w-[6px] shrink-0 rounded-full transition-opacity duration-150"
-                    style={{ background: row.color, opacity: row.value === 0 ? 0.28 : 0.88 }}
-                  />
-                  <span className="flex-1 text-[7.5px] text-[#5e6878] transition-colors duration-150 group-hover:text-white/60">
-                    {row.label}
-                  </span>
-                  <span className="text-[7.5px] text-[#4a5060] transition-colors duration-150 group-hover:text-white/55">
-                    {row.value}
-                  </span>
-                </div>
-              ))}
-              {/* Total row */}
-              <div className="mt-[2px] flex items-center gap-2 border-t border-[rgba(147,147,147,0.10)] pt-[5px]">
-                <Mic
-                  className="shrink-0 text-[#555]"
-                  style={{ width: "7px", height: "7px" }}
-                  strokeWidth={1.5}
-                />
+            <div className="flex flex-col gap-[7px]">
+              {pipelineRows.map((row) => {
+                const StatusIcon = row.icon ?? Clock
+                return (
+                  <div key={row.label} className="group flex cursor-default items-center gap-2">
+                    <StatusIcon
+                      className="shrink-0 transition-opacity duration-150"
+                      style={{ width: "8px", height: "8px", color: row.color, opacity: row.value === 0 ? 0.35 : 0.88 }}
+                      strokeWidth={1.5}
+                    />
+                    <span className="flex-1 text-[7.5px] text-[#5e6878] transition-colors duration-150 group-hover:text-white/60">
+                      {row.label}
+                    </span>
+                    <span className="text-[7.5px] text-[#4a5060] transition-colors duration-150 group-hover:text-white/55">
+                      {row.value}
+                    </span>
+                  </div>
+                )
+              })}
+              <div className="mt-[2px] flex items-center gap-2 border-t border-[rgba(147,147,147,0.10)] pt-[6px]">
+                <BookOpen className="shrink-0 text-[#555]" style={{ width: "8px", height: "8px" }} strokeWidth={1.5} />
                 <span className="flex-1 text-[7.5px] font-medium text-[#5e6878]">Total</span>
                 <span className="text-[7.5px] font-semibold text-white/65">6</span>
               </div>
             </div>
           </div>
 
+          {/* Quick Actions */}
+          <div className="flex flex-1 flex-col overflow-hidden rounded-[5px] border border-[rgba(147,147,147,0.15)] px-3 py-2.5">
+            <p className="text-[8.5px] font-semibold text-white/75">Quick Actions</p>
+            <div className="mt-2 flex flex-1 flex-col gap-[6px]">
+              {quickActions.map((action, index) => {
+                const Icon = action.icon
+                return (
+                  <button
+                    key={action.label}
+                    className={`group flex flex-1 items-center gap-2 rounded-[5px] border px-2.5 text-left transition-all duration-150 ${
+                      index === 0
+                        ? "border-[rgba(147,147,147,0.20)] bg-white/[0.035] hover:bg-white/[0.06]"
+                        : "border-transparent hover:border-[rgba(147,147,147,0.18)] hover:bg-white/[0.025]"
+                    }`}
+                  >
+                    <div className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[4px] bg-white/[0.035]">
+                      <Icon className="text-white/45 transition-colors duration-150 group-hover:text-white/70" style={{ width: "9px", height: "9px" }} strokeWidth={1.5} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[7.8px] font-medium text-white/70 transition-colors duration-150 group-hover:text-white/90">
+                        {action.label}
+                      </p>
+                      {action.sub ? <p className="mt-[2px] truncate text-[6.8px] text-[#555]">{action.sub}</p> : null}
+                    </div>
+                    <ArrowUpRight className="shrink-0 text-white/18 transition-colors duration-150 group-hover:text-white/45" style={{ width: "7px", height: "7px" }} strokeWidth={1.5} />
+                  </button>
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </>
@@ -1003,7 +1055,7 @@ function DashboardPanel() {
 // ─── Mobile-optimised hero panel ─────────────────────────────────────────────
 // The full HeroDashboardPanel uses 7–10 px internal type and a fixed aspect
 // ratio — both unreadable below lg breakpoint. This component renders a clean,
-// single-view Intelligence panel at readable mobile scale, using the same design
+// single-view Knowledge panel at readable mobile scale, using the same design
 // tokens as the desktop panel.
 
 export function HeroDashboardPanelMobile() {
@@ -1037,7 +1089,7 @@ export function HeroDashboardPanelMobile() {
             className="text-[11px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Aksum · Intelligence
+            Aksum · Knowledge
           </span>
         </div>
         <div
@@ -1059,7 +1111,7 @@ export function HeroDashboardPanelMobile() {
         className="px-4 pb-3 pt-3.5"
         style={{ borderBottom: "1px solid rgba(147,147,147,0.08)" }}
       >
-        <p className="text-[12px] font-semibold text-white">Intelligence Library</p>
+        <p className="text-[12px] font-semibold text-white">Knowledge Library</p>
         <p className="mt-0.5 text-[10.5px] text-[#5e6878]">
           6 sources across active projects · 6 ready
         </p>
@@ -1113,13 +1165,13 @@ export function HeroDashboardPanelMobile() {
 }
 
 export function HeroDashboardPanel() {
-  const [activeNav, setActiveNav] = useState("Network Explorer")
+  const [activeNav, setActiveNav] = useState("Dashboard")
 
   const handleNavClick = (label: string) => {
     if (
       label === "Dashboard"        ||
       label === "Projects"         ||
-      label === "Intelligence"     ||
+      label === "Knowledge"        ||
       label === "Network Explorer"
     ) {
       setActiveNav(label)
@@ -1160,7 +1212,7 @@ export function HeroDashboardPanel() {
             className="text-[10px] font-medium uppercase tracking-[0.07em]"
             style={{ color: "rgba(255,255,255,0.28)" }}
           >
-            Aksum · Intelligence Platform
+            Aksum · Knowledge Platform
           </span>
         </div>
         {/* Status pill */}
@@ -1224,7 +1276,7 @@ export function HeroDashboardPanel() {
       >
         {activeNav === "Dashboard"     ? <DashboardPanel />
           : activeNav === "Projects"     ? <ProjectsPanel />
-          : activeNav === "Intelligence" ? <IntelligencePanel />
+          : activeNav === "Knowledge"    ? <KnowledgePanel />
           : <NetworkExplorerPanel />}
       </div>
 

@@ -207,11 +207,11 @@ The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` compo
 
 **Active nav state:**
 
-- Managed by `useState("Network Explorer")` in `HeroDashboardPanel`
+- Managed by `useState("Dashboard")` in `HeroDashboardPanel`
 - `handleNavClick` whitelists routable views — you must add a view's label string here to make it clickable
 - Conditional render chain (order matters — default falls through to `NetworkExplorerPanel`):
   ```
-  Dashboard → Projects → Intelligence → NetworkExplorer (default)
+  Dashboard → Projects → Knowledge → NetworkExplorer (fallback)
   ```
 
 **Currently implemented views:**
@@ -219,17 +219,17 @@ The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` compo
 
 | View             | Default | Component              | Nav label            |
 | ---------------- | ------- | ---------------------- | -------------------- |
-| Network Explorer | ✓       | `NetworkExplorerPanel` | `"Network Explorer"` |
-| Dashboard        | —       | `DashboardPanel`       | `"Dashboard"`        |
+| Dashboard        | ✓       | `DashboardPanel`       | `"Dashboard"`        |
 | Projects         | —       | `ProjectsPanel`        | `"Projects"`         |
-| Intelligence     | —       | `IntelligencePanel`    | `"Intelligence"`     |
+| Knowledge        | —       | `KnowledgePanel`       | `"Knowledge"`        |
+| Network Explorer | —       | `NetworkExplorerPanel` | `"Network Explorer"` |
 
 
 Copilot and Platform Administration are listed in the sidebar but are not yet routed (clicking them is inert).
 
 **The four views in detail:**
 
-**Network Explorer (default)**
+**Network Explorer**
 
 - Interactive SVG graph (viewBox `0 0 580 320`), 7 nodes, 7 edges
 - Controls row: project selector dropdown + 5 entity-type filter pills (Person, Company, Government, Organization, Event) + "Hide isolated" utility
@@ -239,13 +239,14 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 - Default selected node: `"manila"` (Manila Energy) — panel feels alive on first load
 - Filter pills are interactive: toggling a type hides those nodes/edges; deselects selected node if its type is toggled off
 
-**Dashboard**
+**Dashboard (default)**
 
-- 3 KPI cards: Projects (6), Sources (6 completed), Entities (34 mapped)
-- Bar chart: "Sources by Project" — horizontal CSS bars, 6 projects, max value 3
-- Donut chart: "Topic Distribution" — SVG arcs, 8 topics (energy, infrastructure, industrialization, logistics, gas, policy, risk, banking)
-- Pipeline Status card: Completed/Processing/Failed counts
-- Hover interactions: KPI cards lift on hover; bar rows brighten label+value+bar; donut slices sync with legend row hover (non-hovered slices dim to `0.18` opacity)
+- Header title: "Dashboard"; subtitle: "Snapshot · 6 May 2026 · 1 project · 6 sources"; action button: "Add Source"
+- 3 KPI cards: Projects (1), Knowledge (6; 4 completed · 0 processing), Entities (56; 15 relationships mapped)
+- Main left card: "Recent Knowledge" with 6 uploaded sources and Ready/Failed status pills
+- Bottom cards: "Knowledge by Project" horizontal bar chart + "Topic Distribution" donut chart
+- Right column: Pipeline Status (Completed 4 / Processing 0 / Failed 2 / Total 6) + Quick Actions (Add Source, Copilot, Network Explorer, New Project)
+- Dashboard is now the first impression of the hero panel; Network Explorer remains available via the sidebar.
 
 **Projects**
 
@@ -253,9 +254,9 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 - Cards: project name, region pill, description, location+updated footer
 - Projects: Nigeria, Algeria, Namibia, Angola, Panama, Oman, Qatar (all 2026)
 
-**Intelligence**
+**Knowledge**
 
-- Header title: "Intelligence Library"; subtitle frames it as a cross-project source library for uploaded audio, documents, and text-based intelligence
+- Header title: "Knowledge Library"; subtitle frames it as a cross-project source library for uploaded audio, documents, and text-based knowledge
 - Vertical list of 6 rows, `flex-1` distribution (equal height rows)
 - Each row: indigo-tinted mic icon container, person name (bold), source title · project (muted), duration with clock icon, "Ready" status (`#4ADE80`)
 - Action buttons in header: "View Projects" (ghost) + "Add Source" (elevated)
@@ -288,7 +289,7 @@ function MyViewPanel() {
               One-line description of this view.
             </p>
           </div>
-          {/* Optional: action buttons — see IntelligencePanel for pattern */}
+          {/* Optional: action buttons — see KnowledgePanel for pattern */}
         </div>
       </div>
 
@@ -447,7 +448,7 @@ The Lottie animation (`scene1.json`) has been replaced with `SalesIntelligencePa
 
 ### 9.6 ~~Hero panel mobile scaling~~ — RESOLVED
 
-`HeroDashboardPanelMobile` (`components/hero-dashboard-panel.tsx`) is shown on `< lg` breakpoints, hidden on `lg+`. It renders the Intelligence view at readable 12–13px font sizes with no aspect ratio constraint — full-width, auto height. The full `HeroDashboardPanel` remains on desktop only.
+`HeroDashboardPanelMobile` (`components/hero-dashboard-panel.tsx`) is shown on `< lg` breakpoints, hidden on `lg+`. It renders the Knowledge view at readable 12–13px font sizes with no aspect ratio constraint — full-width, auto height. The full `HeroDashboardPanel` remains on desktop only.
 
 ---
 
