@@ -14,6 +14,7 @@ import {
   ChevronLeft,
   ChevronDown,
   Mic,
+  FileText,
   Clock,
   Plus,
   TrendingUp,
@@ -700,12 +701,12 @@ const barData = [
 const BAR_MAX = 6
 
 const recentKnowledge = [
-  { id: "k1", name: "Angola 7",                                    project: "Angola", country: "Angola", date: "5 May 2026", status: "Ready"  },
-  { id: "k2", name: "Reunion Clara",                               project: "Angola", country: "Angola", date: "5 May 2026", status: "Ready"  },
-  { id: "k3", name: "Reunion Clara",                               project: "Angola", country: "Angola", date: "5 May 2026", status: "Failed" },
-  { id: "k4", name: "Reunión Clara - One World Media",             project: "Angola", country: "Angola", date: "4 May 2026", status: "Failed" },
-  { id: "k5", name: "Interview Angola",                            project: "Angola", country: "Angola", date: "1 May 2026", status: "Ready"  },
-  { id: "k6", name: "Interview Angola - Luis Filipe Rodrigues Lélis", project: "Angola", country: "Angola", date: "1 May 2026", status: "Ready"  },
+  { id: "k1", name: "Interview Angola - Luis Filipe Rodrigues Lélis", project: "Angola", sourceType: "Audio", date: "5 May 2026", status: "Ready"  },
+  { id: "k2", name: "Angola Energy Corridor - Executive Brief",        project: "Angola", sourceType: "PDF",   date: "5 May 2026", status: "Ready"  },
+  { id: "k3", name: "Lobito Corridor Stakeholder Notes",               project: "Angola", sourceType: "Text",  date: "4 May 2026", status: "Ready"  },
+  { id: "k4", name: "Interview Angola - Infrastructure Finance Lead",  project: "Angola", sourceType: "Audio", date: "3 May 2026", status: "Ready"  },
+  { id: "k5", name: "National Energy Expansion Plan 2026",             project: "Angola", sourceType: "PDF",   date: "2 May 2026", status: "Failed" },
+  { id: "k6", name: "Post-Meeting Commercial Priorities Summary",      project: "Angola", sourceType: "Text",  date: "1 May 2026", status: "Failed" },
 ]
 
 const topicData = [
@@ -842,6 +843,10 @@ function DashboardPanel() {
             <div className="flex flex-1 flex-col gap-[5px] overflow-hidden p-2.5">
               {recentKnowledge.map((item) => {
                 const isReady = item.status === "Ready"
+                const SourceIcon =
+                  item.sourceType === "Audio" ? Mic :
+                  item.sourceType === "PDF"   ? FileText :
+                  MessageSquare
                 return (
                   <div
                     key={item.id}
@@ -854,18 +859,18 @@ function DashboardPanel() {
                         borderColor: `${isReady ? "#4ADE80" : "#FB7185"}38`,
                       }}
                     >
-                      {isReady ? (
-                        <CheckCircle2 className="text-[#4ADE80]" style={{ width: "8px", height: "8px" }} strokeWidth={1.6} />
-                      ) : (
-                        <AlertCircle className="text-[#FB7185]" style={{ width: "8px", height: "8px" }} strokeWidth={1.6} />
-                      )}
+                      <SourceIcon
+                        className={isReady ? "text-[#4ADE80]" : "text-[#FB7185]"}
+                        style={{ width: "8px", height: "8px" }}
+                        strokeWidth={1.6}
+                      />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[8.5px] font-semibold leading-none text-white/85">{item.name}</p>
                       <p className="mt-[3px] truncate text-[7px] leading-none text-[#5e6878]">
                         {item.project}
                         <span className="mx-[5px] opacity-40">·</span>
-                        {item.country}
+                        {item.sourceType}
                         <span className="mx-[5px] opacity-40">·</span>
                         {item.date}
                       </p>

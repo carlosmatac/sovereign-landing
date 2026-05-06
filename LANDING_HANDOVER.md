@@ -258,9 +258,9 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 
 - Header title: "Knowledge Library"; subtitle frames it as a cross-project source library for uploaded audio, documents, and text-based knowledge
 - Vertical list of 6 rows, `flex-1` distribution (equal height rows)
-- Each row: indigo-tinted mic icon container, person name (bold), source title · project (muted), duration with clock icon, "Ready" status (`#4ADE80`)
+- Each row: indigo-tinted source icon container, professional source title (bold), project · source type · date metadata, and Ready/Failed status pill
 - Action buttons in header: "View Projects" (ghost) + "Add Source" (elevated)
-- Sources: Adrian Santos / María Gutierrez / Luis Ortega / Daniel Okafor / Sofia Benavides / Karim Haddad
+- Sources mix audio, PDF, and text-based knowledge. Example names: "Interview Angola - Luis Filipe Rodrigues Lélis", "Angola Energy Corridor - Executive Brief", "Lobito Corridor Stakeholder Notes", "National Energy Expansion Plan 2026".
 
 ---
 
