@@ -242,10 +242,10 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 **Dashboard (default)**
 
 - Header title: "Dashboard"; subtitle: "Snapshot · 6 May 2026 · 1 project · 6 sources"; action button: "Add Source"
-- 3 KPI cards: Projects (1), Knowledge (6; 4 completed · 0 processing), Entities (56; 15 relationships mapped)
-- Main left card: "Recent Knowledge" with 6 uploaded sources and Ready/Failed status pills
+- 3 KPI cards: Projects (1), Knowledge (6; 6 completed · 0 processing), Entities (56; 15 relationships mapped)
+- Main left card: "Recent Knowledge" with 6 uploaded sources, all shown as Ready
 - Bottom cards: "Knowledge by Project" horizontal bar chart + "Topic Distribution" donut chart
-- Right column: Pipeline Status (Completed 4 / Processing 0 / Failed 2 / Total 6) + Quick Actions (Add Source, Copilot, Network Explorer, New Project)
+- Right column: Pipeline Status (Completed 6 / Processing 0 / Failed 0 / Total 6) + Quick Actions (Add Source, Copilot, Network Explorer, New Project)
 - Dashboard is now the first impression of the hero panel; Network Explorer remains available via the sidebar.
 
 **Projects**
@@ -258,7 +258,7 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 
 - Header title: "Knowledge Library"; subtitle frames it as a cross-project source library for uploaded audio, documents, and text-based knowledge
 - Vertical list of 6 rows, `flex-1` distribution (equal height rows)
-- Each row: indigo-tinted source icon container, professional source title (bold), project · source type · date metadata, and Ready/Failed status pill
+- Each row: indigo-tinted source icon container, professional source title (bold), project · source type · date metadata, and Ready status pill
 - Action buttons in header: "View Projects" (ghost) + "Add Source" (elevated)
 - Sources mix audio, PDF, and text-based knowledge. Example names: "Interview Angola - Luis Filipe Rodrigues Lélis", "Angola Energy Corridor - Executive Brief", "Lobito Corridor Stakeholder Notes", "National Energy Expansion Plan 2026".
 

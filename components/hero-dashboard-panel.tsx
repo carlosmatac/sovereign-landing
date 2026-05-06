@@ -690,7 +690,7 @@ function NetworkExplorerPanel() {
 
 const kpiCards = [
   { label: "PROJECTS",  value: "1",  sub: "Active knowledge projects", icon: FolderOpen, color: "#5B9CF6" },
-  { label: "KNOWLEDGE", value: "6",  sub: "4 completed · 0 processing", icon: BookOpen,   color: "#A78BFA" },
+  { label: "KNOWLEDGE", value: "6",  sub: "6 completed · 0 processing", icon: BookOpen,   color: "#A78BFA" },
   { label: "ENTITIES",  value: "56", sub: "15 relationships mapped",    icon: Users,      color: "#FB923C" },
 ]
 
@@ -705,8 +705,8 @@ const recentKnowledge = [
   { id: "k2", name: "Angola Energy Corridor - Executive Brief",        project: "Angola", sourceType: "PDF",   date: "5 May 2026", status: "Ready"  },
   { id: "k3", name: "Lobito Corridor Stakeholder Notes",               project: "Angola", sourceType: "Text",  date: "4 May 2026", status: "Ready"  },
   { id: "k4", name: "Interview Angola - Infrastructure Finance Lead",  project: "Angola", sourceType: "Audio", date: "3 May 2026", status: "Ready"  },
-  { id: "k5", name: "National Energy Expansion Plan 2026",             project: "Angola", sourceType: "PDF",   date: "2 May 2026", status: "Failed" },
-  { id: "k6", name: "Post-Meeting Commercial Priorities Summary",      project: "Angola", sourceType: "Text",  date: "1 May 2026", status: "Failed" },
+  { id: "k5", name: "National Energy Expansion Plan 2026",             project: "Angola", sourceType: "PDF",   date: "2 May 2026", status: "Ready"  },
+  { id: "k6", name: "Post-Meeting Commercial Priorities Summary",      project: "Angola", sourceType: "Text",  date: "1 May 2026", status: "Ready"  },
 ]
 
 const topicData = [
@@ -723,9 +723,9 @@ const topicData = [
 const DONUT_TOTAL = topicData.reduce((s, d) => s + d.value, 0)
 
 const pipelineRows = [
-  { label: "Completed",  value: 4, color: "#4ADE80", icon: CheckCircle2 },
+  { label: "Completed",  value: 6, color: "#4ADE80", icon: CheckCircle2 },
   { label: "Processing", value: 0, color: "#60A5FA" },
-  { label: "Failed",     value: 2, color: "#FB7185", icon: AlertCircle },
+  { label: "Failed",     value: 0, color: "#FB7185", icon: AlertCircle },
 ]
 
 const quickActions = [
