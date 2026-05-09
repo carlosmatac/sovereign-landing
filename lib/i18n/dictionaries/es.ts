@@ -108,7 +108,8 @@ export const es: Dictionary = {
     nav: {
       contact: "Contacto",
       privacy: "Política de Privacidad",
-      terms: "Términos del Servicio",
+      cookies: "Política de Cookies",
+      terms: "Términos de Uso",
     },
   },
 
@@ -266,6 +267,25 @@ export const es: Dictionary = {
       "Para demos, alianzas, prensa o consultas generales, escríbenos directamente. Solemos responder en un día laborable.",
     requestDemo: "Solicitar demo",
     back: "← Volver a Aksum",
+  },
+
+  // ─── Páginas legales (markdown en /legal) ─────────────────────────────────
+  legal: {
+    privacyPolicy: {
+      metaTitle: "Política de Privacidad | Aksum",
+      metaDescription:
+        "Cómo Aksum recopila, utiliza, almacena y protege la información personal en el sitio web y la plataforma.",
+    },
+    cookies: {
+      metaTitle: "Política de Cookies | Aksum",
+      metaDescription:
+        "Cómo Aksum utiliza cookies y tecnologías similares en aksum.ai y la plataforma en navegador.",
+    },
+    termsOfUse: {
+      metaTitle: "Términos de Uso | Aksum",
+      metaDescription:
+        "Términos que regulan el acceso y uso del sitio web de Aksum, la plataforma y los servicios relacionados.",
+    },
   },
 
   // ─── Solicitar demo ────────────────────────────────────────────────────────
