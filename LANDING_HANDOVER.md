@@ -1,17 +1,17 @@
-# Sovereign — Landing Page Handover
+# Aksum — Landing Page Handover
 
-> This document is the single source of truth for any agent or collaborator working on the Sovereign landing page.  
+> This document is the single source of truth for any agent or collaborator working on the Aksum landing page.  
 > Read it in full before making any change to copy, structure, layout, or visual design.
 
 ---
 
 ## 1. What the Landing Is Trying to Communicate
 
-The landing page positions Sovereign as a modern intelligence company — one that helps organisations turn their internal information into commercial leverage: sharper sales conversations, better strategic decisions, and targeted outbound communication.
+The landing page positions Aksum as a modern intelligence company — one that helps organisations turn their internal information into commercial leverage: sharper sales conversations, better strategic decisions, and targeted outbound communication.
 
 A visitor should leave the page with a clear, immediate impression:
 
-> "Sovereign makes internal knowledge commercially useful."
+> "Aksum makes internal knowledge commercially useful."
 
 The landing feels like the front door of a premium B2B startup — not a product demo site, not a technical explainer, not a niche tool for a specific vertical. It is broad enough to resonate across different client profiles while remaining specific enough to convey genuine capability.
 
@@ -21,15 +21,15 @@ The emotional register is confidence, clarity, and restraint. The product is not
 
 ## 2. Brand and Positioning
 
-**Sovereign is an intelligence company.**
+**Aksum is an intelligence company.**
 
 It is not a transcription service. It is not an interview platform. It is not an AI middleware tool. It is not a product for one specific client.
 
-Sovereign is positioned at the intersection of three ideas:
+Aksum is positioned at the intersection of three ideas:
 
 - **Information as a strategic asset** — most organisations sit on more intelligence than they use
-- **AI as a commercial multiplier** — Sovereign unlocks the latent value in that information
-- **Speed and precision** — what would take teams weeks to synthesise, Sovereign surfaces in seconds
+- **AI as a commercial multiplier** — Aksum unlocks the latent value in that information
+- **Speed and precision** — what would take teams weeks to synthesise, Aksum surfaces in seconds
 
 The framing feels closer to companies like Palantir, Primer, or Diffbot — serious, outcome-oriented, commercially minded — rather than to chatbot builders or AI SaaS tools.
 
@@ -50,7 +50,7 @@ Variations of this message to inform copy iterations:
 - "Make what you already know work harder."
 - "From internal information to external results."
 
-The implicit promise is not that Sovereign is a smarter search engine or a better chatbot. The promise is that information that currently sits unused or underused — inside documents, conversations, reports, and institutional memory — can be activated for business outcomes.
+The implicit promise is not that Aksum is a smarter search engine or a better chatbot. The promise is that information that currently sits unused or underused — inside documents, conversations, reports, and institutional memory — can be activated for business outcomes.
 
 ---
 
@@ -72,7 +72,7 @@ The implicit promise is not that Sovereign is a smarter search engine or a bette
 
 ## 5. Narrative Pillars
 
-The landing organises Sovereign's capabilities across three areas. These are not rigid product SKUs — they are commercial frames that make Sovereign's value legible to different parts of a client organisation.
+The landing organises Aksum's capabilities across three areas. These are not rigid product SKUs — they are commercial frames that make Aksum's value legible to different parts of a client organisation.
 
 ### 5.1 Sales Intelligence
 
@@ -102,8 +102,8 @@ Turning processed intelligence into targeted outbound content — for sales outr
 **In copy and messaging:**
 
 - Do not lead with technology names (GraphRAG, embeddings, LLMs, vector search, etc.)
-- Do not frame Sovereign as a tool built for TBY or built around interview content specifically
-- Do not use language that positions Sovereign as a narrow vertical product
+- Do not frame Aksum as a tool built for TBY or built around interview content specifically
+- Do not use language that positions Aksum as a narrow vertical product
 - Do not over-explain the product — the landing is not a technical whitepaper
 - Do not use generic AI marketing language ("powerful", "intelligent", "revolutionary", "seamless")
 - Do not let the headline message be about the technology; it must be about the outcome
@@ -183,10 +183,10 @@ A centered, cinematic dark composition. Everything is centered vertically.
 
 **Copy block (centered, `max-w-3xl`):**
 
-- Sovereign logomark stamp (`sovereign_logo.svg`, 20% opacity)
+- Aksum logomark stamp (`sovereign_logo.svg`, 20% opacity)
 - Badge pill: *"Intelligence for the organisations that move markets"*
 - Headline: *"What your organisation knows, finally put to work."* (Playfair Display, 4xl–6xl)
-- Subheadline: *"Sovereign transforms internal knowledge into sales advantage, strategic clarity, and targeted communication — at the speed decisions actually need."*
+- Subheadline: *"Aksum transforms internal knowledge into sales advantage, strategic clarity, and targeted communication — at the speed decisions actually need."*
 - Two CTAs: **"Request Demo"** (primary — white fill on dark bg) and **"Explore the Platform"** (ghost/outline)
 
 **Dashboard panel (`HeroDashboardPanel`, `max-w-[1100px]`):**
@@ -207,11 +207,11 @@ The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` compo
 
 **Active nav state:**
 
-- Managed by `useState("Network Explorer")` in `HeroDashboardPanel`
+- Managed by `useState("Dashboard")` in `HeroDashboardPanel`
 - `handleNavClick` whitelists routable views — you must add a view's label string here to make it clickable
 - Conditional render chain (order matters — default falls through to `NetworkExplorerPanel`):
   ```
-  Dashboard → Projects → Interviews → NetworkExplorer (default)
+  Dashboard → Projects → Knowledge → NetworkExplorer (fallback)
   ```
 
 **Currently implemented views:**
@@ -219,17 +219,17 @@ The hero panel (`components/hero-dashboard-panel.tsx`) is a `"use client"` compo
 
 | View             | Default | Component              | Nav label            |
 | ---------------- | ------- | ---------------------- | -------------------- |
-| Network Explorer | ✓       | `NetworkExplorerPanel` | `"Network Explorer"` |
-| Dashboard        | —       | `DashboardPanel`       | `"Dashboard"`        |
+| Dashboard        | ✓       | `DashboardPanel`       | `"Dashboard"`        |
 | Projects         | —       | `ProjectsPanel`        | `"Projects"`         |
-| Interviews       | —       | `InterviewsPanel`      | `"Interviews"`       |
+| Knowledge        | —       | `KnowledgePanel`       | `"Knowledge"`        |
+| Network Explorer | —       | `NetworkExplorerPanel` | `"Network Explorer"` |
 
 
 Copilot and Platform Administration are listed in the sidebar but are not yet routed (clicking them is inert).
 
 **The four views in detail:**
 
-**Network Explorer (default)**
+**Network Explorer**
 
 - Interactive SVG graph (viewBox `0 0 580 320`), 7 nodes, 7 edges
 - Controls row: project selector dropdown + 5 entity-type filter pills (Person, Company, Government, Organization, Event) + "Hide isolated" utility
@@ -239,13 +239,14 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 - Default selected node: `"manila"` (Manila Energy) — panel feels alive on first load
 - Filter pills are interactive: toggling a type hides those nodes/edges; deselects selected node if its type is toggled off
 
-**Dashboard**
+**Dashboard (default)**
 
-- 3 KPI cards: Projects (6), Interviews (6 completed), Entities (34 mapped)
-- Bar chart: "Interviews by Project" — horizontal CSS bars, 6 projects, max value 3
-- Donut chart: "Topic Distribution" — SVG arcs, 8 topics (energy, infrastructure, industrialization, logistics, gas, policy, risk, banking)
-- Pipeline Status card: Completed/Processing/Failed counts
-- Hover interactions: KPI cards lift on hover; bar rows brighten label+value+bar; donut slices sync with legend row hover (non-hovered slices dim to `0.18` opacity)
+- Header title: "Dashboard"; subtitle: "Snapshot · 6 May 2026 · 1 project · 6 sources"; action button: "Add Source"
+- 3 KPI cards: Projects (1), Knowledge (6; 6 completed · 0 processing), Entities (56; 15 relationships mapped)
+- Main left card: "Recent Knowledge" with 6 uploaded sources, all shown as Ready
+- Bottom cards: "Knowledge by Project" horizontal bar chart + "Topic Distribution" donut chart
+- Right column: Pipeline Status (Completed 6 / Processing 0 / Failed 0 / Total 6) + Quick Actions (Add Source, Copilot, Network Explorer, New Project)
+- Dashboard is now the first impression of the hero panel; Network Explorer remains available via the sidebar.
 
 **Projects**
 
@@ -253,12 +254,13 @@ Copilot and Platform Administration are listed in the sidebar but are not yet ro
 - Cards: project name, region pill, description, location+updated footer
 - Projects: Nigeria, Algeria, Namibia, Angola, Panama, Oman, Qatar (all 2026)
 
-**Interviews**
+**Knowledge**
 
+- Header title: "Knowledge Library"; subtitle frames it as a cross-project source library for uploaded audio, documents, and text-based knowledge
 - Vertical list of 6 rows, `flex-1` distribution (equal height rows)
-- Each row: indigo-tinted mic icon container, person name (bold), interview title · project (muted), duration with clock icon, "Ready" status (`#4ADE80`)
-- Action buttons in header: "View Projects" (ghost) + "Upload Interview" (elevated)
-- Interviews: Adrian Santos / María Gutierrez / Luis Ortega / Daniel Okafor / Sofia Benavides / Karim Haddad
+- Each row: indigo-tinted source icon container, professional source title (bold), project · source type · date metadata, and Ready status pill
+- Action buttons in header: "View Projects" (ghost) + "Add Source" (elevated)
+- Sources mix audio, PDF, and text-based knowledge. Example names: "Interview Angola - Luis Filipe Rodrigues Lélis", "Angola Energy Corridor - Executive Brief", "Lobito Corridor Stakeholder Notes", "National Energy Expansion Plan 2026".
 
 ---
 
@@ -287,7 +289,7 @@ function MyViewPanel() {
               One-line description of this view.
             </p>
           </div>
-          {/* Optional: action buttons — see InterviewsPanel for pattern */}
+          {/* Optional: action buttons — see KnowledgePanel for pattern */}
         </div>
       </div>
 
@@ -382,7 +384,7 @@ Three pillar blocks. All use an **editorial two-column copy layout** above the d
 - Visual container: `mx-auto max-w-5xl`
 - Visual: `SalesIntelligenceComposition` (`components/sales-intelligence-panel.tsx`) — a **layered two-panel composition**:
   - **Background panel** (`InterviewDetailBackground`): fictional Manila Energy interview detail view. Positioned `absolute left-0`, `w-[62%]`, `opacity: 0.72`, **no blur of any kind**. `rounded-[17px]`, `border rgba(147,147,147,0.13)`. Shows chrome, header, audio bar, executive summary, topics, transcript excerpt, entities sidebar. Secondary hierarchy is achieved via lower opacity and positional layering — never with `filter: blur()`, `backdrop-blur`, or gradient veils.
-  - **Foreground panel** (`SalesIntelligencePanel`): dark Copilot-style chat, `lg:w-[43%]` right-aligned, **fixed height `h-[480px]`** with `overflow-y-auto` conversation area. Shows prior exchange ("Walk me through our South America accounts" → brief Sovereign response), then interactive Manila Energy query. Click send → 2.6s loading → three insight cards (scroll within fixed panel). Pure front-end.
+  - **Foreground panel** (`SalesIntelligencePanel`): dark Copilot-style chat, `lg:w-[43%]` right-aligned, **fixed height `h-[480px]`** with `overflow-y-auto` conversation area. Shows prior exchange ("Walk me through our South America accounts" → brief Aksum response), then interactive Manila Energy query. Click send → 2.6s loading → three insight cards (scroll within fixed panel). Pure front-end.
   - Left gradient fades the background panel's exposed left edge into the section bg.
 - Atmospheric glow: centered top radial
 
@@ -396,7 +398,7 @@ Three pillar blocks. All use an **editorial two-column copy layout** above the d
 
 - Visual container: `mx-auto max-w-5xl` (no fixed height — the composition controls its own height)
 - Visual: `MarketingActivationComposition` (`components/marketing-activation-showcase.tsx`) — a **two-column composition**:
-  - **Left (57%)**: `MarketingActivationShowcase` — dark Sovereign panel with traffic lights, "Sovereign · Output" label, tab strip (LinkedIn / Newsletter / Outreach / Brief), auto-rotating output cards every 4.5s, pauses on hover. Height: `h-[440px]` on mobile, `lg:h-full` on desktop.
+  - **Left (57%)**: `MarketingActivationShowcase` — dark Aksum panel with traffic lights, "Aksum · Output" label, tab strip (LinkedIn / Newsletter / Outreach / Brief), auto-rotating output cards every 4.5s, pauses on hover. Height: `h-[440px]` on mobile, `lg:h-full` on desktop.
   - **Right (flex-1)**: `/public/square(1).png` displayed full-bleed (`object-cover`) with a cinematic scrim (`linear-gradient to top`) and an editorial text block anchored at the bottom: headline *"Deploy authority where others only see uncertainty."* (serif, `text-[18px]`) + supporting paragraph. Height: `h-[300px]` on mobile, `lg:h-auto` on desktop.
 - On desktop the two columns share a `lg:h-[520px]` parent. On mobile they stack vertically.
 - Atmospheric glow: centered top radial
@@ -407,14 +409,14 @@ Dark-themed closing section. Background: `#060D1C` with grain overlay, dot grid,
 
 **Structure (top to bottom):**
 
-1. `**SovereignWordmark` band** — a full-width interactive horizontal band above the bridge image.
+1. `**AksumWordmark` band** — a full-width interactive horizontal band above the bridge image.
   - Contains a subtle aligned mesh grid (`SVG path`, `stroke-opacity: 0.12`) tiled at 24px.
-  - The lowercase word **"sovereign"** in Gabarito Bold, `clamp(52px, 9vw, 124px)`, centered.
+  - The lowercase word **"aksum"** in Gabarito Bold, `clamp(52px, 9vw, 124px)`, centered.
   - **Desktop (pointer device):** A `motion.div` "frosted veil" sits on top using `backdropFilter: blur(16px)` + `background: rgba(6,13,28,0.60)`. A spring-driven `mask-image` (radial gradient centered on cursor) locally removes the veil where the cursor is, revealing the sharp content beneath — "hidden signal behind glass" effect.
   - **Mobile / touch (`hover: none`):** The veil is skipped entirely; the wordmark is fully visible at `rgba(255,255,255,0.88)`.
   - The band breaks out of section `px-6` via `-mx-6` wrapper.
 2. **Bridge hero image** (`/bridge2.png`, `mx-auto max-w-6xl`) — main visual anchor. `rounded-2xl`, multi-layer box shadow. Subtle `whileHover` lift. Overlaid: logomark stamp (22% opacity), headline *"Ready to put your intelligence to work?"*, **"Request Demo" `<Button asChild>` → `<Link href="/request-demo">`**.
-3. `**<footer>` bar** (`max-w-5xl mx-auto`): © 2026 Sovereign Data · **Contact → `/contact`** · Privacy Policy · Terms of Service
+3. `**<footer>` bar** (`max-w-5xl mx-auto`): © 2026 Aksum Data · **Contact → `/contact`** · Privacy Policy · Terms of Service
 
 Top and bottom linear gradient fades blend the bridge image into the dark section bg.
 
@@ -446,7 +448,7 @@ The Lottie animation (`scene1.json`) has been replaced with `SalesIntelligencePa
 
 ### 9.6 ~~Hero panel mobile scaling~~ — RESOLVED
 
-`HeroDashboardPanelMobile` (`components/hero-dashboard-panel.tsx`) is shown on `< lg` breakpoints, hidden on `lg+`. It renders the Interviews view at readable 12–13px font sizes with no aspect ratio constraint — full-width, auto height. The full `HeroDashboardPanel` remains on desktop only.
+`HeroDashboardPanelMobile` (`components/hero-dashboard-panel.tsx`) is shown on `< lg` breakpoints, hidden on `lg+`. It renders the Knowledge view at readable 12–13px font sizes with no aspect ratio constraint — full-width, auto height. The full `HeroDashboardPanel` remains on desktop only.
 
 ---
 
@@ -491,7 +493,7 @@ Premium editorial page. Uses `<Header />`. Structure:
   - *Closing grid* (`lg:grid-cols-2`): Left — Pattern. Right — Purpose.
   - Each paragraph has a mini subheading: `text-[10px] uppercase tracking-[0.14em] opacity-20` (Instinct / Field / Shift / Pattern / Purpose).
 - **Founders section:** Team intro text above image, `draw-founders.png` with atmospheric CSS mask dissolve, names caption below.
-- No separate footer — just a slim two-link nav row (Back to Sovereign / Request a demo).
+- No separate footer — just a slim two-link nav row (Back to Aksum / Request a demo).
 
 ### 12.2 `/request-demo` — Demo Request
 
@@ -505,7 +507,7 @@ Full-page two-column form. No `<Header />` (focused conversion page).
 
 ### 12.3 `/contact`
 
-Minimal centered page. Uses `<Header />` (added April 2026). Structure: `<div min-h-screen>` → `<Header />` → fixed-position grain/dot textures (z-0) → centered content div (`pt-28 pb-20` to clear fixed header). Content: Sovereign landscape logo (opacity 0.45), eyebrow, serif headline "Get in touch.", hairline divider, supporting copy, `team@aksum.ai` mailto link, "Request a demo" outline button, back link.
+Minimal centered page. Uses `<Header />` (added April 2026). Structure: `<div min-h-screen>` → `<Header />` → fixed-position grain/dot textures (z-0) → centered content div (`pt-28 pb-20` to clear fixed header). Content: Aksum landscape logo (opacity 0.45), eyebrow, serif headline "Get in touch.", hairline divider, supporting copy, `team@aksum.ai` mailto link, "Request a demo" outline button, back link.
 
 **Critical:** Do NOT use `overflow-hidden` or `<main>` as the page root — this breaks the fixed header's dropdown stacking context and causes React hydration errors that blank out the entire site. Always use `<div>` as the page wrapper.
 
@@ -531,7 +533,7 @@ Product subpage. Uses `<Header />`. Route: `/product/capture`. Three-step editor
 
 **Messaging principles for this page:**
 
-- Frame the review workflow positively: Sovereign *preserves nuance* and *protects critical detail* — never "the AI makes mistakes"
+- Frame the review workflow positively: Aksum *preserves nuance* and *protects critical detail* — never "the AI makes mistakes"
 - No technical vocabulary: no ingestion, pipelines, entity resolution, retrieval, ASR
 - Audience: editors, researchers, commercially minded operators
 
@@ -542,7 +544,7 @@ Product subpage. Uses `<Header />`. Route: `/product/prepare`. Two-showcase edit
 **Structure (top to bottom):**
 
 1. **Hero** — breadcrumb (`Platform → Prepare & Sell`), icon badge (TrendingUp, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
-2. **Copilot showcase** — copy row + `PrepareSellCopilot` (`components/prepare-sell-copilot.tsx`): a tabbed, multi-section conversation panel with 5 sections (Sales Intelligence / Commercial Preparation / Account Context / Relationship Context / Meeting Preparation). Each section contains a user query and a multi-block Sovereign response — insight cards, signal cards (amber), warning cards (red), and source reference pills. Footer bar shows live entity/source/connection counts.
+2. **Copilot showcase** — copy row + `PrepareSellCopilot` (`components/prepare-sell-copilot.tsx`): a tabbed, multi-section conversation panel with 5 sections (Sales Intelligence / Commercial Preparation / Account Context / Relationship Context / Meeting Preparation). Each section contains a user query and a multi-block Aksum response — insight cards, signal cards (amber), warning cards (red), and source reference pills. Footer bar shows live entity/source/connection counts.
 3. **Copilot benefits grid** — 2×2 hairline-bordered grid, serif `h3` titles.
 4. **Network Explorer showcase** — copy row + `PrepareSellGraph` (`components/prepare-sell-graph.tsx`): a dense interactive SVG graph with 22 nodes and 28 edges. Node types: Person, Company, Government, Region, Document, Initiative. Click to select — connected nodes/edges at full opacity, unconnected fade. Detail card bottom-left. Filter pills per type. Legend strip at bottom.
 5. **Explanatory copy strip** — rounded card explaining that the graph is drawn from internal sources only.
@@ -574,7 +576,7 @@ Product subpage. Uses `<Header />`. Route: `/product/activate`. Two-showcase edi
 1. **Hero** — breadcrumb (`Platform → Activate & Publish`), icon badge (Megaphone, blue), serif headline, asymmetric `lg:grid-cols-[3fr_2fr]` copy block.
 2. **Output Panel showcase** — copy row + `ActivateOutputPanel` (`components/activate-output-panel.tsx`): a tabbed panel with 4 output formats (Newsletter / Board Brief / Investor Memo / Annual Review). Auto-rotates every 5s, pauses on hover. Progress bar in tab strip shows rotation timing. Footer strip shows source/entity counts.
 3. **Output benefits grid** — 2×2 hairline-bordered grid.
-4. **Report Surface showcase** — copy row + `ActivateReportSurface` (`components/activate-report-surface.tsx`): a large static document panel showing a full intelligence report (Executive Summary, coverage stats, Key Signals with source pills, Implications, Recommended Actions with priority badges, Appendix stub). Fades out at the bottom with a "Full report · 34 pages" hint. Sovereign geometric seal top-right.
+4. **Report Surface showcase** — copy row + `ActivateReportSurface` (`components/activate-report-surface.tsx`): a large static document panel showing a full intelligence report (Executive Summary, coverage stats, Key Signals with source pills, Implications, Recommended Actions with priority badges, Appendix stub). Fades out at the bottom with a "Full report · 34 pages" hint. Aksum geometric seal top-right.
 5. **Explanatory copy strip** — rounded card explaining the report is drawn from real internal sources.
 6. **Report benefits grid** — 2×2 hairline-bordered grid.
 7. **Closing statement grid** — 3-column stat/label/body grid.
@@ -584,7 +586,7 @@ Product subpage. Uses `<Header />`. Route: `/product/activate`. Two-showcase edi
 **Key components:**
 
 - `ActivateOutputPanel` — `"use client"`. 4 tabs: Newsletter (intelligence brief with signal callout), Board Brief (executive summary + key decisions + risk flags), Investor Memo (opportunity + why now + IRR/hold/anchor stats), Annual Review (synthesis intro + two numbered theme cards). Auto-rotate with animated progress bar. Source/entity footer.
-- `ActivateReportSurface` — Server Component (no `"use client"`). Full document layout: window chrome with "Confidential" + "Final Draft" badges, Sovereign geometric seal (SVG), title, executive summary, 4-column coverage stats grid, 3 key signals with source reference pills, implications list, recommended actions with colour-coded priority badges (Immediate/red, Short-term/amber, Strategic/blue), appendix stub. Bottom fade-out gradient + "Full report · 34 pages" hint.
+- `ActivateReportSurface` — Server Component (no `"use client"`). Full document layout: window chrome with "Confidential" + "Final Draft" badges, Aksum geometric seal (SVG), title, executive summary, 4-column coverage stats grid, 3 key signals with source reference pills, implications list, recommended actions with colour-coded priority badges (Immediate/red, Short-term/amber, Strategic/blue), appendix stub. Bottom fade-out gradient + "Full report · 34 pages" hint.
 
 **Messaging principles for this page:**
 

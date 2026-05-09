@@ -106,7 +106,8 @@ export const en = {
     nav: {
       contact: "Contact",
       privacy: "Privacy Policy",
-      terms: "Terms of Service",
+      cookies: "Cookie Policy",
+      terms: "Terms of Use",
     },
   },
 
@@ -266,6 +267,25 @@ export const en = {
       "For demos, partnerships, press, or general enquiries.",
     requestDemo: "Request a demo",
     back: "← Back to Aksum",
+  },
+
+  // ─── Legal pages (markdown under /legal) ───────────────────────────────────
+  legal: {
+    privacyPolicy: {
+      metaTitle: "Privacy Policy | Aksum",
+      metaDescription:
+        "How Aksum collects, uses, stores, and protects personal information across the website and platform.",
+    },
+    cookies: {
+      metaTitle: "Cookie Policy | Aksum",
+      metaDescription:
+        "How Aksum uses cookies and similar technologies on aksum.ai and the browser-based platform.",
+    },
+    termsOfUse: {
+      metaTitle: "Terms of Use | Aksum",
+      metaDescription:
+        "Terms governing access to and use of the Aksum website, platform, and related services.",
+    },
   },
 
   // ─── Request a demo ────────────────────────────────────────────────────────

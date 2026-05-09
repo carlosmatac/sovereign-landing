@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
+import { SiteFooterBar } from "@/components/site-footer-bar"
 import { useT } from "@/lib/i18n/locale-context"
 
 // Film grain — consistent across all dark sections
@@ -131,43 +132,7 @@ export function CTAFooter() {
         </div>
       </div>
 
-      {/* Footer row — copyright + nav. Preserved as-is. ---------------------- */}
-      <div className="relative px-6">
-        <footer className="mx-auto flex max-w-5xl flex-col items-center gap-6 border-t border-white/[0.07] pb-8 pt-7 md:flex-row md:justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/aksum_white.svg"
-              alt="Aksum"
-              width={24}
-              height={24}
-              className="opacity-[0.18]"
-            />
-            <p className="text-sm tracking-[-0.011em] text-white/35">
-              {t.ctaFooter.copyright}
-            </p>
-          </div>
-          <nav className="flex items-center gap-6">
-            <Link
-              href="/contact"
-              className="text-sm tracking-[-0.011em] text-white/35 transition-colors hover:text-white/65"
-            >
-              {t.ctaFooter.nav.contact}
-            </Link>
-            <Link
-              href="#"
-              className="text-sm tracking-[-0.011em] text-white/35 transition-colors hover:text-white/65"
-            >
-              {t.ctaFooter.nav.privacy}
-            </Link>
-            <Link
-              href="#"
-              className="text-sm tracking-[-0.011em] text-white/35 transition-colors hover:text-white/65"
-            >
-              {t.ctaFooter.nav.terms}
-            </Link>
-          </nav>
-        </footer>
-      </div>
+      <SiteFooterBar />
     </section>
   )
 }
