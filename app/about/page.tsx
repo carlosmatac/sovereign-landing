@@ -101,19 +101,14 @@ export default async function AboutPage() {
                 </p>
               </div>
 
-              {/* Right — code-generated AK line-cut. No card, no border,
-                  no panel: the SVG sits flush on the section background so
-                  the monogram reads as if it were etched directly into the
-                  page. The wrapper aspect (≈ 1.75:1) matches the AK's
-                  bounding box so the glyphs fill the box edge-to-edge and
-                  align vertically with the headline on the left. The
-                  small top translate nudges the centre of the wordmark to
-                  the optical centre of the headline block. */}
+              {/* Right — code-generated AK line-cut (clip from raster mask
+                  derived from the artwork in public/ak.svg). Wrapper aspect
+                  matches the viewBox (~867×569 in 1440 space). */}
               <div
                 className="hidden self-center lg:block"
                 style={{
                   width: "520px",
-                  height: "300px",
+                  height: "341px",
                   flexShrink: 0,
                   transform: "translateY(8px)",
                 }}
@@ -186,17 +181,31 @@ export default async function AboutPage() {
             </div>
 
             {/* ── Editorial image break ──────────────────────────────────── */}
-            {/* The signal artwork is its own composition; no scrim, vignette,
-                hover transform, or text overlay sits on top of it. */}
+            {/* Signal banner headline — tune sizes in clamp() on the two spans
+                below: clamp(min, preferred-vw, max). Vertical: `top-[..%]` on <p>. */}
             <div className="relative -mx-0 mt-16 sm:-mx-4 md:mt-20">
               <Image
                 src="/signal.png"
                 alt={a.imageAlt}
                 width={2048}
                 height={880}
-                className="h-auto w-full"
+                className="block h-auto w-full"
                 priority={false}
               />
+              <p
+                className="pointer-events-none absolute left-1/2 top-[56%] w-[90%] max-w-xl -translate-x-1/2 text-center font-serif font-normal tracking-[-0.032em] text-white sm:top-[55%] md:top-[54%]"
+                style={{
+                  textShadow:
+                    "0 1px 2px rgba(0,0,0,0.35), 0 0 20px rgba(0,0,0,0.2)",
+                }}
+              >
+                <span className="block text-[clamp(1.25rem,3.2vw,2.1rem)] leading-[1.08]">
+                  {a.signalBanner.line1}
+                </span>
+                <span className="mt-[0.3em] block text-[clamp(1.25rem,3.2vw,2.1rem)] leading-[1.05]">
+                  {a.signalBanner.line2}
+                </span>
+              </p>
             </div>
 
             {/* ── Closing columns: Pattern | Purpose ──────────────────────── */}

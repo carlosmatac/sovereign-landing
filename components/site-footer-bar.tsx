@@ -12,7 +12,7 @@ export function SiteFooterBar() {
       <footer className="mx-auto flex max-w-5xl flex-col items-center gap-6 border-t border-white/[0.07] pb-8 pt-7 md:flex-row md:justify-between">
         <div className="flex items-center gap-3">
           <Image
-            src="/aksum_white.svg"
+            src="/ak.svg"
             alt="Aksum"
             width={24}
             height={24}

@@ -46,7 +46,7 @@ export default async function RequestDemoPage() {
               style={{ color: "rgba(255,255,255,0.30)" }}
             >
               <Image
-                src="/aksum_white_long.svg"
+                src="/aksum.svg"
                 alt="Aksum"
                 width={110}
                 height={28}

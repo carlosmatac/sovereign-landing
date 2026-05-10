@@ -387,17 +387,7 @@ export function MarketingActivationComposition() {
           sizes="(min-width: 1024px) 40vw, 100vw"
         />
 
-        {/* Cinematic scrim — preserves image drama, enables text legibility at bottom */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(4,9,20,0.97) 0%, rgba(4,9,20,0.78) 32%, rgba(4,9,20,0.22) 62%, transparent 100%)",
-          }}
-        />
-
-        {/* Editorial statement — anchored to the image base */}
+        {/* Bottom content — no gradient scrim over the artwork so the PNG stays clean */}
         <div className="absolute bottom-0 left-0 right-0 px-6 pb-7">
           <div
             className="mb-4 h-px w-10"
@@ -405,13 +395,21 @@ export function MarketingActivationComposition() {
           />
           <p
             className="mb-3 font-serif text-[18px] font-normal leading-snug tracking-[-0.020em]"
-            style={{ color: "rgba(255,255,255,0.90)" }}
+            style={{
+              color: "rgba(255,255,255,0.92)",
+              textShadow:
+                "0 1px 2px rgba(0,0,0,0.65), 0 0 24px rgba(4,9,20,0.9)",
+            }}
           >
             Deploy authority where others only see uncertainty.
           </p>
           <p
             className="text-[12px] leading-[1.72] tracking-[-0.010em]"
-            style={{ color: "rgba(255,255,255,0.46)" }}
+            style={{
+              color: "rgba(255,255,255,0.52)",
+              textShadow:
+                "0 1px 2px rgba(0,0,0,0.55), 0 0 18px rgba(4,9,20,0.85)",
+            }}
           >
             Aksum doesn&apos;t just extract data; it builds an authority layer for strategic
             communication. We turn fragmented frontier-market signals into high-fidelity outbound

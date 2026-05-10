@@ -58,7 +58,7 @@ export default async function ContactPage() {
           {/* Logo */}
           <Link href="/" className="mb-14 inline-flex items-center justify-center">
             <Image
-              src="/aksum_white_long.svg"
+              src="/aksum.svg"
               alt="Aksum"
               width={120}
               height={30}

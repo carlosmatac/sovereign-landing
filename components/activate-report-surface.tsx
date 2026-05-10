@@ -119,7 +119,7 @@ export function ActivateReportSurface() {
           </div>
           {/* Aksum branded mark */}
           <Image
-            src="/aksum_white.svg"
+            src="/ak.svg"
             alt="Aksum"
             width={36}
             height={36}

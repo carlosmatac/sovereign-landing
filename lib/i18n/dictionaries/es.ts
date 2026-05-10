@@ -245,7 +245,10 @@ export const es: Dictionary = {
           "Eso es lo que estamos construyendo. Aksum transforma la información interna fragmentada en una capa utilizable de inteligencia, ayudando a los equipos a vender con más contexto, comunicar con más autoridad y decidir con mucha mayor claridad.",
       },
     },
-    imageQuote: "La señal siempre estuvo ahí.",
+    signalBanner: {
+      line1: "La señal",
+      line2: "siempre estuvo ahí.",
+    },
     imageAlt: "Un puerto complejo al anochecer: el tipo de entorno donde nació Aksum",
     founders: {
       bodyMuted:

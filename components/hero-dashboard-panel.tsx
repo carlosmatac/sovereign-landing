@@ -1245,7 +1245,7 @@ export function HeroDashboardPanel() {
       >
         <div className="flex items-center justify-between">
           <Image
-            src="/aksum_white_long.svg"
+            src="/aksum.svg"
             alt="Aksum"
             width={79}
             height={20}

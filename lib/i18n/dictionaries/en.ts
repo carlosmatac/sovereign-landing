@@ -245,7 +245,11 @@ export const en = {
           "That is what we are building. Aksum transforms fragmented internal information into a usable layer of intelligence, helping teams sell with more context, communicate with more authority, and make decisions with far greater clarity.",
       },
     },
-    imageQuote: "The signal was always there.",
+    /** Two lines as in the signal artwork — typeset in HTML over the image. */
+    signalBanner: {
+      line1: "The signal was",
+      line2: "always there",
+    },
     imageAlt: "A complex port at dusk: the kind of environment where Aksum was born",
     founders: {
       bodyMuted:
