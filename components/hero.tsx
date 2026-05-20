@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { useT } from "@/lib/i18n/locale-context"
 import { RequestDemoButton } from "@/components/request-demo-button"
 import { HeroKnowledgeGraph } from "@/components/hero-knowledge-graph"
@@ -20,23 +19,24 @@ export function Hero() {
             <span
               className="inline-flex items-center rounded-full border px-4 py-1.5 text-[13px] tracking-[-0.01em]"
               style={{
-                borderColor: "rgba(255,255,255,0.28)",
-                color: "rgba(255,255,255,0.88)",
-                backgroundColor: "rgba(255,255,255,0.12)",
+                borderColor: "var(--mkt-border-strong)",
+                color: "var(--mkt-text-muted)",
+                backgroundColor: "rgba(255,255,255,0.45)",
               }}
             >
               {t.hero.badge}
             </span>
 
             <h1
-              className="mt-6 text-balance font-serif text-4xl font-normal tracking-[-0.025em] text-white md:text-5xl lg:text-[56px] lg:leading-[1.08]"
+              className="mt-6 text-balance font-serif text-4xl font-normal tracking-[-0.025em] md:text-5xl lg:text-[56px] lg:leading-[1.08]"
+              style={{ color: "var(--mkt-text)" }}
             >
               {t.hero.headline}
             </h1>
 
             <p
               className="mt-6 max-w-lg text-pretty text-base leading-relaxed tracking-[-0.011em] md:text-lg"
-              style={{ color: "rgba(255,255,255,0.78)" }}
+              style={{ color: "var(--mkt-text-muted)" }}
             >
               {t.hero.subheadline}
             </p>
