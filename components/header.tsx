@@ -137,35 +137,21 @@ export function Header() {
   const integratedHero = overHero && !mobileOpen
   const detached = scrolled && !mobileOpen && !overHero
 
-  const navMuted = integratedHero
-    ? "rgba(255,255,255,0.78)"
-    : "var(--mkt-text-muted)"
-  const navHoverClass = integratedHero
-    ? "hover:text-white"
-    : "hover:text-[var(--mkt-text)]"
-  const iconColor = integratedHero ? "rgba(255,255,255,0.88)" : "var(--mkt-text)"
-  const logoFilter = integratedHero ? "none" : "brightness(0) saturate(100%)"
-  const menuHoverBg = integratedHero
-    ? "rgba(255,255,255,0.12)"
-    : "var(--mkt-band)"
+  const navMuted = "var(--mkt-text-muted)"
+  const navHoverClass = "hover:text-[var(--mkt-text)]"
+  const iconColor = "var(--mkt-text)"
+  const logoFilter = "brightness(0) saturate(100%)"
+  const menuHoverBg = "var(--mkt-band)"
 
-  const barBackground = integratedHero
-    ? "var(--mkt-hero-band)"
-    : detached
-      ? "rgba(255,255,255,0.94)"
-      : "rgba(255,255,255,0.90)"
+  const barBackground = "#ffffff"
 
-  const barBorder = integratedHero
-    ? "transparent"
-    : detached
-      ? "var(--mkt-border-strong)"
-      : "var(--mkt-border)"
+  const barBorder = detached
+    ? "var(--mkt-border-strong)"
+    : "var(--mkt-border)"
 
-  const barShadow = integratedHero
-    ? "none"
-    : detached
-      ? "0 4px 24px -4px rgba(26,26,46,0.08), 0 1px 3px rgba(26,26,46,0.04)"
-      : "none"
+  const barShadow = detached
+    ? "0 4px 24px -4px rgba(26,26,46,0.08), 0 1px 3px rgba(26,26,46,0.04)"
+    : "none"
 
   return (
     <>
@@ -274,7 +260,7 @@ export function Header() {
 
               <DropdownMenu>
                 <DropdownMenuTrigger
-                  className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] outline-none transition-colors ${navHoverClass} ${integratedHero ? "data-[state=open]:text-white" : "data-[state=open]:text-[var(--mkt-text)]"}`}
+                  className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] outline-none transition-colors ${navHoverClass} data-[state=open]:text-[var(--mkt-text)]`}
                   style={{
                     color: navMuted,
                     transition: `color ${HEADER_DURATION} ${HEADER_EASE}`,
@@ -314,7 +300,7 @@ export function Header() {
               <div className="hidden md:flex">
                 <LanguageSwitcher
                   size="compact"
-                  variant={integratedHero ? "hero" : "light"}
+                  variant="light"
                 />
               </div>
 

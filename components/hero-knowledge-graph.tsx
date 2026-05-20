@@ -455,8 +455,8 @@ export function HeroKnowledgeGraph() {
 
   return (
     <HoveredEdgeContext.Provider value={hoveredEdgeId}>
-      <div className="hero-knowledge-graph relative mx-auto w-full max-w-[620px] lg:max-w-none lg:w-[108%] lg:max-w-[680px]">
-        <div className="relative h-[400px] sm:h-[440px] md:h-[480px] lg:h-[520px]">
+      <div className="hero-knowledge-graph relative mx-auto w-full max-w-[680px] origin-center scale-[1.05] sm:scale-110 lg:mx-0 lg:w-full lg:max-w-[760px] lg:scale-[1.15] xl:max-w-[820px] xl:scale-[1.2]">
+        <div className="relative h-[440px] sm:h-[480px] md:h-[520px] lg:h-[580px] xl:h-[620px]">
           <ReactFlow
             nodes={nodes}
             edges={edges}

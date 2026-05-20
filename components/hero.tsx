@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useT } from "@/lib/i18n/locale-context"
 import { RequestDemoButton } from "@/components/request-demo-button"
 import { HeroKnowledgeGraph } from "@/components/hero-knowledge-graph"
@@ -10,44 +11,57 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden"
-      style={{ backgroundColor: "var(--mkt-hero-band)" }}
+      className="overflow-x-hidden pb-12 pt-16 md:pb-16 lg:pb-20"
+      style={{ backgroundColor: "var(--mkt-bg)" }}
     >
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-28 md:pb-24 md:pt-32 lg:pb-28 lg:pt-36">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <span
-              className="inline-flex items-center rounded-full border px-4 py-1.5 text-[13px] tracking-[-0.01em]"
-              style={{
-                borderColor: "var(--mkt-border-strong)",
-                color: "var(--mkt-text-muted)",
-                backgroundColor: "rgba(255,255,255,0.45)",
-              }}
-            >
-              {t.hero.badge}
-            </span>
+      <div className="relative left-1/2 -mt-16 w-screen min-h-[640px] -translate-x-1/2 overflow-hidden md:min-h-[760px] lg:min-h-[880px] xl:min-h-[960px]">
+        <Image
+          src="/hero.png"
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
 
-            <h1
-              className="mt-6 text-balance font-serif text-4xl font-normal tracking-[-0.025em] md:text-5xl lg:text-[56px] lg:leading-[1.08]"
-              style={{ color: "var(--mkt-text)" }}
-            >
-              {t.hero.headline}
-            </h1>
+        <div className="relative z-10 flex min-h-[inherit] items-center px-6 pb-12 pt-16 sm:px-10 md:px-14 md:pb-16 lg:px-20 lg:pb-20 xl:px-24">
+          <div className="grid w-full grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-12 xl:gap-20">
+            <div className="mx-auto w-full max-w-2xl lg:max-w-none lg:justify-self-center lg:pl-8 xl:pl-16 2xl:pl-24">
+              <span
+                className="inline-flex items-center rounded-full border px-5 py-2 text-[14px] tracking-[-0.01em]"
+                style={{
+                  borderColor: "rgba(255,255,255,0.55)",
+                  color: "var(--mkt-text)",
+                  backgroundColor: "rgba(255,255,255,0.72)",
+                }}
+              >
+                {t.hero.badge}
+              </span>
 
-            <p
-              className="mt-6 max-w-lg text-pretty text-base leading-relaxed tracking-[-0.011em] md:text-lg"
-              style={{ color: "var(--mkt-text-muted)" }}
-            >
-              {t.hero.subheadline}
-            </p>
+              <h1
+                className="mt-7 text-balance font-serif text-[2.75rem] font-normal leading-[1.08] tracking-[-0.025em] sm:text-5xl md:text-6xl lg:text-[4.25rem] xl:text-[4.75rem] xl:leading-[1.06]"
+                style={{ color: "var(--mkt-text)" }}
+              >
+                {t.hero.headline}
+              </h1>
 
-            <div className="mt-8">
-              <RequestDemoButton>{t.hero.primaryCta}</RequestDemoButton>
+              <p
+                className="mt-7 max-w-xl text-pretty text-lg leading-relaxed tracking-[-0.011em] md:text-xl md:leading-[1.65] lg:max-w-2xl"
+                style={{ color: "rgba(26, 26, 46, 0.88)" }}
+              >
+                {t.hero.subheadline}
+              </p>
+
+              <div className="mt-10">
+                <RequestDemoButton className="h-12 px-8 text-[15px]">
+                  {t.hero.primaryCta}
+                </RequestDemoButton>
+              </div>
             </div>
-          </div>
 
-          <div className="relative flex items-center justify-center lg:justify-end lg:overflow-visible">
-            <HeroKnowledgeGraph />
+            <div className="relative flex items-center justify-center lg:justify-end lg:overflow-visible">
+              <HeroKnowledgeGraph />
+            </div>
           </div>
         </div>
       </div>
