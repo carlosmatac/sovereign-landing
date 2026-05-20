@@ -68,7 +68,7 @@ export const en = {
     badge: "Internal knowledge platform",
     headline: "What your organisation knows, finally put to work.",
     subheadline:
-      "Aksum turns interviews, documents, and conversations into reusable internal knowledge — connected, searchable, and ready when your team needs it.",
+      "Aksum transforms internal knowledge into sales advantage, strategic clarity, and targeted communication, at the speed decisions actually need.",
     primaryCta: "Request Demo",
   },
 
@@ -77,7 +77,7 @@ export const en = {
     eyebrow: "Connect your tools",
     headline: "Works with the tools your team already uses",
     description:
-      "Bring CRM, email, documents, and collaboration tools into one knowledge layer — without replacing what already works.",
+      "Designed to fit the commercial and operational stack your team already runs on (CRM, email, calendar, documents, and collaboration), brought into one intelligence layer.",
   },
 
   // ─── Homepage product pillars ──────────────────────────────────────────────
@@ -98,7 +98,7 @@ export const en = {
       prepare: {
         label: "Prepare & Sell",
         description:
-          "Walk into every conversation with the full context — account history, relationships, and prior insights.",
+          "Walk into every meeting with the full picture. Account history, prior conversations, relationship context, and open commitments, all surfaced before the call starts. Aksum gives commercial teams the preparation layer that turns meetings from introductions into advances.",
         bullets: [
           "Account and relationship history at a glance",
           "Briefings ready before the meeting",
@@ -108,7 +108,7 @@ export const en = {
       activate: {
         label: "Activate & Publish",
         description:
-          "Turn internal knowledge into outbound content — reports, newsletters, and stakeholder communications.",
+          "The most credible outbound communication is grounded in what an organisation actually knows, not assembled from public sources at the last minute. Aksum turns internal intelligence into newsletters, briefings, and stakeholder content that carries real weight because it comes from real context.",
         bullets: [
           "Draft reports and briefings from your knowledge",
           "Targeted content for the right audience",
@@ -133,7 +133,7 @@ export const en = {
     eyebrow: "Knowledge Graph",
     headline: "See how everything connects",
     description:
-      "Aksum maps people, companies, documents, and topics into a living graph — so relationships and context are always visible.",
+      "Aksum identifies patterns, emerging themes, and underserved opportunities across your internal information, turning information overload into strategic clarity.",
   },
 
   // ─── Operating model slogan ──────────────────────────────────────────────────
@@ -150,7 +150,7 @@ export const en = {
       },
       {
         label: "Retrieve",
-        description: "Find the right insight in seconds — not hours of searching.",
+        description: "Find the right insight in seconds, not hours of searching.",
       },
       {
         label: "Activate",

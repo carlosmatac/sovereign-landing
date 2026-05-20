@@ -18,7 +18,6 @@ const SCROLL_UP_THRESHOLD = 8
 const HEADER_HEIGHT = 64
 
 const SCROLL_TRANSITION = [
-  `max-width 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
   `height 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
   `border-radius 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
   `border-color 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
@@ -171,18 +170,14 @@ export function Header() {
   return (
     <>
       <header
-        className="fixed inset-x-0 top-0 z-50"
+        className={`fixed inset-x-0 top-0 z-50${detached ? " px-3 pt-2.5 sm:px-4 lg:px-5 xl:px-6" : ""}`}
         style={{
-          paddingTop: detached ? "10px" : "0px",
-          paddingLeft: detached ? "12px" : "0px",
-          paddingRight: detached ? "12px" : "0px",
           transition: `padding ${HEADER_DURATION} ${HEADER_EASE}`,
         }}
       >
         <div
-          className="relative mx-auto"
+          className="relative w-full"
           style={{
-            maxWidth: detached ? "1480px" : "100%",
             height: detached ? "56px" : "64px",
             borderRadius: detached ? "14px" : "0px",
             border: integratedHero ? "none" : `1px solid ${barBorder}`,

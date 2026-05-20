@@ -21,7 +21,7 @@ const gabarito = Gabarito({
 
 export const metadata: Metadata = {
   title: 'Aksum | Internal Knowledge Platform',
-  description: 'Aksum turns interviews, documents, and conversations into reusable internal knowledge — connected, searchable, and ready for your team.',
+  description: 'Aksum transforms internal knowledge into sales advantage, strategic clarity, and targeted communication, at the speed decisions actually need.',
   generator: 'v0.app',
   // Icons are handled by the Next.js app-router file convention via
   // `app/icon.svg` — that gives us a content-fingerprinted URL which forces
