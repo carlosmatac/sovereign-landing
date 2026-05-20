@@ -20,6 +20,10 @@ export const en = {
   header: {
     nav: {
       product: "Product",
+      features: "Features",
+      connect: "Connect",
+      knowledgeGraph: "Knowledge Graph",
+      faq: "FAQ",
       whoItsBuiltFor: "Who it's built for",
       about: "About",
     },
@@ -61,19 +65,151 @@ export const en = {
 
   // ─── Hero ──────────────────────────────────────────────────────────────────
   hero: {
-    badge: "Intelligence for the organisations that move markets",
+    badge: "Internal knowledge platform",
     headline: "What your organisation knows, finally put to work.",
     subheadline:
-      "Aksum transforms internal knowledge into sales advantage, strategic clarity, and targeted communication, at the speed decisions actually need.",
+      "Aksum turns interviews, documents, and conversations into reusable internal knowledge — connected, searchable, and ready when your team needs it.",
     primaryCta: "Request Demo",
   },
 
   // ─── Integrations band ─────────────────────────────────────────────────────
   integrations: {
-    eyebrow: "Platform compatibility",
-    headline: "Connect with the tools your team already uses",
+    eyebrow: "Connect your tools",
+    headline: "Works with the tools your team already uses",
     description:
-      "Designed to fit the commercial and operational stack your team already runs on (CRM, email, calendar, documents, and collaboration), brought into one intelligence layer.",
+      "Bring CRM, email, documents, and collaboration tools into one knowledge layer — without replacing what already works.",
+  },
+
+  // ─── Homepage product pillars ──────────────────────────────────────────────
+  homepagePillars: {
+    eyebrow: "Platform capabilities",
+    headline: "Four ways Aksum puts knowledge to work",
+    pillars: {
+      capture: {
+        label: "Capture & Organise",
+        description:
+          "Turn meetings, reports, and conversations into structured knowledge your team can trust.",
+        bullets: [
+          "Upload interviews, documents, and notes",
+          "Automatic structuring with human review",
+          "One searchable knowledge base",
+        ],
+      },
+      prepare: {
+        label: "Prepare & Sell",
+        description:
+          "Walk into every conversation with the full context — account history, relationships, and prior insights.",
+        bullets: [
+          "Account and relationship history at a glance",
+          "Briefings ready before the meeting",
+          "Commercial context without digging through files",
+        ],
+      },
+      activate: {
+        label: "Activate & Publish",
+        description:
+          "Turn internal knowledge into outbound content — reports, newsletters, and stakeholder communications.",
+        bullets: [
+          "Draft reports and briefings from your knowledge",
+          "Targeted content for the right audience",
+          "Consistent messaging across teams",
+        ],
+      },
+      connect: {
+        label: "Connect Your Workflow",
+        description:
+          "Integrate with the CRM, email, and collaboration tools your team already relies on.",
+        bullets: [
+          "CRM and email sync",
+          "Calendar and document connections",
+          "Knowledge flows where work happens",
+        ],
+      },
+    },
+  },
+
+  // ─── Knowledge graph section ───────────────────────────────────────────────
+  knowledgeGraph: {
+    eyebrow: "Knowledge Graph",
+    headline: "See how everything connects",
+    description:
+      "Aksum maps people, companies, documents, and topics into a living graph — so relationships and context are always visible.",
+  },
+
+  // ─── Operating model slogan ──────────────────────────────────────────────────
+  sloganFlow: {
+    eyebrow: "How it works",
+    phases: [
+      {
+        label: "Capture",
+        description: "Interviews, documents, and conversations enter the platform.",
+      },
+      {
+        label: "Connect",
+        description: "Knowledge links to people, companies, and topics automatically.",
+      },
+      {
+        label: "Retrieve",
+        description: "Find the right insight in seconds — not hours of searching.",
+      },
+      {
+        label: "Activate",
+        description: "Put knowledge to work in sales, strategy, and communication.",
+      },
+    ],
+  },
+
+  // ─── FAQ ─────────────────────────────────────────────────────────────────────
+  faq: {
+    eyebrow: "FAQ",
+    headline: "Common questions",
+    items: [
+      {
+        question: "What is Aksum?",
+        answer:
+          "Aksum is an internal knowledge platform. It turns interviews, documents, and conversations into structured, searchable knowledge that your team can reuse across sales, strategy, and communication.",
+      },
+      {
+        question: "Is Aksum a CRM?",
+        answer:
+          "No. Aksum is not a CRM. It connects to your CRM and other tools, but its purpose is to capture, organise, and activate internal knowledge — not to manage customer pipelines or contacts.",
+      },
+      {
+        question: "What kind of data can I upload?",
+        answer:
+          "Interviews, meeting notes, reports, PDFs, presentations, email threads, and other documents your organisation already produces. Aksum structures this content so it becomes searchable and reusable.",
+      },
+      {
+        question: "What does Aksum do with interviews?",
+        answer:
+          "Aksum transcribes and structures interview content, extracts key entities and themes, and connects them to your existing knowledge graph — so insights from conversations don't get lost in recordings or notes.",
+      },
+      {
+        question: "How is this different from ChatGPT?",
+        answer:
+          "ChatGPT answers from general knowledge. Aksum works from your organisation's own knowledge — interviews, documents, and conversations — with full context, review layers, and connections between entities.",
+      },
+      {
+        question: "How is this different from Notion or Google Drive?",
+        answer:
+          "Notion and Drive store files. Aksum connects knowledge — linking people, companies, topics, and documents into a graph you can query and activate, not just browse folder by folder.",
+      },
+      {
+        question: "Who is Aksum built for?",
+        answer:
+          "Teams that rely on deep knowledge to win — business development, strategy, research, and leadership teams in organisations where relationships, context, and institutional memory matter.",
+      },
+      {
+        question: "Is my data private?",
+        answer:
+          "Yes. Your data stays within your organisation's environment. Aksum is built for teams that handle sensitive commercial and strategic information.",
+      },
+      {
+        question: "Do I need technical setup?",
+        answer:
+          "No. Aksum is designed for business teams, not developers. Upload content, connect your tools, and start building your knowledge base — no engineering required.",
+      },
+    ],
   },
 
   // ─── Features (three editorial blocks) ─────────────────────────────────────
@@ -100,9 +236,9 @@ export const en = {
 
   // ─── Closing CTA + footer ──────────────────────────────────────────────────
   ctaFooter: {
-    headline: "Ready to put your intelligence to work?",
+    headline: "Ready to turn your knowledge into advantage?",
     cta: "Request Demo",
-    copyright: "© 2026 Aksum Data",
+    copyright: "© 2026 Aksum",
     nav: {
       contact: "Contact",
       privacy: "Privacy Policy",

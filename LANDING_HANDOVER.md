@@ -416,7 +416,7 @@ Dark-themed closing section. Background: `#060D1C` with grain overlay, dot grid,
   - **Mobile / touch (`hover: none`):** The veil is skipped entirely; the wordmark is fully visible at `rgba(255,255,255,0.88)`.
   - The band breaks out of section `px-6` via `-mx-6` wrapper.
 2. **Bridge hero image** (`/bridge2.png`, `mx-auto max-w-6xl`) — main visual anchor. `rounded-2xl`, multi-layer box shadow. Subtle `whileHover` lift. Overlaid: logomark stamp (22% opacity), headline *"Ready to put your intelligence to work?"*, **"Request Demo" `<Button asChild>` → `<Link href="/request-demo">`**.
-3. `**<footer>` bar** (`max-w-5xl mx-auto`): © 2026 Aksum Data · **Contact → `/contact`** · Privacy Policy · Terms of Service
+3. `**<footer>` bar** (`max-w-5xl mx-auto`): © 2026 Aksum · **Contact → `/contact`** · Privacy Policy · Terms of Service
 
 Top and bottom linear gradient fades blend the bridge image into the dark section bg.
 
