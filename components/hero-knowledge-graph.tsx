@@ -112,7 +112,7 @@ function HeroCenterNode() {
         transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
       />
       <motion.div
-        className="relative z-10 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-white/95 shadow-[0_12px_36px_rgba(26,26,46,0.14)]"
+        className="relative z-10 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-white shadow-[0_2px_10px_rgba(26,26,46,0.06)]"
         animate={{ scale: [1, 1.025, 1] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -157,12 +157,12 @@ function HeroEntityNode({ data }: NodeProps<Node<HeroEntityNodeData>>) {
       <Handle type="target" position={Position.Left} className="!opacity-0 !min-h-0 !min-w-0 !h-0 !w-0 !border-0" />
 
       <div
-        className="w-[104px] rounded-lg border bg-white px-2 py-1.5 backdrop-blur-sm"
+        className="w-[104px] rounded-lg border bg-white px-2 py-1.5"
         style={{
           borderColor: `${color}40`,
           borderLeftWidth: "3px",
           borderLeftColor: color,
-          boxShadow: "0 8px 20px rgba(26,26,46,0.09)",
+          boxShadow: "0 2px 8px rgba(26,26,46,0.05)",
         }}
       >
         <div className="flex items-center gap-1.5">
@@ -456,15 +456,6 @@ export function HeroKnowledgeGraph() {
   return (
     <HoveredEdgeContext.Provider value={hoveredEdgeId}>
       <div className="hero-knowledge-graph relative mx-auto w-full max-w-[620px] lg:max-w-none lg:w-[108%] lg:max-w-[680px]">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 45%, transparent 70%)",
-          }}
-        />
-
         <div className="relative h-[400px] sm:h-[440px] md:h-[480px] lg:h-[520px]">
           <ReactFlow
             nodes={nodes}

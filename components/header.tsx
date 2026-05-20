@@ -24,7 +24,6 @@ const SCROLL_TRANSITION = [
   `border-color 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
   `background 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
   `box-shadow 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
-  `backdrop-filter 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
 ].join(", ")
 
 function useScrolledState() {
@@ -152,9 +151,7 @@ export function Header() {
     : "var(--mkt-band)"
 
   const barBackground = integratedHero
-    ? scrolled
-      ? "rgba(147, 151, 195, 0.55)"
-      : "transparent"
+    ? "var(--mkt-hero-band)"
     : detached
       ? "rgba(255,255,255,0.94)"
       : "rgba(255,255,255,0.90)"
@@ -170,8 +167,6 @@ export function Header() {
     : detached
       ? "0 4px 24px -4px rgba(26,26,46,0.08), 0 1px 3px rgba(26,26,46,0.04)"
       : "none"
-
-  const barBackdrop = integratedHero && scrolled ? "blur(14px) saturate(120%)" : "none"
 
   return (
     <>
@@ -190,11 +185,9 @@ export function Header() {
             maxWidth: detached ? "1480px" : "100%",
             height: detached ? "56px" : "64px",
             borderRadius: detached ? "14px" : "0px",
-            border: `1px solid ${barBorder}`,
+            border: integratedHero ? "none" : `1px solid ${barBorder}`,
             background: barBackground,
             boxShadow: barShadow,
-            backdropFilter: barBackdrop,
-            WebkitBackdropFilter: barBackdrop,
             transition: SCROLL_TRANSITION,
           }}
         >

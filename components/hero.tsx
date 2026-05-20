@@ -14,15 +14,6 @@ export function Hero() {
       className="relative overflow-hidden"
       style={{ backgroundColor: "var(--mkt-hero-band)" }}
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 20% 0%, rgba(255,255,255,0.14) 0%, transparent 55%), radial-gradient(ellipse 60% 50% at 90% 100%, rgba(26,26,46,0.08) 0%, transparent 50%)",
-        }}
-      />
-
       <div className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-28 md:pb-24 md:pt-32 lg:pb-28 lg:pt-36">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
