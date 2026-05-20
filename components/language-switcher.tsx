@@ -10,7 +10,7 @@ const OPTIONS: ReadonlyArray<{ code: Locale; label: string; aria: string }> = [
 
 interface LanguageSwitcherProps {
   size?: "compact" | "comfortable"
-  variant?: "light" | "dark"
+  variant?: "light" | "dark" | "hero"
 }
 
 export function LanguageSwitcher({
@@ -23,7 +23,19 @@ export function LanguageSwitcher({
   const chipPadX = size === "compact" ? "11px" : "16px"
   const fontSize = size === "compact" ? "11px" : "12px"
 
+  const isHero = variant === "hero"
   const isLight = variant === "light"
+
+  const railBg = isHero
+    ? "rgba(255,255,255,0.12)"
+    : isLight
+      ? "rgba(26,26,46,0.04)"
+      : "rgba(255,255,255,0.04)"
+  const railBorder = isHero
+    ? "1px solid rgba(255,255,255,0.28)"
+    : isLight
+      ? "1px solid rgba(26,26,46,0.10)"
+      : "1px solid rgba(255,255,255,0.08)"
 
   return (
     <div
@@ -34,14 +46,34 @@ export function LanguageSwitcher({
         height: railHeight,
         padding: "2px",
         borderRadius: "999px",
-        background: isLight ? "rgba(26,26,46,0.04)" : "rgba(255,255,255,0.04)",
-        border: isLight
-          ? "1px solid rgba(26,26,46,0.10)"
-          : "1px solid rgba(255,255,255,0.08)",
+        background: railBg,
+        border: railBorder,
+        transition: "background 520ms cubic-bezier(0.22,0.8,0.36,1), border-color 520ms cubic-bezier(0.22,0.8,0.36,1)",
       }}
     >
       {OPTIONS.map((opt) => {
         const active = opt.code === locale
+        const activeColor = isHero
+          ? "#ffffff"
+          : isLight
+            ? "var(--mkt-text)"
+            : "rgba(255,255,255,0.92)"
+        const idleColor = isHero
+          ? "rgba(255,255,255,0.58)"
+          : isLight
+            ? "var(--mkt-text-muted)"
+            : "rgba(255,255,255,0.45)"
+        const hoverColor = isHero
+          ? "rgba(255,255,255,0.88)"
+          : isLight
+            ? "var(--mkt-text)"
+            : "rgba(255,255,255,0.75)"
+        const activeBg = isHero
+          ? "rgba(255,255,255,0.22)"
+          : isLight
+            ? "#ffffff"
+            : "rgba(255,255,255,0.10)"
+
         return (
           <button
             key={opt.code}
@@ -55,18 +87,8 @@ export function LanguageSwitcher({
               padding: `0 ${chipPadX}`,
               borderRadius: "999px",
               fontSize,
-              color: active
-                ? isLight
-                  ? "var(--mkt-text)"
-                  : "rgba(255,255,255,0.92)"
-                : isLight
-                  ? "var(--mkt-text-muted)"
-                  : "rgba(255,255,255,0.45)",
-              background: active
-                ? isLight
-                  ? "#ffffff"
-                  : "rgba(255,255,255,0.10)"
-                : "transparent",
+              color: active ? activeColor : idleColor,
+              background: active ? activeBg : "transparent",
               boxShadow: active && isLight ? "0 1px 2px rgba(26,26,46,0.06)" : "none",
               transition:
                 "color 220ms cubic-bezier(0.22,0.8,0.36,1), background 220ms cubic-bezier(0.22,0.8,0.36,1)",
@@ -74,15 +96,11 @@ export function LanguageSwitcher({
             }}
             onMouseEnter={(e) => {
               if (active) return
-              e.currentTarget.style.color = isLight
-                ? "var(--mkt-text)"
-                : "rgba(255,255,255,0.75)"
+              e.currentTarget.style.color = hoverColor
             }}
             onMouseLeave={(e) => {
               if (active) return
-              e.currentTarget.style.color = isLight
-                ? "var(--mkt-text-muted)"
-                : "rgba(255,255,255,0.45)"
+              e.currentTarget.style.color = idleColor
             }}
           >
             {opt.label}

@@ -8,6 +8,7 @@
   --mkt-bg: #ffffff;
   --mkt-band: #f0f4f8;
   --mkt-band-alt: #f7f5f2;
+  --mkt-hero-band: #9397c3;
   --mkt-accent: #3b5bdb;
   --mkt-accent-hover: #2f4bc4;
   --mkt-text: #1a1a2e;
@@ -164,6 +165,24 @@
 .react-flow__panel,
 .react-flow__attribution {
   display: none !important;
+}
+
+.hero-knowledge-graph .react-flow {
+  background: transparent !important;
+}
+.hero-knowledge-graph .react-flow__panel,
+.hero-knowledge-graph .react-flow__attribution {
+  display: none !important;
+}
+.hero-knowledge-graph .react-flow__nodes,
+.hero-knowledge-graph .react-flow__node {
+  pointer-events: none !important;
+}
+.hero-knowledge-graph .react-flow__edges {
+  pointer-events: all !important;
+}
+.hero-knowledge-graph .react-flow__edge-interaction {
+  stroke-width: 22px;
 }
 
 @layer base {

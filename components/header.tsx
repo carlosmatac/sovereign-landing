@@ -15,6 +15,17 @@ import { LanguageSwitcher } from "@/components/language-switcher"
 
 const SCROLL_DOWN_THRESHOLD = 28
 const SCROLL_UP_THRESHOLD = 8
+const HEADER_HEIGHT = 64
+
+const SCROLL_TRANSITION = [
+  `max-width 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
+  `height 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
+  `border-radius 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
+  `border-color 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
+  `background 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
+  `box-shadow 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
+  `backdrop-filter 520ms cubic-bezier(0.22, 0.8, 0.36, 1)`,
+].join(", ")
 
 function useScrolledState() {
   const [scrolled, setScrolled] = useState(false)
@@ -44,6 +55,32 @@ function useScrolledState() {
   }, [])
 
   return scrolled
+}
+
+/** True while the hero band is still behind the fixed header. */
+function useOverHero() {
+  const [overHero, setOverHero] = useState(true)
+
+  useEffect(() => {
+    const measure = () => {
+      const hero = document.getElementById("hero")
+      if (!hero) {
+        setOverHero(false)
+        return
+      }
+      setOverHero(hero.getBoundingClientRect().bottom > HEADER_HEIGHT + 4)
+    }
+
+    measure()
+    window.addEventListener("scroll", measure, { passive: true })
+    window.addEventListener("resize", measure)
+    return () => {
+      window.removeEventListener("scroll", measure)
+      window.removeEventListener("resize", measure)
+    }
+  }, [])
+
+  return overHero
 }
 
 const HEADER_EASE = "cubic-bezier(0.22, 0.8, 0.36, 1)"
@@ -96,8 +133,45 @@ function MobileSection({
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const scrolled = useScrolledState()
+  const overHero = useOverHero()
   const t = useT()
-  const detached = scrolled && !mobileOpen
+
+  const integratedHero = overHero && !mobileOpen
+  const detached = scrolled && !mobileOpen && !overHero
+
+  const navMuted = integratedHero
+    ? "rgba(255,255,255,0.78)"
+    : "var(--mkt-text-muted)"
+  const navHoverClass = integratedHero
+    ? "hover:text-white"
+    : "hover:text-[var(--mkt-text)]"
+  const iconColor = integratedHero ? "rgba(255,255,255,0.88)" : "var(--mkt-text)"
+  const logoFilter = integratedHero ? "none" : "brightness(0) saturate(100%)"
+  const menuHoverBg = integratedHero
+    ? "rgba(255,255,255,0.12)"
+    : "var(--mkt-band)"
+
+  const barBackground = integratedHero
+    ? scrolled
+      ? "rgba(147, 151, 195, 0.55)"
+      : "transparent"
+    : detached
+      ? "rgba(255,255,255,0.94)"
+      : "rgba(255,255,255,0.90)"
+
+  const barBorder = integratedHero
+    ? "transparent"
+    : detached
+      ? "var(--mkt-border-strong)"
+      : "var(--mkt-border)"
+
+  const barShadow = integratedHero
+    ? "none"
+    : detached
+      ? "0 4px 24px -4px rgba(26,26,46,0.08), 0 1px 3px rgba(26,26,46,0.04)"
+      : "none"
+
+  const barBackdrop = integratedHero && scrolled ? "blur(14px) saturate(120%)" : "none"
 
   return (
     <>
@@ -116,26 +190,12 @@ export function Header() {
             maxWidth: detached ? "1480px" : "100%",
             height: detached ? "56px" : "64px",
             borderRadius: detached ? "14px" : "0px",
-            border: `1px solid ${detached ? "var(--mkt-border-strong)" : "transparent"}`,
-            borderBottomColor: detached
-              ? "var(--mkt-border-strong)"
-              : "var(--mkt-border)",
-            background: detached
-              ? "rgba(255,255,255,0.92)"
-              : "rgba(255,255,255,0.88)",
-            boxShadow: detached
-              ? "0 4px 24px -4px rgba(26,26,46,0.08), 0 1px 3px rgba(26,26,46,0.04)"
-              : "none",
-            backdropFilter: "blur(18px) saturate(120%)",
-            WebkitBackdropFilter: "blur(18px) saturate(120%)",
-            transition: [
-              `max-width ${HEADER_DURATION} ${HEADER_EASE}`,
-              `height ${HEADER_DURATION} ${HEADER_EASE}`,
-              `border-radius ${HEADER_DURATION} ${HEADER_EASE}`,
-              `border-color ${HEADER_DURATION} ${HEADER_EASE}`,
-              `background-color ${HEADER_DURATION} ${HEADER_EASE}`,
-              `box-shadow ${HEADER_DURATION} ${HEADER_EASE}`,
-            ].join(", "),
+            border: `1px solid ${barBorder}`,
+            background: barBackground,
+            boxShadow: barShadow,
+            backdropFilter: barBackdrop,
+            WebkitBackdropFilter: barBackdrop,
+            transition: SCROLL_TRANSITION,
           }}
         >
           <div className="relative flex h-full items-center justify-between gap-4 px-5 sm:px-6 md:px-8 lg:px-12">
@@ -144,13 +204,17 @@ export function Header() {
               const sumH = akH
               const akW = akH * LOGO_AK_ASPECT
               const sumW = sumH * LOGO_SUM_ASPECT
+              const collapseWordmark = detached || !integratedHero
               return (
                 <Link
                   href="/"
                   aria-label="Aksum"
                   className="flex shrink-0 items-center"
                   onClick={() => setMobileOpen(false)}
-                  style={{ filter: "brightness(0) saturate(100%)" }}
+                  style={{
+                    filter: logoFilter,
+                    transition: `filter ${HEADER_DURATION} ${HEADER_EASE}`,
+                  }}
                 >
                   <Image
                     src="/aksum_left.svg"
@@ -171,8 +235,8 @@ export function Header() {
                     aria-hidden="true"
                     style={{
                       height: `${sumH}px`,
-                      width: detached ? "0px" : `${sumW}px`,
-                      marginLeft: detached ? "0px" : `${LOGO_GAP}px`,
+                      width: collapseWordmark ? "0px" : `${sumW}px`,
+                      marginLeft: collapseWordmark ? "0px" : `${LOGO_GAP}px`,
                       overflow: "hidden",
                       display: "flex",
                       alignItems: "center",
@@ -191,8 +255,8 @@ export function Header() {
                       style={{
                         height: `${sumH}px`,
                         width: `${sumW}px`,
-                        opacity: detached ? 0 : 1,
-                        transform: detached
+                        opacity: collapseWordmark ? 0 : 1,
+                        transform: collapseWordmark
                           ? `translateX(-${Math.round(sumW * 0.35)}px)`
                           : "translateX(0)",
                         transition: [
@@ -213,16 +277,20 @@ export function Header() {
                 <Link
                   key={key}
                   href={href}
-                  className="rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] transition-colors hover:text-[var(--mkt-text)]"
-                  style={{ color: "var(--mkt-text-muted)" }}
+                  className={`rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] transition-colors ${navHoverClass}`}
+                  style={{ color: navMuted, transition: `color ${HEADER_DURATION} ${HEADER_EASE}` }}
                 >
                   {t.header.nav[key]}
                 </Link>
               ))}
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] outline-none transition-colors hover:text-[var(--mkt-text)] data-[state=open]:text-[var(--mkt-text)]"
-                  style={{ color: "var(--mkt-text-muted)" }}
+                <DropdownMenuTrigger
+                  className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.011em] outline-none transition-colors ${navHoverClass} ${integratedHero ? "data-[state=open]:text-white" : "data-[state=open]:text-[var(--mkt-text)]"}`}
+                  style={{
+                    color: navMuted,
+                    transition: `color ${HEADER_DURATION} ${HEADER_EASE}`,
+                  }}
                 >
                   {t.header.nav.about}
                   <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 [[data-state=open]_&]:rotate-180" />
@@ -256,26 +324,48 @@ export function Header() {
 
             <div className="flex items-center gap-2 md:gap-3">
               <div className="hidden md:flex">
-                <LanguageSwitcher size="compact" variant="light" />
+                <LanguageSwitcher
+                  size="compact"
+                  variant={integratedHero ? "hero" : "light"}
+                />
               </div>
 
-              <Button
-                asChild
-                className="hidden rounded-full px-6 font-medium tracking-[-0.011em] text-white hover:opacity-90 md:inline-flex"
-                style={{ backgroundColor: "var(--mkt-accent)" }}
-              >
-                <Link href="/request-demo">{t.header.cta}</Link>
-              </Button>
+              {integratedHero ? (
+                <Button
+                  asChild
+                  className="hidden rounded-full bg-white px-6 font-medium tracking-[-0.011em] text-[#1a1a2e] hover:bg-white/92 md:inline-flex"
+                >
+                  <Link href="/request-demo">{t.header.cta}</Link>
+                </Button>
+              ) : (
+                <Button
+                  asChild
+                  className="hidden rounded-full px-6 font-medium tracking-[-0.011em] text-white hover:opacity-90 md:inline-flex"
+                  style={{ backgroundColor: "var(--mkt-accent)" }}
+                >
+                  <Link href="/request-demo">{t.header.cta}</Link>
+                </Button>
+              )}
 
               <button
                 onClick={() => setMobileOpen((v) => !v)}
-                className="flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-[var(--mkt-band)] md:hidden"
+                className="flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:hidden"
+                style={{
+                  color: iconColor,
+                  transition: `background-color 220ms, color ${HEADER_DURATION} ${HEADER_EASE}`,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = menuHoverBg
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent"
+                }}
                 aria-label={mobileOpen ? t.header.mobile.close : t.header.mobile.open}
               >
                 {mobileOpen ? (
-                  <X className="h-5 w-5" style={{ color: "var(--mkt-text)" }} />
+                  <X className="h-5 w-5" />
                 ) : (
-                  <Menu className="h-5 w-5" style={{ color: "var(--mkt-text)" }} />
+                  <Menu className="h-5 w-5" />
                 )}
               </button>
             </div>
