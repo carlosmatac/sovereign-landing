@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { Header } from "@/components/header"
+import { RequestDemoButton } from "@/components/request-demo-button"
 import { getServerT } from "@/lib/i18n/server"
 import { getDictionary } from "@/lib/i18n/config"
 
@@ -108,16 +109,7 @@ export default async function ContactPage() {
 
           {/* Secondary action */}
           <div className="mt-12">
-            <Link
-              href="/request-demo"
-              className="inline-flex items-center rounded-full px-6 py-3 text-sm font-medium tracking-[-0.011em] transition-colors hover:bg-white/[0.1]"
-              style={{
-                border: "1px solid rgba(255,255,255,0.16)",
-                color: "rgba(255,255,255,0.65)",
-              }}
-            >
-              {c.requestDemo}
-            </Link>
+            <RequestDemoButton>{c.requestDemo}</RequestDemoButton>
           </div>
 
           {/* Back link */}

@@ -8,13 +8,14 @@
   --mkt-bg: #ffffff;
   --mkt-band: #f0f4f8;
   --mkt-band-alt: #f7f5f2;
-  --mkt-hero-band: #232636;
+  --mkt-hero-band: #9096DA;
   --mkt-accent: #3b5bdb;
   --mkt-accent-hover: #2f4bc4;
   --mkt-text: #1a1a2e;
   --mkt-text-muted: #6b7280;
   --mkt-border: rgba(26, 26, 46, 0.08);
   --mkt-border-strong: rgba(26, 26, 46, 0.14);
+  --mkt-cta-band: #e8e7f2;
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.175 0.03 264);

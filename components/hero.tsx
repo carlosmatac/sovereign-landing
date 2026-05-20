@@ -1,8 +1,8 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useT } from "@/lib/i18n/locale-context"
+import { RequestDemoButton } from "@/components/request-demo-button"
 import { HeroKnowledgeGraph } from "@/components/hero-knowledge-graph"
 
 export function Hero() {
@@ -42,13 +42,7 @@ export function Hero() {
             </p>
 
             <div className="mt-8">
-              <Button
-                asChild
-                size="lg"
-                className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#1a1a2e] hover:bg-white/92"
-              >
-                <Link href="/request-demo">{t.hero.primaryCta}</Link>
-              </Button>
+              <RequestDemoButton>{t.hero.primaryCta}</RequestDemoButton>
             </div>
           </div>
 

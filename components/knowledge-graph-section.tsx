@@ -256,7 +256,7 @@ export function KnowledgeGraphSection() {
     <section
       id="knowledge-graph"
       className="scroll-mt-24 px-6 py-20 md:py-28"
-      style={{ backgroundColor: "var(--mkt-band)" }}
+      style={{ backgroundColor: "var(--mkt-bg)" }}
     >
       <div className="mx-auto max-w-5xl">
         <p

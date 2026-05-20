@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +11,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useT } from "@/lib/i18n/locale-context"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { RequestDemoButton } from "@/components/request-demo-button"
 
 const SCROLL_DOWN_THRESHOLD = 28
 const SCROLL_UP_THRESHOLD = 8
@@ -323,22 +323,9 @@ export function Header() {
                 />
               </div>
 
-              {integratedHero ? (
-                <Button
-                  asChild
-                  className="hidden rounded-full bg-white px-6 font-medium tracking-[-0.011em] text-[#1a1a2e] hover:bg-white/92 md:inline-flex"
-                >
-                  <Link href="/request-demo">{t.header.cta}</Link>
-                </Button>
-              ) : (
-                <Button
-                  asChild
-                  className="hidden rounded-full px-6 font-medium tracking-[-0.011em] text-white hover:opacity-90 md:inline-flex"
-                  style={{ backgroundColor: "var(--mkt-accent)" }}
-                >
-                  <Link href="/request-demo">{t.header.cta}</Link>
-                </Button>
-              )}
+              <RequestDemoButton className="hidden md:inline-flex">
+                {t.header.cta}
+              </RequestDemoButton>
 
               <button
                 onClick={() => setMobileOpen((v) => !v)}
@@ -425,14 +412,12 @@ export function Header() {
           </div>
 
           <div className="px-6 py-6">
-            <Link
-              href="/request-demo"
+            <RequestDemoButton
+              fullWidth
               onClick={() => setMobileOpen(false)}
-              className="flex w-full items-center justify-center rounded-full py-3.5 text-[15px] font-medium tracking-[-0.011em] text-white transition-opacity active:opacity-85"
-              style={{ backgroundColor: "var(--mkt-accent)" }}
             >
               {t.header.cta}
-            </Link>
+            </RequestDemoButton>
           </div>
         </div>
       )}

@@ -1,8 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import { SiteFooterBar } from "@/components/site-footer-bar"
+import { RequestDemoButton } from "@/components/request-demo-button"
 import { useT } from "@/lib/i18n/locale-context"
 
 export function CTAFooter() {
@@ -13,26 +12,19 @@ export function CTAFooter() {
       className="relative overflow-hidden"
       style={{ backgroundColor: "var(--mkt-bg)" }}
     >
-      <div
-        className="border-t px-6 py-20 md:py-24"
-        style={{ borderColor: "var(--mkt-border)" }}
-      >
-        <div className="mx-auto max-w-2xl text-center">
+      <div className="px-3 pb-16 pt-4 sm:px-4 md:px-5 md:pb-20 lg:px-6">
+        <div
+          className="mx-auto flex w-full max-w-[1480px] flex-col items-center justify-center px-6 py-20 text-center sm:px-10 md:py-28 md:px-16 lg:py-32"
+          style={{ backgroundColor: "var(--mkt-cta-band)" }}
+        >
           <h2
-            className="font-serif text-[28px] font-normal tracking-[-0.022em] md:text-[36px] md:leading-[1.15]"
+            className="max-w-3xl text-balance font-serif text-[32px] font-normal leading-[1.12] tracking-[-0.022em] sm:text-[40px] md:text-[48px] md:leading-[1.08] lg:text-[52px]"
             style={{ color: "var(--mkt-text)" }}
           >
             {t.ctaFooter.headline}
           </h2>
-          <div className="mt-8">
-            <Button
-              asChild
-              size="lg"
-              className="rounded-full px-9 py-6 text-[15px] font-medium tracking-[-0.011em] text-white hover:opacity-90"
-              style={{ backgroundColor: "var(--mkt-accent)" }}
-            >
-              <Link href="/request-demo">{t.ctaFooter.cta}</Link>
-            </Button>
+          <div className="mt-10 md:mt-12">
+            <RequestDemoButton>{t.ctaFooter.cta}</RequestDemoButton>
           </div>
         </div>
       </div>

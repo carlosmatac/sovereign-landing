@@ -15,7 +15,7 @@ export function FaqSection() {
     <section
       id="faq"
       className="scroll-mt-24 px-6 py-20 md:py-28"
-      style={{ backgroundColor: "var(--mkt-band-alt)" }}
+      style={{ backgroundColor: "var(--mkt-bg)" }}
     >
       <div className="mx-auto max-w-3xl">
         <p
