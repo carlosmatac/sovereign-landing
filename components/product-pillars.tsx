@@ -10,6 +10,25 @@ type PillarKey = "capture" | "prepare" | "activate" | "connect"
 
 const IMAGE_FIRST_PILLARS: ReadonlySet<PillarKey> = new Set(["prepare", "connect"])
 
+const PILLAR_IMAGES: Partial<
+  Record<PillarKey, { src: string; alt: string; width: number; height: number }>
+> = {
+  capture: {
+    src: "/capture.png",
+    alt:
+      "Inputs such as interviews, PDFs, and notes flow into Aksum and emerge as structured people, companies, topics, and summaries.",
+    width: 6798,
+    height: 6798,
+  },
+  prepare: {
+    src: "/sell.png",
+    alt:
+      "A meeting brief for Meridian Capital with prior conversations, open opportunities, follow-ups, and upcoming events assembled before the call.",
+    width: 6803,
+    height: 5324,
+  },
+}
+
 const PILLAR_META: ReadonlyArray<{
   key: PillarKey
   icon: typeof Archive
@@ -70,22 +89,24 @@ function PillarFeaturePanel({ active }: { active: PillarKey }) {
     </div>
   )
 
+  const image = PILLAR_IMAGES[active]
+
   const visualColumn = (
     <div
       className={`order-2 flex min-h-[360px] items-center justify-center overflow-visible lg:col-span-7 lg:min-h-[640px] xl:min-h-[720px] ${
         imageFirst ? "lg:order-1 lg:col-start-1" : "lg:order-2 lg:col-start-6"
       }`}
     >
-      {active === "capture" ? (
+      {image ? (
         <div className="relative flex w-full items-center justify-center overflow-visible py-4 lg:py-0">
           <Image
-            src="/capture.png"
-            alt="Inputs such as interviews, PDFs, and notes flow into Aksum and emerge as structured people, companies, topics, and summaries."
-            width={6798}
-            height={6798}
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
             className="h-auto w-full max-w-none origin-center object-contain sm:w-[108%] lg:w-[128%] lg:scale-[1.05] xl:w-[138%] xl:scale-[1.08]"
             sizes="(min-width: 1280px) 50vw, (min-width: 1024px) 48vw, 90vw"
-            priority
+            priority={active === "capture"}
           />
         </div>
       ) : (
