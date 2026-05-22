@@ -16,44 +16,29 @@ const FEATURE_PILLARS: readonly FeaturePillarKey[] = [
 
 const IMAGE_FIRST_PILLARS: ReadonlySet<FeaturePillarKey> = new Set(["prepare"])
 
-const PILLAR_IMAGE_CLASS: Record<FeaturePillarKey, string> = {
-  capture:
-    "h-auto w-full max-w-none origin-center object-contain sm:w-[108%] lg:w-[128%] lg:scale-[1.05] xl:w-[138%] xl:scale-[1.08]",
-  prepare:
-    "h-auto w-full max-w-none origin-center object-contain sm:w-[118%] lg:w-[148%] lg:scale-[1.12] xl:w-[162%] xl:scale-[1.16]",
-  activate:
-    "h-auto w-full max-w-none origin-center object-contain sm:w-[118%] lg:w-[148%] lg:scale-[1.12] xl:w-[162%] xl:scale-[1.16]",
-}
-
-const PILLAR_VISUAL_MIN_H: Record<FeaturePillarKey, string> = {
-  capture:
-    "min-h-[240px] sm:min-h-[280px] lg:min-h-[420px] xl:min-h-[460px]",
-  prepare:
-    "min-h-[280px] sm:min-h-[320px] lg:min-h-[500px] xl:min-h-[540px]",
-  activate:
-    "min-h-[280px] sm:min-h-[320px] lg:min-h-[500px] xl:min-h-[540px]",
-}
+// Image fills 100% of the visual column. The column itself is the large track.
+const PILLAR_IMAGE_CLASS = "h-auto w-full max-w-none object-contain"
 
 const PILLAR_IMAGES: Record<
   FeaturePillarKey,
   { src: string; alt: string; width: number; height: number }
 > = {
   capture: {
-    src: "/capture.png",
+    src: "/capture.webp",
     alt:
       "Inputs such as interviews, PDFs, and notes flow into Aksum and emerge as structured people, companies, topics, and summaries.",
     width: 6798,
     height: 6798,
   },
   prepare: {
-    src: "/sell.png",
+    src: "/sell.webp",
     alt:
       "A meeting brief for Meridian Capital with prior conversations, open opportunities, follow-ups, and upcoming events assembled before the call.",
     width: 6803,
     height: 5324,
   },
   activate: {
-    src: "/activate.png",
+    src: "/activate.webp",
     alt:
       "Market reports, social posts, executive briefs, and newsletters generated from internal knowledge and ready to publish.",
     width: 7532,
@@ -75,10 +60,11 @@ function PillarBlock({
   const imageFirst = IMAGE_FIRST_PILLARS.has(pillarKey)
   const image = PILLAR_IMAGES[pillarKey]
 
+  // Text column — min-w-0 ensures the 1fr track can actually shrink
   const textColumn = (
     <div
-      className={`order-1 flex max-w-md flex-col justify-center lg:max-w-none lg:col-span-4 ${
-        imageFirst ? "lg:order-2 lg:col-start-9" : "lg:order-1 lg:col-start-1"
+      className={`order-1 min-w-0 flex flex-col justify-center ${
+        imageFirst ? "lg:order-2" : "lg:order-1"
       }`}
     >
       <h3 className="text-balance">
@@ -128,25 +114,32 @@ function PillarBlock({
     </div>
   )
 
+  // Visual column — no overflow-hidden so the image is never cropped.
+  // The image fills the full 64% visual track.
   const visualColumn = (
     <div
-      className={`order-2 flex ${PILLAR_VISUAL_MIN_H[pillarKey]} items-center justify-center overflow-visible lg:col-span-8 ${
-        imageFirst ? "lg:order-1 lg:col-start-1" : "lg:order-2 lg:col-start-5"
+      className={`order-2 min-w-0 flex items-center justify-center py-4 lg:py-0 ${
+        imageFirst ? "lg:order-1" : "lg:order-2"
       }`}
     >
-      <div className="relative flex w-full items-center justify-center overflow-visible py-4 lg:py-0">
+      <div className="w-full max-w-none">
         <Image
           src={image.src}
           alt={image.alt}
           width={image.width}
           height={image.height}
-          className={PILLAR_IMAGE_CLASS[pillarKey]}
-          sizes="(min-width: 1280px) 50vw, (min-width: 1024px) 48vw, 90vw"
+          className={PILLAR_IMAGE_CLASS}
+          sizes="(min-width: 1600px) 980px, (min-width: 1280px) 58vw, (min-width: 1024px) 54vw, 92vw"
           priority={index === 0}
         />
       </div>
     </div>
   )
+
+  // Visual always gets the 64% track; text gets the 36% track.
+  const gridCols = imageFirst
+    ? "lg:grid-cols-[minmax(0,0.64fr)_minmax(0,0.36fr)]"
+    : "lg:grid-cols-[minmax(0,0.36fr)_minmax(0,0.64fr)]"
 
   return (
     <motion.article
@@ -161,7 +154,7 @@ function PillarBlock({
         index === FEATURE_PILLARS.length - 1 ? "pb-16 md:pb-20" : ""
       }`}
     >
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-16 lg:gap-y-10 xl:gap-x-24">
+      <div className={`grid grid-cols-1 gap-10 lg:items-center lg:gap-x-12 xl:gap-x-14 ${gridCols}`}>
         {textColumn}
         {visualColumn}
       </div>
@@ -194,7 +187,7 @@ export function ProductPillars() {
           </h2>
         </MktContainer>
 
-        <MktContainer>
+        <MktContainer className="max-w-[1600px]">
           {FEATURE_PILLARS.map((key, index) => (
             <PillarBlock key={key} pillarKey={key} index={index} />
           ))}
