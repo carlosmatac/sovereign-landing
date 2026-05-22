@@ -67,16 +67,24 @@ function PillarBlock({
         index === FEATURE_PILLARS.length - 1 ? "pb-16 md:pb-20" : ""
       }`}
     >
+      {/* items-stretch lets the text column grow to the same height as the image */}
       <div
-        className={`grid grid-cols-1 gap-10 lg:items-center lg:gap-x-12 xl:gap-x-16 ${gridCols}`}
+        className={`grid grid-cols-1 gap-10 lg:items-stretch lg:gap-x-12 xl:gap-x-16 ${gridCols}`}
       >
-        {/* ── Text column ── */}
+        {/* ── Text column ──
+            Desktop: h-full matches the image row. Top/bottom spacers use h-[10%]
+            (percent of column HEIGHT, not width — unlike py-[10%] padding).
+            flex-1 between title and body anchors the body in the lower third
+            without pinning it to the bottom edge.
+            Mobile: normal stacked flow, spacers hidden. */}
         <div
-          className={`order-1 min-w-0 flex flex-col justify-center ${
+          className={`order-1 flex min-h-0 min-w-0 flex-col lg:h-full ${
             imageFirst ? "lg:order-2" : "lg:order-1"
           }`}
         >
-          <h3 className="text-balance">
+          <div className="hidden shrink-0 lg:block lg:h-[10%]" aria-hidden />
+
+          <h3 className="shrink-0 text-balance">
             <span
               className="block font-serif text-[34px] font-normal leading-[1.08] tracking-[-0.025em] sm:text-[38px] md:text-[42px] lg:text-[44px] xl:text-[48px] xl:leading-[1.06]"
               style={{ color: "var(--mkt-text)" }}
@@ -91,35 +99,41 @@ function PillarBlock({
             </span>
           </h3>
 
-          <p
-            className="mt-5 max-w-sm text-[16px] leading-relaxed tracking-[-0.01em] md:text-[17px] md:leading-[1.6] lg:max-w-md"
-            style={{ color: "var(--mkt-text-muted)" }}
-          >
-            {pillar.description}
-          </p>
+          <div className="hidden min-h-0 flex-1 lg:block" aria-hidden />
 
-          <ul
-            className="mt-7 max-w-sm border-t pt-6 lg:max-w-md"
-            style={{ borderColor: "rgba(26,26,46,0.08)" }}
-          >
-            {pillar.bullets.map((bullet, bulletIndex) => (
-              <li key={bullet}>
-                {bulletIndex > 0 && (
-                  <div
-                    className="my-3 h-px w-full max-w-xs"
-                    style={{ backgroundColor: "rgba(26,26,46,0.1)" }}
-                    aria-hidden="true"
-                  />
-                )}
-                <p
-                  className="text-[14px] leading-snug tracking-[-0.006em] md:text-[15px] md:leading-relaxed"
-                  style={{ color: "var(--mkt-text-muted)" }}
-                >
-                  {bullet}
-                </p>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-8 shrink-0 lg:mt-0">
+            <p
+              className="max-w-sm text-[16px] leading-relaxed tracking-[-0.01em] md:text-[17px] md:leading-[1.6] lg:max-w-md"
+              style={{ color: "var(--mkt-text-muted)" }}
+            >
+              {pillar.description}
+            </p>
+
+            <ul
+              className="mt-7 max-w-sm border-t pt-6 lg:max-w-md"
+              style={{ borderColor: "rgba(26,26,46,0.08)" }}
+            >
+              {pillar.bullets.map((bullet, bulletIndex) => (
+                <li key={bullet}>
+                  {bulletIndex > 0 && (
+                    <div
+                      className="my-3 h-px w-full max-w-xs"
+                      style={{ backgroundColor: "rgba(26,26,46,0.1)" }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  <p
+                    className="text-[14px] leading-snug tracking-[-0.006em] md:text-[15px] md:leading-relaxed"
+                    style={{ color: "var(--mkt-text-muted)" }}
+                  >
+                    {bullet}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="hidden shrink-0 lg:block lg:h-[10%]" aria-hidden />
         </div>
 
         {/* ── Visual column ── fills its 65% track entirely */}
