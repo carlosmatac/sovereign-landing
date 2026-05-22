@@ -68,9 +68,10 @@ export const es: Dictionary = {
   // ─── Hero ──────────────────────────────────────────────────────────────────
   hero: {
     badge: "Plataforma de conocimiento interno",
-    headline: "Lo que tu organización sabe, por fin puesto a trabajar.",
+    title: "Lo que tu organización sabe",
+    accentLine: "por fin puesto a trabajar",
     subheadline:
-      "Aksum convierte entrevistas, documentos y conversaciones en conocimiento interno reutilizable — conectado, buscable y listo cuando tu equipo lo necesita.",
+      "Aksum convierte entrevistas, documentos y conversaciones en conocimiento interno reutilizable — listo para ventas, estrategia y comunicación.",
     primaryCta: "Solicitar Demo",
   },
 
@@ -84,36 +85,39 @@ export const es: Dictionary = {
 
   homepagePillars: {
     eyebrow: "Capacidades de la plataforma",
-    headline: "Cuatro formas en que Aksum pone el conocimiento a trabajar",
+    headline: "Del conocimiento a la acción",
     pillars: {
       capture: {
-        label: "Captura y Organiza",
+        title: "Captura conocimiento",
+        accentLine: "Organízalo al instante",
         description:
-          "Convierte reuniones, informes y conversaciones en conocimiento estructurado en el que tu equipo puede confiar.",
+          "Convierte entrevistas, documentos y conversaciones en conocimiento estructurado en el que tu equipo puede confiar.",
         bullets: [
           "Sube entrevistas, documentos y notas",
-          "Estructuración automática con revisión humana",
-          "Una base de conocimiento buscable",
+          "Estructura con revisión humana",
+          "Busca en una base de conocimiento",
         ],
       },
       prepare: {
-        label: "Prepara y Vende",
+        title: "Prepara cada reunión",
+        accentLine: "Vende con contexto",
         description:
-          "Entra en cada conversación con el contexto completo — historial de cuenta, relaciones e insights previos.",
+          "Entra en cada conversación con el historial de cuenta, el contexto de las relaciones y las oportunidades relevantes ya a la vista.",
         bullets: [
-          "Historial de cuenta y relaciones de un vistazo",
-          "Briefings listos antes de la reunión",
-          "Contexto comercial sin buscar en archivos",
+          "Consulta el historial de relaciones",
+          "Genera briefings de reunión",
+          "Anticipa riesgos y oportunidades",
         ],
       },
       activate: {
-        label: "Activa y Publica",
+        title: "Activa el conocimiento",
+        accentLine: "Publica con confianza",
         description:
-          "Convierte el conocimiento interno en contenido externo — informes, newsletters y comunicaciones con stakeholders.",
+          "Convierte la inteligencia interna de confianza en informes, briefings, newsletters y contenido para stakeholders — basado en tus propias fuentes.",
         bullets: [
-          "Redacta informes y briefings desde tu conocimiento",
-          "Contenido dirigido para la audiencia correcta",
-          "Mensajes consistentes entre equipos",
+          "Redacta informes y briefings",
+          "Adapta el contenido por audiencia",
+          "Mantén la coherencia del mensaje",
         ],
       },
       connect: {

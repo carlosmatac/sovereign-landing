@@ -14,6 +14,7 @@ import {
   type EdgeProps,
 } from "@xyflow/react"
 import "@xyflow/react/dist/style.css"
+import { MktContainer, MktSectionX } from "@/components/marketing-layout"
 import { useT } from "@/lib/i18n/locale-context"
 
 type EntityType =
@@ -255,10 +256,11 @@ export function KnowledgeGraphSection() {
   return (
     <section
       id="knowledge-graph"
-      className="scroll-mt-24 px-6 py-20 md:py-28"
+      className="scroll-mt-24 py-14 md:py-20"
       style={{ backgroundColor: "var(--mkt-bg)" }}
     >
-      <div className="mx-auto max-w-5xl">
+      <MktSectionX>
+        <MktContainer>
         <p
           className="text-center text-[10px] font-medium uppercase tracking-[0.18em]"
           style={{ color: "var(--mkt-text-muted)" }}
@@ -279,7 +281,7 @@ export function KnowledgeGraphSection() {
         </p>
 
         <div
-          className="relative mt-12 h-[380px] overflow-hidden rounded-2xl border bg-white md:h-[420px]"
+          className="relative mt-8 h-[380px] overflow-hidden rounded-2xl border bg-white md:h-[420px]"
           style={{ borderColor: "var(--mkt-border)" }}
         >
           <ReactFlow
@@ -319,7 +321,8 @@ export function KnowledgeGraphSection() {
             ),
           )}
         </div>
-      </div>
+        </MktContainer>
+      </MktSectionX>
     </section>
   )
 }

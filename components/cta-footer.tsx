@@ -2,6 +2,7 @@
 
 import { SiteFooterBar } from "@/components/site-footer-bar"
 import { RequestDemoButton } from "@/components/request-demo-button"
+import { MktContainer, MktSectionX } from "@/components/marketing-layout"
 import { useT } from "@/lib/i18n/locale-context"
 
 export function CTAFooter() {
@@ -12,9 +13,9 @@ export function CTAFooter() {
       className="relative overflow-hidden"
       style={{ backgroundColor: "var(--mkt-bg)" }}
     >
-      <div className="px-3 pb-16 pt-4 sm:px-4 md:px-5 md:pb-20 lg:px-6">
-        <div
-          className="mx-auto flex w-full max-w-[1480px] flex-col items-center justify-center px-6 py-20 text-center sm:px-10 md:py-28 md:px-16 lg:py-32"
+      <MktSectionX className="pb-12 pt-2 md:pb-16">
+        <MktContainer
+          className="flex flex-col items-center justify-center py-16 text-center md:py-20 lg:py-24"
           style={{ backgroundColor: "var(--mkt-cta-band)" }}
         >
           <h2
@@ -26,8 +27,8 @@ export function CTAFooter() {
           <div className="mt-10 md:mt-12">
             <RequestDemoButton>{t.ctaFooter.cta}</RequestDemoButton>
           </div>
-        </div>
-      </div>
+        </MktContainer>
+      </MktSectionX>
 
       <SiteFooterBar />
     </section>

@@ -66,9 +66,10 @@ export const en = {
   // ─── Hero ──────────────────────────────────────────────────────────────────
   hero: {
     badge: "Internal knowledge platform",
-    headline: "What your organisation knows, finally put to work.",
+    title: "What your organisation knows",
+    accentLine: "finally put to work",
     subheadline:
-      "Aksum transforms internal knowledge into sales advantage, strategic clarity, and targeted communication, at the speed decisions actually need.",
+      "Aksum transforms interviews, documents and conversations into reusable internal knowledge — ready for sales, strategy and communication.",
     primaryCta: "Request Demo",
   },
 
@@ -83,36 +84,39 @@ export const en = {
   // ─── Homepage product pillars ──────────────────────────────────────────────
   homepagePillars: {
     eyebrow: "Platform capabilities",
-    headline: "Four ways Aksum puts knowledge to work",
+    headline: "From knowledge to action",
     pillars: {
       capture: {
-        label: "Capture & Organise",
+        title: "Capture knowledge",
+        accentLine: "Organise it instantly",
         description:
-          "Turn meetings, reports, and conversations into structured knowledge your team can trust.",
+          "Turn interviews, documents and conversations into structured knowledge your team can trust.",
         bullets: [
-          "Upload interviews, documents, and notes",
-          "Automatic structuring with human review",
-          "One searchable knowledge base",
+          "Upload interviews, documents and notes",
+          "Structure with human review",
+          "Search one knowledge base",
         ],
       },
       prepare: {
-        label: "Prepare & Sell",
+        title: "Prepare every meeting",
+        accentLine: "Sell with context",
         description:
-          "Walk into every meeting with the full picture. Account history, prior conversations, relationship context, and open commitments, all surfaced before the call starts. Aksum gives commercial teams the preparation layer that turns meetings from introductions into advances.",
+          "Walk into every conversation with account history, stakeholder context and relevant opportunities already surfaced.",
         bullets: [
-          "Account and relationship history at a glance",
-          "Briefings ready before the meeting",
-          "Commercial context without digging through files",
+          "See relationship history",
+          "Generate meeting briefs",
+          "Surface risks and opportunities",
         ],
       },
       activate: {
-        label: "Activate & Publish",
+        title: "Activate knowledge",
+        accentLine: "Publish with confidence",
         description:
-          "The most credible outbound communication is grounded in what an organisation actually knows, not assembled from public sources at the last minute. Aksum turns internal intelligence into newsletters, briefings, and stakeholder content that carries real weight because it comes from real context.",
+          "Turn trusted internal intelligence into reports, briefs, newsletters and stakeholder content — grounded in your own sources.",
         bullets: [
-          "Draft reports and briefings from your knowledge",
-          "Targeted content for the right audience",
-          "Consistent messaging across teams",
+          "Draft reports and briefings",
+          "Tailor content by audience",
+          "Keep messaging consistent",
         ],
       },
       connect: {

@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useCallback, useRef, useState } from "react"
+import { MktContainer, MktSectionX } from "@/components/marketing-layout"
 import { useT } from "@/lib/i18n/locale-context"
 
 interface IntegrationLogo {
@@ -86,10 +87,11 @@ export function IntegrationsBand() {
   return (
     <section
       id="connect"
-      className="scroll-mt-24 overflow-hidden px-6 py-20 md:py-24"
+      className="scroll-mt-24 overflow-hidden py-14 md:py-16"
       style={{ backgroundColor: "var(--mkt-bg)" }}
     >
-      <div className="relative z-10 mx-auto max-w-3xl">
+      <MktSectionX>
+        <MktContainer className="relative z-10">
         <div className="mb-6 flex items-center justify-center gap-3">
           <div
             aria-hidden="true"
@@ -125,9 +127,10 @@ export function IntegrationsBand() {
         >
           {t.integrations.description}
         </p>
-      </div>
+        </MktContainer>
+      </MktSectionX>
 
-      <div ref={bandRef} className="relative z-10 mt-14 md:mt-16">
+      <div ref={bandRef} className="relative z-10 mt-10 md:mt-12">
         <div
           className="group/track"
           style={{

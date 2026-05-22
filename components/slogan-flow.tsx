@@ -2,6 +2,7 @@
 
 import { useRef } from "react"
 import { motion, useInView, useScroll, useTransform } from "framer-motion"
+import { MktContainer, MktSectionX } from "@/components/marketing-layout"
 import { useT } from "@/lib/i18n/locale-context"
 
 function PhaseWord({
@@ -67,18 +68,19 @@ export function SloganFlow() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden px-6 py-24 md:py-32"
+      className="relative overflow-hidden py-16 md:py-20"
       style={{ backgroundColor: "var(--mkt-bg)" }}
     >
-      <motion.div
-        className="absolute left-1/2 top-1/2 hidden h-px w-[60%] -translate-x-1/2 -translate-y-1/2 origin-left lg:block"
-        style={{
-          scaleX: lineScale,
-          backgroundColor: "var(--mkt-border-strong)",
-        }}
-      />
+      <MktSectionX>
+        <motion.div
+          className="absolute left-1/2 top-1/2 hidden h-px w-[60%] -translate-x-1/2 -translate-y-1/2 origin-left lg:block"
+          style={{
+            scaleX: lineScale,
+            backgroundColor: "var(--mkt-border-strong)",
+          }}
+        />
 
-      <div className="relative mx-auto max-w-6xl">
+        <MktContainer className="relative">
         <p
           className="text-center text-[10px] font-medium uppercase tracking-[0.18em]"
           style={{ color: "var(--mkt-text-muted)" }}
@@ -86,7 +88,7 @@ export function SloganFlow() {
           {t.sloganFlow.eyebrow}
         </p>
 
-        <div className="relative mt-16 grid grid-cols-2 gap-x-4 gap-y-12 md:grid-cols-4 md:gap-x-8">
+        <div className="relative mt-10 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-8">
           {t.sloganFlow.phases.map((phase, i) => (
             <PhaseWord
               key={phase.label}
@@ -112,7 +114,8 @@ export function SloganFlow() {
             </span>
           ))}
         </div>
-      </div>
+        </MktContainer>
+      </MktSectionX>
     </section>
   )
 }

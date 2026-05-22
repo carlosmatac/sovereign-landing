@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { MktContainer, MktSectionX } from "@/components/marketing-layout"
 import { useT } from "@/lib/i18n/locale-context"
 
 export function FaqSection() {
@@ -14,10 +15,11 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="scroll-mt-24 px-6 py-20 md:py-28"
+      className="scroll-mt-24 py-14 md:py-20"
       style={{ backgroundColor: "var(--mkt-bg)" }}
     >
-      <div className="mx-auto max-w-3xl">
+      <MktSectionX>
+        <MktContainer>
         <p
           className="text-center text-[10px] font-medium uppercase tracking-[0.18em]"
           style={{ color: "var(--mkt-text-muted)" }}
@@ -31,10 +33,11 @@ export function FaqSection() {
           {t.faq.headline}
         </h2>
 
+        <div className="mkt-container-prose mt-10">
         <Accordion
           type="single"
           collapsible
-          className="mt-14 w-full"
+          className="w-full"
         >
           {t.faq.items.map((item, i) => (
             <AccordionItem
@@ -58,7 +61,9 @@ export function FaqSection() {
             </AccordionItem>
           ))}
         </Accordion>
-      </div>
+        </div>
+        </MktContainer>
+      </MktSectionX>
     </section>
   )
 }

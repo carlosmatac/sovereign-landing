@@ -11,16 +11,16 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="overflow-x-hidden pb-12 pt-16 md:pb-16 lg:pb-20"
+      className="overflow-x-hidden pb-8 pt-16 md:pb-10 lg:pb-12"
       style={{ backgroundColor: "var(--mkt-bg)" }}
     >
-      <div className="relative left-1/2 -mt-16 w-screen min-h-[640px] -translate-x-1/2 overflow-hidden md:min-h-[760px] lg:min-h-[880px] xl:min-h-[960px]">
+      <div className="relative -mt-16 mx-3 min-h-[640px] overflow-hidden sm:mx-4 md:mx-5 lg:mx-6 xl:mx-8 md:min-h-[760px] lg:min-h-[880px] xl:min-h-[960px]">
         <Image
           src="/hero.png"
           alt=""
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-center scale-[1.06]"
           sizes="100vw"
         />
 
@@ -38,11 +38,19 @@ export function Hero() {
                 {t.hero.badge}
               </span>
 
-              <h1
-                className="mt-7 text-balance font-serif text-[2.75rem] font-normal leading-[1.08] tracking-[-0.025em] sm:text-5xl md:text-6xl lg:text-[4.25rem] xl:text-[4.75rem] xl:leading-[1.06]"
-                style={{ color: "var(--mkt-text)" }}
-              >
-                {t.hero.headline}
+              <h1 className="mt-7 text-balance">
+                <span
+                  className="block font-serif text-[2.75rem] font-normal leading-[1.08] tracking-[-0.025em] sm:text-5xl md:text-6xl lg:text-[4.25rem] xl:text-[4.75rem] xl:leading-[1.06]"
+                  style={{ color: "var(--mkt-text)" }}
+                >
+                  {t.hero.title}
+                </span>
+                <span
+                  className="mt-2 block font-serif text-[2rem] font-normal italic leading-[1.12] tracking-[-0.02em] sm:text-[2.25rem] md:text-[2.75rem] lg:text-[3rem] xl:text-[3.25rem]"
+                  style={{ color: "var(--mkt-hero-accent)" }}
+                >
+                  {t.hero.accentLine}
+                </span>
               </h1>
 
               <p

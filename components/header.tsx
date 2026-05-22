@@ -107,7 +107,7 @@ function MobileSection({
     <div style={{ borderBottom: "1px solid var(--mkt-border)" }}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between px-6 py-4"
+        className="mkt-section-x flex w-full items-center justify-between py-4"
       >
         <span
           className="text-[15px] font-medium tracking-[-0.011em]"
@@ -172,7 +172,9 @@ export function Header() {
             transition: SCROLL_TRANSITION,
           }}
         >
-          <div className="relative flex h-full items-center justify-between gap-4 px-5 sm:px-6 md:px-8 lg:px-12">
+          <div
+            className={`relative flex h-full items-center justify-between gap-4${detached ? "" : " mkt-section-x"}`}
+          >
             {(() => {
               const akH = detached ? 54 : 58
               const sumH = akH
@@ -344,7 +346,7 @@ export function Header() {
               key={key}
               href={href}
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between px-6 py-4 text-[15px] font-medium tracking-[-0.011em] transition-colors active:bg-[var(--mkt-band)]"
+              className="mkt-section-x flex items-center justify-between py-4 text-[15px] font-medium tracking-[-0.011em] transition-colors active:bg-[var(--mkt-band)]"
               style={{
                 color: "var(--mkt-text)",
                 borderBottom: "1px solid var(--mkt-border)",
@@ -367,7 +369,7 @@ export function Header() {
                 key={href}
                 href={href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between px-6 py-3 text-[14px] tracking-[-0.011em] transition-colors active:bg-[var(--mkt-band)]"
+                className="mkt-section-x flex items-center justify-between py-3 text-[14px] tracking-[-0.011em] transition-colors active:bg-[var(--mkt-band)]"
                 style={{ color: "var(--mkt-text-muted)" }}
               >
                 {label}
@@ -380,7 +382,7 @@ export function Header() {
           </MobileSection>
 
           <div
-            className="flex items-center justify-between px-6 py-4"
+            className="mkt-section-x flex items-center justify-between py-4"
             style={{ borderBottom: "1px solid var(--mkt-border)" }}
           >
             <span
@@ -392,7 +394,7 @@ export function Header() {
             <LanguageSwitcher size="comfortable" variant="light" />
           </div>
 
-          <div className="px-6 py-6">
+          <div className="mkt-section-x py-6">
             <RequestDemoButton
               fullWidth
               onClick={() => setMobileOpen(false)}
