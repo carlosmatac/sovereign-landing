@@ -160,16 +160,16 @@ function CountryCodeSelect({
         onClick={() => setOpen((o) => !o)}
         className="flex h-full items-center gap-1.5 rounded-l-[8px] border-y border-l px-3 text-sm transition-colors"
         style={{
-          background: "rgba(255,255,255,0.04)",
-          borderColor: "rgba(147,147,147,0.18)",
-          color: "rgba(255,255,255,0.80)",
+          background: "rgba(26,26,46,0.03)",
+          borderColor: "rgba(26,26,46,0.14)",
+          color: "var(--mkt-text)",
           minWidth: 88,
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(255,255,255,0.065)"
+          e.currentTarget.style.background = "rgba(26,26,46,0.06)"
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background = "rgba(255,255,255,0.04)"
+          e.currentTarget.style.background = "rgba(26,26,46,0.03)"
         }}
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -192,31 +192,32 @@ function CountryCodeSelect({
         <div
           className="absolute left-0 top-full z-50 mt-1 w-72 overflow-hidden rounded-[10px]"
           style={{
-            background: "#0C1628",
-            border: "1px solid rgba(147,147,147,0.22)",
-            boxShadow: "0 16px 48px -8px rgba(0,0,0,0.7), 0 4px 16px -2px rgba(0,0,0,0.5)",
+            background: "#ffffff",
+            border: "1px solid rgba(26,26,46,0.12)",
+            boxShadow: "0 16px 48px -8px rgba(0,0,0,0.12), 0 4px 16px -2px rgba(0,0,0,0.08)",
           }}
           role="listbox"
         >
           {/* Search */}
           <div
             className="flex items-center gap-2 px-3 py-2.5"
-            style={{ borderBottom: "1px solid rgba(147,147,147,0.12)" }}
+            style={{ borderBottom: "1px solid rgba(26,26,46,0.08)" }}
           >
-            <Search style={{ width: 13, height: 13, color: "rgba(255,255,255,0.25)", flexShrink: 0 }} />
+            <Search style={{ width: 13, height: 13, color: "rgba(26,26,46,0.28)", flexShrink: 0 }} />
             <input
               ref={searchRef}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t.requestDemo.form.countrySearch}
-              className="flex-1 bg-transparent text-[12px] text-white outline-none placeholder-white/25"
+              className="flex-1 bg-transparent text-[12px] outline-none"
+              style={{ color: "var(--mkt-text)" }}
             />
           </div>
 
           {/* List */}
           <div className="max-h-52 overflow-y-auto">
             {filtered.length === 0 ? (
-              <p className="px-4 py-3 text-[12px]" style={{ color: "rgba(255,255,255,0.30)" }}>
+              <p className="px-4 py-3 text-[12px]" style={{ color: "var(--mkt-text-muted)" }}>
                 {t.requestDemo.form.noResults}
               </p>
             ) : (
@@ -235,27 +236,27 @@ function CountryCodeSelect({
                     }}
                     className="flex w-full items-center gap-2.5 px-3 py-2 text-left transition-colors"
                     style={{
-                      background: active ? "rgba(255,255,255,0.06)" : undefined,
+                      background: active ? "rgba(26,26,46,0.05)" : undefined,
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(255,255,255,0.05)"
+                      e.currentTarget.style.background = "rgba(26,26,46,0.04)"
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = active
-                        ? "rgba(255,255,255,0.06)"
+                        ? "rgba(26,26,46,0.05)"
                         : ""
                     }}
                   >
                     <span className="text-base leading-none">{toFlag(country.code)}</span>
                     <span
                       className="flex-1 truncate text-[13px]"
-                      style={{ color: "rgba(255,255,255,0.75)" }}
+                      style={{ color: "var(--mkt-text)" }}
                     >
                       {country.name}
                     </span>
                     <span
                       className="shrink-0 tabular-nums text-[12px]"
-                      style={{ color: "rgba(255,255,255,0.35)" }}
+                      style={{ color: "var(--mkt-text-muted)" }}
                     >
                       {country.dial}
                     </span>
@@ -277,7 +278,7 @@ function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNo
     <label
       htmlFor={htmlFor}
       className="mb-1.5 block text-[11px] font-medium uppercase tracking-[0.08em]"
-      style={{ color: "rgba(255,255,255,0.38)" }}
+      style={{ color: "rgba(26,26,46,0.50)" }}
     >
       {children}
     </label>
@@ -285,14 +286,16 @@ function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNo
 }
 
 const inputBase =
-  "w-full rounded-[8px] px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-colors focus:ring-0"
+  "w-full rounded-[8px] px-4 py-3 text-sm outline-none transition-colors focus:ring-0"
 const inputStyle = {
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(147,147,147,0.18)",
+  background: "rgba(26,26,46,0.03)",
+  border: "1px solid rgba(26,26,46,0.14)",
+  color: "var(--mkt-text)",
 }
 const inputFocus = {
-  background: "rgba(255,255,255,0.065)",
-  border: "1px solid rgba(147,147,147,0.36)",
+  background: "#ffffff",
+  border: "1px solid rgba(26,26,46,0.32)",
+  color: "var(--mkt-text)",
 }
 
 function Input({
@@ -347,11 +350,11 @@ export function DemoForm() {
         />
         <h2
           className="mb-3 font-serif text-2xl font-normal tracking-[-0.025em]"
-          style={{ color: "rgba(255,255,255,0.90)" }}
+          style={{ color: "var(--mkt-text)" }}
         >
           {t.requestDemo.success.title}
         </h2>
-        <p className="max-w-sm text-[14px] leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+        <p className="max-w-sm text-[14px] leading-relaxed" style={{ color: "var(--mkt-text-muted)" }}>
           {t.requestDemo.success.body}
         </p>
       </div>
@@ -395,18 +398,19 @@ export function DemoForm() {
             type="tel"
             autoComplete="tel"
             placeholder={f.phonePlaceholder}
-            className="flex-1 rounded-r-[8px] border-y border-r px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-colors focus:ring-0"
+            className="flex-1 rounded-r-[8px] border-y border-r px-4 py-3 text-sm outline-none transition-colors focus:ring-0"
             style={{
-              background: "rgba(255,255,255,0.04)",
-              borderColor: "rgba(147,147,147,0.18)",
+              background: "rgba(26,26,46,0.03)",
+              borderColor: "rgba(26,26,46,0.14)",
+              color: "var(--mkt-text)",
             }}
             onFocus={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.065)"
-              e.currentTarget.style.borderColor = "rgba(147,147,147,0.36)"
+              e.currentTarget.style.background = "#ffffff"
+              e.currentTarget.style.borderColor = "rgba(26,26,46,0.32)"
             }}
             onBlur={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.04)"
-              e.currentTarget.style.borderColor = "rgba(147,147,147,0.18)"
+              e.currentTarget.style.background = "rgba(26,26,46,0.03)"
+              e.currentTarget.style.borderColor = "rgba(26,26,46,0.14)"
             }}
           />
         </div>
@@ -461,12 +465,12 @@ export function DemoForm() {
         type="submit"
         disabled={isPending}
         className="w-full rounded-full py-3.5 text-sm font-medium tracking-[-0.011em] transition-opacity disabled:opacity-60"
-        style={{ background: "#ffffff", color: "#070E1F" }}
+        style={{ background: "var(--mkt-text)", color: "#ffffff" }}
       >
         {isPending ? f.sending : f.submit}
       </button>
 
-      <p className="text-center text-[11px]" style={{ color: "rgba(255,255,255,0.22)" }}>
+      <p className="text-center text-[11px]" style={{ color: "var(--mkt-text-muted)" }}>
         {f.footnote}
       </p>
     </form>

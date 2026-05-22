@@ -146,19 +146,19 @@ export const en = {
     phases: [
       {
         label: "Capture",
-        description: "Interviews, documents, and conversations enter the platform.",
+        description: "Interviews, documents and conversations enter the platform.",
       },
       {
         label: "Connect",
-        description: "Knowledge links to people, companies, and topics automatically.",
+        description: "Aksum links knowledge to people, companies, topics and relationships.",
       },
       {
         label: "Retrieve",
-        description: "Find the right insight in seconds, not hours of searching.",
+        description: "Your team finds the right context in seconds, not hours.",
       },
       {
         label: "Activate",
-        description: "Put knowledge to work in sales, strategy, and communication.",
+        description: "Knowledge becomes meeting briefs, reports, follow-ups and content.",
       },
     ],
   },

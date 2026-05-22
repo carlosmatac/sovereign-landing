@@ -149,11 +149,11 @@ export const es: Dictionary = {
       },
       {
         label: "Conecta",
-        description: "El conocimiento se vincula automáticamente a personas, empresas y temas.",
+        description: "Aksum vincula el conocimiento a personas, empresas, temas y relaciones.",
       },
       {
         label: "Recupera",
-        description: "Encuentra el insight correcto en segundos — no horas de búsqueda.",
+        description: "Tu equipo encuentra el contexto correcto en segundos, no horas.",
       },
       {
         label: "Activa",

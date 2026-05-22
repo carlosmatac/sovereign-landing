@@ -11,12 +11,6 @@ export const metadata: Metadata = {
   description: getDictionary("en").about.metaDescription,
 }
 
-const GRAIN_BG =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E\")"
-
-const DOT_GRID =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
-
 // Non-uniform atmospheric dissolve:
 // Ellipse center at 36% Y — protects faces, aggressively fades lower body.
 const FOUNDERS_MASK =
@@ -36,48 +30,18 @@ export default async function AboutPage() {
   const a = t.about
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#060D1C" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "var(--mkt-bg)" }}>
       <Header />
 
       <main className="relative overflow-x-hidden">
-        {/* Textures */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-0"
-          style={{
-            backgroundImage: GRAIN_BG,
-            backgroundRepeat: "repeat",
-            backgroundSize: "300px 300px",
-            opacity: 0.035,
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-0"
-          style={{
-            backgroundImage: DOT_GRID,
-            backgroundRepeat: "repeat",
-            backgroundSize: "24px 24px",
-            opacity: 0.022,
-          }}
-        />
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
-        <section className="relative z-10">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 100% 60% at 30% 0%, rgba(10,24,56,0.72) 0%, transparent 58%)",
-            }}
-          />
-
+        <section className="relative">
           <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-32 md:pb-24 md:pt-40">
             {/* Eyebrow */}
             <p
               className="mb-10 text-[11px] font-medium uppercase tracking-[0.12em]"
-              style={{ color: "rgba(255,255,255,0.28)" }}
+              style={{ color: "var(--mkt-text-muted)" }}
             >
               {a.eyebrow}
             </p>
@@ -87,7 +51,8 @@ export default async function AboutPage() {
               {/* Left — typography dominant */}
               <div className="flex flex-col gap-7">
                 <h1
-                  className="font-serif text-4xl font-normal leading-[1.06] tracking-[-0.030em] text-white md:text-5xl lg:text-[3.4rem]"
+                  className="font-serif text-4xl font-normal leading-[1.06] tracking-[-0.030em] md:text-5xl lg:text-[3.4rem]"
+                  style={{ color: "var(--mkt-text)" }}
                 >
                   {a.headlineLine1}
                   <br />
@@ -95,15 +60,13 @@ export default async function AboutPage() {
                 </h1>
                 <p
                   className="max-w-[42ch] text-pretty text-[15px] leading-[1.80] tracking-[-0.011em]"
-                  style={{ color: "rgba(255,255,255,0.50)" }}
+                  style={{ color: "var(--mkt-text-muted)" }}
                 >
                   {a.intro}
                 </p>
               </div>
 
-              {/* Right — code-generated AK line-cut (clip from raster mask
-                  derived from the artwork in public/ak.svg). Wrapper aspect
-                  matches the viewBox (~867×569 in 1440 space). */}
+              {/* Right — code-generated AK line-cut */}
               <div
                 className="hidden self-center lg:block"
                 style={{
@@ -120,13 +83,13 @@ export default async function AboutPage() {
             <div
               aria-hidden="true"
               className="mt-14 h-px"
-              style={{ background: "rgba(255,255,255,0.07)" }}
+              style={{ background: "var(--mkt-border)" }}
             />
           </div>
         </section>
 
         {/* ── STORY BODY ──────────────────────────────────────────────────── */}
-        <section className="relative z-10">
+        <section className="relative">
           <div className="mx-auto max-w-5xl px-6 pb-20 pt-16 md:pb-28 md:pt-24">
 
             {/* ── Opening columns: Instinct · Field | Shift ───────────────── */}
@@ -135,12 +98,12 @@ export default async function AboutPage() {
               {/* Left: first two narrative paragraphs */}
               <div
                 className="space-y-10 text-[15.5px] leading-[1.90] tracking-[-0.010em]"
-                style={{ color: "rgba(255,255,255,0.50)" }}
+                style={{ color: "var(--mkt-text-muted)" }}
               >
                 <div>
                   <p
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
-                    style={{ color: "rgba(255,255,255,0.20)" }}
+                    style={{ color: "rgba(26,26,46,0.35)" }}
                   >
                     {a.sections.instinct.label}
                   </p>
@@ -150,7 +113,7 @@ export default async function AboutPage() {
                 <div>
                   <p
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
-                    style={{ color: "rgba(255,255,255,0.20)" }}
+                    style={{ color: "rgba(26,26,46,0.35)" }}
                   >
                     {a.sections.field.label}
                   </p>
@@ -161,18 +124,18 @@ export default async function AboutPage() {
               {/* Right: crystallisation — elevated weight */}
               <div
                 className="text-[15.5px] leading-[1.90] tracking-[-0.010em]"
-                style={{ color: "rgba(255,255,255,0.50)" }}
+                style={{ color: "var(--mkt-text-muted)" }}
               >
                 <div>
                   <p
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
-                    style={{ color: "rgba(255,255,255,0.20)" }}
+                    style={{ color: "rgba(26,26,46,0.35)" }}
                   >
                     {a.sections.shift.label}
                   </p>
                   <p
                     className="text-[16px] leading-[1.84] tracking-[-0.013em]"
-                    style={{ color: "rgba(255,255,255,0.72)" }}
+                    style={{ color: "var(--mkt-text)" }}
                   >
                     {a.sections.shift.body}
                   </p>
@@ -181,8 +144,6 @@ export default async function AboutPage() {
             </div>
 
             {/* ── Editorial image break ──────────────────────────────────── */}
-            {/* Signal banner headline — tune sizes in clamp() on the two spans
-                below: clamp(min, preferred-vw, max). Vertical: `top-[..%]` on <p>. */}
             <div className="relative -mx-0 mt-16 sm:-mx-4 md:mt-20">
               <Image
                 src="/signal.png"
@@ -192,6 +153,7 @@ export default async function AboutPage() {
                 className="block h-auto w-full"
                 priority={false}
               />
+              {/* Text stays white — it renders over the photograph */}
               <p
                 className="pointer-events-none absolute left-1/2 top-[56%] w-[90%] max-w-xl -translate-x-1/2 text-center font-serif font-normal tracking-[-0.032em] text-white sm:top-[55%] md:top-[54%]"
                 style={{
@@ -214,12 +176,12 @@ export default async function AboutPage() {
               {/* Left */}
               <div
                 className="text-[15.5px] leading-[1.90] tracking-[-0.010em]"
-                style={{ color: "rgba(255,255,255,0.50)" }}
+                style={{ color: "var(--mkt-text-muted)" }}
               >
                 <div>
                   <p
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
-                    style={{ color: "rgba(255,255,255,0.20)" }}
+                    style={{ color: "rgba(26,26,46,0.35)" }}
                   >
                     {a.sections.pattern.label}
                   </p>
@@ -230,12 +192,12 @@ export default async function AboutPage() {
               {/* Right */}
               <div
                 className="text-[15.5px] leading-[1.90] tracking-[-0.010em]"
-                style={{ color: "rgba(255,255,255,0.50)" }}
+                style={{ color: "var(--mkt-text-muted)" }}
               >
                 <div>
                   <p
                     className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.14em]"
-                    style={{ color: "rgba(255,255,255,0.20)" }}
+                    style={{ color: "rgba(26,26,46,0.35)" }}
                   >
                     {a.sections.purpose.label}
                   </p>
@@ -248,24 +210,16 @@ export default async function AboutPage() {
         </section>
 
         {/* ── FOUNDERS ────────────────────────────────────────────────────── */}
-        <section className="relative z-10 pb-20 md:pb-28">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-full"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 55% at 50% 30%, rgba(8,18,50,0.45) 0%, transparent 65%)",
-            }}
-          />
+        <section className="relative pb-20 md:pb-28">
 
           {/* Team intro — sits ABOVE the image */}
           <div className="relative mx-auto mb-4 max-w-2xl px-6 text-center md:mb-2">
             <p
               className="text-[15px] leading-[1.88] tracking-[-0.011em]"
-              style={{ color: "rgba(255,255,255,0.42)" }}
+              style={{ color: "var(--mkt-text-muted)" }}
             >
               {a.founders.bodyMuted}
-              <span style={{ color: "rgba(255,255,255,0.70)" }}>
+              <span style={{ color: "var(--mkt-text)" }}>
                 {a.founders.bodyEmphasis}
               </span>
             </p>
@@ -280,7 +234,7 @@ export default async function AboutPage() {
               height={896}
               className="h-auto w-full"
               style={{
-                filter: "saturate(0.78) contrast(1.05) brightness(0.91)",
+                filter: "saturate(0.82) contrast(1.04) brightness(0.94)",
                 maskImage: FOUNDERS_MASK,
                 WebkitMaskImage: FOUNDERS_MASK,
               }}
@@ -291,7 +245,7 @@ export default async function AboutPage() {
           <div className="relative mx-auto mt-0 max-w-4xl px-6 text-center md:-mt-4">
             <p
               className="text-[11px] font-medium uppercase tracking-[0.10em]"
-              style={{ color: "rgba(255,255,255,0.28)" }}
+              style={{ color: "var(--mkt-text-muted)" }}
             >
               {a.founders.caption}
             </p>
@@ -300,20 +254,20 @@ export default async function AboutPage() {
 
         {/* ── FOOTER NAV ──────────────────────────────────────────────────── */}
         <footer
-          className="relative z-10 mx-auto flex max-w-5xl items-center justify-between px-6 py-8"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+          className="relative mx-auto flex max-w-5xl items-center justify-between px-6 py-8"
+          style={{ borderTop: "1px solid var(--mkt-border)" }}
         >
           <Link
             href="/"
             className="text-[12px] tracking-[-0.011em] transition-opacity hover:opacity-60"
-            style={{ color: "rgba(255,255,255,0.28)" }}
+            style={{ color: "var(--mkt-text-muted)" }}
           >
             {t.shared.footerNav.back}
           </Link>
           <Link
             href="/request-demo"
             className="text-[12px] font-medium tracking-[-0.011em] transition-opacity hover:opacity-80"
-            style={{ color: "rgba(255,255,255,0.50)" }}
+            style={{ color: "var(--mkt-text)" }}
           >
             {t.shared.footerNav.requestDemo}
           </Link>
