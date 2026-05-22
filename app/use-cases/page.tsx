@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Header } from "@/components/header"
+import { RequestDemoButton } from "@/components/request-demo-button"
 import { ArrowRight } from "lucide-react"
 import { getServerT } from "@/lib/i18n/server"
 import { getDictionary } from "@/lib/i18n/config"
@@ -823,13 +824,7 @@ export default async function UseCasesPage() {
                 </p>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                <Link
-                  href="/request-demo"
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium tracking-[-0.011em] text-[#070E1F] transition-opacity hover:opacity-90"
-                >
-                  {t.shared.ctaStrip.requestDemo}
-                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-                </Link>
+                <RequestDemoButton>{t.shared.ctaStrip.requestDemo}</RequestDemoButton>
                 <Link
                   href="/"
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-[-0.011em] transition-colors hover:bg-white/[0.06]"

@@ -22,6 +22,10 @@ export const es: Dictionary = {
   header: {
     nav: {
       product: "Producto",
+      features: "Funcionalidades",
+      connect: "Conectar",
+      knowledgeGraph: "Grafo de Conocimiento",
+      faq: "FAQ",
       whoItsBuiltFor: "Para quién está pensado",
       about: "Nosotros",
     },
@@ -63,19 +67,151 @@ export const es: Dictionary = {
 
   // ─── Hero ──────────────────────────────────────────────────────────────────
   hero: {
-    badge: "Inteligencia para las organizaciones que mueven mercados",
-    headline: "Lo que tu organización sabe, por fin puesto a trabajar.",
+    badge: "Plataforma de conocimiento interno",
+    title: "Lo que tu organización sabe",
+    accentLine: "por fin puesto a trabajar",
     subheadline:
-      "Aksum transforma el conocimiento interno en ventaja comercial, claridad estratégica y comunicación dirigida, a la velocidad que las decisiones realmente requieren.",
+      "Aksum convierte entrevistas, documentos y conversaciones en conocimiento interno reutilizable — listo para ventas, estrategia y comunicación.",
     primaryCta: "Solicitar Demo",
   },
 
   // ─── Integrations band ─────────────────────────────────────────────────────
   integrations: {
-    eyebrow: "Compatibilidad de plataforma",
-    headline: "Conecta con las herramientas que tu equipo ya usa",
+    eyebrow: "Conecta tus herramientas",
+    headline: "Funciona con las herramientas que tu equipo ya usa",
     description:
-      "Diseñado para integrarse con el stack comercial y operativo sobre el que tu equipo ya trabaja (CRM, correo, calendario, documentos y colaboración), reunidos en una sola capa de inteligencia.",
+      "Integra CRM, correo, documentos y herramientas de colaboración en una sola capa de conocimiento — sin reemplazar lo que ya funciona.",
+  },
+
+  homepagePillars: {
+    eyebrow: "Capacidades de la plataforma",
+    headline: "Del conocimiento a la acción",
+    pillars: {
+      capture: {
+        title: "Captura conocimiento",
+        accentLine: "Organízalo al instante",
+        description:
+          "Convierte entrevistas, documentos y conversaciones en conocimiento estructurado en el que tu equipo puede confiar.",
+        bullets: [
+          "Sube entrevistas, documentos y notas",
+          "Estructura con revisión humana",
+          "Busca en una base de conocimiento",
+        ],
+      },
+      prepare: {
+        title: "Prepara cada reunión",
+        accentLine: "Vende con contexto",
+        description:
+          "Entra en cada conversación con el historial de cuenta, el contexto de las relaciones y las oportunidades relevantes ya a la vista.",
+        bullets: [
+          "Consulta el historial de relaciones",
+          "Genera briefings de reunión",
+          "Anticipa riesgos y oportunidades",
+        ],
+      },
+      activate: {
+        title: "Activa el conocimiento",
+        accentLine: "Publica con confianza",
+        description:
+          "Convierte la inteligencia interna de confianza en informes, briefings, newsletters y contenido para stakeholders — basado en tus propias fuentes.",
+        bullets: [
+          "Redacta informes y briefings",
+          "Adapta el contenido por audiencia",
+          "Mantén la coherencia del mensaje",
+        ],
+      },
+      connect: {
+        label: "Conecta tu Workflow",
+        description:
+          "Integra con el CRM, correo y herramientas de colaboración que tu equipo ya utiliza.",
+        bullets: [
+          "Sincronización con CRM y correo",
+          "Conexiones con calendario y documentos",
+          "El conocimiento fluye donde ocurre el trabajo",
+        ],
+      },
+    },
+  },
+
+  knowledgeGraph: {
+    eyebrow: "Grafo de Conocimiento",
+    headline: "Ve cómo todo se conecta",
+    description:
+      "Aksum mapea personas, empresas, documentos y temas en un grafo vivo — para que las relaciones y el contexto siempre sean visibles.",
+  },
+
+  sloganFlow: {
+    eyebrow: "Cómo funciona",
+    phases: [
+      {
+        label: "Captura",
+        description: "Entrevistas, documentos y conversaciones entran en la plataforma.",
+      },
+      {
+        label: "Conecta",
+        description: "Aksum vincula el conocimiento a personas, empresas, temas y relaciones.",
+      },
+      {
+        label: "Recupera",
+        description: "Tu equipo encuentra el contexto correcto en segundos, no horas.",
+      },
+      {
+        label: "Activa",
+        description: "Pon el conocimiento a trabajar en ventas, estrategia y comunicación.",
+      },
+    ],
+  },
+
+  faq: {
+    eyebrow: "FAQ",
+    headline: "Preguntas frecuentes",
+    items: [
+      {
+        question: "¿Qué es Aksum?",
+        answer:
+          "Aksum es una plataforma de conocimiento interno. Convierte reuniones, transcripciones, documentos y conversaciones en conocimiento estructurado y buscable que tu equipo puede reutilizar en ventas, estrategia y comunicación.",
+      },
+      {
+        question: "¿Es Aksum un CRM?",
+        answer:
+          "No. Aksum puede apoyar flujos comerciales, pero no es un CRM. Un CRM hace seguimiento de pipeline, contactos y operaciones. Aksum ayuda a los equipos a entender el conocimiento detrás de esas relaciones: lo que se dijo, lo que importa, quién está conectado, qué oportunidades existen y qué contexto conviene usar después.",
+      },
+      {
+        question: "¿Qué tipo de datos puedo subir?",
+        answer:
+          "Puedes trabajar con transcripciones de reuniones, grabaciones de audio, PDFs, informes, notas, correos, documentos de investigación y otras fuentes internas del negocio. Aksum está pensado para equipos que generan contexto valioso en muchas conversaciones y documentos.",
+      },
+      {
+        question: "¿Qué hace Aksum con reuniones y transcripciones?",
+        answer:
+          "Aksum convierte grabaciones de reuniones, transcripciones, notas y documentos relacionados en conocimiento estructurado. Identifica personas, empresas, temas, fuentes y relaciones, y luego hace ese contexto buscable y reutilizable para todo el equipo.",
+      },
+      {
+        question: "¿En qué se diferencia de ChatGPT?",
+        answer:
+          "ChatGPT es útil para responder preguntas o resumir contenido que le das en el momento. Aksum está construido como un sistema de conocimiento persistente para tu organización. Mantiene tus fuentes, entidades, relaciones y contexto conectados en el tiempo, para que tu equipo pueda recuperar respuestas fundamentadas desde tu propia base de conocimiento en lugar de empezar cada vez desde un chat en blanco.",
+      },
+      {
+        question: "¿En qué se diferencia de Notion o Google Drive?",
+        answer:
+          "Notion y Google Drive son lugares para guardar y organizar archivos. Aksum está diseñado para conectar el conocimiento dentro de esos archivos. Extrae personas, empresas, temas, fuentes y relaciones, y los convierte en una capa de inteligencia reutilizable entre proyectos y equipos. El objetivo no es solo encontrar un documento, sino entender lo que la organización sabe y aplicarlo a ventas, estrategia, reporting y comunicación.",
+      },
+      {
+        question: "¿Para quién está pensado Aksum?",
+        answer:
+          "Aksum está pensado para equipos que crean conocimiento valioso mediante reuniones, investigación, documentos y conversaciones con stakeholders. Eso incluye medios B2B, consultoría, inversión, asuntos públicos, investigación, desarrollo de negocio y equipos de estrategia.",
+      },
+      {
+        question: "¿Mis datos son privados?",
+        answer:
+          "Sí. Aksum está construido para conocimiento interno de negocio. El contenido del cliente se mantiene privado en el workspace autorizado y solo debe ser accesible para usuarios aprobados. El producto debe tratar siempre el material fuente, las transcripciones y los outputs generados como confidenciales salvo que el cliente decida lo contrario.",
+      },
+      {
+        question: "¿Necesito configuración técnica?",
+        answer:
+          "No hace falta una configuración técnica pesada para empezar. Los equipos pueden comenzar subiendo reuniones, transcripciones, informes y documentos existentes. Las integraciones con otras herramientas se pueden añadir más adelante si encajan en el flujo de trabajo.",
+      },
+    ],
   },
 
   // ─── Features (three editorial blocks) ─────────────────────────────────────
@@ -102,9 +238,9 @@ export const es: Dictionary = {
 
   // ─── Closing CTA + footer ──────────────────────────────────────────────────
   ctaFooter: {
-    headline: "¿Listo para poner tu inteligencia a trabajar?",
+    headline: "¿Listo para convertir tu conocimiento en ventaja?",
     cta: "Solicitar Demo",
-    copyright: "© 2026 Aksum Data",
+    copyright: "© 2026 Aksum",
     nav: {
       contact: "Contacto",
       privacy: "Política de Privacidad",

@@ -4,6 +4,23 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Marketing landing surface tokens */
+  --mkt-bg: #ffffff;
+  --mkt-band: #f0f4f8;
+  --mkt-band-alt: #f7f5f2;
+  --mkt-hero-band: #9096DA;
+  --mkt-hero-accent: #4d4878;
+  --mkt-accent: #3b5bdb;
+  --mkt-accent-hover: #2f4bc4;
+  --mkt-text: #1a1a2e;
+  --mkt-text-muted: #6b7280;
+  --mkt-border: rgba(26, 26, 46, 0.08);
+  --mkt-border-strong: rgba(26, 26, 46, 0.14);
+  --mkt-cta-band: #e8e7f2;
+
+  /* Homepage horizontal grid — gutters match hero content padding (px-6 … xl:px-24) */
+  --mkt-page-gutter: 1.5rem;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.175 0.03 264);
   --card: oklch(1 0 0);
@@ -141,6 +158,38 @@
   100%        { opacity: 1; }
 }
 
+@keyframes kg-edge-particle {
+  from { offset-distance: 0%; }
+  to   { offset-distance: 100%; }
+}
+
+/* React Flow — knowledge graph section overrides */
+.react-flow {
+  background: transparent !important;
+}
+.react-flow__panel,
+.react-flow__attribution {
+  display: none !important;
+}
+
+.hero-knowledge-graph .react-flow {
+  background: transparent !important;
+}
+.hero-knowledge-graph .react-flow__panel,
+.hero-knowledge-graph .react-flow__attribution {
+  display: none !important;
+}
+.hero-knowledge-graph .react-flow__nodes,
+.hero-knowledge-graph .react-flow__node {
+  pointer-events: none !important;
+}
+.hero-knowledge-graph .react-flow__edges {
+  pointer-events: all !important;
+}
+.hero-knowledge-graph .react-flow__edge-interaction {
+  stroke-width: 22px;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -150,5 +199,46 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --mkt-page-gutter: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --mkt-page-gutter: 3.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --mkt-page-gutter: 5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --mkt-page-gutter: 6rem;
+  }
+}
+
+@layer components {
+  .mkt-section-x {
+    padding-inline: var(--mkt-page-gutter);
+  }
+
+  .mkt-container {
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  /* Inner text measure — use on copy blocks, not section shells */
+  .mkt-container-prose {
+    max-width: 48rem;
+    margin-inline: auto;
   }
 }

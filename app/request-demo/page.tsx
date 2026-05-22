@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Link from "next/link"
+import { Header } from "@/components/header"
 import { DemoForm } from "./demo-form"
 import { getServerT } from "@/lib/i18n/server"
 import { getDictionary } from "@/lib/i18n/config"
@@ -10,68 +10,34 @@ export const metadata: Metadata = {
   description: getDictionary("en").requestDemo.metaDescription,
 }
 
-// Film grain — consistent with the rest of the landing
-const GRAIN_BG =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E\")"
-
 export default async function RequestDemoPage() {
   const t = await getServerT()
   const r = t.requestDemo
 
   return (
-    <main
-      className="flex min-h-screen flex-col lg:flex-row"
-      style={{ backgroundColor: "#060D1C" }}
-    >
+    <div className="min-h-screen" style={{ backgroundColor: "var(--mkt-bg)" }}>
+      <Header />
+      <main className="flex min-h-screen flex-col lg:flex-row">
       {/* ── Left column — form ─────────────────────────────────────────────── */}
       <div className="relative flex w-full flex-col lg:w-1/2">
-        {/* Film grain overlay */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0"
-          style={{
-            backgroundImage: GRAIN_BG,
-            backgroundRepeat: "repeat",
-            backgroundSize: "300px 300px",
-            opacity: 0.035,
-          }}
-        />
-
-        <div className="relative z-10 flex flex-1 flex-col px-6 py-10 sm:px-10 md:px-14 lg:px-16 xl:px-20">
-          {/* Back to site */}
-          <div className="mb-12">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.07em] transition-colors"
-              style={{ color: "rgba(255,255,255,0.30)" }}
-            >
-              <Image
-                src="/aksum.svg"
-                alt="Aksum"
-                width={110}
-                height={28}
-                style={{ width: "auto", height: "28px", opacity: 0.55 }}
-              />
-            </Link>
-          </div>
-
+        <div className="relative z-10 flex flex-1 flex-col px-6 pb-10 pt-28 sm:px-10 md:px-14 lg:px-16 xl:px-20">
           {/* Heading block */}
           <div className="mb-10">
             <p
               className="mb-3 text-[11px] font-medium uppercase tracking-[0.10em]"
-              style={{ color: "rgba(255,255,255,0.30)" }}
+              style={{ color: "var(--mkt-text-muted)" }}
             >
               {r.eyebrow}
             </p>
             <h1
               className="mb-4 font-serif text-3xl font-normal leading-tight tracking-[-0.025em] md:text-4xl"
-              style={{ color: "rgba(255,255,255,0.92)" }}
+              style={{ color: "var(--mkt-text)" }}
             >
               {r.headline}
             </h1>
             <p
               className="max-w-md text-[15px] leading-relaxed tracking-[-0.011em]"
-              style={{ color: "rgba(255,255,255,0.45)" }}
+              style={{ color: "var(--mkt-text-muted)" }}
             >
               {r.body}
             </p>
@@ -81,7 +47,7 @@ export default async function RequestDemoPage() {
           <div
             aria-hidden="true"
             className="mb-10 h-px w-10"
-            style={{ background: "rgba(255,255,255,0.12)" }}
+            style={{ background: "var(--mkt-border-strong)" }}
           />
 
           {/* Form */}
@@ -90,11 +56,11 @@ export default async function RequestDemoPage() {
           </div>
 
           {/* Footer note */}
-          <p className="mt-12 text-[12px]" style={{ color: "rgba(255,255,255,0.20)" }}>
+          <p className="mt-12 text-[12px]" style={{ color: "var(--mkt-text-muted)" }}>
             {r.questions}{" "}
             <a
               href="mailto:team@aksum.ai"
-              className="underline underline-offset-2 transition-colors hover:text-white/50"
+              className="underline underline-offset-2 transition-opacity hover:opacity-60"
             >
               team@aksum.ai
             </a>
@@ -103,12 +69,6 @@ export default async function RequestDemoPage() {
       </div>
 
       {/* ── Right column — image ───────────────────────────────────────────── */}
-      {/*
-        The outer wrapper handles sizing + the lg:sticky behaviour.
-        Next.js <Image fill> requires its *direct* parent to have
-        position relative|absolute|fixed (sticky is not allowed), so the
-        Image lives inside a nested `relative` container.
-      */}
       <div className="h-[56vw] w-full lg:sticky lg:top-0 lg:h-screen lg:w-1/2">
         <div className="relative h-full w-full">
           <Image
@@ -120,7 +80,7 @@ export default async function RequestDemoPage() {
             priority
           />
 
-          {/* Editorial statement — bottom-anchored */}
+          {/* Editorial statement — text remains white, sits over the photo */}
           <div className="absolute bottom-0 left-0 right-0 px-8 pb-10 md:px-12 md:pb-12">
             <div
               aria-hidden="true"
@@ -143,5 +103,6 @@ export default async function RequestDemoPage() {
         </div>
       </div>
     </main>
+    </div>
   )
 }

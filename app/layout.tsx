@@ -20,8 +20,8 @@ const gabarito = Gabarito({
 });
 
 export const metadata: Metadata = {
-  title: 'Aksum | Frontier Markets Intelligence, Decoded',
-  description: 'Transforming exclusive interviews with Ministers, CEOs, and Diplomats into a searchable, AI-powered business intelligence database for the Global South.',
+  title: 'Aksum | Internal Knowledge Platform',
+  description: 'Aksum transforms internal knowledge into sales advantage, strategic clarity, and targeted communication, at the speed decisions actually need.',
   generator: 'v0.app',
   // Icons are handled by the Next.js app-router file convention via
   // `app/icon.svg` — that gives us a content-fingerprinted URL which forces
@@ -41,7 +41,7 @@ export default async function RootLayout({
   const initialLocale = isLocale(cookieValue) ? cookieValue : DEFAULT_LOCALE
 
   return (
-    <html lang={initialLocale} className="dark">
+    <html lang={initialLocale}>
       <body className={`${inter.variable} ${playfair.variable} ${gabarito.variable} font-sans antialiased`}>
         <LocaleProvider initialLocale={initialLocale}>
           <PageTransition>{children}</PageTransition>

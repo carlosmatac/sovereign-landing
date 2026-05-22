@@ -1,125 +1,127 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { HeroDashboardPanel, HeroDashboardPanelMobile } from "@/components/hero-dashboard-panel"
+import Image from "next/image"
 import { useT } from "@/lib/i18n/locale-context"
+import { RequestDemoButton } from "@/components/request-demo-button"
 
-// Film grain overlay — URL-encoded SVG feTurbulence, tiled at low opacity
-const GRAIN_BG =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E\")"
+function HeroLogoObject() {
+  return (
+    <div
+      className="hero-logo-stage flex flex-col items-center"
+      style={{ perspective: "900px", perspectiveOrigin: "50% 45%" }}
+    >
+      <div
+        className="hero-logo-object"
+        style={{
+          width: "clamp(220px, 38vw, 480px)",
+          height: "clamp(220px, 38vw, 480px)",
+          transform: "rotateX(22deg) rotateZ(-3deg) translateY(-8px)",
+          transition: "transform .55s cubic-bezier(.22,.68,0,1.2), filter .55s ease",
+          filter:
+            "drop-shadow(0 28px 38px rgba(90,70,50,.22)) drop-shadow(0 8px 14px rgba(90,70,50,.13))",
+          cursor: "default",
+        }}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget
+          el.style.transform = "rotateX(14deg) rotateZ(-1.5deg) translateY(-18px)"
+          el.style.filter =
+            "drop-shadow(0 40px 52px rgba(90,70,50,.28)) drop-shadow(0 12px 20px rgba(90,70,50,.15))"
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget
+          el.style.transform = "rotateX(22deg) rotateZ(-3deg) translateY(-8px)"
+          el.style.filter =
+            "drop-shadow(0 28px 38px rgba(90,70,50,.22)) drop-shadow(0 8px 14px rgba(90,70,50,.13))"
+        }}
+      >
+        <Image
+          src="/ak.svg"
+          alt="Aksum"
+          width={360}
+          height={360}
+          className="block h-full w-full select-none"
+          priority
+        />
+      </div>
 
-// Fine dot grid — aligned 24px technical texture, adds precision depth
-const DOT_GRID =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='0.5' cy='0.5' r='0.75' fill='white'/%3E%3C/svg%3E\")"
+      {/* Ground shadow */}
+      <div
+        style={{
+          width: "clamp(160px, 24vw, 320px)",
+          height: "36px",
+          background:
+            "radial-gradient(ellipse at center, rgba(90,70,50,.18) 0%, transparent 72%)",
+          marginTop: "8px",
+          transition: "width .55s ease, opacity .55s ease",
+        }}
+        aria-hidden="true"
+      />
+    </div>
+  )
+}
 
 export function Hero() {
   const t = useT()
+
   return (
-    <section className="relative overflow-hidden" style={{ backgroundColor: "#060D1C" }}>
-
-      {/* Tonal depth — very soft radial that adds barely perceptible atmosphere at the top */}
+    <section
+      id="hero"
+      className="overflow-x-hidden pb-8 pt-16 md:pb-10 lg:pb-12"
+      style={{ backgroundColor: "var(--mkt-bg)" }}
+    >
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
+        className="relative -mt-16 mx-3 min-h-[640px] overflow-hidden sm:mx-4 md:mx-5 lg:mx-6 xl:mx-8 md:min-h-[760px] lg:min-h-[880px] xl:min-h-[960px]"
         style={{
-          background:
-            "radial-gradient(ellipse 140% 50% at 50% -8%, rgba(10,24,56,0.9) 0%, transparent 68%)",
+          background: "linear-gradient(160deg, #f9f6f1 0%, #ede8df 50%, #e8e0d4 100%)",
         }}
-      />
-
-      {/* Film grain — 3.5% opacity, adds tactility and cinematic premium feel */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          backgroundImage: GRAIN_BG,
-          backgroundRepeat: "repeat",
-          backgroundSize: "300px 300px",
-          opacity: 0.035,
-        }}
-      />
-
-      {/* Dot grid — fine 24px technical texture, registers as depth not decoration */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          backgroundImage: DOT_GRID,
-          backgroundRepeat: "repeat",
-          backgroundSize: "24px 24px",
-          opacity: 0.025,
-        }}
-      />
-
-      {/* Above-the-fold copy — split composition on desktop, stacked on mobile.
-          Headline anchors the left column; supporting copy + the single CTA
-          live in the right column with the CTA pushed to the bottom edge so
-          it visually anchors the row. Top padding is tightened so the hero
-          starts sooner under the detached header. */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-20 md:pt-24 lg:pt-28">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-x-16">
-          {/* LEFT — badge + headline */}
-          <div className="lg:col-span-7">
-            {/* Badge — traveling border-light */}
-            <div
-              className="relative inline-flex overflow-hidden rounded-full p-px"
-              style={{ background: "rgba(255,255,255,0.10)" }}
-            >
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-[-75%]"
-                style={{
-                  background:
-                    "conic-gradient(from 0deg, transparent 0%, transparent 62%, rgba(255,255,255,0.50) 72%, rgba(255,255,255,0.18) 78%, transparent 86%, transparent 100%)",
-                  animation: "badge-orbit 4s linear infinite",
-                }}
-              />
+      >
+        <div className="relative z-10 flex min-h-[inherit] items-center px-6 pb-12 pt-16 sm:px-10 md:px-14 md:pb-16 lg:px-20 lg:pb-20 xl:px-24">
+          <div className="grid w-full grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-12 xl:gap-20">
+            <div className="mx-auto w-full max-w-2xl lg:max-w-none lg:justify-self-center lg:pl-8 xl:pl-16 2xl:pl-24">
               <span
-                className="relative z-10 inline-flex items-center rounded-full px-4 py-1.5 text-[13px] tracking-[-0.01em] text-white/50"
-                style={{ background: "rgba(6,13,28,0.88)" }}
+                className="inline-flex items-center rounded-full border px-5 py-2 text-[14px] tracking-[-0.01em]"
+                style={{
+                  borderColor: "rgba(90,70,50,0.22)",
+                  color: "var(--mkt-text)",
+                  backgroundColor: "rgba(255,255,255,0.72)",
+                }}
               >
                 {t.hero.badge}
               </span>
-            </div>
 
-            {/* Headline */}
-            <h1 className="mt-6 text-balance font-serif text-4xl font-normal tracking-[-0.025em] text-white md:text-5xl lg:text-[64px] lg:leading-[1.04]">
-              {t.hero.headline}
-            </h1>
-          </div>
+              <h1 className="mt-7 text-balance">
+                <span
+                  className="block font-serif text-[2.75rem] font-normal leading-[1.08] tracking-[-0.025em] sm:text-5xl md:text-6xl lg:text-[4.25rem] xl:text-[4.75rem] xl:leading-[1.06]"
+                  style={{ color: "var(--mkt-text)" }}
+                >
+                  {t.hero.title}
+                </span>
+                <span
+                  className="mt-2 block font-serif text-[2rem] font-normal italic leading-[1.12] tracking-[-0.02em] sm:text-[2.25rem] md:text-[2.75rem] lg:text-[3rem] xl:text-[3.25rem]"
+                  style={{ color: "var(--mkt-hero-accent)" }}
+                >
+                  {t.hero.accentLine}
+                </span>
+              </h1>
 
-          {/* RIGHT — supporting copy + CTA. On lg+, the column stretches to
-              the row height and pushes the CTA to the bottom so it lines up
-              with the bottom of the headline opposite. */}
-          <div className="flex flex-col gap-7 lg:col-span-5 lg:justify-between lg:gap-0">
-            <p className="text-pretty text-base leading-relaxed tracking-[-0.011em] text-white/55 md:text-lg lg:max-w-md lg:pt-2">
-              {t.hero.subheadline}
-            </p>
-
-            <div className="lg:pt-6">
-              <Button
-                asChild
-                size="lg"
-                className="rounded-full bg-white px-8 font-medium tracking-[-0.011em] text-[#070E1F] hover:bg-white/92"
+              <p
+                className="mt-7 max-w-xl text-pretty text-lg leading-relaxed tracking-[-0.011em] md:text-xl md:leading-[1.65] lg:max-w-2xl"
+                style={{ color: "rgba(26, 26, 46, 0.88)" }}
               >
-                <Link href="/request-demo">{t.hero.primaryCta}</Link>
-              </Button>
+                {t.hero.subheadline}
+              </p>
+
+              <div className="mt-10">
+                <RequestDemoButton className="h-12 px-8 text-[15px]">
+                  {t.hero.primaryCta}
+                </RequestDemoButton>
+              </div>
+            </div>
+
+            <div className="relative flex items-end justify-center pb-8 lg:justify-center lg:overflow-visible lg:pb-0 xl:justify-end xl:pr-8 2xl:pr-16">
+              <HeroLogoObject />
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Dashboard panel — wider container, pulled tight to the copy row so it
-          appears earlier in the viewport and reads as the centerpiece of the
-          first screen. Mobile shows a simplified readable view, desktop shows
-          the full panel. */}
-      <div className="relative z-10 mx-auto max-w-[1320px] px-6 pb-16 pt-12 md:pb-20 md:pt-14 lg:pb-24 lg:pt-16">
-        <div className="block lg:hidden">
-          <HeroDashboardPanelMobile />
-        </div>
-        <div className="hidden lg:block">
-          <HeroDashboardPanel />
         </div>
       </div>
     </section>
