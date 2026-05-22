@@ -169,47 +169,47 @@ export const es: Dictionary = {
       {
         question: "¿Qué es Aksum?",
         answer:
-          "Aksum es una plataforma de conocimiento interno. Convierte entrevistas, documentos y conversaciones en conocimiento estructurado y buscable que tu equipo puede reutilizar en ventas, estrategia y comunicación.",
+          "Aksum es una plataforma de conocimiento interno. Convierte reuniones, transcripciones, documentos y conversaciones en conocimiento estructurado y buscable que tu equipo puede reutilizar en ventas, estrategia y comunicación.",
       },
       {
         question: "¿Es Aksum un CRM?",
         answer:
-          "No. Aksum no es un CRM. Se conecta a tu CRM y otras herramientas, pero su propósito es capturar, organizar y activar el conocimiento interno — no gestionar pipelines o contactos.",
+          "No. Aksum puede apoyar flujos comerciales, pero no es un CRM. Un CRM hace seguimiento de pipeline, contactos y operaciones. Aksum ayuda a los equipos a entender el conocimiento detrás de esas relaciones: lo que se dijo, lo que importa, quién está conectado, qué oportunidades existen y qué contexto conviene usar después.",
       },
       {
         question: "¿Qué tipo de datos puedo subir?",
         answer:
-          "Entrevistas, notas de reuniones, informes, PDFs, presentaciones, hilos de correo y otros documentos que tu organización ya produce. Aksum estructura este contenido para que sea buscable y reutilizable.",
+          "Puedes trabajar con transcripciones de reuniones, grabaciones de audio, PDFs, informes, notas, correos, documentos de investigación y otras fuentes internas del negocio. Aksum está pensado para equipos que generan contexto valioso en muchas conversaciones y documentos.",
       },
       {
-        question: "¿Qué hace Aksum con las entrevistas?",
+        question: "¿Qué hace Aksum con reuniones y transcripciones?",
         answer:
-          "Aksum transcribe y estructura el contenido de las entrevistas, extrae entidades y temas clave, y los conecta a tu grafo de conocimiento existente — para que los insights de las conversaciones no se pierdan en grabaciones o notas.",
+          "Aksum convierte grabaciones de reuniones, transcripciones, notas y documentos relacionados en conocimiento estructurado. Identifica personas, empresas, temas, fuentes y relaciones, y luego hace ese contexto buscable y reutilizable para todo el equipo.",
       },
       {
         question: "¿En qué se diferencia de ChatGPT?",
         answer:
-          "ChatGPT responde desde conocimiento general. Aksum trabaja con el conocimiento propio de tu organización — entrevistas, documentos y conversaciones — con contexto completo, capas de revisión y conexiones entre entidades.",
+          "ChatGPT es útil para responder preguntas o resumir contenido que le das en el momento. Aksum está construido como un sistema de conocimiento persistente para tu organización. Mantiene tus fuentes, entidades, relaciones y contexto conectados en el tiempo, para que tu equipo pueda recuperar respuestas fundamentadas desde tu propia base de conocimiento en lugar de empezar cada vez desde un chat en blanco.",
       },
       {
         question: "¿En qué se diferencia de Notion o Google Drive?",
         answer:
-          "Notion y Drive almacenan archivos. Aksum conecta conocimiento — vinculando personas, empresas, temas y documentos en un grafo que puedes consultar y activar, no solo navegar carpeta por carpeta.",
+          "Notion y Google Drive son lugares para guardar y organizar archivos. Aksum está diseñado para conectar el conocimiento dentro de esos archivos. Extrae personas, empresas, temas, fuentes y relaciones, y los convierte en una capa de inteligencia reutilizable entre proyectos y equipos. El objetivo no es solo encontrar un documento, sino entender lo que la organización sabe y aplicarlo a ventas, estrategia, reporting y comunicación.",
       },
       {
         question: "¿Para quién está pensado Aksum?",
         answer:
-          "Equipos que dependen del conocimiento profundo para ganar — desarrollo de negocio, estrategia, investigación y equipos de liderazgo en organizaciones donde las relaciones, el contexto y la memoria institucional importan.",
+          "Aksum está pensado para equipos que crean conocimiento valioso mediante reuniones, investigación, documentos y conversaciones con stakeholders. Eso incluye medios B2B, consultoría, inversión, asuntos públicos, investigación, desarrollo de negocio y equipos de estrategia.",
       },
       {
         question: "¿Mis datos son privados?",
         answer:
-          "Sí. Tus datos permanecen dentro del entorno de tu organización. Aksum está diseñado para equipos que manejan información comercial y estratégica sensible.",
+          "Sí. Aksum está construido para conocimiento interno de negocio. El contenido del cliente se mantiene privado en el workspace autorizado y solo debe ser accesible para usuarios aprobados. El producto debe tratar siempre el material fuente, las transcripciones y los outputs generados como confidenciales salvo que el cliente decida lo contrario.",
       },
       {
         question: "¿Necesito configuración técnica?",
         answer:
-          "No. Aksum está diseñado para equipos de negocio, no para desarrolladores. Sube contenido, conecta tus herramientas y empieza a construir tu base de conocimiento — sin ingeniería.",
+          "No hace falta una configuración técnica pesada para empezar. Los equipos pueden comenzar subiendo reuniones, transcripciones, informes y documentos existentes. Las integraciones con otras herramientas se pueden añadir más adelante si encajan en el flujo de trabajo.",
       },
     ],
   },

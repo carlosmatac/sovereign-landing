@@ -1,10 +1,25 @@
 "use client"
 
+import { useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 
+function scrollToHash() {
+  const id = window.location.hash.replace(/^#/, "")
+  if (!id) return
+  const el = document.getElementById(id)
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
+}
+
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+
+  useEffect(() => {
+    if (!window.location.hash) return
+    // Wait for route content to mount after cross-page navigation
+    const t = window.setTimeout(scrollToHash, 50)
+    return () => window.clearTimeout(t)
+  }, [pathname])
 
   return (
     <AnimatePresence mode="wait" initial={false}>

@@ -75,11 +75,12 @@ const LOGO_AK_ASPECT = 1
 const LOGO_SUM_ASPECT = 1346.6667 / 885.33331
 const LOGO_GAP = -4
 
+// Root-relative hashes so section links work from About, Contact, Request Demo, etc.
 const NAV_LINKS = [
-  { key: "features" as const, href: "#features" },
-  { key: "connect" as const, href: "#connect" },
-  { key: "knowledgeGraph" as const, href: "#knowledge-graph" },
-  { key: "faq" as const, href: "#faq" },
+  { key: "features" as const, href: "/#features" },
+  { key: "connect" as const, href: "/#connect" },
+  { key: "knowledgeGraph" as const, href: "/#knowledge-graph" },
+  { key: "faq" as const, href: "/#faq" },
 ]
 
 function MobileSection({

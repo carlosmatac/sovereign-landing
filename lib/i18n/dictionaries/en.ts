@@ -171,47 +171,47 @@ export const en = {
       {
         question: "What is Aksum?",
         answer:
-          "Aksum is an internal knowledge platform. It turns interviews, documents, and conversations into structured, searchable knowledge that your team can reuse across sales, strategy, and communication.",
+          "Aksum is an internal knowledge platform. It turns meetings, transcripts, documents, and conversations into structured, searchable knowledge that your team can reuse across sales, strategy, and communication.",
       },
       {
         question: "Is Aksum a CRM?",
         answer:
-          "No. Aksum is not a CRM. It connects to your CRM and other tools, but its purpose is to capture, organise, and activate internal knowledge — not to manage customer pipelines or contacts.",
+          "No. Aksum can support commercial workflows, but it is not a CRM. A CRM tracks pipeline, contacts and deals. Aksum helps teams understand the knowledge behind those relationships: what was said, what matters, who is connected, what opportunities exist and what context should be used next.",
       },
       {
         question: "What kind of data can I upload?",
         answer:
-          "Interviews, meeting notes, reports, PDFs, presentations, email threads, and other documents your organisation already produces. Aksum structures this content so it becomes searchable and reusable.",
+          "You can work with meeting transcripts, audio recordings, PDFs, reports, notes, emails, research documents and other internal business sources. Aksum is designed for knowledge-heavy teams that generate valuable context across many conversations and documents.",
       },
       {
-        question: "What does Aksum do with interviews?",
+        question: "What does Aksum do with meetings and transcripts?",
         answer:
-          "Aksum transcribes and structures interview content, extracts key entities and themes, and connects them to your existing knowledge graph — so insights from conversations don't get lost in recordings or notes.",
+          "Aksum turns meeting recordings, transcripts, notes and related documents into structured knowledge. It identifies people, companies, topics, sources and relationships, then makes that context searchable and reusable across your team.",
       },
       {
         question: "How is this different from ChatGPT?",
         answer:
-          "ChatGPT answers from general knowledge. Aksum works from your organisation's own knowledge — interviews, documents, and conversations — with full context, review layers, and connections between entities.",
+          "ChatGPT is useful for answering questions or summarising content you give it in the moment. Aksum is built as a persistent knowledge system for your organisation. It keeps your sources, entities, relationships and context connected over time, so your team can retrieve grounded answers from your own knowledge base instead of starting from a blank chat every time.",
       },
       {
         question: "How is this different from Notion or Google Drive?",
         answer:
-          "Notion and Drive store files. Aksum connects knowledge — linking people, companies, topics, and documents into a graph you can query and activate, not just browse folder by folder.",
+          "Notion and Google Drive are places to store and organise files. Aksum is designed to connect the knowledge inside those files. It extracts people, companies, topics, sources and relationships, then turns them into a reusable intelligence layer across projects and teams. The goal is not just to find a document, but to understand what the organisation knows and apply it to sales, strategy, reporting and communication.",
       },
       {
         question: "Who is Aksum built for?",
         answer:
-          "Teams that rely on deep knowledge to win — business development, strategy, research, and leadership teams in organisations where relationships, context, and institutional memory matter.",
+          "Aksum is built for teams that create valuable knowledge through meetings, research, documents and stakeholder conversations. That includes B2B media, consulting, investment, public affairs, research, business development and strategy teams.",
       },
       {
         question: "Is my data private?",
         answer:
-          "Yes. Your data stays within your organisation's environment. Aksum is built for teams that handle sensitive commercial and strategic information.",
+          "Yes. Aksum is built for internal business knowledge. Customer content is kept private to the authorised workspace and should only be accessible to approved users. The product should always treat source material, transcripts and generated outputs as confidential unless the customer decides otherwise.",
       },
       {
         question: "Do I need technical setup?",
         answer:
-          "No. Aksum is designed for business teams, not developers. Upload content, connect your tools, and start building your knowledge base — no engineering required.",
+          "No heavy technical setup is needed to get started. Teams can begin by uploading existing meetings, transcripts, reports and documents. Integrations with other tools can be added later if they are useful for the workflow.",
       },
     ],
   },

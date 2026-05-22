@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Link from "next/link"
+import { Header } from "@/components/header"
 import { DemoForm } from "./demo-form"
 import { getServerT } from "@/lib/i18n/server"
 import { getDictionary } from "@/lib/i18n/config"
@@ -15,31 +15,12 @@ export default async function RequestDemoPage() {
   const r = t.requestDemo
 
   return (
-    <main
-      className="flex min-h-screen flex-col lg:flex-row"
-      style={{ backgroundColor: "var(--mkt-bg)" }}
-    >
+    <div className="min-h-screen" style={{ backgroundColor: "var(--mkt-bg)" }}>
+      <Header />
+      <main className="flex min-h-screen flex-col lg:flex-row">
       {/* ── Left column — form ─────────────────────────────────────────────── */}
       <div className="relative flex w-full flex-col lg:w-1/2">
-        <div className="relative z-10 flex flex-1 flex-col px-6 py-10 sm:px-10 md:px-14 lg:px-16 xl:px-20">
-          {/* Back to site */}
-          <div className="mb-12">
-            <Link href="/" className="inline-flex items-center gap-2">
-              <Image
-                src="/aksum.svg"
-                alt="Aksum"
-                width={110}
-                height={28}
-                style={{
-                  width: "auto",
-                  height: "28px",
-                  filter: "brightness(0) saturate(100%)",
-                  opacity: 0.65,
-                }}
-              />
-            </Link>
-          </div>
-
+        <div className="relative z-10 flex flex-1 flex-col px-6 pb-10 pt-28 sm:px-10 md:px-14 lg:px-16 xl:px-20">
           {/* Heading block */}
           <div className="mb-10">
             <p
@@ -122,5 +103,6 @@ export default async function RequestDemoPage() {
         </div>
       </div>
     </main>
+    </div>
   )
 }
