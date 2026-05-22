@@ -24,21 +24,21 @@ const PILLAR_IMAGES: Record<
   { src: string; alt: string; width: number; height: number }
 > = {
   capture: {
-    src: "/capture.png",
+    src: "/capture.webp",
     alt:
       "Inputs such as interviews, PDFs, and notes flow into Aksum and emerge as structured people, companies, topics, and summaries.",
     width: 6798,
     height: 6798,
   },
   prepare: {
-    src: "/sell.png",
+    src: "/sell.webp",
     alt:
       "A meeting brief for Meridian Capital with prior conversations, open opportunities, follow-ups, and upcoming events assembled before the call.",
     width: 6803,
     height: 5324,
   },
   activate: {
-    src: "/activate.png",
+    src: "/activate.webp",
     alt:
       "Market reports, social posts, executive briefs, and newsletters generated from internal knowledge and ready to publish.",
     width: 7532,
