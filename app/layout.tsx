@@ -3,6 +3,7 @@ import { Inter, Playfair_Display, Gabarito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { cookies } from 'next/headers'
 import { PageTransition } from '@/components/page-transition'
+import { SmoothScroll } from '@/components/smooth-scroll'
 import { LocaleProvider } from '@/lib/i18n/locale-context'
 import { DEFAULT_LOCALE, LOCALE_COOKIE, isLocale } from '@/lib/i18n/config'
 import './globals.css'
@@ -43,9 +44,11 @@ export default async function RootLayout({
   return (
     <html lang={initialLocale}>
       <body className={`${inter.variable} ${playfair.variable} ${gabarito.variable} font-sans antialiased`}>
-        <LocaleProvider initialLocale={initialLocale}>
-          <PageTransition>{children}</PageTransition>
-        </LocaleProvider>
+        <SmoothScroll>
+          <LocaleProvider initialLocale={initialLocale}>
+            <PageTransition>{children}</PageTransition>
+          </LocaleProvider>
+        </SmoothScroll>
         <Analytics />
       </body>
     </html>

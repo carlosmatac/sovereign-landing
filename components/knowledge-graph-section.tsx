@@ -303,10 +303,6 @@ function AnimatedEdge({
         interactionWidth={18}
       />
 
-      <circle r="2.5" fill={color} opacity={0.6}>
-        <animateMotion dur="3.5s" repeatCount="indefinite" path={edgePath} />
-      </circle>
-
       <path
         d={edgePath}
         fill="none"
