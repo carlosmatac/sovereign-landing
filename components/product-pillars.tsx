@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { MktContainer, MktSectionX } from "@/components/marketing-layout"
+import { ShowcaseLottieSection } from "@/components/showcase-lottie-section"
 import { useT } from "@/lib/i18n/locale-context"
 
 type FeaturePillarKey = "capture" | "prepare" | "activate"
@@ -186,6 +187,8 @@ export function ProductPillars() {
           </h2>
         </MktContainer>
       </MktSectionX>
+
+      <ShowcaseLottieSection />
 
       {/* Pillar rows — wide independent container.
           Intentionally bypasses MktSectionX so the large page-gutter padding

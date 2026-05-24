@@ -69,7 +69,7 @@ export const en = {
     title: "What your organisation knows",
     accentLine: "finally put to work",
     subheadline:
-      "Aksum transforms interviews, documents and conversations into reusable internal knowledge — ready for sales, strategy and communication.",
+      "Aksum transforms meetings, documents and conversations into reusable internal knowledge, ready for sales, strategy and communication.",
     primaryCta: "Request Demo",
   },
 
